@@ -1,0 +1,11 @@
+{
+    "name": "Autorizacao",
+    "alias": "autorizacao",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Autorizacao\\Providers\\AutorizacaoServiceProvider"
+    ],
+    "files": []
+}
