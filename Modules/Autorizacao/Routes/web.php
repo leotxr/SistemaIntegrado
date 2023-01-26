@@ -21,9 +21,12 @@ Route::prefix('autorizacao')->group(function() {
 
 Route::resource('autorizacao', AutorizacaoController::class);
 
+
 Route::any('getProtocol', 'AutorizacaoController@getProtocol')->name('getProtocol');
 Route::any('storewtprotocol', 'AutorizacaoController@storewtprotocol')->name('storewtprotocol');
 Route::any('showlistaut', 'AutorizacaoController@showListAut')->name('showlistaut');
+Route::any('destroy_exam/{exam}', 'ExamController@destroy');
+Route::any('update_exam/{exam}', 'AutorizacaoController@update');
 
 
 #Route::GET('createProtocol', 'AutorizacaoController@create')->name('createProtocol');

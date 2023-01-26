@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('exam_date');
+            $table->date('exam_date')->nullable();
             $table->unsignedBigInteger('protocol_id');
             $table->foreign('protocol_id')->references('id')->on('protocols');
+            $table->string('exam_status')->nullable();
+            $table->string('convenio');
+            $table->string('exam_obs')->nullable();
+            $table->string('exam_cod')->nullable();
             $table->timestamps();
         });
     }

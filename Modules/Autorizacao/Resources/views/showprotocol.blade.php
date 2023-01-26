@@ -36,7 +36,7 @@
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="last-name" class="block text-sm font-medium text-gray-700">Cod.
                                         Exame</label>
-                                    @if ($protocolo->CONVENIOID == 1)
+                                    @if ($protocolo->CONVENIOID == 4)
                                         <input readonly type="text" name="exam_cod[]" id="exam_cod"
                                             autocomplete="codigo exame" value="{{ $protocolo->CODIGO }}"
                                             class="input input-bordered w-full max-w-lg">
@@ -52,14 +52,14 @@
                                     <label for="last-name"
                                         class="block text-sm font-medium text-gray-700">Procedimento</label>
                                     <input readonly type="text" name="proced[]" id="proced"
-                                        autocomplete="procedimento" value="{{ $protocolo->NOME_EXAME }}"
+                                        autocomplete="procedimento" value="{{ $protocolo->NOME_PROCEDIMENTO }}"
                                         class="input input-bordered w-full max-w-lg">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-3 pb-5">
                                     <label for="last-name"
                                         class="block text-sm font-medium text-gray-700">Convênio</label>
-                                    <input readonly type="text" name="convenio" id="convenio"
+                                    <input readonly type="text" name="convenio[]" id="convenio"
                                         autocomplete="convenio" value="{{ $protocolo->CONVDESC }}"
                                         class="input input-bordered w-full max-w-xs">
                                 </div>
@@ -75,7 +75,7 @@
                                 <div class="col-span-6 sm:col-span-3 pb-5">
                                     <label for="status" class="block text-sm font-medium text-gray-700">
                                         Status</label>
-                                    <input readonly type="text" name="status_exam[]" id="status_exam"
+                                    <input readonly type="text" name="exam_status[]" id="exam_status"
                                         autocomplete="data exame"
                                         @if ($protocolo->DATA === $hoje || $protocolo->DATA === $datafim) value="URGENTE" @else value="PENDENTE" @endif
                                         class="input input-bordered w-full max-w-xs">
@@ -92,6 +92,15 @@
                     <input type="file" name="photos[]" id="photos"
                         class="file-input file-input-bordered file-input-primary w-full max-w-xs" multiple />
                 </div>
+            </div>
+
+            <label for="about" class="block text-sm font-medium text-gray-700">Observação
+                do
+                protocolo</label>
+            <div class="mt-1">
+                <textarea id="observacao" name="observacao" rows="3"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    value=""></textarea>
             </div>
 
             <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">

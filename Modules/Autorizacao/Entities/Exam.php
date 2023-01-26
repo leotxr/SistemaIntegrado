@@ -13,7 +13,10 @@ class Exam extends Model
         'name', 
         'exam_date',
         'protocol_id',
-        'status_exam'
+        'exam_status',
+        'convenio',
+        'exam_obs',
+        'exam_cod'
     ];
     public function relProtocolExam()
     {

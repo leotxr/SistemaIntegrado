@@ -5,6 +5,9 @@ namespace Modules\Autorizacao\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Modules\Autorizacao\Entities\Exam;
 
 class ExamController extends Controller
 {
@@ -72,8 +75,11 @@ class ExamController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($exam)
     {
-        //
+        Exam::find($exam)->delete();
+
+        return redirect()->back();
+        
     }
 }

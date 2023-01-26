@@ -12,7 +12,10 @@ class Protocol extends Model
     protected $fillable = [
         'paciente_name', 
         'paciente_id',
-        'observacao'
+        'observacao',
+        'autorizado',
+        'created_by',
+        'updated_by'
     ];
     public function relPhotos()
     {

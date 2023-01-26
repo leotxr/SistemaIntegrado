@@ -11,7 +11,7 @@ use Modules\Autorizacao\Entities\Photo;
 use Modules\Autorizacao\Entities\Protocol;
 use PhpParser\Node\Stmt\Else_;
 use Illuminate\Support\Facades\Auth;
-
+use Modules\Autorizacao\Http\Livewire\Layouts\App;
 
 class AutorizacaoController extends Controller
 {
@@ -22,13 +22,14 @@ class AutorizacaoController extends Controller
     public function index()
     {
         $hoje = date('y-M-d');
-        $urgentes = Exam::where('status_exam', 'URGENTE')->orwhere('exam_date', date('Y-m-d'))->count();
-        $pendentes = Exam::where('status_exam', 'PENDENTE')->count();
-        $autorizados = Exam::where('status_exam', 'AUTORIZADO')->count();
-        $negados = Exam::where('status_exam', 'AGUARDANDO/NEGADO')->count();
+        $urgentes = Exam::where('exam_status', 'URGENTE')->orwhere('exam_date', date('Y-m-d'))->count();
+        $pendentes = Exam::where('exam_status', 'PENDENTE')->count();
+        $autorizados = Exam::where('exam_status', 'AUTORIZADO')->count();
+        $negados = Exam::where('exam_status', 'NEGADO')->count();
+        $aguardando = Exam::where('exam_status', 'AGUARDANDO')->count();
         $protocols = Protocol::all();
         $count = $protocols->count();
-        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados'));
+        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados', 'aguardando'));
     }
 
     /**
@@ -47,21 +48,24 @@ class AutorizacaoController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user()->name;
 
         $protocol = Protocol::create([
             'paciente_name' => $request->name ?? NULL,
             'id' => $request->protocol_id ?? NULL,
             'paciente_id' => $request->pacienteid ?? NULL,
             'observacao' => $request->observacao ?? NULL,
-            'created_by' => Auth::user()->name
+            'created_by' => $user
         ]);
         if ($protocol) {
             for ($i = 0; $i < count($request->protocol_id); $i++) {
                 $exam = Exam::create([
                     'name' => $request->proced[$i] ?? NULL,
                     'exam_date' => $request->exam_date[$i] ?? NULL,
-                    'status_exam' => $request->status_exam[$i] ?? 'PENDENTE',
-                    'protocol_id' => $protocol->id ?? NULL
+                    'exam_status' => $request->exam_status[$i] ?? NULL,
+                    'protocol_id' => $protocol->id ?? NULL,
+                    'convenio' => $request->convenio[$i] ?? NULL,
+                    'exam_cod' => $request->exam_cod[$i] ?? NULL
                 ]);
             }
 
@@ -102,6 +106,7 @@ class AutorizacaoController extends Controller
             $exam = Exam::create([
                 'name' => $request->proced ?? NULL,
                 'exam_date' => date('Y-m-d') ?? NULL,
+                'exam_status' => 'URGENTE',
                 'protocol_id' => $protocol->id ?? NULL,
                 'convenio' => $request->convenio ?? NULL
             ]);
@@ -138,19 +143,27 @@ class AutorizacaoController extends Controller
         $status = $dataForm['status'];
         switch ($status) {
             case 1:
-                $result = Exam::where('status_exam', 'URGENTE')
-                    ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
-                    ->orwhere('exam_date', date('Y-m-d'))
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'URGENTE')
+                    ->orWhere('exams.exam_date', date('Y-m-d'))
+                    ->orderBy('exams.exam_date')
+                    ->get(['protocols.id', 'protocols.paciente_name', 'protocols.observacao', 'exams.*', 'protocols.created_by']);
+                    return view('autorizacao::tables/table-autorizacao-status', compact('result'));
+            case 2:
+                $result = Protocol::where('exam_status', 'PENDENTE')
+                    ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->orderBy('exams.exam_date')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
-            case 2:
-                $result = Exam::where('status_exam', 'PENDENTE')->get();
-                return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 3:
-                $result = Exam::where('status_exam', 'AUTORIZADO')->get();
+                $result = Protocol::where('exam_status', 'AUTORIZADO')
+                    ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 4:
-                $result = Exam::where('status_exam', 'AGUARDANDO/NEGADO')->get();
+                $result = Protocol::where('exam_status', 'NEGADO')
+                    ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             default:
                 echo 'nenhum status foi selecionado';
@@ -174,7 +187,9 @@ class AutorizacaoController extends Controller
      */
     public function edit($id)
     {
-        return view('autorizacao::edit');
+        $protocol = Protocol::find($id);
+        $exam = Exam::all();
+        return view('autorizacao::edit', compact('protocol', 'exam'));
     }
 
     /**
@@ -185,7 +200,22 @@ class AutorizacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $exam_id = $dataForm['exam_id'];
+
+        for ($i = 0; $i < count($exam_id); $i++) {
+
+            DB::table('exams')
+            ->where('id', $exam_id[$i])
+            ->update([
+                'exam_status' => $request->exam_status[$i],
+                'exam_obs' => $request->exam_obs[$i],
+                'exam_date' => $request->exam_date[$i]
+            ]);
+        }
+
+
+        return redirect()->back();
     }
 
     /**
@@ -215,14 +245,14 @@ class AutorizacaoController extends Controller
         if ($pacientes) {
             $protocolos = DB::connection('sqlserver')
                 ->table('VW_AGENDA')
-                ->join('VW_CL_AGENDA_PORTALAGENDA', function($join)
-                {
-                    $join->on('VW_CL_AGENDA_PORTALAGENDA.HORREQID', '=', 'VW_AGENDA.HORREQID' )
-                    ->on('VW_CL_AGENDA_PORTALAGENDA.LIVROID', '=', 'VW_AGENDA.LIVROID');
+                ->join('VW_CL_AGENDA_PORTALAGENDA', function ($join) {
+                    $join->on('VW_CL_AGENDA_PORTALAGENDA.HORREQID', '=', 'VW_AGENDA.HORREQID')
+                        ->on('VW_CL_AGENDA_PORTALAGENDA.HORA', '=', 'VW_AGENDA.HORA');
                 })
                 ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'VW_CL_AGENDA_PORTALAGENDA.PROCID')
                 ->where('VW_AGENDA.HORREQID', '=', $protocolo)
-                ->select(DB::raw("VW_AGENDA.HORREQID, FORMAT(VW_AGENDA.DATA, 'yyyy-MM-dd') AS DATA, VW_AGENDA.PACIENTEID, VW_AGENDA.NOMEPAC, VW_AGENDA.CONVDESC, VW_AGENDA.NOME_EXAME, PROCEDIMENTOS.CODIGO, PROCEDIMENTOS.CODTUSS, VW_AGENDA.CONVENIOID"))
+                ->whereNotNull('VW_AGENDA.CONVENIOID')
+                ->select(DB::raw("VW_CL_AGENDA_PORTALAGENDA.HORREQID, FORMAT(VW_AGENDA.DATA, 'yyyy-MM-dd') AS DATA, VW_AGENDA.PACIENTEID, VW_AGENDA.NOMEPAC, VW_AGENDA.CONVDESC, VW_CL_AGENDA_PORTALAGENDA.NOME_PROCEDIMENTO, PROCEDIMENTOS.CODIGO, PROCEDIMENTOS.CODTUSS, VW_AGENDA.CONVENIOID"))
                 ->get();
         }
 

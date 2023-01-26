@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('protocols', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('paciente_name');
-            $table->integer('paciente_id');
-            $table->string('observacao');
-            $table->boolean('autorizado');
+            $table->integer('paciente_id')->nullable();
+            $table->string('observacao')->nullable();
+            $table->boolean('autorizado')->nullable();
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
         });
     }
