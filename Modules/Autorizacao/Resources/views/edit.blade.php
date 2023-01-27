@@ -25,34 +25,27 @@
                                 <label name="paciente_name" id="paciente_name" autocomplete="exam_date"
                                     class="mt-1 block w-full rounded-md border-gray-300 sm:text-lg">
                                     {{ $protocol->paciente_name }}
-                                    @if($protocol->observacao)
-                                    <label for="my-modal" class="badge badge-outline badge-lg badge-accent">
-                                        observações
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentcolor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                        </svg>
+                                    @if ($protocol->observacao)
+                                        <label for="my-modal"
+                                            class="badge badge-outline badge-lg badge-accent cursor-pointer pl-2">
+                                            Observações
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentcolor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                            </svg>
 
-                                    </label>
+                                        </label>
                                     @else
-                                    <div>
-                                    </div>
+                                        <div>
+                                        </div>
                                     @endif
 
 
                                 </label>
                             </div>
 
-                            <div class="grid flex justify-items-end">
-                                <button type="submit" class="proximo btn btn-success">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" />
-                                    </svg>
-                                </button>
-                            </div>
+
                         </div>
 
                         <div class="row">
@@ -129,6 +122,8 @@
                                                     <option value="AUTORIZADO">AUTORIZADO</option>
                                                     <option value="NEGADO">NEGADO</option>
                                                     <option value="AGUARDANDO">AGUARDANDO</option>
+                                                    <option value="PENDENTE">PENDENTE</option>
+                                                    <option value="URGENTE">URGENTE</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -137,8 +132,7 @@
 
                                     </div>
                                     <div>
-                                        <label for="about"
-                                            class="block text-sm font-medium text-gray-700">Observação
+                                        <label for="about" class="block text-sm font-medium text-gray-700">Observação
                                             do
                                             exame</label>
                                         <div class="mt-1">
@@ -148,7 +142,44 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid flex justify-items-end p-6">
+
+
+                                    <div class="grid flex sm:grid-cols-3 gap-2 justify-items-center p-6">
+                                        <label for="my-modal-6" type="button"
+                                            id="excluir" class="btn btn-error gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                            </svg>
+                                            Excluir
+                                        </label>
+
+                                        <!-- modal -->
+
+                                        <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+                                        <div class="modal modal-bottom sm:modal-middle">
+                                            <div class="modal-box">
+                                                <h3 class="font-bold text-lg">Deseja excluir este protocolo?</h3>
+                                                <p class="py-4">A solicitação será apagada do sistema</p>
+                                                <div class="modal-action">
+                                                    <label for="my-modal-6" class="btn btn-ghost">Fechar</label>
+                                                    <a type="button" href="{{ url('/destroy_protocol/' . $protocol->id) }}" for="my-modal-6"
+                                                        class="btn btn-error">Confirmar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="salvar btn btn-success gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" />
+                                            </svg>
+                                            Salvar
+                                        </button>
 
 
                                         <a type="button" class="proximo btn btn-primary gap-2">
@@ -166,7 +197,7 @@
                             @endforeach
 
 
-                            <div class="flex flex-row grid sm:grid-cols-10 gap-2 p-6">
+                            <div class="flex flex-row grid sm:grid-cols-10 grid-cols-5 gap-2 p-6">
                                 @foreach ($protocol->relPhotos as $photos)
                                     <div class="h-16 w-16 glass">
                                         <a href="{{ URL::asset($photos->url) }}" target="_blank">
@@ -178,16 +209,6 @@
                         </div>
 
 
-                        <div class="grid flex justify-items-end p-6">
-                            <button type="submit" class="proximo btn btn-success gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" />
-                                </svg>
-                                Salvar
-                            </button>
-                        </div>
 
                     </div>
 
@@ -235,6 +256,17 @@
             indice += indice == telas - 1 ? -telas + 1 : 1;
 
             $(".row > .exam").eq(indice).show();
+        });
+
+        $("#excluir").click(function() {
+            const url = "";
+            id = $protocol - > protocol_id;
+            $.ajax({
+                url: url,
+                success: function(data) {
+                    alert('protocolo excluido');
+                }
+            });
         });
 
     });

@@ -9,21 +9,24 @@
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a href="{{ url('autorizacao') }}">Painel</a></li>
-                
+
                 <li><a href="{{ url('autorizacao/create') }}">
                         Nova Autorização</a></li>
             </ul>
         </div>
-        <a href="{{ url('autorizacao') }}">
+        <a href="{{ url('welcome') }}">
             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-            <li><a href="{{ url('autorizacao') }}">Painel</a></li>
-            
+            @can('admin', 'administrativo')
+                <li><a href="{{ url('autorizacao') }}">Painel</a></li>
+            @endcan
             <li><a href="{{ url('autorizacao/create') }}">
                     Nova Autorização</a></li>
+            <li><a href="{{ url('autorizacao/protocols') }}">
+                    Minhas Solicitações</a></li>
         </ul>
     </div>
     <div class="navbar-end">

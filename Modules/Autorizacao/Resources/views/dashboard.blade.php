@@ -1,7 +1,7 @@
 <head>
     @livewireStyles
 </head>
-
+@if(auth()->user()->id)
 <body>
     @livewireScripts
     <livewire:autorizacao::layouts.app />
@@ -11,8 +11,13 @@
         </h2>
     </div>
 
+    @can('telefonia')
+    <script>
+        window.location.href = "{{ url('autorizacao/create')}}"
+    </script>
+    @elsecan('admin', 'administrativo')
     <div class="py-12" id="teste">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-screen-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 ">
                     <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 font-bold">
@@ -63,7 +68,13 @@
             </div>
         </div>
     </div>
+    @endcan
 </body>
+@else
+<script>
+    window.location.href = "{{ url('/')}}"
+</script>
+@endif
 
 
 <script>

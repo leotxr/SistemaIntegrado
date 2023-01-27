@@ -5,6 +5,8 @@ namespace Modules\Autorizacao\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Autorizacao\Entities\Protocol;
+use Illuminate\Support\Facades\Auth;
 
 class ProtocolController extends Controller
 {
@@ -14,7 +16,7 @@ class ProtocolController extends Controller
      */
     public function index()
     {
-        return view('autorizacao::index');
+
     }
 
     /**
@@ -71,8 +73,10 @@ class ProtocolController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($protocol)
     {
-        //
+        Protocol::find($protocol)->delete();
+
+        return redirect('autorizacao');
     }
 }

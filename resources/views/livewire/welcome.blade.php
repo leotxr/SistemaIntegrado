@@ -1,20 +1,12 @@
 <!doctype html>
-<html data-theme="cupcake">
+<html data-theme="winter">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
-
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
-
-    <title>{{ config('app.name', 'Autorização') }}</title>
+    <title>{{ config('app.name', 'Menu Principal') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -30,7 +22,6 @@
 
 <body class="font-sans antialiased">
     @livewireScripts
-    <livewire:autorizacao::navigation.nav />
     <div class="p-5">
 
 
