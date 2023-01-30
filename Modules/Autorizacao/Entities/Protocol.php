@@ -15,7 +15,8 @@ class Protocol extends Model
         'observacao',
         'autorizado',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'user_id'
     ];
     public function relPhotos()
     {

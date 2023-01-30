@@ -1,0 +1,11 @@
+{
+    "name": "Chamado",
+    "alias": "chamado",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Chamado\\Providers\\ChamadoServiceProvider"
+    ],
+    "files": []
+}

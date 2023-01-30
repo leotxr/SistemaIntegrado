@@ -1,0 +1,11 @@
+{
+    "name": "Triagem",
+    "alias": "triagem",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Triagem\\Providers\\TriagemServiceProvider"
+    ],
+    "files": []
+}

@@ -24,7 +24,7 @@ class AutorizacaoController extends Controller
     {
         $user = Auth::user();
         $hoje = date('y-M-d');
-        $urgentes = Exam::where('exam_status', 'URGENTE')->orwhere('exam_date', date('Y-m-d'))->count();
+        $urgentes = Exam::where('exam_status', 'URGENTE')->count();
         $pendentes = Exam::where('exam_status', 'PENDENTE')->count();
         $autorizados = Exam::where('exam_status', 'AUTORIZADO')->count();
         $negados = Exam::where('exam_status', 'NEGADO')->count();
@@ -51,13 +51,16 @@ class AutorizacaoController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user()->name;
+        $user_id = Auth::user()->id;
 
         $protocol = Protocol::create([
             'paciente_name' => $request->name ?? NULL,
             'id' => $request->protocol_id ?? NULL,
             'paciente_id' => $request->pacienteid ?? NULL,
             'observacao' => $request->observacao ?? NULL,
-            'created_by' => $user
+            'created_by' => $user,
+            'user_id' => $user_id
+
         ]);
         if ($protocol) {
             for ($i = 0; $i < count($request->protocol_id); $i++) {
@@ -98,12 +101,14 @@ class AutorizacaoController extends Controller
     {
 
         $user = Auth::user()->name;
+        $user_id = Auth::user()->id;
         $protocol = Protocol::create([
             'paciente_name' => $request->name ?? NULL,
             'id' => $request->protocol_id ?? NULL,
             'paciente_id' => $request->pacienteid ?? NULL,
             'observacao' => $request->observacao ?? NULL,
-            'created_by' => $user
+            'created_by' => $user,
+            'user_id' => $user_id
         ]);
         if ($protocol) {
 
@@ -150,7 +155,6 @@ class AutorizacaoController extends Controller
             case 1:
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->where('exams.exam_status', 'URGENTE')
-                    ->orWhere('exams.exam_date', date('Y-m-d'))
                     ->orderBy('exams.exam_date')
                     ->get(['protocols.id', 'protocols.paciente_name', 'protocols.observacao', 'exams.*', 'protocols.created_by']);
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
@@ -170,6 +174,11 @@ class AutorizacaoController extends Controller
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
+            case 5:
+                $result = Protocol::where('exam_status', 'AGUARDANDO')
+                    ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->get();
+                return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             default:
                 echo 'nenhum status foi selecionado';
         }
@@ -183,8 +192,10 @@ class AutorizacaoController extends Controller
     public function show()
     {
         $user = Auth::user()->name;
+        $user_id = Auth::user()->id;
         $protocols = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
             ->where('protocols.created_by', "$user")
+            ->orWhere('protocols.user_id', "$user_id")
             ->get();
 
         return view('autorizacao::myprotocols', compact('protocols'));
@@ -222,7 +233,7 @@ class AutorizacaoController extends Controller
                     'exam_status' => $request->exam_status[$i],
                     'exam_obs' => $request->exam_obs[$i],
                     'exam_date' => $request->exam_date[$i],
-                    'updated_by' => $user
+
                 ]);
         }
 
