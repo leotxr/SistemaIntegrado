@@ -32,7 +32,6 @@ class AutorizacaoController extends Controller
         $protocols = Protocol::all();
         $count = $protocols->count();
         return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados', 'aguardando'));
-
     }
 
     /**
@@ -184,8 +183,9 @@ class AutorizacaoController extends Controller
     public function show()
     {
         $user = Auth::user()->name;
-        $protocols = Protocol::where('created_by', "$user")
-                    ->get();
+        $protocols = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+            ->where('protocols.created_by', "$user")
+            ->get();
 
         return view('autorizacao::myprotocols', compact('protocols'));
     }
@@ -212,6 +212,7 @@ class AutorizacaoController extends Controller
     {
         $dataForm = $request->all();
         $exam_id = $dataForm['exam_id'];
+        $user = Auth::user()->name;
 
         for ($i = 0; $i < count($exam_id); $i++) {
 
@@ -220,7 +221,8 @@ class AutorizacaoController extends Controller
                 ->update([
                     'exam_status' => $request->exam_status[$i],
                     'exam_obs' => $request->exam_obs[$i],
-                    'exam_date' => $request->exam_date[$i]
+                    'exam_date' => $request->exam_date[$i],
+                    'updated_by' => $user
                 ]);
         }
 

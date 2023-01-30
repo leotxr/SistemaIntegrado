@@ -143,10 +143,11 @@
                                     </div>
 
 
-
                                     <div class="grid flex sm:grid-cols-3 gap-2 justify-items-center p-6">
-                                        <label for="my-modal-6" type="button"
-                                            id="excluir" class="btn btn-error gap-2">
+
+                                        @can('admin', 'administrativo')
+                                        <label for="my-modal-6" type="button" id="excluir"
+                                            class="btn btn-error gap-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                 class="w-6 h-6">
@@ -155,6 +156,7 @@
                                             </svg>
                                             Excluir
                                         </label>
+                                        @endcan
 
                                         <!-- modal -->
 
@@ -165,12 +167,14 @@
                                                 <p class="py-4">A solicitação será apagada do sistema</p>
                                                 <div class="modal-action">
                                                     <label for="my-modal-6" class="btn btn-ghost">Fechar</label>
-                                                    <a type="button" href="{{ url('/destroy_protocol/' . $protocol->id) }}" for="my-modal-6"
-                                                        class="btn btn-error">Confirmar</a>
+                                                    <a type="button"
+                                                        href="{{ url('/destroy_protocol/' . $protocol->id) }}"
+                                                        for="my-modal-6" class="btn btn-error">Confirmar</a>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        @can('admin', 'administrativo')
                                         <button type="submit" class="salvar btn btn-success gap-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -180,6 +184,7 @@
                                             </svg>
                                             Salvar
                                         </button>
+                                        @endcan
 
 
                                         <a type="button" class="proximo btn btn-primary gap-2">
@@ -191,6 +196,7 @@
                                             </svg>
                                             Proximo
                                         </a>
+
                                     </div>
 
                                 </div>
@@ -258,16 +264,6 @@
             $(".row > .exam").eq(indice).show();
         });
 
-        $("#excluir").click(function() {
-            const url = "";
-            id = $protocol - > protocol_id;
-            $.ajax({
-                url: url,
-                success: function(data) {
-                    alert('protocolo excluido');
-                }
-            });
-        });
 
     });
 </script>
