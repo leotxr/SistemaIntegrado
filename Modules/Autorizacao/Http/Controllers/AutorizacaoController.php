@@ -23,15 +23,15 @@ class AutorizacaoController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $hoje = date('y-M-d');
+        $hoje = date('d');
         $urgentes = Exam::where('exam_status', 'URGENTE')->count();
         $pendentes = Exam::where('exam_status', 'PENDENTE')->count();
-        $autorizados = Exam::where('exam_status', 'AUTORIZADO')->count();
-        $negados = Exam::where('exam_status', 'NEGADO')->count();
-        $aguardando = Exam::where('exam_status', 'AGUARDANDO')->count();
+        $autorizados = Exam::whereDay('updated_at', $hoje)->where('exam_status', 'AUTORIZADO')->count();
+        $negados = Exam::where('exam_status', 'ANALISE')->orWhere('exam_status', 'NEGADO')->orWhere('exam_status', 'AGUARDANDO')->orWhere('exam_status', 'ANALISE/NEGADO')->count();
+        $futuro = Exam::where('exam_status', 'FUTURO')->count();
         $protocols = Protocol::all();
         $count = $protocols->count();
-        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados', 'aguardando'));
+        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados', 'futuro'));
     }
 
     /**
@@ -151,6 +151,7 @@ class AutorizacaoController extends Controller
     {
         $dataForm = $request->all();
         $status = $dataForm['status'];
+        $hoje = date('d');
         switch ($status) {
             case 1:
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
@@ -166,16 +167,20 @@ class AutorizacaoController extends Controller
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 3:
                 $result = Protocol::where('exam_status', 'AUTORIZADO')
+                ->whereDay('exams.updated_at', $hoje)
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 4:
-                $result = Protocol::where('exam_status', 'NEGADO')
+                $result = Protocol::where('exam_status', 'ANALISE/NEGADO')
+                    ->orWhere('exam_status', 'ANALISE')
+                    ->orWhere('exam_status', 'NEGADO')
+                    ->orWhere('exam_status', 'AGUARDANDO')
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 5:
-                $result = Protocol::where('exam_status', 'AGUARDANDO')
+                $result = Protocol::where('exam_status', 'FUTURO')
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
@@ -221,6 +226,7 @@ class AutorizacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $today = date("Y-m-d H:i:s");
         $dataForm = $request->all();
         $exam_id = $dataForm['exam_id'];
         $user = Auth::user()->name;
@@ -233,6 +239,7 @@ class AutorizacaoController extends Controller
                     'exam_status' => $request->exam_status[$i],
                     'exam_obs' => $request->exam_obs[$i],
                     'exam_date' => $request->exam_date[$i],
+                    'updated_at' => $today
 
                 ]);
         }

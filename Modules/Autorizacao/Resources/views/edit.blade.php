@@ -59,7 +59,7 @@
                         <div class="row">
                             @foreach ($protocol->relExams as $exams)
                                 <div class="exam border border-2 p-2 m-2">
-                                    <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 font-bold bg-white p-2 ">
+                                    <div class="grid grid-cols-4 sm:grid-cols-3 gap-2 font-bold bg-white p-2 ">
                                         <div class="p-2">
                                             <div class="max-w-sm">
                                                 <label for="id" class="block text-sm font-medium text-gray-700">ID
@@ -79,7 +79,22 @@
                                                     exame
                                                 </label>
                                                 <input type="date" name="exam_date[]" id="exam_date"
-                                                    value="{{ $exams->exam_date }}" autocomplete="exam_date"
+                                                    value="{{$exams->exam_date}}" autocomplete="exam_date"
+                                                    class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                   
+                                                </div>
+                                        </div>
+
+                                        
+                                        <div class="p-2">
+                                            <div class="max-w-sm">
+                                                <label for="exam_date"
+                                                    class="block text-sm font-medium text-gray-700">Data
+                                                    da
+                                                    solicitação
+                                                </label>
+                                                <input readonly type="text" name="" id=""
+                                                    value="{{ $exams->created_at }}" autocomplete="exam_date"
                                                     class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                             </div>
                                         </div>
@@ -127,9 +142,11 @@
                                                     class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                     <option value="{{ $exams->exam_status }}">{{ $exams->exam_status }}
                                                     </option>
-                                                    <option value="AUTORIZADO">AUTORIZADO</option>
-                                                    <option value="ANALISE/NEGADO">ANALISE/NEGADO</option>
                                                     <option value="AGUARDANDO">AGUARDANDO</option>
+                                                    <option value="ANALISE">ANALISE</option>
+                                                    <option value="AUTORIZADO">AUTORIZADO</option>
+                                                    <option value="FUTURO">FUTURO</option>
+                                                    <option value="NEGADO">NEGADO</option>
                                                     <option value="PENDENTE">PENDENTE</option>
                                                     <option value="URGENTE">URGENTE</option>
                                                 </select>
@@ -147,7 +164,7 @@
                                         <div class="mt-1">
                                             <textarea id="exam_obs" name="exam_obs[]" rows="3"
                                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                value="{{ $exams->exam_obs }}"></textarea>
+                                                value="{{ $exams->exam_obs }}">{{ $exams->exam_obs }}</textarea>
                                         </div>
                                     </div>
 
@@ -214,7 +231,7 @@
 
                             <div class="flex flex-row grid sm:grid-cols-10 grid-cols-5 gap-2 p-6">
                                 @foreach ($protocol->relPhotos as $photos)
-                                    <div class="h-16 w-16 glass">
+                                    <div type="button" class="h-16 w-16 btn btn-outline btn-accent">
                                         <a href="{{ URL::asset($photos->url) }}" target="_blank">
                                             <img src="{{ URL::asset($photos->url) }}" />
                                         </a>

@@ -52,8 +52,8 @@
 
                         <div data-value="5" class="btn-status cursor-pointer active:scale-95">
                             <div class="stat shadow-md max-h-auto bg-secondary rounded-lg">
-                                <div class="stat-title">Aguardando</div>
-                                <div class="stat-value text-secondary-content">{{$aguardando}}</div>
+                                <div class="stat-title">Exames Futuros</div>
+                                <div class="stat-value text-secondary-content">{{$futuro}}</div>
                             </div>
                         </div>
 

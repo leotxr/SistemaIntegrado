@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('autorizado')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace Modules\Autorizacao\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Exam extends Model
 {
@@ -15,6 +16,8 @@ class Exam extends Model
         'protocol_id',
         'exam_status',
         'convenio',
+        'created_by',
+        'updated_by',
         'exam_obs',
         'exam_cod'
     ];

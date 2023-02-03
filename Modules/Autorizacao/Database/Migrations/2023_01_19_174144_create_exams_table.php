@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('convenio');
             $table->string('exam_obs')->nullable();
             $table->string('exam_cod')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

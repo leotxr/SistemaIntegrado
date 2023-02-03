@@ -8,10 +8,15 @@
                 </svg>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href="{{ url('autorizacao') }}">Painel</a></li>
-
+                @can('admin', 'administrativo')
+                    <li><a href="{{ url('autorizacao') }}">Painel</a></li>
+                @endcan
                 <li><a href="{{ url('autorizacao/create') }}">
                         Nova Autorização</a></li>
+                <li><a href="{{ url('autorizacao/protocols') }}">
+                        Minhas Solicitações</a></li>
+                <li><a href="{{ url('autorizacao/relatorioexames') }}">
+                        Relatórios</a></li>
             </ul>
         </div>
         <a href="{{ url('welcome') }}">
@@ -27,6 +32,8 @@
                     Nova Autorização</a></li>
             <li><a href="{{ url('autorizacao/protocols') }}">
                     Minhas Solicitações</a></li>
+            <li><a href="{{ url('autorizacao/relatorioexames') }}">
+                    Relatórios</a></li>
         </ul>
     </div>
     <div class="navbar-end">
