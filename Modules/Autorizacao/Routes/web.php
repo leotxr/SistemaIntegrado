@@ -19,6 +19,9 @@ Route::prefix('autorizacao')->group(function() {
     })->middleware(['auth', 'verified'])->name('dashboard');
 });
 
+Route::get('autorizacao/relatorioexames', 'AutorizacaoController@relExams');
+Route::any('showtableexams', 'AutorizacaoController@showRelExams')->name('showtableexams');
+
 Route::resource('autorizacao', AutorizacaoController::class);
 
 

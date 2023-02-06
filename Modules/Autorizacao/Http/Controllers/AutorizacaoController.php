@@ -167,7 +167,7 @@ class AutorizacaoController extends Controller
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 3:
                 $result = Protocol::where('exam_status', 'AUTORIZADO')
-                ->whereDay('exams.updated_at', $hoje)
+                    ->whereDay('exams.updated_at', $hoje)
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
@@ -287,5 +287,89 @@ class AutorizacaoController extends Controller
         }
 
         return view('autorizacao::showprotocol', ['protocolos' => $protocolos, 'paciente' => $pacientes->NOMEPAC, 'pacienteid' => $pacientes->PACIENTEID, 'hoje' => $hoje, 'datafim' => $datafim]);
+    }
+
+
+    public function relExams()
+    {
+        $protocols = Protocol::all();
+        $exams = Exam::all();
+        $users = User::all();
+
+        return view('autorizacao::relatorios.relatorioexames', compact('protocols', 'exams', 'users'));
+    }
+
+    public function showRelExams(Request $request)
+    {
+        $dataForm = $request->all();
+        $status = $request->status;
+        $data_inicial = $request->data_inicial;
+        $data_final = $request->data_final;
+
+
+        switch ($status) {
+            case 1:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'AUTORIZADO')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                    return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 2:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'NEGADO')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 3:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'PENDENTE')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 4:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'FUTURO')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 5:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'AGUARDANDO')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 6:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'URGENTE')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+            case 7:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->where('exams.exam_status', 'ANALISE')
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
+
+                default:
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                ->orderBy('exams.exam_date')
+                ->get();
+            return view('autorizacao::tables.table-exames', ['result' => $result]);
+        }
     }
 }

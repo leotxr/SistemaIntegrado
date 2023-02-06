@@ -3,6 +3,7 @@
 </head>
 
 <body>
+    @if(auth()->user())
     @livewireScripts
     <livewire:autorizacao::layouts.app />
     <div name="header">
@@ -272,8 +273,11 @@
             </div>
         </div>
     </form>
-
-
+    @else
+        <script>
+            window.location.href = "{{ url('/') }}"
+        </script>
+    @endif
 </body>
 
 
