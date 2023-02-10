@@ -172,7 +172,7 @@
 
                                     <div class="grid flex sm:grid-cols-3 gap-2 justify-items-center p-6">
 
-                                        @can('admin', 'administrativo')
+                                        @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                                             <label for="my-modal-6" type="button" id="excluir"
                                                 class="btn btn-error gap-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -183,7 +183,7 @@
                                                 </svg>
                                                 Excluir
                                             </label>
-                                        @endcan
+                                        @endif
 
                                         <!-- modal -->
 
@@ -201,7 +201,7 @@
                                             </div>
                                         </div>
 
-                                        @can('admin', 'administrativo')
+                                        @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                                             <button type="submit" class="salvar btn btn-success gap-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -211,7 +211,7 @@
                                                 </svg>
                                                 Salvar
                                             </button>
-                                        @endcan
+                                        @endif
 
 
                                         <a type="button" class="proximo btn btn-primary gap-2">

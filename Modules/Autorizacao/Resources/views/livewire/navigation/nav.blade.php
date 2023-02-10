@@ -11,9 +11,9 @@
                 </label>
                 <ul tabindex="0"
                     class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    @can('admin', 'administrativo')
+                    @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                         <li><a href="{{ url('autorizacao') }}">Painel</a></li>
-                    @endcan
+                    @endif
                     <li><a href="{{ url('autorizacao/create') }}">
                             Nova Autorização</a></li>
                     <li><a href="{{ url('autorizacao/protocols') }}">
@@ -28,9 +28,9 @@
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
-                @can('admin', 'administrativo')
+                @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                     <li><a href="{{ url('autorizacao') }}">Painel</a></li>
-                @endcan
+                @endif
                 <li><a href="{{ url('autorizacao/create') }}">
                         Nova Autorização</a></li>
                 <li><a href="{{ url('autorizacao/protocols') }}">

@@ -59,6 +59,21 @@
                         </button>
                     </a>
 
+                    @if(auth()->user()->can('admin'))
+                    
+                    <a href="{{ url('dashboard') }}">
+                        <button
+                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+
+                            <img src="{{ URL::asset('storage/icons/seguranca.png') }}" class="h-20 w-20 m-2">
+
+                            TI
+
+
+                        </button>
+                    </a>
+                    @endif
+
                 </div>
             </div>
         </div>

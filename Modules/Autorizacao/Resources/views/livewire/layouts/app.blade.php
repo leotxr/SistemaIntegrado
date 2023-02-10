@@ -25,9 +25,14 @@
 </head>
 
 <body class="font-sans antialiased">
-    @livewireScripts
-    <livewire:autorizacao::navigation.nav />
-    <div class="p-5">
-
+    @if (auth()->user())
+        @livewireScripts
+        <livewire:autorizacao::navigation.nav />
+        <div class="p-5">
+        @else
+            <script>
+                window.location.href = "{{ url('/') }}"
+            </script>
+    @endif
 
 </body>

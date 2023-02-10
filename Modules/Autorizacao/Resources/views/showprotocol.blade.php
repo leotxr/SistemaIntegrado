@@ -113,7 +113,7 @@
             <div class="pb-5">
                 <div class="col-span-6 sm:col-span-3 w-full my-4">
                     <label for="name" class="block text-sm font-medium text-gray-700">Paciente</label>
-                    <input type="text" name="name" id="name" autocomplete="given-name" value=""
+                    <input required type="text" name="name" id="name" autocomplete="given-name" value=""
                         class="input input-bordered w-full ">
                 </div>
 
@@ -133,7 +133,7 @@
 
                 <div id="convenio" class="col-span-6 sm:col-span-3 pb-5 my-4">
                     <label for="last-name" class="block text-sm font-medium text-gray-700">Convênio</label>
-                    <input type="text" name="convenio" id="convenio" autocomplete="convenio" value=""
+                    <input required type="text" name="convenio" id="convenio" autocomplete="convenio" value=""
                         class="input input-bordered w-full max-w-xs my-4">
                 </div>
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        $permissions = Permission::all();
+
+
+
+        return view('users.usuarios', compact('users', 'permissions'));
     }
 
     /**
@@ -26,7 +34,7 @@ class UserController extends Controller
     {
         $user = User::all();
 
-        return view('usuarios', compact('user'));
+        return view('dashboard', compact('user'));
     }
 
     /**
@@ -59,7 +67,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $permissions = Permission::all();
+
+
+
+        return view('users.edit', compact('user', 'permissions'));
     }
 
     /**
@@ -71,7 +84,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /*
+        $user = User::where(['id' => $id])->update([
+            'name' => $request->name,
+            'email' => $request->email ?? NULL,
+        ]);
+        */
+        $user = User::find($id);
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->syncPermissions("$request->permission");
+
+        $user->save();
+        
+        return redirect('users');
     }
 
     /**

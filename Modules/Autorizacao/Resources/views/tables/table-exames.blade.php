@@ -1,7 +1,7 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
 
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.min.js"></script>
 </head>
 
 <div class="overflow-x-auto">
