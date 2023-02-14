@@ -30,6 +30,7 @@
                                     <!-- head -->
                                     <thead>
                                         <tr>
+                                            <th>Criado</th>
                                             <th>Data</th>
                                             <th>Nome</th>
                                             <th>Exame</th>
@@ -41,6 +42,7 @@
                                     <tbody>
                                         @foreach ($protocols as $protocol)
                                             <tr>
+                                                <th>{{$protocol->created_at}}</th>
                                                 <th>{{ $protocol->exam_date }}</th>
                                                 <td>{{ $protocol->paciente_name ?? '?' }}</td>
                                                 <td>{{ $protocol->name ?? '?' }}</td>

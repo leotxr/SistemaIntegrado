@@ -196,6 +196,7 @@ class AutorizacaoController extends Controller
      */
     public function show()
     {
+        
         $user = Auth::user()->name;
         $user_id = Auth::user()->id;
         $protocols = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')

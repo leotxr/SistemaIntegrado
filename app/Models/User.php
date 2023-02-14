@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Administrativo\Entities\ExtraTime;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -51,4 +52,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Permission::class, 'model_has_permissions', 'model_id', 'permission_id');
     }
+
+    public function relExtraTimes()
+    {
+        return $this->hasMany(ExtraTime::class, 'user_id');
+    }
+
+    public function relMissedTimes()
+    {
+        return $this->hasMany(MissedTime::class, 'user_id');
+    }
+    
+    
 }
