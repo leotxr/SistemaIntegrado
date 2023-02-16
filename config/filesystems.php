@@ -59,7 +59,8 @@ return [
         'my_files' => [
             'driver' => 'local',
             'root'   => public_path() . '/'
-         ]
+        ],
+
 
     ],
 

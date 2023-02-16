@@ -47,7 +47,7 @@
                         </button>
                     </a>
 
-                    <a href="#">
+                    <a href="{{ url('terms') }}">
                         <button
                             class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
 

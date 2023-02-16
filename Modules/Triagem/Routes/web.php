@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::prefix('triagem')->group(function() {
     Route::get('/', 'TriagemController@index');
 });
+*/
+
+use Modules\Triagem\Http\Controllers\TriagemController;
+
+Route::resource('terms', TermController::class);
+Route::resource('triagem', TriagemController::class);

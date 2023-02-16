@@ -14,7 +14,7 @@ class TriagemController extends Controller
      */
     public function index()
     {
-        return view('triagem::index');
+        return view('triagem::dashboard');
     }
 
     /**
@@ -23,7 +23,7 @@ class TriagemController extends Controller
      */
     public function create()
     {
-        return view('triagem::create');
+        return view('triagem::terms.create');
     }
 
     /**
