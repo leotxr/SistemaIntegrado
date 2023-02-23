@@ -1,6 +1,7 @@
-<div id="parent" class="parent p-2 w-full max-w-xl">
+<div id="parent" class="parent p-2 w-full max-w-xl font-bold">
+    Não é necessário assinar novamente.
     <canvas id="sig-canvas" class="child border border-2" width="400px" height="50px">
-        Get a better browser, bro.
+        
     </canvas>
 </div>
 
@@ -8,7 +9,8 @@
 
 <a type="button" class="btn btn-warning" onclick="clearCanvas()">Limpar</a>
 <div class="modal-action">
-    <label for="my-modal-6" id="clone" class="btn">Enviar</label>
+    <label for="my-modal-7" id="fechar" class="btn btn-error">Cancelar</label>
+    <label for="my-modal-7" id="clone2" class="btn btn-primary">Copiar assinatura</label>
 </div>
 
 <script>
@@ -60,8 +62,6 @@
             ctx.moveTo(lastPos.x, lastPos.y);
             ctx.lineTo(mousePos.x, mousePos.y);
             ctx.stroke();
-            ctx.lineWidth = 10;
-            ctx.lineCap = "round";
             lastPos = mousePos;
         }
     }
@@ -126,17 +126,17 @@
     }
 
 
-    $("#clone").click(function() {
+    $("#clone2").click(function() {
         var dataUrl = canvas.toDataURL();
-        $("#imgclone").attr("src", dataUrl);
+        $("#imgclone2").attr("src", dataUrl);
 
         $("body").toggleClass("overflow-hidden");
 
         //tira print da div
-        html2canvas(document.querySelector("#print-termo-contraste")).then(canvas => {
+        html2canvas(document.querySelector("#print-termo-telelaudo")).then(canvas => {
             //document.body.appendChild(canvas);
             var dataUrl2 = canvas.toDataURL();
-            $("#dataurl").val(dataUrl2);
+            $("#dataurltele").val(dataUrl2);
         });
 
     });

@@ -93,8 +93,10 @@ class AutorizacaoController extends Controller
             }
         }
 
-
-        return redirect()->back();
+        if($protocol)
+        return redirect()->back()->with('success', 'Solicitação salva com sucesso!'); 
+        else
+        return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
     public function storewtprotocol(Request $request)
@@ -143,7 +145,10 @@ class AutorizacaoController extends Controller
 
 
 
-        return redirect()->back();
+        if($protocol)
+        return redirect()->back()->with('success', 'Solicitação salva com sucesso!'); 
+        else
+        return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
 
@@ -234,7 +239,7 @@ class AutorizacaoController extends Controller
 
         for ($i = 0; $i < count($exam_id); $i++) {
 
-            DB::table('exams')
+           $update = DB::table('exams')
                 ->where('id', $exam_id[$i])
                 ->update([
                     'exam_status' => $request->exam_status[$i],
@@ -246,7 +251,10 @@ class AutorizacaoController extends Controller
         }
 
 
-        return redirect('autorizacao');
+        if($update)
+        return redirect('autorizacao')->with('success', 'Solicitação salva com sucesso!'); 
+        else
+        return redirect('autorizacao')->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
     /**

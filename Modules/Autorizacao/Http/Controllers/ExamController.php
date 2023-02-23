@@ -77,9 +77,13 @@ class ExamController extends Controller
      */
     public function destroy($exam)
     {
-        Exam::find($exam)->delete();
+        $delete = Exam::find($exam)->delete();
 
-        return redirect()->back();
+        
+        if($delete)
+        return redirect('autorizacao')->with('success', 'Exame excluido com sucesso!'); 
+        else
+        return redirect('autorizacao')->withErrors(['msg' => 'Ocorreu um erro ao excluir o exame.']);
         
     }
 }

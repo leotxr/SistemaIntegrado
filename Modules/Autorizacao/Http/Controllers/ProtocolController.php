@@ -75,8 +75,11 @@ class ProtocolController extends Controller
      */
     public function destroy($protocol)
     {
-        Protocol::find($protocol)->delete();
+        $delete = Protocol::find($protocol)->delete();
 
-        return redirect('autorizacao');
+        if($delete)
+        return redirect('autorizacao')->with('success', 'Solicitação excluida com sucesso!'); 
+        else
+        return redirect('autorizacao')->withErrors(['msg' => 'Ocorreu um erro ao excluir a solicitação.']);
     }
 }

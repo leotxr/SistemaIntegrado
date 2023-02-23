@@ -13,7 +13,7 @@
         </div>
 
         @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
-            <div class="py-12" id="teste">
+            <div class="py-12 shadow-md bg-white" id="teste">
                 <div class="max-w-screen-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 ">

@@ -5,15 +5,14 @@
 <body>
     @livewireScripts
     <livewire:welcome />
-    <div class="hero min-h-screen bg-base-200">
+    <div class="hero min-h-screen">
         <div class="hero-content text-center">
             <div class="max-w-xl">
-                 <h1 class="text-2xl font-bold pb-6">Olá {{auth()->user()->name}}</h1>
+                <h1 class="text-2xl text-white font-bold pb-6">Olá {{ auth()->user()->name }}</h1>
                 <div class="grid grid-cols-2 gap-8 ">
 
                     <a href="{{ url('autorizacao') }}">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+                        <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="h-20 w-20 m-2">
 
@@ -24,8 +23,7 @@
                     </a>
 
                     <a href="#">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+                        <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/ti.png') }}" class="h-20 w-20 m-2">
 
@@ -36,8 +34,7 @@
                     </a>
 
                     <a href="#">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+                        <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/requisicao.png') }}" class="h-20 w-20 m-2">
 
@@ -48,8 +45,7 @@
                     </a>
 
                     <a href="{{ url('terms') }}">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+                        <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/triagem.png') }}" class="h-20 w-20 m-2">
 
@@ -59,33 +55,33 @@
                         </button>
                     </a>
 
-                    @if(auth()->user()->can('admin'))
-                    
-                    <a href="{{ url('dashboard') }}">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-xl text-primary font-bold">
+                    @if (auth()->user()->can('admin'))
+                        <a href="{{ url('dashboard') }}">
+                            <button
+                                class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
-                            <img src="{{ URL::asset('storage/icons/seguranca.png') }}" class="h-20 w-20 m-2">
+                                <img src="{{ URL::asset('storage/icons/seguranca.png') }}" class="h-20 w-20 m-2">
 
-                            TI
+                                TI
 
 
-                        </button>
-                    </a>
+                            </button>
+                        </a>
                     @endif
 
-                    @if(auth()->user()->can('admin') || auth()->user()->can('administrativo') )
-                    <a href="{{ url('administrativo') }}">
-                        <button
-                            class="btn btn-outline btn-success shadow-md rounded-md p-2 h-auto w-full text-lg text-primary font-bold">
+                    @if (auth()->user()->can('admin') ||
+                            auth()->user()->can('administrativo'))
+                        <a href="{{ url('administrativo') }}">
+                            <button
+                                class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold text-sm">
 
-                            <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="h-20 w-20 m-2">
+                                <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="h-20 w-20 m-2">
 
-                            Administrativo
+                                Adm
 
 
-                        </button>
-                    </a>
+                            </button>
+                        </a>
                     @endif
 
                 </div>

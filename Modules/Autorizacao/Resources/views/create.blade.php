@@ -19,7 +19,9 @@
                     <div class="md:col-span-1">
                         <div class="px-4 sm:px-0">
                             <h3 class="text-lg font-medium leading-6 text-gray-900">Pedido</h3>
-                            <p class="mt-1 text-sm text-gray-600">Insira as informações do pedido para autorização.</p>
+                            <p class="mt-1 text-sm text-gray-600">Insira as informações do pedido para autorização.
+                                Caso seja uma autorização sem agendamento, apenas clicar no botão <b>Consultar Protocolo</b>.
+                            </p>
                         </div>
                     </div>
                     <div class="form_busca mt-5 md:col-span-2 md:mt-0">

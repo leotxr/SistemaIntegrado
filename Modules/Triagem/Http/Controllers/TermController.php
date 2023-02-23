@@ -52,10 +52,13 @@ class TermController extends Controller
             ->select('PACIENTE.PACIENTEID', 'FATURA.DATA', 'PACIENTE.NOME', 'PACIENTE.DATANASC')
             ->first();
 
-        if ($tipoexame == 0)
+
+        if ($paciente && $tipoexame == 0)
             return view('triagem::livewire.termscreen.rm', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-        else
+        elseif($paciente && $tipoexame == 1)
             return view('triagem::livewire.termscreen.tc', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+            else
+            return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
     }
 
     /**
@@ -93,23 +96,24 @@ class TermController extends Controller
 
         ]);
 
+        #ARMAZENA PRINT DO TERMO DE CONSTRASTE
         $img = $request->dataurl;
-        $folderPath = "/wamp64/";
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
-        Storage::disk('my_files')->put("storage/termos/$term->id-$term->patient_name.jpeg", $image_base64);
-        //Storage::put("$term->id-$term->patient_name.jpeg", $image_base64);
-        //$file = $folderPath . "$term->id-$term->patient_name" . '.jpeg';
-        //file_put_contents($file, $image_base64);
+        Storage::disk('my_files')->put("storage/termos/$term->id/contraste-$term->patient_name.jpeg", $image_base64);
 
+        #ARMAZENA PRINT DO TERMO TELELAUDO
+        $img = $request->dataurltele;
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        Storage::disk('my_files')->put("storage/termos/$term->id/telelaudo-$term->patient_name.jpeg", $image_base64);
 
-
-
-
-        if ($term)
-            return redirect('terms');
+        if ($term) 
+            return redirect('terms')->with('success', 'Triagem salva com sucesso!'); 
     }
 
     /**

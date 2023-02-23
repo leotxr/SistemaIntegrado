@@ -22,7 +22,7 @@
 
 <body class="font-sans antialiased">
     @livewireScripts
-    <div class="p-5">
+    <div class="p-5 bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-sky-400 to-indigo-900">
 
 
 </body>
