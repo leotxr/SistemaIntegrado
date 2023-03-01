@@ -32,6 +32,7 @@ Route::get('/welcome', function () {
 
 
 Route::resource('/users', UserController::class);
+Route::any('/userPassUpdate/{id}', [UserController::class, 'passwordUpdate'])->name('user.password');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

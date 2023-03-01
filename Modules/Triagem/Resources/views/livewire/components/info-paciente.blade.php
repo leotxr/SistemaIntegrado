@@ -1,5 +1,5 @@
 <div id="parent" class="parent p-2 w-full max-w-xl">
-    <canvas id="sig-canvas" class="child border border-2" width="400px" height="50px">
+    <canvas id="sig-canvas" class="child border border-2" width="400px" height="150px">
         Get a better browser, bro.
     </canvas>
 </div>
@@ -8,7 +8,8 @@
 
 <a type="button" class="btn btn-warning" onclick="clearCanvas()">Limpar</a>
 <div class="modal-action">
-    <label for="my-modal-6" id="clone" class="btn">Enviar</label>
+    <label for="my-modal-6" id="fechar1" class="btn btn-error">Cancelar</label>
+    <label for="my-modal-6" id="clone" class="btn btn-primary">Enviar</label>
 </div>
 
 <script>
@@ -139,5 +140,9 @@
             $("#dataurl").val(dataUrl2);
         });
 
+    });
+
+    $("#fechar1").click(function(){
+        $("body").toggleClass("overflow-hidden");
     });
 </script>

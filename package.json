@@ -17,8 +17,8 @@
     },
     "dependencies": {
         "daisyui": "^2.50.0",
-        "datatables.net": "^1.13.1",
-        "datatables.net-dt": "^1.13.1",
+        "datatables.net": "^1.13.2",
+        "datatables.net-dt": "^1.13.2",
         "html2canvas": "^1.4.1"
     }
 }

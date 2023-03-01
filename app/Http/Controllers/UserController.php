@@ -7,6 +7,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -99,6 +100,20 @@ class UserController extends Controller
 
         $user->save();
         
+        return redirect('users');
+    }
+
+    public function passwordUpdate(Request $request, $id)
+    {
+        $validated = $request->validateWithBag('updatePassword', [
+            #'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $user = User::find($id);
+            $user->password = Hash::make($validated['password']);
+            $user->save();
+
         return redirect('users');
     }
 

@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
 
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
 
     <title>{{ config('app.name', 'Autorização') }}</title>
 
@@ -17,6 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
     @livewireStyles
 
@@ -57,6 +56,9 @@
         @livewireScripts
         <livewire:autorizacao::navigation.nav />
         <div class="p-5">
+            <div class="loader-wrapper bg-base-200 absolute w-full h-full grid place-items-center top-0 opacity-90">
+                <span class="loader"></span>
+            </div>
         @else
             <script>
                 window.location.href = "{{ url('/') }}"
@@ -65,6 +67,9 @@
 
 </body>
 <script>
+        $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    });
     setTimeout(function() {
         $('.alert').fadeOut('slow');
     }, 5000);

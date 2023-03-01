@@ -23,15 +23,15 @@ class AutorizacaoController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $hoje = date('d');
+        $hoje = date('Y-m-d');
         $urgentes = Exam::where('exam_status', 'URGENTE')->count();
         $pendentes = Exam::where('exam_status', 'PENDENTE')->count();
-        $autorizados = Exam::whereDay('updated_at', $hoje)->where('exam_status', 'AUTORIZADO')->count();
-        $negados = Exam::where('exam_status', 'ANALISE')->orWhere('exam_status', 'NEGADO')->orWhere('exam_status', 'AGUARDANDO')->orWhere('exam_status', 'ANALISE/NEGADO')->count();
+        $autneg = Exam::whereDate('updated_at', $hoje)->where('exam_status', 'AUTORIZADO')->orWhere('exam_status', 'NEGADO')->count();
+        $analise = Exam::where('exam_status', 'ANALISE')->orWhere('exam_status', 'AGUARDANDO')->orWhere('exam_status', 'ANALISE/NEGADO')->count();
         $futuro = Exam::where('exam_status', 'FUTURO')->count();
         $protocols = Protocol::all();
         $count = $protocols->count();
-        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autorizados', 'negados', 'futuro'));
+        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autneg', 'analise', 'futuro'));
     }
 
     /**
@@ -93,10 +93,10 @@ class AutorizacaoController extends Controller
             }
         }
 
-        if($protocol)
-        return redirect()->back()->with('success', 'Solicitação salva com sucesso!'); 
+        if ($protocol)
+            return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
         else
-        return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
+            return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
     public function storewtprotocol(Request $request)
@@ -145,10 +145,10 @@ class AutorizacaoController extends Controller
 
 
 
-        if($protocol)
-        return redirect()->back()->with('success', 'Solicitação salva com sucesso!'); 
+        if ($protocol)
+            return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
         else
-        return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
+            return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
 
@@ -156,7 +156,7 @@ class AutorizacaoController extends Controller
     {
         $dataForm = $request->all();
         $status = $dataForm['status'];
-        $hoje = date('d');
+        $hoje = date('Y-m-d');
         switch ($status) {
             case 1:
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
@@ -171,16 +171,13 @@ class AutorizacaoController extends Controller
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 3:
-                $result = Protocol::where('exam_status', 'AUTORIZADO')
-                    ->whereDay('exams.updated_at', $hoje)
-                    ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
-                    ->get();
+                $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
+                    ->whereIn('exam_status', ['AUTORIZADO', 'NEGADO'])
+                    ->whereDate('exams.updated_at', $hoje)
+                    ->get(['exams.exam_date', 'protocols.paciente_name', 'exams.name', 'exams.convenio', 'protocols.created_by', 'exams.exam_status']);
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 4:
-                $result = Protocol::where('exam_status', 'ANALISE/NEGADO')
-                    ->orWhere('exam_status', 'ANALISE')
-                    ->orWhere('exam_status', 'NEGADO')
-                    ->orWhere('exam_status', 'AGUARDANDO')
+                $result = Protocol::whereIn('exam_status', ['ANALISE', 'AGUARDANDO'])
                     ->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->get();
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
@@ -201,7 +198,7 @@ class AutorizacaoController extends Controller
      */
     public function show()
     {
-        
+
         $user = Auth::user()->name;
         $user_id = Auth::user()->id;
         $protocols = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
@@ -239,7 +236,7 @@ class AutorizacaoController extends Controller
 
         for ($i = 0; $i < count($exam_id); $i++) {
 
-           $update = DB::table('exams')
+            $update = DB::table('exams')
                 ->where('id', $exam_id[$i])
                 ->update([
                     'exam_status' => $request->exam_status[$i],
@@ -251,10 +248,10 @@ class AutorizacaoController extends Controller
         }
 
 
-        if($update)
-        return redirect('autorizacao')->with('success', 'Solicitação salva com sucesso!'); 
+        if ($update)
+            return redirect('autorizacao')->with('success', 'Solicitação salva com sucesso!');
         else
-        return redirect('autorizacao')->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
+            return redirect('autorizacao')->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
     /**
@@ -323,7 +320,7 @@ class AutorizacaoController extends Controller
                     ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
                     ->orderBy('exams.exam_date')
                     ->get();
-                    return view('autorizacao::tables.table-exames', ['result' => $result]);
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
 
             case 2:
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
@@ -373,12 +370,12 @@ class AutorizacaoController extends Controller
                     ->get();
                 return view('autorizacao::tables.table-exames', ['result' => $result]);
 
-                default:
+            default:
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
-                ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
-                ->orderBy('exams.exam_date')
-                ->get();
-            return view('autorizacao::tables.table-exames', ['result' => $result]);
+                    ->whereBetween('exams.exam_date', [$data_inicial, $data_final])
+                    ->orderBy('exams.exam_date')
+                    ->get();
+                return view('autorizacao::tables.table-exames', ['result' => $result]);
         }
     }
 }

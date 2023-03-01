@@ -1,6 +1,6 @@
 <div id="parent" class="parent p-2 w-full max-w-xl font-bold">
     Não é necessário assinar novamente.
-    <canvas id="sig-canvas" class="child border border-2" width="400px" height="50px">
+    <canvas hidden id="sig-canvas" class="child border border-2" width="400px" height="50px">
         
     </canvas>
 </div>
@@ -138,6 +138,9 @@
             var dataUrl2 = canvas.toDataURL();
             $("#dataurltele").val(dataUrl2);
         });
-
     });
+
+    $("#fechar").click(function(){
+        $("body").toggleClass("overflow-hidden");
+    })
 </script>

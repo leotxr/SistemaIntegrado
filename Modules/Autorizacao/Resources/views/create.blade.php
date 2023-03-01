@@ -35,8 +35,8 @@
                                         <input type="text" id="protocolo" name="protocolo"
                                             class="input input-success w-full max-w-xs" />
                                     </div>
-                                    <a type="button" class="btn mt-2 btn-primary" id="get_protocol">Consultar
-                                        Protocolo</a>
+                                    <button type="button" class="btn mt-2 btn-primary" id="get_protocol">Consultar
+                                        Protocolo</button>
                                 </div>
 
                                 <div id="showprotocol">

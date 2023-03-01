@@ -1,9 +1,9 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
 
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.min.js"></script>
 </head>
-<div class="overflow-x-auto overflox-y-auto">
+<div class="overflow-x-auto overflox-y-auto'">
     <table id="table" class="w-full mx-auto table-zebra overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
         <!-- head -->
         <thead>
@@ -53,10 +53,17 @@
         </tbody>
     </table>
 
+
 </div>
 
 
-
+<script>
+    
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+    
+</script>
 
 <script>
     $(document).ready(function() {
@@ -71,6 +78,6 @@
             });
         });
 
-        $('#table').DataTable();
     });
+
 </script>

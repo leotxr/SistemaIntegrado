@@ -12,7 +12,8 @@
             </h2>
         </div>
 
-        @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
+        @if (auth()->user()->can('admin') ||
+                auth()->user()->can('administrativo'))
             <div class="py-12 shadow-md bg-white" id="teste">
                 <div class="max-w-screen-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -35,15 +36,15 @@
 
                                 <div data-value="3" class="btn-status cursor-pointer active:scale-95">
                                     <div class="stat shadow-md max-h-auto bg-success rounded-lg">
-                                        <div class="stat-title">Exames Autorizados</div>
-                                        <div class="stat-value text-success-content">{{ $autorizados }}</div>
+                                        <div class="stat-title">Autorizados/Negados</div>
+                                        <div class="stat-value text-success-content">{{ $autneg }}</div>
                                     </div>
                                 </div>
 
                                 <div data-value="4" class="btn-status cursor-pointer active:scale-95">
                                     <div class="stat shadow-md max-h-auto bg-neutral-content rounded-lg">
-                                        <div class="stat-title">Analise/Negados</div>
-                                        <div class="stat-value text-neutral">{{ $negados }}</div>
+                                        <div class="stat-title">Analise</div>
+                                        <div class="stat-value text-neutral">{{ $analise }}</div>
                                     </div>
                                 </div>
 
@@ -93,4 +94,10 @@
             });
         });
     });
+
+
+  
+
+
+    
 </script>
