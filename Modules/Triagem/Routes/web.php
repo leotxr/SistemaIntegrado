@@ -18,5 +18,7 @@ Route::prefix('triagem')->group(function() {
 
 use Modules\Triagem\Http\Controllers\TriagemController;
 
-Route::resource('terms', TermController::class);
+Route::get('triagem/terms/nova', 'TermController@new')->name('triagem/nova');
+Route::resource('triagem/terms', TermController::class);
 Route::resource('triagem', TriagemController::class);
+Route::get('show_signature', 'TriagemController@showSignature')->name('show_signature');

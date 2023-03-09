@@ -1,10 +1,8 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
 
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.min.js"></script>
-</head>
-<div class="overflow-x-auto overflox-y-auto'">
-    <table id="table" class="w-full mx-auto table-zebra overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
+<body>
+    @livewireScripts
+<div class="overflow-x-auto">
+    <table id="table" class="w-full mx-auto table-zebra overflow-hidden bg-white divide-y divide-gray-100 rounded-lg">
         <!-- head -->
         <thead>
             <tr>
@@ -55,14 +53,12 @@
 
 
 </div>
-
+</body>
 
 <script>
-    
     $(document).ready(function() {
         $('#table').DataTable();
     });
-    
 </script>
 
 <script>
@@ -79,5 +75,4 @@
         });
 
     });
-
 </script>

@@ -16,9 +16,10 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "daisyui": "^2.50.0",
+        "daisyui": "^2.51.3",
         "datatables.net": "^1.13.2",
         "datatables.net-dt": "^1.13.2",
-        "html2canvas": "^1.4.1"
+        "html2canvas": "^1.4.1",
+        "jquery": "^3.6.3"
     }
 }

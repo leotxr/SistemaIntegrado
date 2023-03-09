@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    <script src="{{ asset('jquery.js') }}"></script>
+    <script src="{{ asset('datatables/datatables.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('datatables/datatables.css') }}">
 
     <title>{{ config('app.name', 'Autorização') }}</title>
 
@@ -17,11 +19,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
-    @livewireStyles
-
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
+
+<livewire:autorizacao::navigation.nav />
 
 <body class="font-sans antialiased">
     @if ($errors->any())
@@ -54,9 +54,13 @@
 
     @if (auth()->user())
         @livewireScripts
-        <livewire:autorizacao::navigation.nav />
+        
+
+
         <div class="p-5">
-            <div class="loader-wrapper bg-base-200 absolute w-full h-full grid place-items-center top-0 opacity-90">
+
+            <div
+                class="loader-wrapper bg-base-200 absolute w-full h-full grid place-items-center top-0 left-0 opacity-90">
                 <span class="loader"></span>
             </div>
         @else
@@ -67,7 +71,7 @@
 
 </body>
 <script>
-        $(window).on("load", function() {
+    $(window).on("load", function() {
         $(".loader-wrapper").fadeOut("slow");
     });
     setTimeout(function() {

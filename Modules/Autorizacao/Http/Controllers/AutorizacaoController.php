@@ -26,8 +26,8 @@ class AutorizacaoController extends Controller
         $hoje = date('Y-m-d');
         $urgentes = Exam::where('exam_status', 'URGENTE')->count();
         $pendentes = Exam::where('exam_status', 'PENDENTE')->count();
-        $autneg = Exam::whereDate('updated_at', $hoje)->where('exam_status', 'AUTORIZADO')->orWhere('exam_status', 'NEGADO')->count();
-        $analise = Exam::where('exam_status', 'ANALISE')->orWhere('exam_status', 'AGUARDANDO')->orWhere('exam_status', 'ANALISE/NEGADO')->count();
+        $autneg = Exam::whereDate('updated_at', $hoje)->whereIn('exam_status', ['AUTORIZADO', 'NEGADO'])->count();
+        $analise = Exam::whereIn('exam_status', ['ANALISE', 'AGUARDANDO'])->count();
         $futuro = Exam::where('exam_status', 'FUTURO')->count();
         $protocols = Protocol::all();
         $count = $protocols->count();
@@ -174,7 +174,7 @@ class AutorizacaoController extends Controller
                 $result = Protocol::join('exams', 'exams.protocol_id', '=', 'protocols.id')
                     ->whereIn('exam_status', ['AUTORIZADO', 'NEGADO'])
                     ->whereDate('exams.updated_at', $hoje)
-                    ->get(['exams.exam_date', 'protocols.paciente_name', 'exams.name', 'exams.convenio', 'protocols.created_by', 'exams.exam_status']);
+                    ->get(['exams.exam_date', 'protocols.paciente_name', 'exams.protocol_id', 'exams.name', 'exams.convenio', 'protocols.created_by', 'exams.exam_status']);
                 return view('autorizacao::tables/table-autorizacao-status', compact('result'));
             case 4:
                 $result = Protocol::whereIn('exam_status', ['ANALISE', 'AGUARDANDO'])

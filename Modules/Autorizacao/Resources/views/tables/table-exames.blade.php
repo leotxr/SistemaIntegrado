@@ -1,8 +1,3 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.min.css">
-
-    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.min.js"></script>
-</head>
 
 <div class="overflow-x-auto">
     <a type="button" class="btn btn-success gap-2 mb-5" id="export_table">

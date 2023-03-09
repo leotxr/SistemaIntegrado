@@ -1,5 +1,5 @@
 @if (auth()->user())
-    <div class="navbar shadow-md">
+    <div class="navbar shadow-md bg-base-300">
         <div class="navbar-start">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -44,7 +44,7 @@
             <div class="dropdown dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img src="https://placeimg.com/80/80/people" />
+                        <img src="{{ URL::asset(auth()->user()->profile_img) }}" />
                     </div>
                 </label>
                 <ul tabindex="0"

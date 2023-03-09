@@ -27,6 +27,8 @@ class User extends Authenticatable
         'setor_id',
         'email',
         'password',
+        'profile_img',
+        'signature'
     ];
 
     /**

@@ -11,7 +11,7 @@
                 {{ __('Termo de Consentimento para Ressonância Magnética') }}
             </h2>
         </div>
-        <form method="post" action="{{ url('terms') }}">
+        <form method="post" action="{{ url('triagem/terms') }}">
             @csrf
             <div id="termo" class="p-5 shadow-md rounded-md bg-white max-w-screen-xl border border-2">
                 <div id="print-termo-contraste">
@@ -67,7 +67,7 @@
                             <!-- CLONE DA ASSINATURA -->
                             <div id="parent2" class="parent text-center">
                                 <img src="" id="imgclone" name="assinatura" class="child">
-                                <input type="text" value="" id="dataurl" class="hidden" name="dataurl"
+                                <input type="text" value="" id="dataurl" class="input bordered" name="dataurl"
                                     required />
                                 <div>
                                     Assinatura do Titular/Responsável
@@ -172,7 +172,9 @@
     </div>
 
     <div wire:loading>
-        Processando
+        <div class="loader-wrapper bg-base-200 absolute w-screen h-screen grid place-items-center top-0 opacity-90">
+            <span class="loader"></span>
+        </div>
     </div>
 </body>
 <!-- MODAL -->

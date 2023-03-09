@@ -8,6 +8,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Support\Renderable;
 
 class UserController extends Controller
 {
@@ -91,16 +93,34 @@ class UserController extends Controller
             'email' => $request->email ?? NULL,
         ]);
         */
-        $user = User::find($id);
-        
-        $user->name = $request->name;
-        $user->email = $request->email;
-        #$user->password = Hash::make($request->password);
-        $user->syncPermissions("$request->permission");
 
+
+        //$sign = $request->file('signature')->store("storage/user_docs/$id/signature", ['disk' => 'my_files']);
+
+
+        $update = User::where(['id' => $id])->update([
+            'name' => $request->name ?? NULL,
+            'email' => $request->email ?? NULL,
+            //'profile_img' => $path ?? NULL,
+            //'signature_'
+        ]);
+
+        $user = User::find($id);
+
+        if ($request->file('profile_img')) {
+            $path = $request->file('profile_img')->store("storage/user_docs/$id/profile_photo", ['disk' => 'my_files']);
+            $user->profile_img = $path;
+        }
+
+        if ($request->file('signature')) {
+            $sign = $request->file('signature')->store("storage/user_docs/$id/signature", ['disk' => 'my_files']);
+            $user->signature = $sign;
+        }
+        $user->syncPermissions("$request->permission");
         $user->save();
-        
-        return redirect('users');
+
+        if ($update)
+            return redirect('users')->with('message', 'Usuário alterado com sucesso!');
     }
 
     public function passwordUpdate(Request $request, $id)
@@ -111,8 +131,8 @@ class UserController extends Controller
         ]);
 
         $user = User::find($id);
-            $user->password = Hash::make($validated['password']);
-            $user->save();
+        $user->password = Hash::make($validated['password']);
+        $user->save();
 
         return redirect('users');
     }

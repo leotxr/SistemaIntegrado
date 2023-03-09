@@ -1,5 +1,5 @@
 @if (auth()->user())
-    <div class="navbar shadow-md">
+    <div class="navbar shadow-lg" data-theme="dark">
         <div class="navbar-start">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -13,6 +13,8 @@
                     class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                     @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                         <li><a href="{{ url('triagem') }}">Painel</a></li>
+                        <li><a href="{{ url('triagem/terms') }}">Triagens</a></li>
+                        <li><a href="{{ url('triagem/terms') }}">Contrastes</a></li>
                     @endif
                 </ul>
             </div>
@@ -24,7 +26,8 @@
             <ul class="menu menu-horizontal px-1">
                 @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                     <li><a href="{{ url('triagem') }}">Painel</a></li>
-                    <li><a href="{{ url('terms') }}">Termos</a></li>
+                    <li><a href="{{ url('triagem/terms') }}">Triagens</a></li>
+                    <li><a href="{{ url('triagem/terms') }}">Contrastes</a></li>
                 @endif
             </ul>
         </div>
@@ -33,7 +36,7 @@
             <div class="dropdown dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img src="https://placeimg.com/80/80/people" />
+                        <img src="{{ URL::asset(auth()->user()->profile_img) }}">
                     </div>
                 </label>
                 <ul tabindex="0"

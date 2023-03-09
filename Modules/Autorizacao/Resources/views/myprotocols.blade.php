@@ -1,6 +1,3 @@
-<head>
-    @livewireStyles
-</head>
 
 <body>
     @if (auth()->user())
@@ -18,13 +15,7 @@
                     <div class="p-6 ">
                         <div class="bg-white shadow-sm font-bold">
 
-                            <head>
-                                <link rel="stylesheet" type="text/css"
-                                    href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-
-                                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-                            </head>
-                            <div class="overflow-x-auto overflox-y-auto">
+                            <div class="overflow-x-auto overflox-y-auto shadow-md">
                                 <table id="table"
                                     class="w-full mx-auto table-zebra overflow-hidden bg-white divide-y divide-gray-300 rounded-lg">
                                     <!-- head -->
@@ -97,6 +88,8 @@
 
 </body>
 
-
-
-<script></script>
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+</script>

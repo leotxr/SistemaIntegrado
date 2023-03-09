@@ -13,8 +13,7 @@
 
     <div class="p-5 shadow-md rounded-md bg-white text-center justify-items-center">
         <div class="max-w-sm bg-white shadow-md rounded-md">
-            {{$tipoexame}}
-            {{$start}}
+        @include('livewire.termscreen.contraste-rm')
         </div>
     </div>
 
