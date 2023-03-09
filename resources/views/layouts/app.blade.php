@@ -34,7 +34,7 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
-                <div class="loader-wrapper bg-base-200 absolute w-full h-full grid place-items-center top-0 opacity-90">
+                <div class="loader-wrapper bg-base-200 absolute w-screen h-screen grid place-items-center top-0 opacity-90">
                     <span class="loader"></span>
                 </div>
             </main>

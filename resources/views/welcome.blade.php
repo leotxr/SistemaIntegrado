@@ -44,7 +44,7 @@
                         </button>
                     </a>
 
-                    <a href="{{ url('terms') }}">
+                    <a href="{{ url('triagem') }}">
                         <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/triagem.png') }}" class="h-20 w-20 m-2">

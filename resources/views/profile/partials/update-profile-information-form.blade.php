@@ -18,6 +18,15 @@
         @method('patch')
 
         <div>
+            <div class="avatar">
+                <div class="w-24 rounded-full active:scale-250">
+                    <img src="{{ URL::asset(auth()->user()->profile_img) }}" />
+                </div>
+            </div>
+
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />

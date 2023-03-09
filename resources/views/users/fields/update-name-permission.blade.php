@@ -9,14 +9,23 @@
         </p>
     </header>
 
-    <form method="post" action="/users/{{ $user->id }}" class="mt-6 space-y-6">
+    <form method="post" action="/users/{{ $user->id }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
         <div>
+            <div class="avatar">
+                <div class="w-24 rounded-full active:scale-250">
+                    <img src="{{ URL::asset($user->profile_img) }}" />
+                </div>
+            </div>
+
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required
-                autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
+                required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -37,6 +46,19 @@
                     <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="flex grid grid-cols-2 sm:grid-cols-2">
+            <div>
+                <label for="profile_img" class="block text-sm font-medium text-gray-700">Foto de perfil</label>
+                <input type="file" id="profile_img" name="profile_img"
+                    class="file-input w-full py-2 px-3 max-w-xs" />
+            </div>
+
+            <div>
+                <label for="signature" class="block text-sm font-medium text-gray-700">Arquivo de Assinatura</label>
+                <input type="file" id="signature" name="signature" class="file-input w-full py-2 px-3 max-w-xs" />
+            </div>
         </div>
 
 
