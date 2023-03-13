@@ -15,14 +15,15 @@ class Term extends Model
         'patient_id',
         'patient_name',
         'patient_age',
-        'procedure',
+        'proced',
         'start_hour',
         'final_hour',
         'exam_date',
-        'time',
+        'contrast',
+        'time_spent',
         'observation'
     ];
-    
+
     protected static function newFactory()
     {
         return \Modules\Triagem\Database\factories\TermFactory::new();

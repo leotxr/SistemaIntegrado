@@ -5,7 +5,6 @@ namespace Modules\Triagem\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Models\User;
 
 class TriagemController extends Controller
 {
@@ -15,7 +14,7 @@ class TriagemController extends Controller
      */
     public function index()
     {
-        return view('triagem::dashboard');
+        return view('triagem::index');
     }
 
     /**
@@ -24,7 +23,7 @@ class TriagemController extends Controller
      */
     public function create()
     {
-        return view('triagem::terms.create');
+        return view('triagem::create');
     }
 
     /**
@@ -76,16 +75,5 @@ class TriagemController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function showSignature(Request $request)
-    {
-        $dataForm = $request->all();
-        $user_id = $dataForm['medico'];
-
-        $users = User::where('id', $user_id)
-        ->get();
-
-        return view('triagem::livewire.components.signatures', ['users' => $users]);
     }
 }
