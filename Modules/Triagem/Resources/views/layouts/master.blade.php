@@ -11,6 +11,7 @@
 
 <body>
     @include('triagem::layouts.partials.navigation')
+    @include('triagem::layouts.partials.alerts')
     <main class="main">
         @yield('content')
     </main>

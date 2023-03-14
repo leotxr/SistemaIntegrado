@@ -100,6 +100,7 @@ class UserController extends Controller
 
         $update = User::where(['id' => $id])->update([
             'name' => $request->name ?? NULL,
+            'lastname' => $request->lastname ?? NULL,
             'email' => $request->email ?? NULL,
             //'profile_img' => $path ?? NULL,
             //'signature_'

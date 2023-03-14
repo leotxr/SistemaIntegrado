@@ -1,17 +1,17 @@
 @extends('triagem::layouts.master')
 
 @section('content')
-    <div class="p-5 shadow-md rounded-md bg-white grid justify-items-center">
-        <div class="bg-white shadow-md rounded-md">
-            <form method="GET" action="{{ url('triagem/terms/create') }}" >
+    <div class="p-5 shadow-md rounded-md grid justify-center">
+        <div class="shadow-md rounded-md w-full sm:w-full ">
+            <form method="GET" action="{{ url('triagem/terms/create') }}">
                 @csrf
-                <div class="grid grid-cols-3 sm:grid-cols-3 gap-2 text-center">
-                    <div class="p-2">
-                        <input type="number" class="input input-bordered input-primary" name="paciente_id" value=""
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2">
+                    <div class="p-2 md:w-3">
+                        <input type="number" class="input input-bordered input-primary " name="paciente_id" value=""
                             placeholder="Código do paciente" />
                     </div>
                     <div class="p-2">
-                        <select name="procedimento" class="select select-bordered w-full max-w-sm">
+                        <select name="procedimento" class="select select-bordered ">
                             <option disabled selected>Procedimento</option>
                             <option value="0">Ressonância</option>
                             <option value="1">Tomografia</option>
@@ -22,12 +22,13 @@
                     </div>
                 </div>
             </form>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div class="overflow-x-auto max-w-xl sm:max-w-full">
+                <table class="table">
                     <!-- head -->
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>ID do paciente</th>
+                            <th>Data do Exame</th>
                             <th>Paciente</th>
                             <th>Procedimento</th>
                             <th>Contraste</th>
@@ -37,7 +38,8 @@
                     <tbody>
                         @foreach ($terms as $term)
                             <tr>
-                                <th></th>
+                                <td>{{ $term->patient_id }}</td>
+                                <td>{{ $term->exam_date }}</td>
                                 <td>{{ $term->patient_name }}</td>
                                 <td>{{ $term->proced }}</td>
                                 <td>
@@ -47,7 +49,7 @@
                                         Não
                                     @endif
                                 </td>
-                                <td class="flex">
+                                <th class="flex">
                                     <!--<label id="btn-edit" data-value="{{ $term->id }}" for="my-modal-6">Editar</label>-->
                                     <a href="{{ url("triagem/terms/$term->id/edit") }}" class="btn btn-primary mx-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -68,7 +70,7 @@
                                         </button>
                                     </form>
 
-                                </td>
+                                </th>
                             </tr>
                         @endforeach
                     </tbody>

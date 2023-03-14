@@ -143,7 +143,7 @@ class TermController extends Controller
     public function edit($id)
     {
         $termo = Term::find($id);
-        $medico = User::all();
+        $medico = User::permission('medico')->get();
         return view('triagem::terms.edit-rm', compact('termo', 'medico'));
     }
 

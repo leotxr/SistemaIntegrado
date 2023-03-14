@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta name="mobile-web-app-capable" content="yes">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
@@ -33,6 +33,7 @@
 
             <!-- Page Content -->
             <main>
+                @include('components.floating-action-button')
                 {{ $slot }}
                 <div class="loader-wrapper bg-base-200 absolute w-screen h-screen grid place-items-center top-0 opacity-90">
                     <span class="loader"></span>

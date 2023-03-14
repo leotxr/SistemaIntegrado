@@ -1,5 +1,5 @@
 <div class="w-lg bg-white rounded-md grid grid-cols-2 sm:grid-cols-3">
-    <div>
+    <div class="w-full">
         <label class="label font-bold" for="nome">
             Nome:
         </label>
@@ -10,20 +10,20 @@
             value=" {{ $paciente->PACIENTEID }} " />
 
     </div>
-    <div>
+    <div class="max-w-sm">
         <label class="label font-bold" for="nome">
             Data de Nascimento:
         </label>
         <input type="text" name="patient_age" id=""
-            class="input w-full max-w-md text-md hidden"
+            class="input max-w-md text-md hidden"
             readonly />{{ date('d/m/Y', strtotime($paciente->DATANASC)) }}
 
         <input type="text" name="nascimento" id="nascimento"
-            class="input w-full max-w-md text-md hidden" readonly
+            class="input max-w-md text-md hidden" readonly
             value=" {{ $paciente->DATANASC }} " />
     </div>
 
-    <div>
+    <div class="max-w-sm">
         <label class="label font-bold" for="nome">
             Início da Triagem:
         </label>

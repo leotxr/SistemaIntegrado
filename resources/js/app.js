@@ -10,3 +10,7 @@ import html2canvas from 'html2canvas';
 window.Alpine = Alpine;
 
 Alpine.start();
+
+if(navigator.userAgent.match(/Android/i)){
+    window.scrollTo(0,1);
+ }

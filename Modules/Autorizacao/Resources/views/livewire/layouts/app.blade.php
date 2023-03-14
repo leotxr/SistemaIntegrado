@@ -54,11 +54,11 @@
 
     @if (auth()->user())
         @livewireScripts
-        
+
 
 
         <div class="p-5">
-
+            @include('autorizacao::livewire.layouts.floating-action-button')
             <div
                 class="loader-wrapper bg-base-200 absolute w-full h-full grid place-items-center top-0 left-0 opacity-90">
                 <span class="loader"></span>

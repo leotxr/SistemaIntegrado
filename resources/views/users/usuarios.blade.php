@@ -28,7 +28,7 @@
                                     @endphp
                                     <tr>
                                         <th>{{ $user->id }}</th>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->name}} {{$user->lastname}}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $up }}</td>
                                         <td class="flex">
