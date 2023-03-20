@@ -13,10 +13,16 @@
 
 use Modules\Triagem\Http\Controllers\TermController;
 
-Route::prefix('triagem')->group(function() {
-    Route::get('/', 'TriagemController@index');
+Route::middleware('auth')->group(function () {
+    Route::prefix('triagem')->group(function () {
+        Route::get('/', 'TriagemController@index');
+    });
 });
 
+Route::middleware('auth')->group(function () {
+    Route::resource('triagem/terms', TermController::class);
+});
 
-Route::resource('triagem/terms', TermController::class);
-Route::any('show_signature', 'TermController@showSignature')->name('show_signature');
+Route::middleware('auth')->group(function () {
+    Route::any('show_signature', 'TermController@showSignature')->name('show_signature');
+});
