@@ -24,6 +24,11 @@ class Term extends Model
         'observation'
     ];
 
+    public function relTermFiles()
+    {
+        return $this->hasMany(TermFile::class);
+    }
+
     protected static function newFactory()
     {
         return \Modules\Triagem\Database\factories\TermFactory::new();

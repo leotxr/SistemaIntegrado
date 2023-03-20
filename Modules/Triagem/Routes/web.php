@@ -12,6 +12,7 @@
 */
 
 use Modules\Triagem\Http\Controllers\TermController;
+use Modules\Triagem\Http\Controllers\TermFileController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('triagem')->group(function () {
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('triagem/terms', TermController::class);
+    //Route::resource('triagem/files', FileTriagemController::class);
+    Route::get('triagem/terms/files/create/', [TermFileController::class, 'create']);
+    Route::resource('triagem/terms/files', TermFileController::class);
 });
 
 Route::middleware('auth')->group(function () {
