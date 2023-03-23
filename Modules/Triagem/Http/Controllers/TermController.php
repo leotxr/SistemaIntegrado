@@ -6,10 +6,12 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
+use Modules\Triagem\Entities\TermFile;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Modules\Triagem\Entities\FileType;
 
 class TermController extends Controller
 {
@@ -19,7 +21,8 @@ class TermController extends Controller
      */
     public function index()
     {
-        $terms = Term::all();
+        $hoje = date('Y-m-d');
+        $terms = Term::whereDate('exam_date', $hoje)->get();
         return view('triagem::terms.index', compact('terms'));
     }
 
@@ -101,8 +104,16 @@ class TermController extends Controller
             $image_parts = explode(";base64,", $img);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg", $image_base64);
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 3
+            ]);
         }
 
         #ARMAZENA PRINT DO TERMO TELELAUDO
@@ -111,15 +122,23 @@ class TermController extends Controller
             $image_parts = explode(";base64,", $img);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg", $image_base64);
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 2
+            ]);
         }
 
 
         if ($term)
-            return redirect('triagem')->with('success', 'Triagem salva com sucesso!');
+            return redirect('triagem/terms')->with('success', 'Triagem salva com sucesso!');
         else
-            return redirect('triagem')->with('error', 'Ocorreu um erro!');
+            return redirect('triagem/terms')->with('error', 'Ocorreu um erro!');
 
 
         //dd($img);
@@ -130,9 +149,11 @@ class TermController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show($term)
     {
-        return view('triagem::show');
+        $term = Term::find($term);
+        $file_type = FileType::all();
+        return view('triagem::terms.show-rm', compact('term', 'file_type'));
     }
 
     /**
@@ -163,16 +184,26 @@ class TermController extends Controller
                 'contrast' => 1,
             ]);
 
-        #ARMAZENA PRINT DO TERMO DE CONSTRASTE
-        $img = $request->dataurlcontraste;
-        $image_parts = explode(";base64,", $img);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg", $image_base64);
+        #ARMAZENA PRINT DO FORMULARIO DE CONSTRASTE
+        if ($request->dataurlcontraste) {
+            $img = $request->dataurlcontraste;
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 4
+            ]);
+        }
 
         if ($update)
-            return redirect('triagem')->with('success', 'Contraste aplicado com sucesso!');
+            return redirect('triagem/terms')->with('success', 'Contraste aplicado com sucesso!');
         else
             return redirect()->back()->withErrors(['Ocorreu um erro ao salvar']);
     }
@@ -202,5 +233,19 @@ class TermController extends Controller
             ->get();
 
         return view('triagem::layouts.partials.contraste.rodape-contraste-rm', ['user' => $user]);
+    }
+
+    public function relatorioTriagem(Request $request)
+    {
+        $data_inicio = $request->data_inicio;
+        $data_fim = $request->data_fim;
+        $procedimento = $request->procedimento;
+
+        $terms = Term::whereBetween('exam_date', [$data_inicio, $data_fim])->where('proced', $procedimento)->get();
+
+        if ($terms)
+            return view('triagem::relatorios', compact('terms'))->with('success', 'Consulta realizada com sucesso!');
+        else
+            return view('triagem::relatorios')->with('error', 'Ocorreu um erro!');
     }
 }

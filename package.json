@@ -16,7 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "daisyui": "^2.51.3",
+        "daisyui": "^2.51.5",
         "datatables.net": "^1.13.2",
         "datatables.net-dt": "^1.13.2",
         "dom-to-image": "^2.6.0",

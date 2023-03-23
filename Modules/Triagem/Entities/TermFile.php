@@ -12,11 +12,17 @@ class TermFile extends Model
     protected $fillable = [
         'term_id',
         'url',
+        'file_type_id'
     ];
 
     public function relTerms()
     {
-        return $this->hasMany(Term::class);
+        return $this->hasOne(Term::class);
+    }
+
+    public function relTypes()
+    {
+        return $this->hasOne('Modules\Triagem\Entities\FileType', 'id', 'file_type_id');
     }
     
     protected static function newFactory()

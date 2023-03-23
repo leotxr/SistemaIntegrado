@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('term_files', function (Blueprint $table) {
+        Schema::create('file_types', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
-            $table->unsignedBigInteger('term_id');
-            $table->foreign('term_id')->references('id')->on('terms');
-            $table->unsignedBigInteger('file_tipe_id');
-            $table->foreign('file_type_id')->references('id')->on('file_types');
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_triagems');
+        Schema::dropIfExists('file_types');
     }
 };
