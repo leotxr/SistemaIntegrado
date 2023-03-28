@@ -22,7 +22,7 @@
                         </button>
                     </a>
 
-                    <a href="#">
+                    <a href="{{ url('helpdesk') }}">
                         <button class="btn glass shadow-md rounded-md p-2 h-auto w-full text-xl text-white font-bold">
 
                             <img src="{{ URL::asset('storage/icons/ti.png') }}" class="h-20 w-20 m-2">

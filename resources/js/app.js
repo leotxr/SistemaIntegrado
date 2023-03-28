@@ -1,6 +1,7 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
+import 'flowbite';
 
 import html2canvas from 'html2canvas';
 

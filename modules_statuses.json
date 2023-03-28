@@ -3,5 +3,6 @@
     "Chamado": true,
     "Estoque": true,
     "Triagem": true,
-    "Administrativo": true
+    "Administrativo": false,
+    "HelpDesk": true
 }

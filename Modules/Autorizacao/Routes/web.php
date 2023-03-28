@@ -12,11 +12,12 @@
 */
 
 use Modules\Autorizacao\Http\Controllers\AutorizacaoController;
-
+Route::middleware('auth')->group(function () {
 Route::prefix('autorizacao')->group(function() {
     Route::get('/', function () {
         return view('autorizacao::dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
+});
 });
 
 Route::get('autorizacao/relatorioexames', 'AutorizacaoController@relExams');
