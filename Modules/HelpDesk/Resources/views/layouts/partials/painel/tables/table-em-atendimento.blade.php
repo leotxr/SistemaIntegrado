@@ -45,10 +45,10 @@
                     Silver
                 </td>
                 <td class="px-6 py-4">
-                    {{$categoria->nome}}
+                    {{$categoria->nome ?? ''}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$chamado->hora_abertura}}
+                    {{$chamado->hora_abertura ?? ''}}
                 </td>
                 <td class="px-6 py-4">
                     <span
@@ -70,4 +70,3 @@
         </tbody>
     </table>
 </div>
-@include('helpdesk::chamados.master.delete')

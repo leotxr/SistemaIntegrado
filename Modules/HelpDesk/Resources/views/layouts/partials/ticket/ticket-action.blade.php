@@ -28,8 +28,7 @@
                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
                     <li>
-                        <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-                            'novo_status'=>6])}}">
+                        <form method="GET" action="{{url("helpdesk/chamados/$chamado->id/pausar")}}">
                             @csrf
                             <button type="submit"
                                 class="flex px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -43,8 +42,7 @@
                         </form>
                     </li>
                     <li>
-                        <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-                            'novo_status'=>7])}}">
+                        <form method="GET" action="">
                             @csrf
                             <button type="submit"
                                 class="flex px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -58,8 +56,7 @@
                         </form>
                     </li>
                     <li>
-                        <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-                            'novo_status'=>7])}}">
+                        <form method="GET" action="">
                             @csrf
                             <button type="submit"
                                 class="flex px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -73,9 +70,9 @@
                     </li>
                 </ul>
                 <div class="py-2">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Inserir
-                        Mensagem</a>
+                    <button data-modal-target="defaultModal" data-modal-toggle="defaultModal"
+                        class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Inserir
+                        Mensagem</button>
                 </div>
             </div>
 
@@ -83,24 +80,28 @@
         </div>
 
         <div class="finalizar mx-2" id="finalizar">
-            @if($chamado->status_id !== 7 && $chamado->status_id !== 5 && $chamado->status_id !== 6)
-            @php $novo_status = 5; @endphp
-                <button data-modal-target="staticModal" data-modal-toggle="staticModal" 
+            @if($chamado->status_id == 4)
+                <button data-modal-target="staticModal" data-modal-toggle="staticModal"
                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                     Finalizar</button>
-                @else
-                @php $novo_status = 2; @endphp
-                <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-                    'novo_status'=>$novo_status]) }}">
+            @elseif($chamado->status_id == 7 || $chamado->status_id == 6 || $chamado->status_id == 5 )
+                    <form method="GET" action="{{url("helpdesk/chamados/$chamado->id/reabrir")}}">
                     @csrf
-                    <button type="submit" id="reabrir"
-                        class="focus:outline-none text-white bg-blue-400 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Reabrir</button>
-                    @endif
+                <button type="submit" id="reabrir"
+                    class="focus:outline-none text-white bg-blue-400 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Reabrir</button>
+            @else
+                <form method="GET" action="{{url("helpdesk/chamados/$chamado->id/atender")}}">
+                    @csrf
+                    <button type="submit" id="atender"
+                        class="focus:outline-none text-white bg-indigo-400 hover:bg-indigo-600 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                        Atender</button>
                 </form>
+            @endif
         </div>
     </div>
 
 </div>
 
 @include('helpdesk::layouts.partials.components.modal.end-ticket')
+<x-helpdesk::modal> </x-helpdesk::modal>

@@ -4,6 +4,9 @@
     "description": "",
     "keywords": [],
     "priority": 0,
+    "seeds": [
+        "Modules\\HelpDesk\\database\\seeds\\v1\\DatabaseSeeder"
+    ],
     "providers": [
         "Modules\\HelpDesk\\Providers\\HelpDeskServiceProvider"
     ],

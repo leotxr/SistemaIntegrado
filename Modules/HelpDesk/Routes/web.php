@@ -25,11 +25,18 @@ Route::prefix('helpdesk')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('helpdesk/chamados/{id}/edit', 'TicketController@edit')->name('ticket.edit');
-    Route::get('helpdesk/chamados/{id}/{novo_status}', 'TicketController@update')->name('ticket.status_update');
-    Route::resource('helpdesk/chamados', TicketController::class);
+    //Route::get('helpdesk/chamados/{id}/{novo_status}', 'TicketController@update')->name('ticket.status_update');
+    //Route::resource('helpdesk/chamados', TicketController::class);
     Route::resource('helpdesk/setores', SectorController::class);
     Route::get('helpdesk/categorias', [CategoryController::class, 'store'])->name('categorias.store');
     Route::get('helpdesk/sub_categorias', [SubCategoryController::class, 'store'])->name('sub_categorias.store');
     Route::get('helpdesk/statuses', [StatusController::class, 'store'])->name('statuses.store');
 
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('helpdesk/chamados/{id}/atender', AnswerTicketController::class);
+    Route::get('helpdesk/chamados/{id}/reabrir', ReopenTicketController::class);
+    Route::get('helpdesk/chamados/{id}/pausar', PauseTicketController::class);
+    Route::get('helpdesk/chamados/{id}/finalizar', EndTicketController::class);
 });

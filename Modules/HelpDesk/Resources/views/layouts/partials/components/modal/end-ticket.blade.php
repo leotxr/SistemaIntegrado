@@ -20,11 +20,9 @@
             </div>
             <!-- Modal body -->
             @if($chamado->status_id !== 7 && $chamado->status_id !== 5 && $chamado->status_id !== 6)
-            @php $novo_status = 5; @endphp
-            <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-                'novo_status'=>$novo_status]) }}">
+            <form method="GET" action="{{ url("helpdesk/chamados/$chamado->id/finalizar") }}">
                 @csrf
-<x-text-area />
+                <x-helpdesk::text-area description="{{$chamado->descricao_fechamento}}"> </x-helpdesk::text-area>
                 <!-- Modal footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
 
@@ -36,7 +34,8 @@
                     <button data-modal-hide="staticModal" type="button"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
                 </div>
+            </form>
         </div>
-        </form>
+
     </div>
 </div>

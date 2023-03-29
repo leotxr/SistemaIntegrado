@@ -91,18 +91,11 @@ class TicketController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
+        $user_ti = User::permission('admin')->get();
         $chamado = Ticket::find($id);
         $inicio_atendimento = date('Y-m-d H:i:s');
 
-        if ($chamado->status_id == 2) {
-            $chamado->status_id = 4;
-            $chamado->inicio_atendimento = $inicio_atendimento;
-            $chamado->atendente_id = $user->id;
-            $chamado->save();
-        }
-
-
-        return view('helpdesk::chamados.master.edit', compact('chamado', 'user'));
+        return view('helpdesk::chamados.master.edit', compact('chamado', 'user', 'user_ti'));
     }
 
     /**
@@ -114,43 +107,7 @@ class TicketController extends Controller
     public function update(Request $request, $id, $novo_status)
     {
 
-        $user = Auth::user();
-        $chamado = Ticket::find($id);
-        $data_hora_atual = date('Y-m-d H:i:s'); //DATA/HORA FORMATO STRING 
-        $inicio = strtotime($chamado->inicio_atendimento);//PUXA INICIO DO ATENDIMENTO NO DB E CONVERTE PARA TIME
-        $abertura = strtotime($chamado->hora_abertura);
-        $chamado->status_id = $novo_status; //RECEBE O STATUS DA URL
-        $fim = strtotime($data_hora_atual); //CONVERTE DATA/HORA ATUAL PARA TIME
-
-        switch ($novo_status) {
-            case 6: //pausa
-                $chamado->pausado = 1;
-                $chamado->inicio_pausa = $data_hora_atual;
-                $chamado->fim_atendimento = NULL;
-                break;
-
-            case 5: //finalizado
-            case 7: //cancelado
-                $chamado->pausado = 0;
-                $chamado->fim_atendimento = $data_hora_atual;
-                $tempo_atendimento = gmdate('H:i:s', $fim - $inicio);
-                $chamado->tempo_atendimento = $tempo_atendimento;
-                $tempo_corrido = gmdate('Y-m-d H:i:s', $fim - $abertura);
-                $chamado->tempo_corrido = $tempo_corrido;
-                $chamado->descricao_fechamento = $request->descricao_fechamento;
-                break;
-
-            case 2://aberto
-            case 4://em atendimento
-                $chamado->pausado = 0;
-                $chamado->fim_atendimento = NULL;
-                break;
-        }
-
-        $chamado->save();
-
-
-        return redirect()->back();
+       
     }
 
     /**

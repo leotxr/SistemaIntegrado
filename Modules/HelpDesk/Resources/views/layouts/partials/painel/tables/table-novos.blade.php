@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto">
+<div class="relative overflow-x-auto max-h-96">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         @csrf
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -34,19 +34,19 @@
             @endphp
             <tr data-href="{{ route("ticket.edit", ['id'=>$chamado->id]) }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                    #{{$chamado->id}}
+                    <a href="{{ route("ticket.edit", ['id'=>$chamado->id]) }}">#{{$chamado->id}}</a>
                 </th>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{$chamado->assunto}}
+                    <a href="{{ route("ticket.edit", ['id'=>$chamado->id]) }}">{{$chamado->assunto}}</a>
                 </td>
                 <td class="px-6 py-4">
                     Setor
                 </td>
                 <td class="px-6 py-4">
-                    {{$categoria->nome}}
+                    <a href="{{ route("ticket.edit", ['id'=>$chamado->id]) }}">{{$categoria->nome}}</a>
                 </td>
                 <td class="px-6 py-4">
-                    {{$chamado->hora_abertura}}
+                    <a href="{{ route("ticket.edit", ['id'=>$chamado->id]) }}">{{$chamado->hora_abertura}}</a>
                 </td>
                 <td class="px-6 py-4">
                     <span
