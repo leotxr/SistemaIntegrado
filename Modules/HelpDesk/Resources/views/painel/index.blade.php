@@ -7,12 +7,12 @@
             @include('helpdesk::layouts.partials.painel.chamados-pendentes')
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mb-4">
             @include('helpdesk::layouts.partials.painel.stats.tma')
             @include('helpdesk::layouts.partials.painel.stats.tme')
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mb-4">
             @include('helpdesk::layouts.partials.painel.stats.qap')
         </div>
 

@@ -13,7 +13,7 @@
         $atendente = $chamado->find($chamado->id)->relAtendente;
         $subcategoria = $categoria->find($categoria->id)->relSubCategory;
         @endphp
-        <div class="grid grid-rows-3 grid-flow-col gap-4">
+        <div class="grid sm:grid-rows-3 grid-rows-1 sm:grid-flow-col gap-4">
             <div class="col-span-2">@include('helpdesk::layouts.partials.ticket.ticket-description')</div> {{--detalhes
             abertura e fechamento--}}
             <div class="row-span-2 col-span-2">@include('helpdesk::layouts.partials.ticket.ticket-message')</div>

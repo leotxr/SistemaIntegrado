@@ -31,7 +31,7 @@
             $categoria = $chamado->find($chamado->id)->relCategory;
             $status = $chamado->find($chamado->id)->relStatus;
             @endphp
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600">
 
                 <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white">
                     #{{$chamado->id}}
