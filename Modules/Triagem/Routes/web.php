@@ -11,9 +11,17 @@
 |
 */
 
+use Modules\Triagem\Http\Controllers\CreateContrasteController;
+use Modules\Triagem\Http\Controllers\CreateTermRMController;
+use Modules\Triagem\Http\Controllers\StoreTermController;
 use Modules\Triagem\Http\Controllers\TermController;
 use Modules\Triagem\Http\Controllers\TermFileController;
 use Modules\Triagem\Http\Controllers\TriagemController;
+
+
+Route::get('/assinatura', function () {
+    return view('triagem::livewire.components.assinaturas-rm');
+});
 
 Route::middleware('auth')->group(function () {
     Route::prefix('triagem')->group(function () {
@@ -27,13 +35,28 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('triagem/terms', TermController::class);
     Route::get('/triagem/terms/{term}', [TermController::class, 'show'])->name('terms.show');
     Route::get('relatorioTriagem', [TermController::class, 'relatorioTriagem'])->name('relatorioTriagem');
-    //Route::resource('triagem/files', FileTriagemController::class);
     Route::get('triagem/terms/files/create/', [TermFileController::class, 'create']);
-    Route::resource('triagem/terms/files', TermFileController::class);
+    Route::get('triagem/terms/files', [TermFileController::class, 'store']);
 });
+
+//CONTRASTES
+Route::middleware('auth')->group(function(){
+    Route::get('triagem/terms/{id}/contraste/create', CreateContrasteController::class);
+    Route::post('triagem/terms/{id}/', StoreContrasteController::class);
+});
+
+//TERMOS
+Route::middleware('auth')->group(function(){
+    Route::get('triagem/terms/realizadas', [TermController::class, 'index']);
+    Route::get('triagem/terms/create', CreateTermRMController::class);
+    Route::post('triagem/term/store/ressonancia', [StoreTermController::class, 'storeRM']);
+});
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::any('show_signature', 'TermController@showSignature')->name('show_signature');

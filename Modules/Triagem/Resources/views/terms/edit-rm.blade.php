@@ -2,8 +2,7 @@
 
 @section('content')
     <div>
-        <form method="POST" action="/triagem/terms/{{ $termo->id }}">
-            @method('PUT')
+        <form method="POST" action="{{url("triagem/terms/$termo->id")}}">
             @csrf
             <div class="container">
                 <div class="row">
@@ -20,6 +19,11 @@
                         <div class="col-12 p-5" id="rodape-contraste-rm">
                             {{-- @include('triagem::layouts.partials.contraste.rodape-contraste-rm') --}}
                         </div>
+
+                        <div class="col-12 p-5" id="rodape-observacao-rm">
+                            @include('triagem::layouts.partials.observacao')
+                        </div>
+                        
                     </div>
                 </div>
                 <input type="text" value="" id="dataurlcontraste" name="dataurlcontraste" hidden
@@ -48,6 +52,7 @@
             </div>
         </div>
     </div>
+    
     </form>
     <script>
         $(document).ready(function() {

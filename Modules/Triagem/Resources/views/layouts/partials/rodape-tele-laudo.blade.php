@@ -38,8 +38,5 @@
         <input type="text" name="exam_date" id="exam_date" class="input w-full max-w-md text-md hidden" readonly
             value=" {{ $paciente->DATA }} " />
     </div>
-
-
-
 </div>
 

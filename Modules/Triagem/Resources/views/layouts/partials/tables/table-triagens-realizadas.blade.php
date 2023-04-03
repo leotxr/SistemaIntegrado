@@ -1,4 +1,4 @@
-<div class="overflow-y-auto h-96">
+<div class="overflow-y-auto h-96" id="capture">
     <table class="table table-compact">
         <!-- head -->
         <thead>
@@ -43,7 +43,7 @@
                                 </button>
                             </form>
                             <!--<label id="btn-edit" data-value="{{ $term->id }}" for="my-modal-6">Editar</label>-->
-                            <a href="{{ url("triagem/terms/$term->id/edit") }}" class="btn btn-success mx-2">
+                            <a href="{{ url("triagem/terms/$term->id/contraste/create") }}" class="btn btn-success mx-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-capsule w-6 h-6"
                                     viewBox="0 0 16 16">
                                     <path

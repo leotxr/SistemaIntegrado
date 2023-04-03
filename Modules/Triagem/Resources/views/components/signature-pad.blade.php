@@ -1,19 +1,27 @@
-<div>
-    <div id="parent" class="parent p-2">
-        <p> assine </p>
-        <x-triagem::signature-pad> </x-triagem::signature-pad>
-    </div>
-    <div class="modal-action">
-        <a type="button" class="btn btn-warning" onclick="clearCanvas()">Limpar</a>
-        <label for="my-modal-6" id="fechar1" class="btn btn-error">Cancelar</label>
-        <label for="my-modal-6" id="clone" class="btn btn-primary">Enviar</label>
-    </div>
+<div id="parent" class="parent p-2 font-bold">
 
+  <canvas id="sig-canvas" class="child border border-2" width="750" height="160">
+
+  </canvas>
 </div>
+
 <script>
-    /*
-    var canvas = document.getElementById("sig-canvas");
+var canvas = document.getElementById("sig-canvas");
     var ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        // When zoomed out to less than 100%, for some very strange reason,
+        // some browsers report devicePixelRatio as less than 1
+        // and only part of the canvas is cleared then.
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+        // This part causes the canvas to be cleared
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+
+
+    }
 
     // Set up mouse events for drawing
     var drawing = false;
@@ -43,7 +51,6 @@
     }
 
     // Get a regular interval for drawing to the screen
-    
     window.requestAnimFrame = (function(callback) {
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -55,16 +62,13 @@
             };
     })();
 
-    
-
     // Draw to the canvas
     function renderCanvas() {
         if (drawing) {
             ctx.moveTo(lastPos.x, lastPos.y);
             ctx.lineTo(mousePos.x, mousePos.y);
             ctx.stroke();
-            ctx.strokeStyle = 'blue';
-            ctx.lineWidth = 10;
+            ctx.lineWidth = 2;
             ctx.lineCap = "round";
             lastPos = mousePos;
         }
@@ -108,12 +112,6 @@
         };
     }
 
-    function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    redraw();
-  }
-
     // Prevent scrolling when touching the canvas
     document.body.addEventListener("touchstart", function(e) {
         if (e.target == canvas) {
@@ -133,25 +131,6 @@
 
     function clearCanvas() {
         canvas.width = canvas.width;
+        alert('Assinatura limpa com sucesso!');
     }
-*/
-
-    $("#clone").click(function() {
-        var dataUrl = canvas.toDataURL();
-        $("#imgclone").attr("src", dataUrl);
-
-        $("body").toggleClass("overflow-hidden");
-
-        //tira print da div
-        html2canvas(document.querySelector("#termo-rm")).then(canvas => {
-            //document.body.appendChild(canvas);
-            var dataUrl2 = canvas.toDataURL();
-            $("#dataurl").val(dataUrl2);
-        });
-
-    });
-
-    $("#fechar1").click(function() {
-        $("body").toggleClass("overflow-hidden");
-    });
-</script>
+  </script>

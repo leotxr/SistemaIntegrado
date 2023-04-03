@@ -1,5 +1,5 @@
-<div class="w-lg bg-white rounded-md grid grid-cols-2 sm:grid-cols-3">
-    <div class="w-full">
+<div class="bg-white rounded-md grid grid-cols-1 sm:grid-cols-3 border">
+    <div class="w-full px-2">
         <label class="label font-bold" for="nome">
             Nome:
         </label>
@@ -10,7 +10,7 @@
             value=" {{ $paciente->PACIENTEID }} " />
 
     </div>
-    <div class="max-w-sm">
+    <div class="max-w-sm px-2">
         <label class="label font-bold" for="nome">
             Data de Nascimento:
         </label>
@@ -23,12 +23,20 @@
             value=" {{ $paciente->DATANASC }} " />
     </div>
 
-    <div class="max-w-sm">
+    <div class="max-w-sm px-2">
         <label class="label font-bold" for="nome">
             Início da Triagem:
         </label>
         <input type="text" name="start" id="start" class="input w-full max-w-xs text-md"
             readonly value="{{ $start }}" />
+    </div>
+
+    <div class="max-w-sm px-2">
+        <label class="label font-bold" for="nome">
+            Procedimento
+        </label>
+        <input type="text" name="procedimento" id="procedimento" class="input w-full max-w-xs text-md"
+            readonly value="{{ $paciente->DESCRICAO }}" />
     </div>
 
 

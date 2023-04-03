@@ -1,11 +1,11 @@
 @extends('triagem::layouts.master')
 
 @section('content')
-    <div>
+    <div class="w-lg p-2">
         <div class="py-4 px-2 border border-2 shadow-sm">
             <h1 class="text-gray-800 font-medium dark:text-gray-100 text-2xl">Triagens realizadas hoje</h1>
         </div>
-        <div class="grid justify-items-center">
+        <div class="flex w-full">
             <form method="GET" action="{{ url('triagem/terms/create') }}">
                 @csrf
                 <div class="grid sm:grid-cols-3 grid-cols-1 gap-2">

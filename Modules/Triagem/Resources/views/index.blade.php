@@ -13,6 +13,7 @@
                         <li><a href="{{ url('triagem/filas/tomografia') }}">Tomografia</a></li>
                     </ul>
                 </div>
+                
             </div>
         </div>
     </div>

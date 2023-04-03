@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('datatables/datatables.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <meta name="mobile-web-app-capable" content="yes">
-<title>{{ config('app.name', 'Administrativo') }}</title>
+<title>{{ config('app.name', 'Triagem') }}</title>
 
 <!-- Fonts -->
 <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">

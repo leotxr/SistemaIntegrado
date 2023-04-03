@@ -2,8 +2,8 @@
 
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-<div class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box">
+<div class="modal">
+  <div class="modal-box w-11/12 max-w-5xl">
         <livewire:triagem::components.assinaturas-rm />
 
     </div>

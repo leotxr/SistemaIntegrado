@@ -1,7 +1,8 @@
 <div>
-    <div id="parent" class="parent p-2">
-        <p> assine </p>
-        <x-triagem::signature-pad> </x-triagem::signature-pad>
+    <div id="parent" class="parent p-2 w-full">
+        <canvas id="sig-canvas" class="child border border-2" width="500" height="500">
+            Get a better browser, bro.
+        </canvas>
     </div>
     <div class="modal-action">
         <a type="button" class="btn btn-warning" onclick="clearCanvas()">Limpar</a>
@@ -11,7 +12,6 @@
 
 </div>
 <script>
-    /*
     var canvas = document.getElementById("sig-canvas");
     var ctx = canvas.getContext("2d");
 
@@ -43,7 +43,6 @@
     }
 
     // Get a regular interval for drawing to the screen
-    
     window.requestAnimFrame = (function(callback) {
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -55,17 +54,14 @@
             };
     })();
 
-    
-
     // Draw to the canvas
     function renderCanvas() {
         if (drawing) {
             ctx.moveTo(lastPos.x, lastPos.y);
             ctx.lineTo(mousePos.x, mousePos.y);
-            ctx.stroke();
-            ctx.strokeStyle = 'blue';
             ctx.lineWidth = 10;
             ctx.lineCap = "round";
+            ctx.stroke();
             lastPos = mousePos;
         }
     }
@@ -108,12 +104,6 @@
         };
     }
 
-    function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    redraw();
-  }
-
     // Prevent scrolling when touching the canvas
     document.body.addEventListener("touchstart", function(e) {
         if (e.target == canvas) {
@@ -134,7 +124,7 @@
     function clearCanvas() {
         canvas.width = canvas.width;
     }
-*/
+
 
     $("#clone").click(function() {
         var dataUrl = canvas.toDataURL();
