@@ -6,9 +6,13 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
+use Modules\Triagem\Entities\TermFile;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
-class TriagemController extends Controller
+class TermFileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,25 +20,21 @@ class TriagemController extends Controller
      */
     public function index()
     {
-        $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->paginate(10);
-        return view('triagem::triagens.index', compact('terms'));
-    }
-
-    public function showSignature($id)
-    {
-        $user = User::select('signature')->where('id', $id)->get()->toArray();
-        dd($user);
-        return response($user);
+        return view('triagem::index');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('triagem::create');
+        $hoje = date('d-m-Y');
+        $users = Auth::user();
+        $triagem = Term::find($request->btn_term_id);
+        $start = date('H:i:s');
+
+        return view('triagem::layouts.files.create', compact('triagem'));
     }
 
     /**
@@ -44,7 +44,32 @@ class TriagemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $hoje = date('d-m-Y');
+        $term_id = $request->term_id;
+        $patient_name = $request->patient_name;
+
+        //dd($term_id);
+
+
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photofile) {
+                dd($photofile);
+                $path = $photofile->store("storage/termos/$patient_name/RM/$hoje/pedido-$patient_name", ['disk' => 'my_files']);
+                $files = TermFile::create([
+                    'url' => $path,
+                    'term_id' => $term_id,
+                    'file_type_id' => 1
+                ]);
+            };
+        };
+
+
+
+
+        if ($files)
+            return redirect('triagem/terms')->with('success', 'Arquivos anexados com sucesso!');
+        else
+            return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar os arquivos.']);
     }
 
     /**

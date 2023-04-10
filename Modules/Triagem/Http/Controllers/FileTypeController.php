@@ -5,10 +5,8 @@ namespace Modules\Triagem\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Triagem\Entities\Term;
-use App\Models\User;
 
-class TriagemController extends Controller
+class FileTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +14,7 @@ class TriagemController extends Controller
      */
     public function index()
     {
-        $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->paginate(10);
-        return view('triagem::triagens.index', compact('terms'));
-    }
-
-    public function showSignature($id)
-    {
-        $user = User::select('signature')->where('id', $id)->get()->toArray();
-        dd($user);
-        return response($user);
+        return view('triagem::index');
     }
 
     /**
