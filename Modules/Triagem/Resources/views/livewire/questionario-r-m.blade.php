@@ -44,7 +44,7 @@
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="observacao-{{ $i }}"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered w-full mt-2" value="" />
                         </th>
                     </tr>
                     @endforeach

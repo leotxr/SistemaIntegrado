@@ -4,59 +4,50 @@
         <div class="grid grid-cols-2 gap-4 text-center">
             <div>
                 <div class="justify-center">
-                    <img src="" id="assinatura_medico" name="assinatura_medico">
+                    <img src="{{ URL::asset($signature_path) }}" class="h-16" id="assinatura_medico" name="assinatura_medico">
                     <hr class="border-gray-200 sm:mx-auto dark:border-gray-700" />
                 </div>
-                <p id="nome_medico" class="mt-2 text-sm text-green-600 dark:text-green-400">Nome do médico aqui</p>
+                <p id="nome_medico" class="mt-2 text-sm text-green-600 dark:text-green-400">Dr(a). {{ $name }}
+                    {{ $lastname }}</p>
             </div>
 
             <div>
                 <div class="justify-center">
-                    <img src="{{ URL::asset(auth()->user()->signature) }}" id="assinatura_enfermagem"
+                    <img src="{{ URL::asset(auth()->user()->signature) }}" class="h-16" id="assinatura_enfermagem"
                         name="assinatura_enfermagem">
                     <hr class="border-gray-200 sm:mx-auto dark:border-gray-700" />
                 </div>
-                <p id="nome_enfermagem" class="mt-2 text-sm text-green-600 dark:text-green-400">{{ auth()->user()->name }}
+                <p id="nome_enfermagem" class="mt-2 text-sm text-green-600 dark:text-green-400">
+                    {{ auth()->user()->name }}
                     {{ auth()->user()->lastname }}</p>
             </div>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <div class="flex">
-            {{-- INPUTS COM DATAURL DA ASSINATURA E PRINT DA TELA --}}
-            <div class="flex items-center mr-4">
-                <input type="text" value="" id="dataurl" class="" name="dataurl" required />
-                <label for="dataurl" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tela</label>
-            </div>
-
-            <div class="flex items-center mr-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {{-- SELECT MEDICO --}}
+            <div>
                 <label class="label font-bold" for="medico">
                     Médico
                 </label>
-                <select id="medico" name="medico" class="select select-bordered w-full max-w-xs">
-                    <option disabled selected>Médico</option>
-                    @foreach ($medico as $medicos)
-                        <option value="{{ $medicos->id }}">{{ $medicos->name }}</option>
+                <select wire:model="medico" class="select select-bordered w-full max-w-xs">
+                    <option selected disabled>Selecione o médico</option>
+                    @foreach ($user_medico as $medico)
+                        <option value="{{ $medico->id }}">{{ $medico->name }}</option>
                     @endforeach
                 </select>
-                <div id="teste">
+                <button type="button" class="btn bg-blue-600 hover:bg-blue-700 rounded-full" wire:click='showSignature'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="white" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                    </svg>
+                </button>
+            </div>
 
-                </div>
+            {{-- INPUTS COM DATAURL DA ASSINATURA E PRINT DA TELA --}}
+            <div class="flex items-center mr-4">
+                <input type="text" value="" class="input input-xs" id="dataurl" class="" name="dataurl" required />
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    $("#medico").change(function() {
-        
-        let userID = $("#medico").val();
-        var showSignature = "{{ route('show_signature', ['id' => ]) }}";
-        $.ajax({
-            url: "",
-            success: function(data) {
-                //$("#teste").html(data)
-                alert(data)
-            }
-        });
-    });
-</script>

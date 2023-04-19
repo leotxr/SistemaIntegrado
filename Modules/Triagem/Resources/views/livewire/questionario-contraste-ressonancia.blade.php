@@ -45,32 +45,32 @@
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="quant[{{ $i }}]"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered w-full mt-2" value="" />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="disp[{{ $i }}]"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered  w-full mt-2" value="" />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="membro[{{ $i }}]"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered w-full mt-2" value="" />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="via[{{ $i }}]"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered w-full mt-2" value="" />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <input type="text" name="lote[{{ $i }}]"
-                                class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                                class="input input-bordered w-full mt-2" value="" />
                         </th>
                         <th scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <input type="text" name="validade[{{ $i }}]"
-                            class="input input-bordered input-xs w-full max-w-xs mt-2" value="" />
+                            class="input input-bordered w-full mt-2" value="" />
                     </th>
                     </tr>
                 @endforeach
