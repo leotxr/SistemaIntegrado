@@ -20,7 +20,7 @@ use Modules\Triagem\Http\Controllers\CreateContrastController;
 Route::middleware('auth')->group(function () {
 
 Route::prefix('triagem')->group(function() {
-    Route::get('/', 'TriagemController@index');
+    Route::get('/', 'TriagemController@index')->name('index');
 
     Route::get('realizadas', [TriagemController::class, 'index'])->name('triagens.realizadas');
 
