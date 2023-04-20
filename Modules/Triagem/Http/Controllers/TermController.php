@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Auth;
 class TermController extends Controller
 {
 
+    public function index()
+    {
+        $hoje = date('Y-m-d');
+        $terms = Term::whereDate('exam_date', $hoje)->paginate(10);
+        return view('triagem::triagens.index', compact('terms'));
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -83,7 +89,7 @@ class TermController extends Controller
             'final_hour' => $end,
             'time_spent' => $tempo,
             'exam_date' => $request->data_exame,
-            'observation' => $request->observacao ?? NULL
+            'observation' => $request->observacoes ?? NULL
 
         ]);
 
@@ -140,4 +146,5 @@ class TermController extends Controller
     {
         //
     }
+
 }

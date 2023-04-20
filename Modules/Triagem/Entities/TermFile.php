@@ -12,7 +12,8 @@ class TermFile extends Model
     protected $fillable = [
         'term_id',
         'url',
-        'file_type_id'
+        'file_type_id',
+        'description'
     ];
 
     public function relTerms()

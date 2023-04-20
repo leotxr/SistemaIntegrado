@@ -16,13 +16,15 @@ use Modules\Triagem\Http\Controllers\StoreTermFileController;
 use Modules\Triagem\Http\Controllers\TriagemController;
 use Modules\Triagem\Http\Controllers\GetFilasController;
 use Modules\Triagem\Http\Controllers\CreateContrastController;
+use Modules\Triagem\Http\Controllers\StoreContrastController;
+use Modules\Triagem\Http\Controllers\TermFileController;
 
 Route::middleware('auth')->group(function () {
 
 Route::prefix('triagem')->group(function() {
     Route::get('/', 'TriagemController@index')->name('index');
 
-    Route::get('realizadas', [TriagemController::class, 'index'])->name('triagens.realizadas');
+    Route::get('realizadas', [TermController::class, 'index'])->name('triagens.realizadas');
 
     Route::get('filas/ressonancia', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
     Route::get('filas/tomografia', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
@@ -37,7 +39,10 @@ Route::prefix('triagem')->group(function() {
     Route::post('termos/ressonancia/tele-laudo/{id}', [StoreTermFileController::class, 'storeTermoTeleLaudo'])->name('store.termo-tele-laudo');
 
     Route::get('termos/ressonancia/{id}/contraste/create', [CreateContrastController::class, 'createContrastRessonancia'])->name('create.contraste-ressonancia');
-    Route::post('termos/ressonancia/contraste/store{id}', [StoreContrastController::class, 'storeContrastRessonancia'])->name('store.contraste-ressonancia');
+    Route::post('termos/ressonancia/contraste/store/{id}', [StoreContrastController::class, 'storeContrastRessonancia'])->name('store.contraste-ressonancia');
+
+    Route::post('termos/{id}/files/create', [TermFileController::class, 'create'])->name('create.term-file');
+    Route::post('termos/{id}/files', [TermFileController::class, 'store'])->name('store.term-file');
 
     Route::get('show_signature/{id}', [TriagemController::class, 'showSignature'])->name('show_signature');
 });

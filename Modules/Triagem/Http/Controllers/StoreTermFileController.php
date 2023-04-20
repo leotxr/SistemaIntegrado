@@ -57,8 +57,8 @@ class StoreTermFileController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg", $bin);
-            $path = "storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg";
 
             $termfile = TermFile::create([
                 'url' => $path,

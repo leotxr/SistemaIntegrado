@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Modules\Triagem\Entities\FileType;
 
 class TermFileController extends Controller
 {
@@ -27,14 +28,15 @@ class TermFileController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create(Request $request)
+    public function create($id)
     {
         $hoje = date('d-m-Y');
         $users = Auth::user();
-        $triagem = Term::find($request->btn_term_id);
+        $triagem = Term::find($id);
+        $file_types = FileType::all();
         $start = date('H:i:s');
 
-        return view('triagem::layouts.files.create', compact('triagem'));
+        return view('triagem::triagens.files.create', compact('triagem', 'file_types'));
     }
 
     /**
@@ -42,34 +44,38 @@ class TermFileController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $hoje = date('d-m-Y');
-        $term_id = $request->term_id;
-        $patient_name = $request->patient_name;
+        $term = Term::find($id);
 
-        //dd($term_id);
+        //dd($term->patient_name);
+        
 
-
-        if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $photofile) {
-                dd($photofile);
-                $path = $photofile->store("storage/termos/$patient_name/RM/$hoje/pedido-$patient_name", ['disk' => 'my_files']);
-                $files = TermFile::create([
+        if ($request->hasFile('arquivos')) {
+            
+                $path = $request->file('arquivos')->store("storage/termos/$term->patient_name/RM/$hoje/arquivo-$term->patient_name", ['disk' => 'my_files']);
+                TermFile::create([
                     'url' => $path,
-                    'term_id' => $term_id,
-                    'file_type_id' => 1
+                    'term_id' => $term->id,
+                    'file_type_id' => $request->tipo,
+                    'description' => $request->observacoes
                 ]);
-            };
-        };
+
+            
+            
+        }
+
+       
 
 
 
-
-        if ($files)
-            return redirect('triagem/terms')->with('success', 'Arquivos anexados com sucesso!');
+        if ($request->hasFile('arquivos'))
+            return redirect('triagem/realizadas')->with('success', 'Arquivos anexados com sucesso!');
         else
             return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar os arquivos.']);
+            
+            
     }
 
     /**

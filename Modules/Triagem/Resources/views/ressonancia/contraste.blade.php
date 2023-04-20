@@ -10,7 +10,7 @@
 
                     </div>
 
-                    <div class="col-12 p-5">
+                    <div class="p-5">
                         <livewire:triagem::questionario-contraste-ressonancia />
                     </div>
                 </div>

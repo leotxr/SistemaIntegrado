@@ -16,9 +16,7 @@ class TriagemController extends Controller
      */
     public function index()
     {
-        $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->paginate(10);
-        return view('triagem::triagens.index', compact('terms'));
+        return view('triagem::index');
     }
 
     public function showSignature($id)

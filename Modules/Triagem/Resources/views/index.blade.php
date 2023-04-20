@@ -1,17 +1,16 @@
 @extends('triagem::layouts.master')
 
 @section('content')
-    <div class="hero min-h-screen">
+    <div class="hero">
         <div class="hero-content text-center">
             <div class="max-w-md">
-                <h1 class="text-5xl font-bold">Módulo Triagem</h1>
-                <p class="py-6">Selecione uma modalidade de exame para ter acesso à fila.</p>
-                <div class="dropdown">
-                    <label tabindex="0" class="btn m-1">Selecionar fila de exames</label>
-                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a href="{{ route('filas.ressonancia') }}">Ressonância</a></li>
-                        <li><a href="{{ route('filas.tomografia') }}">Tomografia</a></li>
-                    </ul>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
+
+                    @livewire('triagem::cards.card-exames', ['path' => "storage/icons/RM.png", 'label' => 'Ressonância', 'link' => 'filas.ressonancia'])
+                    @livewire('triagem::cards.card-exames', ['path' => "storage/icons/TC.png", 'label' => 'Tomografia', 'link' => 'filas.tomografia'])
+
+                    
+
                 </div>
 
             </div>

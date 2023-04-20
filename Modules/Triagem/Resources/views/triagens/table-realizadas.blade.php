@@ -30,7 +30,7 @@
                             @endif
                         </td>
                         <th class="flex">
-                            <form method="POST" action="{{ url('triagem/files/create') }}">
+                            <form method="POST" action="{{ route('create.term-file', ['id' => $term->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 <button type="submit" value="{{ $term->id }}" name="btn_term_id" class="btn btn-info mx-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
