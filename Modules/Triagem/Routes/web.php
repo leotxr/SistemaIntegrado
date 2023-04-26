@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function () {
         Route::post('termos/ressonancia', [TermController::class, 'storeRessonancia'])->name('store.ressonancia');
         Route::post('termos/tomografia', [TermController::class, 'storeTomografia'])->name('store.tomografia');
 
+        /*
         Route::post('termos/ressonancia/{id}', [StoreTermFileController::class, 'storeTermoRessonancia'])->name('store.termo-ressonancia');
         Route::post('termos/ressonancia/tele-laudo/{id}', [StoreTermFileController::class, 'storeTermoTeleLaudo'])->name('store.termo-tele-laudo');
-
+*/
         Route::get('termos/ressonancia/{id}/contraste/create', [CreateContrastController::class, 'createContrastRessonancia'])->name('create.contraste-ressonancia');
         Route::post('termos/ressonancia/contraste/store/{id}', [StoreContrastController::class, 'storeContrastRessonancia'])->name('store.contraste-ressonancia');
 

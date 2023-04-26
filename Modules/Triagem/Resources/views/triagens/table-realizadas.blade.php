@@ -34,7 +34,7 @@
                             </form>
                         </li>
                         @endif
-                        
+
                         <li>
                             <form method="POST" action="{{ route('create.term-file', ['id' => $term->id]) }}">
                                 @csrf
@@ -43,6 +43,13 @@
                         </li>
                         
                         <li> <a href="{{ route('create.contraste-ressonancia', ['id'=>$term->id]) }}">Contraste</a></li>
+
+                        <li>
+                            <form method="POST" action="{{ route('edit.term', ['id' => $term->id]) }}">
+                                @csrf
+                                <button type="submit">Ver/Editar triagem</button>
+                            </form>
+                        </li>
                     </ul>
                 </th>
                 <td>{{ $term->exam_date }}</td>

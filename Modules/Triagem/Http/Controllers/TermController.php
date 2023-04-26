@@ -112,31 +112,6 @@ class TermController extends Controller
                 'file_type_id' => 6
             ]);
         }
-/*
-        //ASSINATURA
-        if ($request->dataurlsign) {
-            $img = $request->dataurlsign;
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-
-            $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.jpeg", $bin);
-            $path = "storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.jpeg";
-
-            TermFile::create([
-                'url' => $path,
-                'term_id' => $term->id,
-                'file_type_id' => 5
-            ]);
-        }
-*/
-
-        //$pdf = PDF::loadView('triagem::pdfteste', ['term' => $term]);
-        //$path = $photofile->store("storage/fotos_pedidos/$protocol->id", ['disk' => 'my_files']);
-        //$path = Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.pdf", $pdf->output());
-        //return $pdf->download('teste.pdf');
-
 
         if ($term)
             return view('triagem::index', compact('term'))->with('success', 'Triagem salva com sucesso!');
