@@ -1,6 +1,6 @@
 <div id="parent" class="parent p-2 font-bold">
 
-    <canvas id="sig-canvas" class="child border border-2" width="900" height="200">
+    <canvas id="sig-canvas" class="child" width="840" height="350">
 
     </canvas>
 </div>
@@ -8,6 +8,7 @@
 <script>
     var canvas = document.getElementById("sig-canvas");
     var ctx = canvas.getContext("2d");
+    
 
     function resizeCanvas() {
         // When zoomed out to less than 100%, for some very strange reason,
@@ -71,7 +72,10 @@
             ctx.lineWidth = 2;
             ctx.lineCap = "round";
             lastPos = mousePos;
+
+            
         }
+        
     }
 
     // Allow for animation

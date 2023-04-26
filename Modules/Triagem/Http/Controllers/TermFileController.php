@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Modules\Triagem\Entities\FileType;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TermFileController extends Controller
 {
@@ -48,25 +49,29 @@ class TermFileController extends Controller
     {
         $hoje = date('d-m-Y');
         $term = Term::find($id);
+        $signature = TermFile::where('term_id', $term->id)->where('file_type_id', 5)->first();
+
+
 
         //dd($term->patient_name);
-        
+
 
         if ($request->hasFile('arquivos')) {
-            
-                $path = $request->file('arquivos')->store("storage/termos/$term->patient_name/RM/$hoje/arquivo-$term->patient_name", ['disk' => 'my_files']);
-                TermFile::create([
-                    'url' => $path,
-                    'term_id' => $term->id,
-                    'file_type_id' => $request->tipo,
-                    'description' => $request->observacoes
-                ]);
 
-            
-            
+            $path = $request->file('arquivos')->store("storage/termos/$term->patient_name/RM/$hoje/arquivo-$term->patient_name", ['disk' => 'my_files']);
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => $request->tipo,
+                //'description' => $request->observacoes
+            ]);
         }
 
-       
+        /*
+        $pdf = PDF::loadView('triagem::pdfteste', ['term' => $term, 'signature' => $signature]);
+        // $path = Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.pdf", $pdf->output());
+        return $pdf->download('teste.pdf');
+*/
 
 
 
@@ -74,8 +79,6 @@ class TermFileController extends Controller
             return redirect('triagem/realizadas')->with('success', 'Arquivos anexados com sucesso!');
         else
             return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar os arquivos.']);
-            
-            
     }
 
     /**

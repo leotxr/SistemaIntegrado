@@ -26,6 +26,9 @@ return new class extends Migration
             $table->time('start_hour')->nullable();
             $table->time('final_hour')->nullable();
             $table->date('exam_date')->nullable();
+            $table->boolean('signed')->nullable();
+            $table->boolean('contrast_term')->nullable();
+            $table->boolean('tele_report')->nullable();
             $table->string('observation')->nullable();
             $table->boolean('contrast')->nullable();
             $table->time('time_spent');

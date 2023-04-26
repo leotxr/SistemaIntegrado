@@ -1,0 +1,1 @@
+<img src="{{URL::asset('storage/icons/client.png')}}" {{$attributes}}>

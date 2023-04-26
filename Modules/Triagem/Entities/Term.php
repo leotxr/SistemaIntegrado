@@ -20,6 +20,9 @@ class Term extends Model
         'final_hour',
         'exam_date',
         'contrast',
+        'contrast_term',
+        'tele_report',
+        'signed',
         'time_spent',
         'observation'
     ];
