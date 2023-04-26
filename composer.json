@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -15,6 +16,7 @@
         "nwidart/laravel-modules": "^9.0",
         "pestphp/pest": "^1.16",
         "pestphp/pest-plugin-laravel": "^1.1",
+        "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-permission": "^5.8"
     },
     "require-dev": {

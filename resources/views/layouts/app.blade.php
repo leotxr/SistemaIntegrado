@@ -2,10 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <link rel="manifest" href="/manifest.json">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PWA">
+
     <title>{{ config('app.name', 'sigma') }}</title>
 
     <!-- Fonts -->
@@ -15,6 +19,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+        @laravelPWA
 </head>
 
 <body class="font-sans antialiased">

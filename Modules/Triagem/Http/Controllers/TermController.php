@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TermController extends Controller
 {
@@ -18,7 +19,7 @@ class TermController extends Controller
     public function index()
     {
         $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->paginate(10);
+        $terms = Term::whereDate('exam_date', $hoje)->paginate(15);
         return view('triagem::triagens.index', compact('terms'));
     }
     /**
@@ -88,11 +89,12 @@ class TermController extends Controller
             'start_hour' => $request->start,
             'final_hour' => $end,
             'time_spent' => $tempo,
-            'exam_date' => $request->data_exame,
+            'exam_date' => date('Y-m-d'),
             'observation' => $request->observacoes ?? NULL
 
         ]);
 
+        
         #ARMAZENA PRINT DO QUESTIONARIO
         if ($request->dataurl) {
             $img = $request->dataurl;
@@ -101,8 +103,8 @@ class TermController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.jpeg", $bin);
-            $path = "storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.jpeg";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png";
 
             TermFile::create([
                 'url' => $path,
@@ -110,7 +112,7 @@ class TermController extends Controller
                 'file_type_id' => 6
             ]);
         }
-
+/*
         //ASSINATURA
         if ($request->dataurlsign) {
             $img = $request->dataurlsign;
@@ -128,13 +130,19 @@ class TermController extends Controller
                 'file_type_id' => 5
             ]);
         }
+*/
 
+        //$pdf = PDF::loadView('triagem::pdfteste', ['term' => $term]);
+        //$path = $photofile->store("storage/fotos_pedidos/$protocol->id", ['disk' => 'my_files']);
+        //$path = Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.pdf", $pdf->output());
+        //return $pdf->download('teste.pdf');
 
 
         if ($term)
-            return view('triagem::ressonancia.termo', compact('term'))->with('success', 'Triagem salva com sucesso!');
+            return view('triagem::index', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
+        
     }
 
     /**
@@ -145,6 +153,37 @@ class TermController extends Controller
     public function storeTomografia(Request $request)
     {
         //
+    }
+
+    public function createSignature($id)
+    {
+        $term = Term::find($id);
+        return view('triagem::triagens.assinar', compact('term'));
+    }
+
+    public function storeSignature($id, Request $request)
+    {
+        $hoje = date('d-m-Y');
+        $term = Term::find($id);
+
+        if ($request->sign) {
+            $img = $request->sign;
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 5
+            ]);
+        }
+
+        return redirect('triagem');
     }
 
 }

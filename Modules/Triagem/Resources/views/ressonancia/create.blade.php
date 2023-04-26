@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="col-12 p-5">
-                    @livewire('triagem::term-footer', ['data_exame' => "$paciente->DATA", 'title' => 'Assinatura do titular ou responsável', 'description' => '', 'img' => ''])
+                    @livewire('triagem::term-footer', ['data_exame' => "$paciente->DATA", 'title' => 'Observação da Triagem', 'description' => '', 'img' => ''])
                 </div>
     
             </div>
@@ -33,5 +33,5 @@
         </form>
     </div>
     
-    @livewire('triagem::modal-signature', ['title' => 'Assinatura do Titular ou Responsável'])
+   
 @endsection
