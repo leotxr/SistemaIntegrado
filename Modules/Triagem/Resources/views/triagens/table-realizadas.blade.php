@@ -26,12 +26,6 @@
                         </svg>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 absolute inline-block">
-                        <li>
-                            <form method="POST" action="{{ route('create.term-file', ['id' => $term->id]) }}">
-                                @csrf
-                                <button type="submit">Adicionar Arquivos</button>
-                            </form>
-                        </li>
                         @if($term->signed != 1)
                         <li>
                             <form method="POST" action="{{ route('create.term-signature', ['id' => $term->id]) }}">
@@ -40,6 +34,14 @@
                             </form>
                         </li>
                         @endif
+                        
+                        <li>
+                            <form method="POST" action="{{ route('create.term-file', ['id' => $term->id]) }}">
+                                @csrf
+                                <button type="submit">Adicionar Arquivos</button>
+                            </form>
+                        </li>
+                        
                         <li> <a href="{{ route('create.contraste-ressonancia', ['id'=>$term->id]) }}">Contraste</a></li>
                     </ul>
                 </th>
