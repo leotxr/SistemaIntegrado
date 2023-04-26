@@ -171,19 +171,25 @@ class TermController extends Controller
             $image_parts = explode(";base64,", $img);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
-
             $bin = base64_decode($image_parts[1]);
+
+            //salva a imagem da assinatura
             Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png", $bin);
             $path = "storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png";
 
+            //cria imagem da assinatura
             TermFile::create([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 5
             ]);
-        }
 
-        return redirect('triagem');
+            $term->signed = 1;
+            $term->save();
+
+            return redirect('triagem/realizadas')->with('success', 'Triagem assinada com sucesso!');
+        }else
+        return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
     }
 
 }

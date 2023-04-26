@@ -32,12 +32,14 @@
                                 <button type="submit">Adicionar Arquivos</button>
                             </form>
                         </li>
+                        @if($term->signed != 1)
                         <li>
                             <form method="POST" action="{{ route('create.term-signature', ['id' => $term->id]) }}">
                                 @csrf
                                 <button type="submit">Assinar triagem</button>
                             </form>
                         </li>
+                        @endif
                         <li> <a href="{{ route('create.contraste-ressonancia', ['id'=>$term->id]) }}">Contraste</a></li>
                     </ul>
                 </th>

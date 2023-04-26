@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <x-client-logo style="text-align: center;" width="auto" height="60px" />
+       {{-- <x-client-logo style="text-align: center;" width="auto" height="60px" /> --}}
     </header>
     <h1 class="text-center font-bold" style="text-align: center;">Termo de consentimento para uso de Contraste</h1>
     <p>Nome do paciente: {{ $term->patient_name }}</p>

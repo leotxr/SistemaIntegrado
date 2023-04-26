@@ -40,13 +40,12 @@ class PdfFiles extends Component
     {
         $hoje = date('d-m-Y');
         $triagem = $this->term;
-
+        
         //puxa assinatura do paciente
         $signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
-
+        
         //cria pagina do pdf
         $pdf = PDF::loadView('triagem::PDF.pdf-ressonancia', ['term' => $this->term, 'signature' => $signature]);
-
         //salva pdf
         $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-contraste-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
@@ -66,6 +65,10 @@ class PdfFiles extends Component
 
             $this->color = 'green';
             $this->description = "Documento Gerado/Assinado";
+        }else
+        {
+            $this->color = 'red';
+            $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
 
 
@@ -102,6 +105,10 @@ class PdfFiles extends Component
 
             $this->color = 'green';
             $this->description = "Documento Gerado/Assinado";
+        }else
+        {
+            $this->color = 'red';
+            $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
 
 
