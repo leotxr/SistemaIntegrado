@@ -94,7 +94,7 @@ class TermController extends Controller
 
         ]);
 
-        
+
         #ARMAZENA PRINT DO QUESTIONARIO
         if ($request->dataurl) {
             $img = $request->dataurl;
@@ -114,10 +114,9 @@ class TermController extends Controller
         }
 
         if ($term)
-            return view('triagem::index', compact('term'))->with('success', 'Triagem salva com sucesso!');
+            return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
-        
     }
 
     /**
@@ -162,9 +161,8 @@ class TermController extends Controller
             $term->signed = 1;
             $term->save();
 
-            return redirect('triagem/realizadas')->with('success', 'Triagem assinada com sucesso!');
-        }else
-        return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
+            return redirect()->action([TermFileController::class, 'create'], ['id' => $term->id]);
+        } else
+            return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
     }
-
 }
