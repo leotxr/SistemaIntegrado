@@ -37,6 +37,10 @@
                     @livewire('triagem::file-input', ['term' => $triagem], key($triagem->id))
                 </div>
 
+                <div class="col-span-full">
+                    @livewire('triagem::show-files', ['term' => $triagem], key($triagem->id))
+                </div>
+
             </div>
         </div>
     </div>

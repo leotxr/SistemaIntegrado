@@ -33,7 +33,7 @@
 
                     <tr>
                         <th class="{{ $color }}">
-                            <form method="GET" action="{{ route('create.ressonancia') }}">
+                            <form method="POST" action="{{ route('create.ressonancia') }}">
                                 @csrf
                                 <button type="submit" value="{{ $paciente->PACIENTEID }}" name="paciente_id"
                                     class="btn btn-info mx-2">
