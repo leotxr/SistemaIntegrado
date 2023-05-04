@@ -45,7 +45,7 @@
                         <li> <a href="{{ route('create.contraste-ressonancia', ['id'=>$term->id]) }}">Contraste</a></li>
 
                         <li>
-                            <form method="POST" action="{{ route('edit.term', ['id' => $term->id]) }}">
+                            <form method="POST" action="">
                                 @csrf
                                 <button type="submit">Ver/Editar triagem</button>
                             </form>

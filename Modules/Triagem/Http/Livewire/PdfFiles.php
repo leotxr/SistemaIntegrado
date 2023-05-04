@@ -17,6 +17,7 @@ class PdfFiles extends Component
     public $term;
     public $file_type;
     public $wire_function;
+    public $start_time;
 
     public function mount($title, $description, $sign, $wire_function)
     {
@@ -32,6 +33,7 @@ class PdfFiles extends Component
             $this->wire_function = $wire_function;
         }
 
+        $this->start_time = date('Y-m-d H:i:s');
        
 
     }
@@ -39,6 +41,7 @@ class PdfFiles extends Component
     public function generate_pdf_contrast()
     {
         $hoje = date('d-m-Y');
+        $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
         
         //puxa assinatura do paciente
@@ -51,6 +54,9 @@ class PdfFiles extends Component
         //busca diretório
         $path = "storage/termos/$triagem->patient_name/RM/$hoje/termo-contraste-$triagem->patient_name.pdf";
 
+        $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
+
+       // dd(gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)));
 
         if ($save) {
             TermFile::create([
@@ -61,6 +67,7 @@ class PdfFiles extends Component
 
             $term = Term::find($this->term->id);
             $term->contrast_term = 1;
+            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)); 
             $term->save();
 
             $this->color = 'green';
@@ -78,6 +85,7 @@ class PdfFiles extends Component
     public function generate_pdf_report()
     {
         $hoje = date('d-m-Y');
+        $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
 
         //puxa assinatura do paciente
@@ -90,7 +98,8 @@ class PdfFiles extends Component
         $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
         $path = "storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf";
-
+        
+        $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
 
         if ($save) {
             TermFile::create([
@@ -101,6 +110,7 @@ class PdfFiles extends Component
 
             $term = Term::find($this->term->id);
             $term->tele_report = 1;
+            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)); 
             $term->save();
 
             $this->color = 'green';
@@ -111,6 +121,8 @@ class PdfFiles extends Component
             $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
 
+
+        
 
         //return $pdf->download('teste.pdf');
     }
