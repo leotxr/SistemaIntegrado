@@ -24,12 +24,19 @@ class Term extends Model
         'tele_report',
         'signed',
         'time_spent',
-        'observation'
+        'sector_id',
+        'observation',
+        'finished'
     ];
 
     public function relTermFiles()
     {
         return $this->hasMany(TermFile::class);
+    }
+
+    public function relSector()
+    {
+        return $this->belongsTo(Sector::class);
     }
 
     protected static function newFactory()

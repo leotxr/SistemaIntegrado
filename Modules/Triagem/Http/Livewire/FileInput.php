@@ -36,7 +36,11 @@ class FileInput extends Component
         ]);
 
         if($upload)
-        session()->flash('message', 'Arquivo importado com sucesso!');
+        {
+            session()->flash('message', 'Arquivo importado com sucesso!');
+            $this->term->refresh();
+        }
+        
 
     }
     public function render()

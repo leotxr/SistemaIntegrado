@@ -18,8 +18,12 @@ return new class extends Migration
             $table->integer('patient_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
-            ->references('id')
-            ->on('users');
+                ->references('id')
+                ->on('users');
+            $table->unsignedBigInteger('sector_id');
+            $table->foreign('sector_id')
+                ->references('id')
+                ->on('sectors');
             $table->string('patient_name')->nullable();
             $table->date('patient_age')->nullable();
             $table->string('proced')->nullable();
@@ -32,6 +36,7 @@ return new class extends Migration
             $table->string('observation')->nullable();
             $table->boolean('contrast')->nullable();
             $table->time('time_spent');
+            $table->boolean('finished')->nullable();
 
             $table->timestamps();
         });

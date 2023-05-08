@@ -16,12 +16,20 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class TermController extends Controller
 {
 
-    public function index()
+    public function indexRessonancia()
     {
         $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->paginate(15);
-        return view('triagem::triagens.index', compact('terms'));
+        $terms = Term::whereDate('exam_date', $hoje)->get();
+        return view('triagem::ressonancia.index', ['terms' => $terms]);
     }
+
+    public function indexTomografia()
+    {
+        $hoje = date('Y-m-d');
+        $terms = Term::whereDate('exam_date', $hoje)->get();
+        return view('triagem::tomografia.index', ['terms' => $terms]);
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -87,9 +95,8 @@ class TermController extends Controller
             'patient_age' => $request->nascimento ?? NULL,
             'proced' => $request->procedimento ?? NULL,
             'start_hour' => $request->start,
-            'final_hour' => $end,
-            'time_spent' => $tempo,
             'exam_date' => date('Y-m-d'),
+            'sector_id' => '1',
             'observation' => $request->observacoes ?? NULL
 
         ]);
@@ -161,7 +168,7 @@ class TermController extends Controller
             $term->signed = 1;
             $term->save();
 
-            return redirect()->action([TermFileController::class, 'create'], ['id' => $term->id]);
+            return view('triagem::index')->with('success', 'Assinatura salva com sucesso.');
         } else
             return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
     }

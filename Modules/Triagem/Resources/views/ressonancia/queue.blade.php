@@ -4,7 +4,7 @@
         <h1 class="text-xl sm:text-3xl font-bold text-gray-800 dark:text-gray-500 m-5">Fila de Exames Ressonância (X-Clinic)
         </h1>
         <div class="sm:grid justify-items-center m-2">
-            @include('triagem::ressonancia.table-fila-rm')
+            @livewire('triagem::tables.table-queue', ['title' => "Fila de Exames Ressonância (X-Clinic)", 'pacientes' => $pacientes, 'triagens' => $triagens])
         </div>
     </div>
 @endsection

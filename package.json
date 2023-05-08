@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@alpinejs/focus": "^3.12.0",
         "daisyui": "^2.51.5",
         "datatables.net": "^1.13.2",
         "datatables.net-dt": "^1.13.2",

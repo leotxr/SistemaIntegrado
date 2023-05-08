@@ -62,6 +62,8 @@ class GetFilasController extends Controller
     public function getTomografia()
     {
         $hoje = date('m/d/Y');
+        $hoje_mysql = date('Y-m-d');
+
         $pacientes = DB::connection('sqlserver')
             ->table('WORK_LIST')
             ->join('FATURA', function ($join) {
@@ -93,6 +95,8 @@ class GetFilasController extends Controller
             WORK_LIST.STATUSID"))
             ->get();
 
-        return view('triagem::tc.index', ['pacientes' => $pacientes, 'hoje' => $hoje]);
+            $triagens = Term::whereDate('exam_date', $hoje_mysql)->get('patient_id');
+
+        return view('triagem::tomografia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens]);
     }
 }
