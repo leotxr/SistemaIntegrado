@@ -7,6 +7,7 @@ use Modules\Triagem\Entities\Term;
 use Modules\Triagem\Entities\TermFile;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
+use Modules\Triagem\Entities\FileType;
 
 class PdfFiles extends Component
 {
@@ -18,6 +19,9 @@ class PdfFiles extends Component
     public $file_type;
     public $wire_function;
     public $start_time;
+    public $modalFile = false;
+    public $signature;
+    public $file;
 
     public function mount($title, $description, $sign, $wire_function)
     {
@@ -34,21 +38,20 @@ class PdfFiles extends Component
         }
 
         $this->start_time = date('Y-m-d H:i:s');
-       
-
     }
 
     public function generate_pdf_contrast()
     {
+        $this->modalFile = false;
+
         $hoje = date('d-m-Y');
         $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
-        
-        //puxa assinatura do paciente
-        $signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
-        
+
+        $this->signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
+
         //cria pagina do pdf
-        $pdf = PDF::loadView('triagem::PDF.pdf-ressonancia', ['term' => $this->term, 'signature' => $signature]);
+        $pdf = PDF::loadView('triagem::PDF.pdf-ressonancia', ['term' => $this->term, 'signature' => $this->signature]);
         //salva pdf
         $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-contraste-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
@@ -56,10 +59,10 @@ class PdfFiles extends Component
 
         $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
 
-       // dd(gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)));
+        // dd(gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)));
 
         if ($save) {
-            TermFile::create([
+            TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $this->term->id,
                 'file_type_id' => $this->file_type,
@@ -67,13 +70,12 @@ class PdfFiles extends Component
 
             $term = Term::find($this->term->id);
             $term->contrast_term = 1;
-            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)); 
+            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time));
             $term->save();
 
             $this->color = 'green';
             $this->description = "Documento Gerado/Assinado";
-        }else
-        {
+        } else {
             $this->color = 'red';
             $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
@@ -84,6 +86,8 @@ class PdfFiles extends Component
 
     public function generate_pdf_report()
     {
+        $this->modalFile = false;
+
         $hoje = date('d-m-Y');
         $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
@@ -98,11 +102,11 @@ class PdfFiles extends Component
         $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
         $path = "storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf";
-        
+
         $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
 
         if ($save) {
-            TermFile::create([
+            TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $this->term->id,
                 'file_type_id' => $this->file_type,
@@ -110,19 +114,18 @@ class PdfFiles extends Component
 
             $term = Term::find($this->term->id);
             $term->tele_report = 1;
-            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time)); 
+            $term->time_spent = gmdate('i:s', strtotime($this->term->time_spent) + strtotime($time));
             $term->save();
 
             $this->color = 'green';
             $this->description = "Documento Gerado/Assinado";
-        }else
-        {
+        } else {
             $this->color = 'red';
             $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
 
 
-        
+
 
         //return $pdf->download('teste.pdf');
     }

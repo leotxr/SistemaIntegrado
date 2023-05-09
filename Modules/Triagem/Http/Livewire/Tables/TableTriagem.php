@@ -36,11 +36,14 @@ class TableTriagem extends Component
 
     public function save(Term $term)
     {
+
         $this->saving = $term;
 
         $this->saving->observation = $this->editing->observation;
         $this->saving->finished = $this->editing->finished;
+        if($this->editing->finished)
         $this->saving->final_hour = date('H:i:s');
+
         $this->saving->save();
 
         $this->modalTriagem = false;

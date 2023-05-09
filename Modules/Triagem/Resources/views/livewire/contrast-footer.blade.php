@@ -1,6 +1,6 @@
-<div class="rounded-lg border border-dashed dark:bg-gray-900 m-2">
-    <h2 class="text-xl font-extrabold dark:text-white p-2">{{ $title }}</h2>
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8 content-center">
+<div class="m-2 border border-dashed rounded-lg dark:bg-gray-900">
+    <h2 class="p-2 text-xl font-extrabold dark:text-white">{{ $title }}</h2>
+    <div class="content-center w-full max-w-screen-xl p-4 mx-auto md:py-8">
         <div class="grid grid-cols-2 gap-4 text-center">
             <div>
                 <div class="justify-center">
@@ -23,19 +23,19 @@
             </div>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {{-- SELECT MEDICO --}}
             <div>
-                <label class="label font-bold" for="medico">
+                <label class="font-bold label" for="medico">
                     Médico
                 </label>
-                <select wire:model="medico" class="select select-bordered w-full max-w-xs">
-                    <option selected disabled>Selecione o médico</option>
+                <select wire:model="medico" class="w-full max-w-xs select select-bordered">
+                    <option selected>Selecione o médico</option>
                     @foreach ($user_medico as $medico)
                         <option value="{{ $medico->id }}">{{ $medico->name }}</option>
                     @endforeach
                 </select>
-                <button type="button" class="btn bg-blue-600 hover:bg-blue-700 rounded-full" wire:click='showSignature'>
+                <button type="button" class="bg-blue-600 rounded-full btn hover:bg-blue-700" wire:click='showSignature'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="white" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"

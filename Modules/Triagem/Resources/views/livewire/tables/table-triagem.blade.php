@@ -1,14 +1,14 @@
 <div>
     <div>
         @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
         @endif
     </div>
-    
+
     @isset($terms)
-    <div class="h-full overflow-x-auto">
+    <div class="min-h-full overflow-x-auto">
         <table class="table table-compact">
             <!-- head -->
             <thead>
@@ -80,56 +80,49 @@
         </x-slot>
         <x-slot name="content">
             <div class="flex p-2 mt-4 border border-dashed">
-                
-              
-                    <x-input-label for="start_hour" :value="__('Início')" class='ml-4 mr-2' />
-                    <x-text-input id="start_hour" name="start_hour" type="time" class="block w-1/3 mt-1"
-                        wire:model='editing.start_hour' required readonly autocomplete="start_hour" />
-                    <x-input-error class="mt-2" :messages="$errors->get('start_hour')" />
-                
 
-                
-                    <x-input-label for="final_hour" :value="__('Fim')" class='ml-4 mr-2'/>
-                    <x-text-input id="final_hour" name="final_hour" type="time" class="block w-1/3 mt-1"
-                        wire:model='editing.final_hour' required readonly autocomplete="final_hour" />
-                    <x-input-error class="mt-2" :messages="$errors->get('final_hour')" />
-                
+
+                <x-input-label for="start_hour" :value="__('Início')" class='ml-4 mr-2' />
+                <x-text-input id="start_hour" name="start_hour" type="time" class="block w-1/3 mt-1"
+                    wire:model='editing.start_hour' required readonly autocomplete="start_hour" />
+                <x-input-error class="mt-2" :messages="$errors->get('start_hour')" />
+
+
+
+                <x-input-label for="final_hour" :value="__('Fim')" class='ml-4 mr-2' />
+                <x-text-input id="final_hour" name="final_hour" type="time" class="block w-1/3 mt-1"
+                    wire:model='editing.final_hour' required readonly autocomplete="final_hour" />
+                <x-input-error class="mt-2" :messages="$errors->get('final_hour')" />
+
             </div>
 
-            <div class="flex mt-4">
-                @livewire('triagem::pdf-files', ['title' => 'Contraste', 'description' => 'Gerar termo de
-                Contraste assinado', 'sign' => $this->editing->contrast_term, 'term' => $this->editing, 'file_type' => 3,
-                'wire_function' => 'generate_pdf_contrast'])
-
-                @livewire('triagem::pdf-files', ['title' => 'Tele Laudo', 'description' => 'Gerar termo de Tele
-                Laudo assinado', 'sign' => $this->editing->tele_report, 'term' => $this->editing, 'file_type' => 2,
-                'wire_function' => 'generate_pdf_report'])
+            <div class="my-4">
+                <x-input-label for="observation" :value="__('Observações')" />
+                <x-text-area id="observation" name="observation" type="text" wire:model='editing.observation' required
+                    autofocus autocomplete="observation" />
+                <x-input-error class="mt-2" :messages="$errors->get('observation')" />
             </div>
 
             @livewire('triagem::show-files', ['term' => $this->editing], key($this->editing->id))
 
-            <form wire:submit.prevent='save({{$this->editing->id}})'>
-
-                <div class="mt-4">
-                    <x-input-label for="observation" :value="__('Observações')" />
-                    <x-text-area id="observation" name="observation" type="text" wire:model='editing.observation'
-                        required autofocus autocomplete="observation" />
-                    <x-input-error class="mt-2" :messages="$errors->get('observation')" />
-                </div>
 
         </x-slot>
         <x-slot name="footer">
             <div class="flex items-center">
-                <input id="default-checkbox" type="checkbox" value="1" wire:model.defer='editing.finished' wire:click="$set('editing.final_hour', date(H:i:s))"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-checkbox" class="mx-2 text-sm font-bold text-gray-900 dark:text-gray-300">Marcar
-                    como finalizada</label>
+                <form wire:submit.prevent='save({{$this->editing->id}})'>
+
+                    <input id="default-checkbox" type="checkbox" value="1" wire:model.defer='editing.finished'
+                        
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-checkbox" class="mx-2 text-sm font-bold text-gray-900 dark:text-gray-300">Marcar
+                        como finalizada</label>
+
+                    <x-secondary-button x-on:click="$dispatch('close')" class="mx-2">Cancelar</x-secondary-button>
+                    <x-primary-button wire:model='btn_submit' type="submit">Salvar</x-primary-button>
             </div>
-            <x-secondary-button x-on:click="$dispatch('close')" class="mx-2">Cancelar</x-secondary-button>
-            <x-primary-button type="submit">Salvar</x-primary-button>
         </x-slot>
         </form>
     </x-modal.dialog>
-    
+
     @endisset
 </div>

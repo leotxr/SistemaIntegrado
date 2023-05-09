@@ -33,7 +33,7 @@ class StoreContrastController extends Controller
             Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg", $bin);
             $path = "storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg";
 
-            $termfile = TermFile::create([
+            $termfile = TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 4
@@ -41,7 +41,7 @@ class StoreContrastController extends Controller
         }
 
         if($termfile)
-        return redirect('triagem/realizadas')->with('success', 'Formulário de contraste salvo com sucesso!');
+        return redirect('triagem/realizadas/ressonancia')->with('success', 'Formulário de contraste salvo com sucesso!');
         else
         return redirect()->back()->withErrors(['Ocorreu um erro ao salvar o formulário!']);
     }

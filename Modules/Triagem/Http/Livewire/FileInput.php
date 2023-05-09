@@ -28,7 +28,7 @@ class FileInput extends Component
         //dd($this->type);
         $path = $this->photo->storePublicly("storage/termos/$triagem->patient_name/RM/$hoje/arquivo-$triagem->patient_name", ['disk' => 'my_files']);
         
-        $upload = TermFile::create([
+        $upload = TermFile::updateOrInsert([
             'url' => $path,
             'term_id' => $this->term->id,
             'file_type_id' => $this->type,
