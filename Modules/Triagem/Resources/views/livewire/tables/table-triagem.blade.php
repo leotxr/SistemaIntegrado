@@ -8,7 +8,7 @@
     </div>
 
     @isset($terms)
-    <div class="min-h-full overflow-x-auto">
+    <div class="h-full overflow-x-auto">
         <table class="table table-compact">
             <!-- head -->
             <thead>
