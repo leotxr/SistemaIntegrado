@@ -1,10 +1,19 @@
 @extends('triagem::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <div class="hero">
+        <div class="hero-content text-center">
+            <div class="max-w-md">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 place-items-center">
 
-    <p>
-        This view is loaded from module: {!! config('triagem.name') !!}
-    </p>
+                    @livewire('triagem::cards.card-exames', ['path' => "storage/icons/RM.png", 'label' => 'Ressonância', 'link' => 'filas.ressonancia'])
+                    @livewire('triagem::cards.card-exames', ['path' => "storage/icons/TC.png", 'label' => 'Tomografia', 'link' => 'filas.tomografia'])
 
+                    
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection

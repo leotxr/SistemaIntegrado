@@ -1,9 +1,9 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-import 'flowbite';
+import focus from '@alpinejs/focus'
 
-import html2canvas from 'html2canvas';
+import 'flowbite';
 
 //import domtoimage from 'dom-to-image';
 
@@ -11,7 +11,8 @@ import html2canvas from 'html2canvas';
 window.Alpine = Alpine;
 
 Alpine.start();
+Alpine.plugin(focus);
 
-if(navigator.userAgent.match(/Android/i)){
-    window.scrollTo(0,1);
- }
+if (navigator.userAgent.match(/Android/i)) {
+  window.scrollTo(0, 1);
+}

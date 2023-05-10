@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-   @include('triagem::layouts.partials.head')
-
-    {{-- Laravel Vite - CSS File --}}
-    {{--{{ module_vite('build-triagem', 'Resources/assets/sass/app.scss') }}--}}
-
-</head>
-
-<body>
-    @include('triagem::layouts.partials.navigation')
-    @include('triagem::layouts.partials.alerts')
-    <main class="main">
-        @yield('content')
-    </main>
+    @include('triagem::layouts.partials.head')
 
     @include('triagem::layouts.partials.script')
-    {{-- Laravel Vite - JS File --}}
-    {{--{{ module_vite('build-triagem', 'Resources/assets/js/app.js') }}--}}
+</head>
+
+<body class="font-sans antialiased">
+    @include('triagem::layouts.partials.alerts')
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        @include('triagem::layouts.partials.navigation')
+        <header class="bg-white dark:bg-gray-800 shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+
+            </div>
+        </header>
+        <main>
+            @yield('content')
+        </main>
+    </div>
 
 </body>
 
 </html>
+
+<script>
+    $(window).on("load", function() {
+        $(".loader-wrapper").fadeOut("slow");
+    });
+    setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 5000);
+</script>

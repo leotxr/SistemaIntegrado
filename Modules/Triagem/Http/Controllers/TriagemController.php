@@ -5,6 +5,8 @@ namespace Modules\Triagem\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Triagem\Entities\Term;
+use App\Models\User;
 
 class TriagemController extends Controller
 {
@@ -15,6 +17,13 @@ class TriagemController extends Controller
     public function index()
     {
         return view('triagem::index');
+    }
+
+    public function showSignature($id)
+    {
+        $user = User::select('signature')->where('id', $id)->get()->toArray();
+        dd($user);
+        return response($user);
     }
 
     /**

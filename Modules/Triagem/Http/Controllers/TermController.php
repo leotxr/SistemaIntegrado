@@ -6,28 +6,35 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
+use Modules\Triagem\Entities\TermFile;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TermController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+
+    public function indexRessonancia()
     {
-        $terms = Term::all();
-        return view('triagem::terms.index', compact('terms'));
+        $hoje = date('Y-m-d');
+        $terms = Term::whereDate('exam_date', $hoje)->get();
+        return view('triagem::ressonancia.index', ['terms' => $terms]);
+    }
+
+    public function indexTomografia()
+    {
+        $hoje = date('Y-m-d');
+        $terms = Term::whereDate('exam_date', $hoje)->get();
+        return view('triagem::tomografia.index', ['terms' => $terms]);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create(Request $request)
+    public function createRessonancia(Request $request)
     {
         $hoje = date('Y-m-d');
         $users = User::all();
@@ -37,28 +44,28 @@ class TermController extends Controller
 
         $paciente = DB::connection('sqlserver')
             ->table('FATURA')
-            ->where('PACIENTE.PACIENTEID', '=', $paciente_id);
-
-        if ($tipoexame == 0) {
-            $paciente->where('FATURA.SETORID', 9);
-        } else {
-            $paciente->where('FATURA.SETORID', 4);
-        }
-
-        $paciente = $paciente->where('DATA', $hoje)
+            ->where('PACIENTE.PACIENTEID', '=', $paciente_id)
+            ->where('FATURA.SETORID', 9)
+            ->where('DATA', $hoje)
             ->join('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
             ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
-            ->select('PACIENTE.PACIENTEID', 'FATURA.DATA', 'PACIENTE.NOME', 'PACIENTE.DATANASC')
+            ->select('PACIENTE.PACIENTEID', 'FATURA.DATA', 'PACIENTE.NOME', 'PACIENTE.DATANASC', 'PROCEDIMENTOS.DESCRICAO')
             ->first();
 
 
-        if ($paciente && $tipoexame == 0)
-            return view('triagem::terms.create-rm', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-        elseif ($paciente && $tipoexame == 1)
-            return view('triagem::terms.create-tc', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+        if ($paciente)
+            return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
         else
             return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
-        return view('triagem::terms.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function createTomografia()
+    {
+        return view('triagem::create');
     }
 
     /**
@@ -66,7 +73,7 @@ class TermController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function storeRessonancia(Request $request)
     {
         $hoje = date('d-m-Y');
         $nascimento = $request->nascimento;
@@ -81,126 +88,88 @@ class TermController extends Controller
 
 
 
-        $term = Term::create([
+        $term = Term::updateOrCreate([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
             'user_id' => $user_id ?? NULL,
-            'patient_age' => $request->patient_age ?? NULL,
+            'patient_age' => $request->nascimento ?? NULL,
             'proced' => $request->procedimento ?? NULL,
             'start_hour' => $request->start,
-            'final_hour' => $end,
-            'time_spent' => $tempo,
-            'exam_date' => $request->exam_date,
-            'observation' => 1
+            'exam_date' => date('Y-m-d'),
+            'sector_id' => '1',
+            'observation' => $request->observacoes ?? NULL
 
         ]);
 
-        #ARMAZENA PRINT DO TERMO DE CONSTRASTE
+
+        #ARMAZENA PRINT DO QUESTIONARIO
         if ($request->dataurl) {
             $img = $request->dataurl;
             $image_parts = explode(";base64,", $img);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/termo-$term->patient_name.jpeg", $image_base64);
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 6
+            ]);
         }
 
-        #ARMAZENA PRINT DO TERMO TELELAUDO
-        if ($request->dataurltele) {
-            $img = $request->dataurltele;
+        if ($term)
+            return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
+        else
+            return redirect()->back()->with('error', 'Ocorreu um erro!');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+    public function storeTomografia(Request $request)
+    {
+        //
+    }
+
+    public function createSignature($id)
+    {
+        $term = Term::find($id);
+        return view('triagem::triagens.assinar', compact('term'));
+    }
+
+    public function storeSignature($id, Request $request)
+    {
+        $hoje = date('d-m-Y');
+        $term = Term::find($id);
+
+        if ($request->sign) {
+            $img = $request->sign;
             $image_parts = explode(";base64,", $img);
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/telelaudo-$term->patient_name.jpeg", $image_base64);
-        }
+            $bin = base64_decode($image_parts[1]);
 
+            //salva a imagem da assinatura
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png";
 
-        if ($term)
-            return redirect('triagem')->with('success', 'Triagem salva com sucesso!');
-        else
-            return redirect('triagem')->with('error', 'Ocorreu um erro!');
-
-
-        //dd($img);
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('triagem::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        $termo = Term::find($id);
-        $medico = User::permission('medico')->get();
-        return view('triagem::terms.edit-rm', compact('termo', 'medico'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $term)
-    {
-        $hoje = date('d-m-Y');
-        $term = Term::find($term);
-        $update = DB::table('terms')
-            ->where('id', $term->id)
-            ->update([
-                'contrast' => 1,
+            //cria imagem da assinatura
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 5
             ]);
 
-        #ARMAZENA PRINT DO TERMO DE CONSTRASTE
-        $img = $request->dataurlcontraste;
-        $image_parts = explode(";base64,", $img);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/contraste-$term->patient_name.jpeg", $image_base64);
+            $term->signed = 1;
+            $term->save();
 
-        if ($update)
-            return redirect('triagem')->with('success', 'Contraste aplicado com sucesso!');
-        else
-            return redirect()->back()->withErrors(['Ocorreu um erro ao salvar']);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($term)
-    {
-        $delete = Term::find($term)->delete();
-
-
-        if ($delete)
-            return redirect()->back()->with('success', 'Triagem excluida com sucesso!');
-        else
-            return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao excluir a triagem.']);
-    }
-
-    public function showSignature(Request $request)
-    {
-        $dataForm = $request->all();
-        $user_id = $dataForm['medico'];
-
-        $user = User::where('id', $user_id)
-            ->get();
-
-        return view('triagem::layouts.partials.contraste.rodape-contraste-rm', ['user' => $user]);
+            return view('triagem::index')->with('success', 'Assinatura salva com sucesso.');
+        } else
+            return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
     }
 }
