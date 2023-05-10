@@ -16,6 +16,7 @@ use Modules\HelpDesk\Http\Controllers\CategoryController;
 use Modules\HelpDesk\Http\Controllers\SubCategoryController;
 use Modules\HelpDesk\Http\Controllers\StatusController;
 use Modules\HelpDesk\Http\Controllers\ListTicketController;
+use Modules\HelpDesk\Events\TicketCreated;
 
 Route::middleware('auth')->group(function () {
 Route::prefix('helpdesk')->group(function () {
@@ -44,4 +45,16 @@ Route::middleware('auth')->group(function(){
 //CONTROLE DE LISTAGEM DE CHAMADOS
 Route::middleware('auth')->group(function(){
     Route::get('helpdesk/chamados/todos', [ListTicketController::class, 'all']);
+});
+
+
+
+Route::get('helpdesk/welcome', function () {
+    return view('helpdesk::welcome');
+});
+
+Route::get('helpdesk/test', function () {
+
+    event(new TicketCreated('Sucesso'));
+    return "Event has been sent!";
 });

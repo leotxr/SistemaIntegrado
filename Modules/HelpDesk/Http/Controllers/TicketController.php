@@ -6,14 +6,13 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
-use Illuminate\Auth\Access\Gate;
 use Modules\HelpDesk\Entities\Category;
 use Modules\HelpDesk\Entities\Ticket;
 use App\Models\User;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Permission;
+use Modules\HelpDesk\Events\TicketCreated;
+
 
 
 class TicketController extends Controller

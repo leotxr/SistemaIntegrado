@@ -18,7 +18,6 @@ Route::prefix('autorizacao')->group(function () {
         return view('autorizacao::dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 });
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('autorizacao/relatorioexames', 'AutorizacaoController@relExams');

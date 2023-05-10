@@ -8,8 +8,7 @@
             @empty($chamado->atendente_id)
 
             @php $novo_status = 4; @endphp
-            <form method="GET" action="{{ route('ticket.status_update', ['id'=>$chamado->id,
-            'novo_status'=>$novo_status]) }}">
+            <form method="GET" action="{{url("helpdesk/chamados/$chamado->id/atender")}}">
                 @csrf
                 <div class="grid grid-cols-2 sm:grid-cols-2 gap-2 content-center">
                     <div class="max-w-sm p-2">

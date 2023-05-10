@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('exam_date')->nullable();
             $table->unsignedBigInteger('protocol_id');
             $table->foreign('protocol_id')->references('id')->on('protocols');
+            $table->unsignedBigInteger('exam_status_id');
+            $table->foreign('exam_status_id')->references('id')->on('exam_status');
             $table->string('exam_status')->nullable();
             $table->string('convenio');
             $table->string('exam_obs')->nullable();
