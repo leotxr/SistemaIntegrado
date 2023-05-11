@@ -17,15 +17,25 @@ class Protocol extends Model
         'autorizado',
         'created_by',
         'updated_by',
-        'user_id'
     ];
     public function relPhotos()
     {
         return $this->hasMany(Photo::class);
     }
+
     public function relExams()
     {
         return $this->hasMany(Exam::class);
+    }
+
+    public function relUser()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function lastUser()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
     
     protected static function newFactory()

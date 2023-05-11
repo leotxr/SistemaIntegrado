@@ -31,7 +31,7 @@ class AutorizacaoController extends Controller
         $futuro = Exam::where('exam_status', 'FUTURO')->count();
         $protocols = Protocol::all();
         $count = $protocols->count();
-        return view('autorizacao::dashboard', compact('urgentes', 'pendentes', 'autneg', 'analise', 'futuro'));
+        return view('autorizacao::livewire.pages.dashboard', compact('urgentes', 'pendentes', 'autneg', 'analise', 'futuro'));
     }
 
     /**

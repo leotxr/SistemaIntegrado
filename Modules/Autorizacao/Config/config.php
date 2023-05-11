@@ -1,5 +1,9 @@
 <?php
 
 return [
-    'name' => 'Autorizacao'
+    'name' => 'Autorizacao',
+    
+    'extends' => [
+        'frontend' => 'autorizacao::layouts.app'
+    ]
 ];

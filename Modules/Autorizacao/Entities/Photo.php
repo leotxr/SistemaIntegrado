@@ -15,9 +15,10 @@ class Photo extends Model
         'url', 
         'protocol_id'
     ];
+    
     public function relProtocol()
     {
-        return $this->belongsTo(Protocol::class);
+        return $this->belongsTo(Protocol::class, 'protocol_id');
     }
 
     protected static function newFactory()

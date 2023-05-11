@@ -15,17 +15,13 @@ use Modules\Autorizacao\Http\Controllers\AutorizacaoController;
 
 Route::prefix('autorizacao')->group(function () {
     Route::get('/', function () {
-        return view('autorizacao::dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+        return view('autorizacao::livewire.pages.dashboard');
+    })->middleware(['auth', 'verified'])->name('autorizacao-dashboard');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('autorizacao/relatorioexames', 'AutorizacaoController@relExams');
     Route::any('showtableexams', 'AutorizacaoController@showRelExams')->name('showtableexams');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::resource('autorizacao', AutorizacaoController::class);
 });
 
 //Route::resource('protocols', ProtocolController::class);

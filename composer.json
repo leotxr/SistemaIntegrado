@@ -12,7 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.11",
-        "mhmiton/laravel-modules-livewire": "^1.5",
+        "mhmiton/laravel-modules-livewire": "^1.6",
         "nwidart/laravel-modules": "^9.0",
         "pestphp/pest": "^1.16",
         "pestphp/pest-plugin-laravel": "^1.1",
