@@ -34,10 +34,10 @@
 
                 <tr>
                     <th class="{{ $color }}">
-                        <form method="POST" action="{{ route('create.ressonancia') }}">
+                        <form method="GET" action="{{ route('create.triagem', ['setor_id' => $setor->xclinic_id, 'paciente_id' => $paciente->PACIENTEID]) }}">
                             @csrf
                             <button type="submit" value="{{ $paciente->PACIENTEID }}" name="paciente_id"
-                                class="btn btn-info mx-2">
+                                class="mx-2 btn btn-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"

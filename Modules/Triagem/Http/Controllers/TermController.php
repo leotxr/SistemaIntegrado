@@ -19,14 +19,14 @@ class TermController extends Controller
     public function indexRessonancia()
     {
         $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->get();
+        $terms = Term::whereDate('exam_date', $hoje)->where('sector_id', 1)->get();
         return view('triagem::ressonancia.index', ['terms' => $terms]);
     }
 
     public function indexTomografia()
     {
         $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->get();
+        $terms = Term::whereDate('exam_date', $hoje)->where('sector_id', 2)->get();
         return view('triagem::tomografia.index', ['terms' => $terms]);
     }
 
@@ -34,18 +34,17 @@ class TermController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function createRessonancia(Request $request)
+    public function createTriagem(Request $request, $setor_id, $paciente_id)
     {
         $hoje = date('Y-m-d');
         $users = User::all();
         $tipoexame = $request->procedimento;
-        $paciente_id = $request->paciente_id;
         $start = date('H:i:s');
 
         $paciente = DB::connection('sqlserver')
             ->table('FATURA')
             ->where('PACIENTE.PACIENTEID', '=', $paciente_id)
-            ->where('FATURA.SETORID', 9)
+            ->where('FATURA.SETORID', $setor_id)
             ->where('DATA', $hoje)
             ->join('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
             ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
@@ -53,8 +52,10 @@ class TermController extends Controller
             ->first();
 
 
-        if ($paciente)
+        if ($setor_id == 9)
             return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+        elseif($setor_id == 4)
+            return view('triagem::tomografia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
         else
             return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
     }
@@ -63,10 +64,7 @@ class TermController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function createTomografia()
-    {
-        return view('triagem::create');
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -133,7 +131,55 @@ class TermController extends Controller
      */
     public function storeTomografia(Request $request)
     {
-        //
+        $hoje = date('d-m-Y');
+        $nascimento = $request->nascimento;
+
+        $start = strtotime($request->start);
+        $end = date('H:i:s');
+        $end_convert = strtotime($end);
+
+        $tempo = gmdate('H:i:s', $end_convert - $start);
+
+        $user_id = Auth::user()->id;
+
+
+
+        $term = Term::updateOrCreate([
+            'patient_name' => $request->nome ?? NULL,
+            'patient_id' => $request->pacienteid ?? NULL,
+            'user_id' => $user_id ?? NULL,
+            'patient_age' => $request->nascimento ?? NULL,
+            'proced' => $request->procedimento ?? NULL,
+            'start_hour' => $request->start,
+            'exam_date' => date('Y-m-d'),
+            'sector_id' => '2',
+            'observation' => $request->observacoes ?? NULL
+
+        ]);
+
+
+        #ARMAZENA PRINT DO QUESTIONARIO
+        if ($request->dataurl) {
+            $img = $request->dataurl;
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+
+            $bin = base64_decode($image_parts[1]);
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/TC/$hoje/questionario-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/TC/$hoje/questionario-$term->patient_name.png";
+
+            TermFile::create([
+                'url' => $path,
+                'term_id' => $term->id,
+                'file_type_id' => 6
+            ]);
+        }
+
+        if ($term)
+            return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
+        else
+            return redirect()->back()->with('error', 'Ocorreu um erro!');
     }
 
     public function createSignature($id)

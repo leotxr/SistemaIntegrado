@@ -6,7 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
+use Modules\Triagem\Entities\Sector;
 use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 
 class GetFilasController extends Controller
@@ -52,7 +54,7 @@ class GetFilasController extends Controller
 
         $triagens = Term::whereDate('exam_date', $hoje_mysql)->get('patient_id');
 
-        return view('triagem::ressonancia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens]);
+        return view('triagem::ressonancia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(1)]);
     }
 
     /**
@@ -97,6 +99,6 @@ class GetFilasController extends Controller
 
             $triagens = Term::whereDate('exam_date', $hoje_mysql)->get('patient_id');
 
-        return view('triagem::tomografia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens]);
+        return view('triagem::tomografia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(2)]);
     }
 }

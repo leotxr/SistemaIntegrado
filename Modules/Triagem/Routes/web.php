@@ -30,11 +30,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'TriagemController@index')->name('index');
 
         Route::get('realizadas/ressonancia', [TermController::class, 'indexRessonancia'])->name('triagens.realizadas-ressonancia');
+        Route::get('realizadas/tomografia', [TermController::class, 'indexTomografia'])->name('triagens.realizadas-tomografia');
 
         Route::get('filas/ressonancia', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
         Route::get('filas/tomografia', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
 
-        Route::post('ressonancia/create', [TermController::class, 'createRessonancia'])->name('create.ressonancia');
+        Route::get('create/{setor_id}/pac/{paciente_id}', [TermController::class, 'createTriagem'])->name('create.triagem');
         Route::get('tomografia/create', [TermController::class, 'createTomografia'])->name('create.tomografia');
 
         Route::post('ressonancia', [TermController::class, 'storeRessonancia'])->name('store.ressonancia');
