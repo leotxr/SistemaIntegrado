@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
 use Modules\Triagem\Entities\TermFile;
+use Modules\Triagem\Entities\Sector;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -84,7 +85,7 @@ class TermController extends Controller
 
         $user_id = Auth::user()->id;
 
-
+        $setor = Sector::find(1);
 
         $term = Term::updateOrCreate([
             'patient_name' => $request->nome ?? NULL,
@@ -94,7 +95,7 @@ class TermController extends Controller
             'proced' => $request->procedimento ?? NULL,
             'start_hour' => $request->start,
             'exam_date' => date('Y-m-d'),
-            'sector_id' => '1',
+            'sector_id' => $setor->id,
             'observation' => $request->observacoes ?? NULL
 
         ]);
@@ -108,8 +109,8 @@ class TermController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/RM/$hoje/questionario-$term->patient_name.png";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png";
 
             TermFile::create([
                 'url' => $path,
@@ -142,6 +143,7 @@ class TermController extends Controller
 
         $user_id = Auth::user()->id;
 
+        $setor = Sector::find(2);
 
 
         $term = Term::updateOrCreate([
@@ -152,7 +154,7 @@ class TermController extends Controller
             'proced' => $request->procedimento ?? NULL,
             'start_hour' => $request->start,
             'exam_date' => date('Y-m-d'),
-            'sector_id' => '2',
+            'sector_id' => $setor->id,
             'observation' => $request->observacoes ?? NULL
 
         ]);
@@ -166,8 +168,8 @@ class TermController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/TC/$hoje/questionario-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/TC/$hoje/questionario-$term->patient_name.png";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png";
 
             TermFile::create([
                 'url' => $path,
@@ -192,6 +194,7 @@ class TermController extends Controller
     {
         $hoje = date('d-m-Y');
         $term = Term::find($id);
+        $setor = Sector::find($term->sector_id);
 
         if ($request->sign) {
             $img = $request->sign;
@@ -201,8 +204,8 @@ class TermController extends Controller
             $bin = base64_decode($image_parts[1]);
 
             //salva a imagem da assinatura
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/RM/$hoje/assinatura-$term->patient_name.png";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/assinatura-$term->patient_name.png", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/assinatura-$term->patient_name.png";
 
             //cria imagem da assinatura
             TermFile::create([

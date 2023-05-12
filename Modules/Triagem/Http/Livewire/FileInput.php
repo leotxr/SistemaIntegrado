@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Triagem\Entities\TermFile;
 use Modules\Triagem\Entities\FileType;
+use Modules\Triagem\Entities\Sector;
 
 class FileInput extends Component
 {
@@ -26,7 +27,9 @@ class FileInput extends Component
         $hoje = date('d-m-Y');
         $triagem = $this->term;
         //dd($this->type);
-        $path = $this->photo->storePublicly("storage/termos/$triagem->patient_name/RM/$hoje/arquivo-$triagem->patient_name", ['disk' => 'my_files']);
+        $setor = Sector::find($this->term->sector_id);
+
+        $path = $this->photo->storePublicly("storage/termos/$triagem->patient_name/$setor->name/$hoje/arquivo-$triagem->patient_name", ['disk' => 'my_files']);
         
         $upload = TermFile::updateOrInsert([
             'url' => $path,

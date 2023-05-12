@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
 use Modules\Triagem\Entities\TermFile;
+use Modules\Triagem\Entities\Sector;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -51,7 +52,7 @@ class TermFileController extends Controller
         $term = Term::find($id);
         $signature = TermFile::where('term_id', $term->id)->where('file_type_id', 5)->first();
 
-
+        $setor = Sector::find($term->sector_id);
 
         //dd($term->patient_name);
 

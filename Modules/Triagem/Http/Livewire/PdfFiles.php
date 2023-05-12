@@ -8,6 +8,7 @@ use Modules\Triagem\Entities\TermFile;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Modules\Triagem\Entities\FileType;
+use Modules\Triagem\Entities\Sector;
 
 class PdfFiles extends Component
 {
@@ -48,14 +49,16 @@ class PdfFiles extends Component
         $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
 
+        $setor = Sector::find($this->term->sector_id);
+
         $this->signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
 
         //cria pagina do pdf
         $pdf = PDF::loadView('triagem::PDF.pdf-ressonancia', ['term' => $this->term, 'signature' => $this->signature]);
         //salva pdf
-        $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-contraste-$triagem->patient_name.pdf", $pdf->output());
+        $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/$setor->name/$hoje/termo-contraste-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
-        $path = "storage/termos/$triagem->patient_name/RM/$hoje/termo-contraste-$triagem->patient_name.pdf";
+        $path = "storage/termos/$triagem->patient_name/$setor->name/$hoje/termo-contraste-$triagem->patient_name.pdf";
 
         $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
 
@@ -92,6 +95,8 @@ class PdfFiles extends Component
         $current_time = date('Y-m-d H:i:s');
         $triagem = $this->term;
 
+        $setor = Sector::find($this->term->sector_id);
+
         //puxa assinatura do paciente
         $signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
 
@@ -99,9 +104,9 @@ class PdfFiles extends Component
         $pdf = PDF::loadView('triagem::PDF.pdf-telelaudo', ['term' => $this->term, 'signature' => $signature]);
 
         //salva pdf
-        $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf", $pdf->output());
+        $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/$setor->name/$hoje/termo-telelaudo-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
-        $path = "storage/termos/$triagem->patient_name/RM/$hoje/termo-telelaudo-$triagem->patient_name.pdf";
+        $path = "storage/termos/$triagem->patient_name/$setor->name/$hoje/termo-telelaudo-$triagem->patient_name.pdf";
 
         $time = gmdate('H:i:s', strtotime($current_time) - strtotime($this->start_time));
 
