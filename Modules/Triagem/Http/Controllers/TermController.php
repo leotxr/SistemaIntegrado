@@ -184,6 +184,21 @@ class TermController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro!');
     }
 
+    public function testeStore(Request $request)
+    {
+        
+        for ($i = 0; $i < count($request->pergunta); $i++) {
+
+            $dump = $i;
+
+        }
+        
+
+        dd($dump);
+
+        //$pdf = PDF::loadView('triagem::PDF.pdf-telelaudo', ['term' => $this->term, 'signature' => $signature]);
+    }
+
     public function createSignature($id)
     {
         $term = Term::find($id);

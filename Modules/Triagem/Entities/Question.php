@@ -5,18 +5,23 @@ namespace Modules\Triagem\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class sector extends Model
+class Question extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'xclinic_id'
+        'sector_id',
+        'description'
     ];
+
+
+    public function relSector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
     
     protected static function newFactory()
     {
-        return \Modules\Triagem\Database\factories\SectorFactory::new();
+        return \Modules\Triagem\Database\factories\QuestionFactory::new();
     }
 }

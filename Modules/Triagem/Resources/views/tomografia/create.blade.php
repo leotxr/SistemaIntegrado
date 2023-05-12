@@ -11,7 +11,7 @@
                     </div>
 
                     <div class="p-5 col-12">
-                       
+                       @livewire('triagem::questionario-t-c')
                     </div>
                 </div>
 
