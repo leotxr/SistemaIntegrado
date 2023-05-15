@@ -23,7 +23,7 @@
                                 <div>
                                     <label for="data-inicio">
                                         Data Inicial
-                                        <input type="date" name="data-inicial" id="data_inicial"
+                                        <input type="datetime-local" name="data-inicial" id="data_inicial"
                                             class="input input-bordered w-full max-w-xs">
                                     </label>
                                 </div>
@@ -31,7 +31,7 @@
                                 <div>
                                     <label for="data-final">
                                         Data Final
-                                        <input type="date" name="data-final" id="data_final"
+                                        <input type="datetime-local" name="data-final" id="data_final"
                                             class="input input-bordered w-full max-w-xs">
                                     </label>
                                 </div>
