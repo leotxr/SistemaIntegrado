@@ -14,11 +14,15 @@ class CreateContrastController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function createContrastRessonancia($id)
+    public function createContrast($id, $sector)
     {
         $termo = Term::find($id);
         $medico = User::permission('medico')->get();
+
+        if($sector == 1)
         return view('triagem::ressonancia.contraste', compact('termo', 'medico'));
+        elseif($sector == 2)
+        return view('triagem::tomografia.contraste', compact('termo', 'medico'));
     }
 
 

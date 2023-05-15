@@ -1,16 +1,16 @@
 <div>
 
     @php
-        $perguntas = ['Omniscan', 'Soro Fisiológico', 'Água para Injeção', 'Buscopan', 'Soro Retal', 'Gel vaginal'];
+        $perguntas = ['Omnipaque', 'Soro Fisiológico', 'Contraste Retal'];
         $i = 0;
     @endphp
 
     <div class="relative w-full overflow-x-auto border border-dashed sm:rounded-lg">
-        <table class="text-sm text-left text-gray-500  dark:text-gray-400">
+        <table class="text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Contraste Gadolíneo
+                        Contraste Iodado
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Quantidade

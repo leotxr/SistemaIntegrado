@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class StoreContrastController extends Controller
 {
 
-    public function storeContrastRessonancia($id, Request $request)
+    public function storeContrast($id, Request $request)
     {
         $hoje = date('d-m-Y');
 
@@ -44,7 +44,7 @@ class StoreContrastController extends Controller
         }
 
         if($termfile)
-        return redirect('triagem/realizadas/ressonancia')->with('success', 'Formulário de contraste salvo com sucesso!');
+        return redirect('triagem')->with('success', 'Formulário de contraste salvo com sucesso!');
         else
         return redirect()->back()->withErrors(['Ocorreu um erro ao salvar o formulário!']);
     }

@@ -15,9 +15,10 @@
 
 <body>
     <header>
+        <img src="{{URL::asset('storage\logo\logopdf.jpg')}}" width="auto" height="60px" />
        {{-- <x-client-logo style="text-align: center;" width="auto" height="60px" /> --}}
     </header>
-    <h1 class="text-center font-bold" style="text-align: center;">Termo de consentimento para uso de Contraste</h1>
+    <h1 class="font-bold text-center" style="text-align: center;">Termo de consentimento para uso de Contraste</h1>
     <p>Nome do paciente: {{ $term->patient_name }}</p>
     <p>Data de nascimento: {{ date('d/m/Y', strtotime($term->patient_age)) }}</p>
     <p>

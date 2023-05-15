@@ -49,7 +49,7 @@
                                 </form>
                             </li>
 
-                            <li> <a href="{{ route('create.contraste-ressonancia', ['id'=>$term->id]) }}">Contraste</a>
+                            <li> <a href="{{ route('create.contraste', ['id'=>$term->id, 'sector' => $term->sector_id]) }}">Contraste</a>
                             </li>
 
                             <li>
