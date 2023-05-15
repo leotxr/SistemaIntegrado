@@ -53,8 +53,11 @@ class PdfFiles extends Component
 
         $this->signature = TermFile::where('term_id', $this->term->id)->where('file_type_id', 5)->first();
 
-        //cria pagina do pdf
+        if($setor->id == 1)
         $pdf = PDF::loadView('triagem::PDF.pdf-ressonancia', ['term' => $this->term, 'signature' => $this->signature]);
+        else
+        $pdf = PDF::loadView('triagem::PDF.pdf-tomografia', ['term' => $this->term, 'signature' => $this->signature]);
+        
         //salva pdf
         $save = Storage::disk('my_files')->put("storage/termos/$triagem->patient_name/$setor->name/$hoje/termo-contraste-$triagem->patient_name.pdf", $pdf->output());
         //busca diretório
