@@ -34,6 +34,10 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware(['auth', 'verified'])->name('welcome');
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified'])->name('welcome');
+
 
 
 Route::resource('/users', UserController::class);
