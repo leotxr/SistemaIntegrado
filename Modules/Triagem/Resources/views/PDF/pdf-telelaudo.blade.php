@@ -7,7 +7,7 @@
 
 <body>
     <header>
-        <img src="{{URL::asset('storage\logo\logopdf.jpg')}}" width="auto" height="60px" />
+        <img src="{{URL::asset('storage/logo/logopdf.png')}}" width="auto" height="60px" />
     </header>
     <h1 class="font-bold text-center" style="text-align: center;">Termo de consentimento para exames encaminhados para Telelaudo</h1>
     <p>Nome do paciente: {{$term->patient_name}}</p>

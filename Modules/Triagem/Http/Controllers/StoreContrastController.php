@@ -33,8 +33,8 @@ class StoreContrastController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpeg", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpeg";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpg", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpg";
 
             $termfile = TermFile::updateOrInsert([
                 'url' => $path,
@@ -68,8 +68,8 @@ class StoreContrastController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpeg", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpeg";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpg", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/contraste-$term->patient_name.jpg";
 
             $termfile = TermFile::updateOrInsert([
                 'url' => $path,

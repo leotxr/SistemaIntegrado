@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <img src="{{URL::asset('storage\logo\logopdf.jpg')}}" width="auto" height="60px" />
+        <img src="{{URL::asset('storage/logo/logopdf.png')}}" width="auto" height="60px" />
        {{-- <x-client-logo style="text-align: center;" width="auto" height="60px" /> --}}
     </header>
     <h1 class="font-bold text-center" style="text-align: center;">Termo de consentimento para uso de Contraste</h1>

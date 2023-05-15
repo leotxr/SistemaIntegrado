@@ -1,78 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="sign.js"></script>
-    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <title>jQuery sign.js: Signature Pad Example</title>
 
-    <script>
-        $(document).ready(function()
-        {
-            $('#myCanvas').sign({
-                resetButton: $('#resetSign'),
-                lineWidth: 5,
-                height:300,
-                width:400
-            });
-        });
-    </script>
+<head>
+    <title>Termo de consentimento para uso de Contraste</title>
+
     <style>
-    body { background-color: #fafafa; }
-        #myCanvas {
-            border:4px solid #444;
-            border-radius: 15px;
-            background-color: #fafafa;
+        .grid-container {
+            display: inline-grid;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
         }
-        .container { margin: 150px auto; }
     </style>
 </head>
+
 <body>
-<div id="jquery-script-menu">
-<div class="jquery-script-center">
-<ul>
-<li><a href="https://www.jqueryscript.net/other/Canvas-Signature-Pad-Sign.html">Download This Plugin</a></li>
-<li><a href="https://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
-</ul>
-<div class="jquery-script-ads"><script type="text/javascript"><!--
-google_ad_client = "ca-pub-2783044520727903";
-/* jQuery_demo */
-google_ad_slot = "2780937993";
-google_ad_width = 728;
-google_ad_height = 90;
-//-->
-</script>
-<script type="text/javascript"
-src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script></div>
-<div class="jquery-script-clear"></div>
-</div>
-</div>
-    <div class="container">
-        <h1>jQuery sign.js: Signature Pad Example</h1>
-    <canvas id="myCanvas"></canvas><br><br>
-    <input type="button" value="Reset" id='resetSign'>
-</div>
-<script type="text/javascript">
+    <header>
+        <img src="{{URL::asset('storage/logo/logopdf.png')}}" width="auto" height="60px" />
+       {{-- <x-client-logo style="text-align: center;" width="auto" height="60px" /> --}}
+    </header>
+    <h1 class="font-bold text-center" style="text-align: center;">Termo de consentimento para uso de Contraste</h1>
+    <p>Nome do paciente: </p>
+    <p>Data de nascimento: </p>
+    <p>
+        <livewire:triagem::termos.termo-contraste-ressonancia />
+    </p>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
+    <br>
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="" width="350px" height="100px"> </img>
+            <p>Assinatura do titular ou responsável</p>
+        </div>
+        <div class="grid-item">
+            <p> </p>
+            <p>Data do exame</p>
+        </div>
+    </div>
+    <br>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+    <p style="text-align: center;">Ultrimagem Ubá</p>
 </body>
+
 </html>
-
-
-
-
