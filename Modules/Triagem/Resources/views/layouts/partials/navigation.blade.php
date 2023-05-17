@@ -35,7 +35,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="url('triagem/filas/ressonancia')">
+                                <x-dropdown-link :href="route('filas.ressonancia')">
                                     {{ __('Fila de Exames') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('triagens.realizadas-ressonancia')">
@@ -67,10 +67,10 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="url('triagem/filas/tomografia')">
+                                <x-dropdown-link :href="route('filas.tomografia')" :active="request()->routeIs('filas.tomografia')">
                                     {{ __('Fila de Exames') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('triagens.realizadas-tomografia')">
+                                <x-dropdown-link :href="route('triagens.realizadas-tomografia')" :active="request()->routeIs('filas.tomografia')">
                                     {{ __('Triagens Realizadas') }}
                                 </x-dropdown-link>
 
