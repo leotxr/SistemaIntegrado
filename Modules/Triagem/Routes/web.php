@@ -18,6 +18,7 @@ use Modules\Triagem\Http\Controllers\TriagemController;
 use Modules\Triagem\Http\Controllers\GetFilasController;
 use Modules\Triagem\Http\Controllers\CreateContrastController;
 use Modules\Triagem\Http\Controllers\StoreContrastController;
+use Modules\Triagem\Http\Controllers\StoreSignatureController;
 use Modules\Triagem\Http\Controllers\TermFileController;
 
 Route::get('teste-sig', function () {
@@ -48,8 +49,8 @@ Route::middleware('auth')->group(function () {
         Route::post('{id}/files/store', [TermFileController::class, 'store'])->name('store.term-file');
 
         
-        Route::post('{id}/assinatura/create', [TermController::class, 'createSignature'])->name('create.term-signature');
-        Route::post('{id}/assinaturas', [TermController::class, 'storeSignature'])->name('store.term-signature');
+        Route::get('{id}/assinatura/create', [TermController::class, 'createSignature'])->name('create.term-signature');
+        Route::post('{id}/assinaturas', [StoreSignatureController::class, 'storeSignature'])->name('store.term-signature');
 
         Route::get('show_signature/{id}', [TriagemController::class, 'showSignature'])->name('show_signature');
     });

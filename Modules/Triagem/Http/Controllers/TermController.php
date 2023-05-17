@@ -199,84 +199,14 @@ class TermController extends Controller
         //$pdf = PDF::loadView('triagem::PDF.pdf-telelaudo', ['term' => $this->term, 'signature' => $signature]);
     }
 
+    public $path = "";
+
     public function createSignature($id)
     {
         $term = Term::find($id);
-        return view('triagem::triagens.assinar', compact('term'));
+        $this->path = TermFile::where('term_id', $term->id)->where('file_type_id', 5)->first();
+        
+        return view('triagem::triagens.assinar', ['term' => $term, 'path' => $this->path]);
     }
-/*
-    public function storeSignature($id, Request $request)
-    {
-        $hoje = date('d-m-Y');
-        $term = Term::find($id);
-        $setor = Sector::find($term->sector_id);
-
-        if ($request->sign) {
-            $img = $request->sign;
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $bin = base64_decode($image_parts[1]);
-
-            //salva a imagem da assinatura
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/assinatura-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/assinatura-$term->patient_name.png";
-
-            //cria imagem da assinatura
-            TermFile::create([
-                'url' => $path,
-                'term_id' => $term->id,
-                'file_type_id' => 5
-            ]);
-
-            $term->signed = 1;
-            $term->save();
-
-            return view('triagem::index')->with('success', 'Assinatura salva com sucesso.');
-        } else
-            return redirect()->back()->withErrors(['Não foi possível salvar esta assinatura.']);
-    }
-    */
-
-    public function storeSignature($id, Request $request)
-    {
-        $hoje = date('d-m-Y');
-        $term = Term::find($id);
-        $setor = Sector::find($term->sector_id);
-
-        $file = $request->file('signature_file');
-        $image = imagecreatefromjpeg($file);
-        $percent = 0.1;
-        list($width, $height) = getimagesize($file);
-        $new_width = $width * $percent;
-        $new_height = $height * $percent;
-
-        if ($image && imagefilter($image, IMG_FILTER_CONTRAST, -100)) {
-            //imagefilter($image, IMG_FILTER_BRIGHTNESS, 10);
-
-            $image_p = imagecreatetruecolor($new_width, $new_height);
-
-            $white = imagecolorallocate($image_p, 255, 255, 255);
-
-            imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-            imagecolortransparent($image_p, $white);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/assinatura-$term->patient_name.png";
-
-            imagepng($image_p, $path);
-
-            TermFile::create([
-                'url' => $path,
-                'term_id' => $term->id,
-                'file_type_id' => 5
-            ]);
-
-            $term->signed = 1;
-            $term->save();
-
-
-            echo 'Image converted to grayscale.';
-        } else {
-            echo 'Grayscale conversion of image failed.';
-        }
-    }
+   
 }

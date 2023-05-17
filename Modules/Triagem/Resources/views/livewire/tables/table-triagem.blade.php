@@ -35,7 +35,7 @@
                             class="absolute inline-block p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52">
                             @if($term->signed != 1)
                             <li>
-                                <form method="POST" action="{{ route('create.term-signature', ['id' => $term->id]) }}">
+                                <form method="GET" action="{{ route('create.term-signature', ['id' => $term->id]) }}">
                                     @csrf
                                     <button type="submit">Assinar triagem</button>
                                 </form>
