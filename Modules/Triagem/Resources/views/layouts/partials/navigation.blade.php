@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/triagem')">
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     {{--DROPDOWN RESSONANCIA--}}
@@ -35,10 +35,10 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('filas.ressonancia')">
+                                <x-dropdown-link :href="route('filas.ressonancia')" :active="request()->routeIs('filas.ressonancia')">
                                     {{ __('Fila de Exames') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('triagens.realizadas-ressonancia')">
+                                <x-dropdown-link :href="route('triagens.realizadas-ressonancia')" :active="request()->routeIs('triagens.realizadas-ressonancia')">
                                     {{ __('Triagens Realizadas') }}
                                 </x-dropdown-link>
 

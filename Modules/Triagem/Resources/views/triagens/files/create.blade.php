@@ -13,17 +13,17 @@
         <div class="grid grid-cols-1 gap-4 pb-12 border-b sm:grid-cols-2 border-gray-900/10">
             <div class="p-2 bg-white shadow-md dark:bg-black">
                 <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Dados da triagem #{{ $triagem->id }}</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">Formulário para inserção de arquivos referentes à
+                <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-50">Formulário para inserção de arquivos referentes à
                     triagem
                     realizada.</p>
 
                 <div class="pt-2">
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Paciente:
+                    <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Paciente:
                     </h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600">{{ $triagem->patient_name }}</p>
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Procedimento:
+                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-50">{{ $triagem->patient_name }}</p>
+                    <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Procedimento:
                     </h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600">{{ $triagem->proced }}</p>
+                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-50">{{ $triagem->proced }}</p>
                 </div>
             </div>
 

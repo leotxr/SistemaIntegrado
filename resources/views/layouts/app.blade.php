@@ -20,7 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
-        @laravelPWA
+
 </head>
 
 <body class="font-sans antialiased">
@@ -30,8 +30,8 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="bg-white shadow dark:bg-gray-800">
+                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -41,7 +41,7 @@
             <main>
                 @include('components.floating-action-button')
                 {{ $slot }}
-                <div class="loader-wrapper bg-base-200 absolute w-screen h-screen grid place-items-center top-0 opacity-90">
+                <div class="absolute top-0 grid w-screen h-screen loader-wrapper bg-base-200 place-items-center opacity-90">
                     <span class="loader"></span>
                 </div>
             </main>

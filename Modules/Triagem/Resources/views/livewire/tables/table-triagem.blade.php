@@ -23,7 +23,7 @@
             <tbody>
                 @foreach ($terms as $key => $term)
                 <tr>
-                    <th class="dropdown dropdown-bottom">
+                    <th class="bg-white dropdown dropdown-bottom">
                         <label tabindex="0" class="m-1 btn btn-outline">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -74,11 +74,11 @@
         </table>
     </div>
     {{--MODAL--}}
-    <x-modal.dialog wire:model.defer="modalTriagem">
-        <x-slot name="title">
+    <x-modal.dialog wire:model.defer="modalTriagem" >
+        <x-slot name="title" >
             <x-title>Triagem #{{$this->editing->id}} - {{$this->editing->patient_name}} </x-title>
         </x-slot>
-        <x-slot name="content">
+        <x-slot name="content" >
             <div class="flex p-2 mt-4 border border-dashed">
 
 
