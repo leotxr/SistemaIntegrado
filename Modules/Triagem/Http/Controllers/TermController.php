@@ -109,8 +109,8 @@ class TermController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.jpg", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.jpg";
 
             TermFile::create([
                 'url' => $path,
@@ -168,8 +168,8 @@ class TermController extends Controller
             $image_type = $image_type_aux[1];
 
             $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.png";
+            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.jpg", $bin);
+            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.jpg";
 
             TermFile::create([
                 'url' => $path,
