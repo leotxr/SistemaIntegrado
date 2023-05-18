@@ -72,10 +72,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $permissions = Permission::all();
+        $roles = Role::all();
 
 
 
-        return view('users.edit', compact('user', 'permissions'));
+        return view('users.edit', compact('user', 'permissions', 'roles'));
     }
 
     /**
@@ -118,6 +119,7 @@ class UserController extends Controller
             $user->signature = $sign;
         }
         $user->syncPermissions("$request->permission");
+        $user->syncRoles("$request->role");
         $user->save();
 
         if ($update)

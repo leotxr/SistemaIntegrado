@@ -24,7 +24,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    @if (auth()->user()->can('admin'))
+    
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -46,11 +46,7 @@
                 </div>
             </main>
         </div>
-    @else
-        <script>
-            window.location.href = "{{ url('welcome') }}"
-        </script>
-    @endif
+
 
 </body>
 

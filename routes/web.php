@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserDocController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\Policies\PermissionController;
+use App\Http\Controllers\Policies\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,13 +39,20 @@ Route::get('/', function () {
 
 
 
-Route::resource('/users', UserController::class);
+
 Route::any('/userPassUpdate/{id}', [UserController::class, 'passwordUpdate'])->name('user.password');
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['role:Super-Admin|admin|ti']], function () {
+    Route::resource('/users', UserController::class);
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/configuracoes/criar', SettingsController::class)->name('settings.create');
+    Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');
 });
 
 require __DIR__.'/auth.php';
