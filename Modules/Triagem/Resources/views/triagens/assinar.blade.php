@@ -10,7 +10,7 @@
 <div class="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2">
     <div class="flex w-full p-2 bg-white shadow-md dark:bg-black">
         <form action="{{route('store.term-signature', ['id' => $term->id])}}" method="POST"
-            enctype="multipart/form-data">
+            enctype="multipart/form-data" accept="image/*;capture=camera" capture>
             @csrf
 
             <label class="block mb-2 text-lg font-bold text-gray-900 dark:text-white" for="file_input">Capturar
