@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                    <x-nav-link :href="url('/triagem')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     {{--DROPDOWN RESSONANCIA--}}
@@ -35,10 +35,10 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('filas.ressonancia')" :active="request()->routeIs('filas.ressonancia')">
+                                <x-dropdown-link :href="url('triagem/filas/ressonancia')">
                                     {{ __('Fila de Exames') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('triagens.realizadas-ressonancia')" :active="request()->routeIs('triagens.realizadas-ressonancia')">
+                                <x-dropdown-link :href="route('triagens.realizadas-ressonancia')">
                                     {{ __('Triagens Realizadas') }}
                                 </x-dropdown-link>
 
@@ -67,10 +67,10 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('filas.tomografia')" :active="request()->routeIs('filas.tomografia')">
+                                <x-dropdown-link :href="url('triagem/filas/tomografia')">
                                     {{ __('Fila de Exames') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('triagens.realizadas-tomografia')" :active="request()->routeIs('filas.tomografia')">
+                                <x-dropdown-link :href="route('triagens.realizadas-tomografia')">
                                     {{ __('Triagens Realizadas') }}
                                 </x-dropdown-link>
 
@@ -136,16 +136,30 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+
+        <div class="pt-2 pb-3 space-y-1 border-gray-200 dark:border-gray-600">
             <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-600">
+            <h1 class="space-x-1 font-bold ">Ressonância</h1>
             <x-responsive-nav-link :href="route('triagens.realizadas-ressonancia')"
                 :active="request()->routeIs('triagens.realizadas-ressonancia')">
                 {{ __('Triagens Realizadas') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('filas.ressonancia')" :active="request()->routeIs('filas.ressonancia')">
                 {{ __('Fila Ressonancia') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-600">
+            <h1 class="space-x-1 font-bold ">Tomografia</h1>
+            <x-responsive-nav-link :href="route('triagens.realizadas-tomografia')"
+                :active="request()->routeIs('triagens.realizadas-tomografia')">
+                {{ __('Triagens Realizadas') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('filas.tomografia')" :active="request()->routeIs('filas.tomografia')">
+                {{ __('Fila Tomografia') }}
             </x-responsive-nav-link>
         </div>
 
