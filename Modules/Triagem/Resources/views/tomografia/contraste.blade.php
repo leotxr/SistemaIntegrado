@@ -1,7 +1,7 @@
 @extends('triagem::layouts.master')
 @section('content')
     <div class="mb-24 border border-dashed">
-        <form method="POST" action="{{ route('store.contraste-ressonancia', ['id' => $termo->id]) }}">
+        <form method="POST" action="{{ route('store.contraste', ['id' => $termo->id]) }}">
             @csrf
             <div id="print" class="container">
                 <div class="row">
