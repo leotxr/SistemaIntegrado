@@ -2,15 +2,26 @@
 <html>
 
 <head>
-    <title>Termo de consentimento para uso de Contraste</title>
+    <meta charset="UTF-8"/>
+    <title>{{$title}}</title>
 
     <style>
-        .grid-container {
-            display: inline-grid;
-            grid-template-columns: auto auto auto;
-            padding: 10px;
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
         }
-    </style>
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
 </head>
 
 <body>
@@ -18,12 +29,55 @@
         <img src="{{URL::asset('storage/logo/logopdf.png')}}" width="auto" height="60px" />
        {{-- <x-client-logo style="text-align: center;" width="auto" height="60px" /> --}}
     </header>
-    <h1 class="font-bold text-center" style="text-align: center;">Questionario</h1>
-
+    <h2 class="font-bold text-center" style="text-align: center;">{{$title}}</h2>
+    <p>Nome do paciente: {{ $term->patient_name }}</p>
+    <p>Data de nascimento: {{ date('d/m/Y', strtotime($term->patient_age)) }}</p>
     
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Pergunta
+                </th>
+                <th>
+                    Resposta
+                </th>
+                <th>
+                    Observação
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($collection as $questionario)
+            <tr>
+                <th>
+                    {{$questionario['pergunta']}}
+                </th>
+                
+                <td>
+                    {{$questionario['resposta']}}
+                </td>
+
+                <td>
+                    {{$questionario['observacao']}}
+                </td>
+               
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+<div>
+    <h4>Observação da Triagem</h4>
+    <p>{{$term->observation}} </p>
+</div>
+    
+</div>
 
 
-    <p style="text-align: center;">Ultrimagem Ubá</p>
+
+    <p style="text-align: center;">SIGMA - Ultrimagem Ubá</p>
 </body>
 
 </html>

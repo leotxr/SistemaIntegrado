@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Arr;
 
 class TermController extends Controller
 {
@@ -100,26 +101,29 @@ class TermController extends Controller
 
         ]);
 
+        
 
-        #ARMAZENA PRINT DO QUESTIONARIO
-        if ($request->dataurl) {
-            $img = $request->dataurl;
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
+        for ($i = 1; $i < count($request->pergunta); $i++) {
 
-            $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.bmp", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.bmp";
-
-            TermFile::create([
+            //$teste[$i] = ['id' => $i, 'pergunta' => $request->pergunta[$i], 'resposta' => $request->resposta[$i]];
+            $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);
+            
+        };
+        
+        $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Ressonância Magnética", 'term' => $term]);
+        $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
+        $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf";
+        
+        if($path)
+        {
+            TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 6
             ]);
-        }
+        }else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
-        if ($term)
+        if ($term && $path)
             return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
@@ -130,8 +134,7 @@ class TermController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public $respostas = [];
-   // public $perguntas = [];
+
     public function storeTomografia(Request $request)
     {
         $hoje = date('d-m-Y');
@@ -148,16 +151,6 @@ class TermController extends Controller
         $setor = Sector::find(2);
 
         
-
-        for ($i = 1; $i < count($request->pergunta); $i++) {
-
-            $this->respostas[$i] = $request->radio[$i];
-            $perguntas[$i] = $request->pergunta[$i];
-            
-        };
-        $pdf = PDF::loadView('triagem::PDF.pdf-questionario');
-        return $pdf->download('invoice.pdf');
-        /*
         $term = Term::updateOrCreate([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
@@ -171,48 +164,31 @@ class TermController extends Controller
 
         ]);
 
+        for ($i = 1; $i < count($request->pergunta); $i++) {
 
+            //$teste[$i] = ['id' => $i, 'pergunta' => $request->pergunta[$i], 'resposta' => $request->resposta[$i]];
+            $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);
+            
+        };
+        
+        $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Tomografia Computadorizada", 'term' => $term]);
+        $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
+        $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf";
 
-
-
-        #ARMAZENA PRINT DO QUESTIONARIO
-        if ($request->dataurl) {
-            $img = $request->dataurl;
-            $image_parts = explode(";base64,", $img);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-
-            $bin = base64_decode($image_parts[1]);
-            Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.bmp", $bin);
-            $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.bmp";
-
-            TermFile::create([
+        if($path)
+        {
+            TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 6
             ]);
-        }
+        }else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
-        if ($term)
+        if ($term && $path)
             return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
-            */
-    }
-
-    public function testeStore(Request $request)
-    {
-        
-        for ($i = 0; $i < count($request->pergunta); $i++) {
-
-            $dump = $i;
-
-        }
-        
-
-        dd($dump);
-
-        //$pdf = PDF::loadView('triagem::PDF.pdf-telelaudo', ['term' => $this->term, 'signature' => $signature]);
+            
     }
 
     public $path = "";

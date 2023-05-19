@@ -32,7 +32,7 @@ Route::group(['middleware' => ['role:radiologia|Super-Admin']], function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::group(['middleware' => ['role:radiologia|Super-Admin']], function () {
+    
 
         Route::prefix('triagem')->group(function () {
             Route::get('/', [TriagemController::class, 'index'])->name('index');
@@ -61,5 +61,5 @@ Route::middleware('auth')->group(function () {
 
             Route::get('show_signature/{id}', [TriagemController::class, 'showSignature'])->name('show_signature');
         });
-    });
+   
 });

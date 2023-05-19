@@ -15,7 +15,7 @@
         </div>
 
         <div class="flex items-center justify-center">
-            <button disabled data-tooltip-target="tooltip-new" type="submit" id="btn-salvar" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+            <button  data-tooltip-target="tooltip-new" type="submit" id="btn-salvar" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>                  
@@ -41,20 +41,3 @@
     </div>
 </div>
 
-
-<script>
-    $("#capture").click(function() {
-        //tira print da div
-        html2canvas(document.querySelector("#print")).then(canvas => {
-            //document.body.appendChild(canvas);
-            var dataUrlPrint = canvas.toDataURL();
-            $("#btn-salvar").prop('disabled', false);
-            alert('Tela Capturada!');
-
-            if ($("#dataurl").val(dataUrlPrint))
-                $("#dataurl").prop('checked', true);
-            else
-                $("#dataurl").prop('checked', false);
-        });
-    });
-</script>

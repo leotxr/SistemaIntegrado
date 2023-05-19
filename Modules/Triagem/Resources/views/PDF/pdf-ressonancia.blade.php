@@ -38,7 +38,7 @@
     </div>
     <br>
 
-    <p style="text-align: center;">Ultrimagem Ubá</p>
+    <p style="text-align: center;">SIGMA - Ultrimagem Ubá</p>
 </body>
 
 </html>

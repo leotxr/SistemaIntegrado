@@ -8,7 +8,7 @@
         <div class="flex">
             {{-- INPUTS COM DATAURL DA ASSINATURA E PRINT DA TELA --}}
             <div class="flex items-center mr-4">
-                <input type="text" value="" id="dataurl" class="input input-xs" name="dataurl" required />
+                <input type="text" value="" id="dataurl" class="input input-xs" name="dataurl" />
                 <label for="dataurl" class="text-xs">Tela</label>
             </div>
 

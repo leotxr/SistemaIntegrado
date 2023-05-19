@@ -28,15 +28,15 @@
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="1"/>
+                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="Sim"/>
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="0" checked />
+                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="Não" checked />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="observacao[]"
+                            <input type="text" name="observacao[{{$pergunta->id}}]"
                                 class="w-full mt-2 input input-bordered" value="" />
                         </th>
                     </tr>
