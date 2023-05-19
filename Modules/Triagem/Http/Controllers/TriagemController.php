@@ -30,9 +30,9 @@ class TriagemController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function dashboard()
     {
-        return view('triagem::create');
+        return view('triagem::painel.dashboard');
     }
 
     /**

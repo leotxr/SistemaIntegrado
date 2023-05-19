@@ -1,9 +1,9 @@
 @extends('triagem::layouts.master')
 @section('header')
 
-    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        {{ __("#$triagem->patient_id - $triagem->patient_name - $triagem->proced") }}
-    </h2>
+<h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+    {{ __("#$triagem->patient_id - $triagem->patient_name - $triagem->proced") }}
+</h2>
 
 @endsection
 @section('content')
@@ -12,8 +12,10 @@
     <div class="max-w-full p-12 space-y-12">
         <div class="grid grid-cols-1 gap-4 pb-12 border-b sm:grid-cols-2 border-gray-900/10">
             <div class="p-2 bg-white shadow-md dark:bg-black">
-                <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Dados da triagem #{{ $triagem->id }}</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-50">Formulário para inserção de arquivos referentes à
+                <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Dados da triagem #{{
+                    $triagem->id }}</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-50">Formulário para inserção de arquivos
+                    referentes à
                     triagem
                     realizada.</p>
 
@@ -29,7 +31,8 @@
 
             <div class="p-2 bg-white shadow-md dark:bg-black">
 
-                <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Arquivos da triagem #{{ $triagem->id }}</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Arquivos da triagem #{{
+                    $triagem->id }}</h2>
                 <div class="col-span-full">
                     @livewire('triagem::pdf-files', ['title' => 'Contraste', 'description' => 'Gerar termo de
                     Contraste assinado', 'sign' => $triagem->contrast_term, 'term' => $triagem, 'file_type' => 3,
@@ -54,5 +57,6 @@
             </div>
         </div>
     </div>
+</div>
 
-    @endsection
+@endsection
