@@ -27,7 +27,7 @@ Route::get('teste-sig', function () {
 
 Route::group(['middleware' => ['role:radiologia|Super-Admin']], function () {
     Route::prefix('triagem')->group(function () {
-        Route::get('painel', [TriagemController::class, 'dashboard'])->name('dashboard');
+        Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
     });
 });
 

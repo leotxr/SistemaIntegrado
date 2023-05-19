@@ -87,7 +87,7 @@ class TermController extends Controller
 
         $setor = Sector::find(1);
 
-        $term = Term::updateOrInsert([
+        $term = Term::create([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
             'user_id' => $user_id ?? NULL,
@@ -130,6 +130,8 @@ class TermController extends Controller
      * @param Request $request
      * @return Renderable
      */
+    public $respostas = [];
+   // public $perguntas = [];
     public function storeTomografia(Request $request)
     {
         $hoje = date('d-m-Y');
@@ -145,7 +147,17 @@ class TermController extends Controller
 
         $setor = Sector::find(2);
 
+        
 
+        for ($i = 1; $i < count($request->pergunta); $i++) {
+
+            $this->respostas[$i] = $request->radio[$i];
+            $perguntas[$i] = $request->pergunta[$i];
+            
+        };
+        $pdf = PDF::loadView('triagem::PDF.pdf-questionario');
+        return $pdf->download('invoice.pdf');
+        /*
         $term = Term::updateOrCreate([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
@@ -158,6 +170,9 @@ class TermController extends Controller
             'observation' => $request->observacoes ?? NULL
 
         ]);
+
+
+
 
 
         #ARMAZENA PRINT DO QUESTIONARIO
@@ -182,6 +197,7 @@ class TermController extends Controller
             return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
+            */
     }
 
     public function testeStore(Request $request)
