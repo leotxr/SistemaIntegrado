@@ -9,7 +9,7 @@
 @section('content')
     <div class="shadow-md">
         <div class="h-screen m-2 sm:grid justify-items-center">
-            @livewire('triagem::tables.table-triagem', ['terms' => $terms])
+            @livewire('triagem::tables.table-triagem', ['sector' => $sector])
         </div>
     </div>
 @endsection

@@ -20,16 +20,14 @@ class TermController extends Controller
 
     public function indexRessonancia()
     {
-        $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->where('sector_id', 1)->get();
-        return view('triagem::ressonancia.index', ['terms' => $terms]);
+        $sector = Sector::find(1);
+        return view('triagem::ressonancia.index', ['sector' => $sector]);
     }
 
     public function indexTomografia()
     {
-        $hoje = date('Y-m-d');
-        $terms = Term::whereDate('exam_date', $hoje)->where('sector_id', 2)->get();
-        return view('triagem::tomografia.index', ['terms' => $terms]);
+        $sector = Sector::find(2);
+        return view('triagem::tomografia.index', ['sector' => $sector]);
     }
 
     /**

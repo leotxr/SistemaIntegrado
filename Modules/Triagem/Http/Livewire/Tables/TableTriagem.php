@@ -4,15 +4,18 @@ namespace Modules\Triagem\Http\Livewire\Tables;
 
 use Livewire\Component;
 use Modules\Triagem\Entities\Term;
+use Livewire\WithPagination;
 
 class TableTriagem extends Component
 {
-    public $terms;
+    use WithPagination;
+
     public $modalTriagem = false;
     public Term $editing;
     public $observation;
     public Term $saving;
     public $triagem;
+    public $sector;
 
     protected $rules = [
         'editing.start_hour' => 'required | readonly',
@@ -22,11 +25,13 @@ class TableTriagem extends Component
         'editing.patient_name' => 'required'
     ];
 
-    public function mount($terms, Term $term)
+    public function mount(Term $term, $sector)
     {
-        $this->terms = $terms;
         $this->editing = $term;
+        $this->sector = $sector;
     }
+
+    
 
     public function editTerm(Term $term)
     {
@@ -58,6 +63,12 @@ class TableTriagem extends Component
 
     public function render()
     {
-        return view('triagem::livewire.tables.table-triagem');
+        return view('triagem::livewire.tables.table-triagem', [
+            'terms' => Term::Where('sector_id', $this->sector->id)
+            ->whereDate('exam_date', date('Y-m-d'))
+            ->paginate(8),
+        ]);
+
+
     }
 }

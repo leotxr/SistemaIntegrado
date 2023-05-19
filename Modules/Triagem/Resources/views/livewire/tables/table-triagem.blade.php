@@ -70,6 +70,7 @@
                     </td>
                 </tr>
                 @endforeach
+                {{ $terms->links() }}
             </tbody>
         </table>
     </div>
