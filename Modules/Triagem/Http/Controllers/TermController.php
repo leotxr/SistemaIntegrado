@@ -87,7 +87,7 @@ class TermController extends Controller
 
         $setor = Sector::find(1);
 
-        $term = Term::updateOrCreate([
+        $term = Term::updateOrInsert([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
             'user_id' => $user_id ?? NULL,
