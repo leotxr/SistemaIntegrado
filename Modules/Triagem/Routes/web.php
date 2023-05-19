@@ -27,7 +27,7 @@ Route::get('teste-sig', function () {
 
 Route::group(['middleware' => ['role:radiologia|Super-Admin']], function () {
     Route::prefix('triagem')->group(function () {
-        Route::get('painel', [TriagemController::class, 'dashboard'])->name('dashboard');
+        Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
     });
 });
 
@@ -37,13 +37,13 @@ Route::middleware('auth')->group(function () {
         Route::prefix('triagem')->group(function () {
             Route::get('/', [TriagemController::class, 'index'])->name('index');
 
-            Route::get('realizadas/ressonancia', [TermController::class, 'indexRessonancia'])->name('triagens.realizadas-ressonancia');
-            Route::get('realizadas/tomografia', [TermController::class, 'indexTomografia'])->name('triagens.realizadas-tomografia');
+            Route::get('setor/ressonancia', [TermController::class, 'indexRessonancia'])->name('triagens.realizadas-ressonancia');
+            Route::get('setor/tomografia', [TermController::class, 'indexTomografia'])->name('triagens.realizadas-tomografia');
 
             Route::get('filas/ressonancia', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
             Route::get('filas/tomografia', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
 
-            Route::get('create/{setor_id}/pac/{paciente_id}', [TermController::class, 'createTriagem'])->name('create.triagem');
+            Route::get('setor/{setor_id}/pac/{paciente_id}/create', [TermController::class, 'createTriagem'])->name('create.triagem');
             Route::get('tomografia/create', [TermController::class, 'createTomografia'])->name('create.tomografia');
 
             Route::post('ressonancia', [TermController::class, 'storeRessonancia'])->name('store.ressonancia');
