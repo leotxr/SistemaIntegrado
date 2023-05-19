@@ -23,19 +23,20 @@
                     <tr>
                         <th scope="row" name="pergunta"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-pre-line dark:text-white">
-                            {{ $pergunta->description }}
+                            <input type="pergunta" name="pergunta[{{$pergunta->id}}]" class="w-full input" readonly value="{{ $pergunta->description }}"/>
+                            
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio-{{ $pergunta->id }}" class="mx-2 radio" />
+                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="1"/>
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio-{{ $pergunta->id }}" class="mx-2 radio" checked />
+                            <input type="radio" name="radio[{{$pergunta->id}}]" class="mx-2 radio" value="0" checked />
                         </th>
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="observacao-{{ $pergunta->id }}"
+                            <input type="text" name="observacao[]"
                                 class="w-full mt-2 input input-bordered" value="" />
                         </th>
                     </tr>
