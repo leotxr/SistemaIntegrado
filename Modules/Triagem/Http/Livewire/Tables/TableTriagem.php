@@ -66,6 +66,7 @@ class TableTriagem extends Component
         return view('triagem::livewire.tables.table-triagem', [
             'terms' => Term::Where('sector_id', $this->sector->id)
             ->whereDate('exam_date', date('Y-m-d'))
+            ->orderBy('created_at', 'desc')
             ->paginate(8),
         ]);
 
