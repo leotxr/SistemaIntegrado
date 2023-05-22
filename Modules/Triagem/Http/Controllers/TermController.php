@@ -95,6 +95,7 @@ class TermController extends Controller
             'start_hour' => $request->start,
             'exam_date' => date('Y-m-d'),
             'sector_id' => $setor->id,
+            'finished' => 0,
             'observation' => $request->observacoes ?? NULL
 
         ]);
@@ -158,6 +159,7 @@ class TermController extends Controller
             'start_hour' => $request->start,
             'exam_date' => date('Y-m-d'),
             'sector_id' => $setor->id,
+            'finished' => 0,
             'observation' => $request->observacoes ?? NULL
 
         ]);

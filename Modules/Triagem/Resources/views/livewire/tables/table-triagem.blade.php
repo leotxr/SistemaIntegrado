@@ -27,14 +27,15 @@
                 <label for="finalizadas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mostrar
                     triagens finalizadas</label>
             </div>
-            @foreach($status_triagem as $status)
-            {{$status}}
-            @endforeach
+            <div>
+                <p class="text-gray-600 text-xs">Última atualização em:</p>
+                <p class="text-gray-600 text-sm">{{now()}}</p>
+            </div>
         </div>
     </div>
 
     @isset($terms)
-    <div class="h-96 overflow-x-auto shadow-sm border-2 w-full mt-2" wire:poll.visible>
+    <div class="h-96 overflow-x-auto shadow-sm border-2 w-full mt-2" wire:poll.5000ms>
         <table class="table table-compact">
             <!-- head -->
             <thead>
