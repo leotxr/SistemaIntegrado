@@ -11,8 +11,8 @@
         <img src="{{URL::asset('storage/logo/logopdf.png')}}" width="auto" height="60px" />
     </header>
     <h1 class="font-bold text-center" style="text-align: center;">Termo de recusa ao uso do constraste</h1>
-    <p>Nome do paciente: NOME DO PACIENTE</p>
-    <p>Data de nascimento: {{date('d-m-Y')}}</p>
+    <p>Nome do paciente: {{$term->patient_name}}</p>
+    <p>Data de nascimento: {{date('d/m/Y', strtotime($term->patient_age))}}</p>
     <p>Data de emissão: {{date('d-m-Y')}}</p>
     <p>
         <livewire:triagem::termos.termo-recusa-contraste />
@@ -30,8 +30,3 @@
     <img src="{{$signature->url}}" width="350px" height="100px"> </img>
     <p>Assinatura do titular ou responsável</p>
     <br>
-
-    <p style="text-align: center;">Ultrimagem Ubá</p>
-</body>
-
-</html>
