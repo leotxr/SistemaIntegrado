@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     
 
         Route::prefix('triagem')->group(function () {
-            Route::get('/', [TriagemController::class, 'index'])->name('index');
+            Route::get('/', [TriagemController::class, 'index'])->name('triagem.index');
 
             Route::get('setor/ressonancia', [TermController::class, 'indexRessonancia'])->name('triagens.realizadas-ressonancia');
             Route::get('setor/tomografia', [TermController::class, 'indexTomografia'])->name('triagens.realizadas-tomografia');

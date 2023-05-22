@@ -5,15 +5,18 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{route('index')}}">
+                    <a href="{{route('triagem.index')}}">
                         <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="url('/triagem')">
+                    <x-nav-link :href="route('triagem.dashboard')" :active="request()->routeIs('triagem.dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('triagem.index')" :active="request()->routeIs('triagem.index')">
+                        {{ __('Início') }}
                     </x-nav-link>
                     {{--DROPDOWN RESSONANCIA--}}
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -138,7 +141,7 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
 
         <div class="pt-2 pb-3 space-y-1 border-gray-200 dark:border-gray-600">
-            <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
+            <x-responsive-nav-link :href="route('triagem.index')" :active="request()->routeIs('triagem.index')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
