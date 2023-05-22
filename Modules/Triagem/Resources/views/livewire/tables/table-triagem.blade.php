@@ -1,4 +1,4 @@
-<div>
+<div class="justify-center">
     <div>
         @if (session()->has('message'))
         <div class="alert alert-success">
@@ -6,9 +6,35 @@
         </div>
         @endif
     </div>
+    <div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-medium p-2 rounded-md shadow-sm">
+        <div class="text-gray-900 dark:text-white font-bold justify-start py-2 flex mx-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+              </svg>              
+            <h1>Filtros<h1>
+        </div>
+        <div class="grid sm:grid-cols-3 grid-cols-1 gap-4">
+
+            <div class="flex items-center mb-4">
+                <input id="em-aberto" type="checkbox" value="0" checked wire:model='status_triagem'
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="em-aberto" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mostrar
+                    triagens em aberto</label>
+            </div>
+            <div class="flex items-center mb-4">
+                <input id="finalizadas" type="checkbox" value="1" wire:model='status_triagem'
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="finalizadas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mostrar
+                    triagens finalizadas</label>
+            </div>
+            @foreach($status_triagem as $status)
+            {{$status}}
+            @endforeach
+        </div>
+    </div>
 
     @isset($terms)
-    <div class="h-full overflow-x-auto">
+    <div class="h-96 overflow-x-auto shadow-sm border-2 w-full mt-2" wire:poll.visible>
         <table class="table table-compact">
             <!-- head -->
             <thead>
@@ -18,6 +44,7 @@
                     <th>Paciente</th>
                     <th>Procedimento</th>
                     <th>Contraste</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +76,8 @@
                                 </form>
                             </li>
 
-                            <li> <a href="{{ route('create.contraste', ['id'=>$term->id, 'sector' => $term->sector_id]) }}">Contraste</a>
+                            <li> <a
+                                    href="{{ route('create.contraste', ['id'=>$term->id, 'sector' => $term->sector_id]) }}">Contraste</a>
                             </li>
 
                             <li>
@@ -68,6 +96,13 @@
                         Não
                         @endif
                     </td>
+                    <td>
+                        @if ($term->finished == 1)
+                        Finalizada
+                        @else
+                        Em aberto
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
                 {{ $terms->links() }}
@@ -75,11 +110,11 @@
         </table>
     </div>
     {{--MODAL--}}
-    <x-modal.dialog wire:model.defer="modalTriagem" >
-        <x-slot name="title" >
+    <x-modal.dialog wire:model.defer="modalTriagem">
+        <x-slot name="title">
             <x-title>Triagem #{{$this->editing->id}} - {{$this->editing->patient_name}} </x-title>
         </x-slot>
-        <x-slot name="content" >
+        <x-slot name="content">
             <div class="flex p-2 mt-4 border border-dashed">
 
 
@@ -113,7 +148,6 @@
                 <form wire:submit.prevent='save({{$this->editing->id}})'>
 
                     <input id="default-checkbox" type="checkbox" value="1" wire:model.defer='editing.finished'
-                        
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="default-checkbox" class="mx-2 text-sm font-bold text-gray-900 dark:text-gray-300">Marcar
                         como finalizada</label>

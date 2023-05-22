@@ -16,6 +16,7 @@ class TableTriagem extends Component
     public Term $saving;
     public $triagem;
     public $sector;
+    public $status_triagem = [0,1];
 
     protected $rules = [
         'editing.start_hour' => 'required | readonly',
@@ -61,10 +62,12 @@ class TableTriagem extends Component
     }
 
 
+
     public function render()
     {
         return view('triagem::livewire.tables.table-triagem', [
             'terms' => Term::Where('sector_id', $this->sector->id)
+            ->whereIn('finished', $this->status_triagem)
             ->whereDate('exam_date', date('Y-m-d'))
             ->orderBy('created_at', 'desc')
             ->paginate(8),
