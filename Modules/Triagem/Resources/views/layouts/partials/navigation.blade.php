@@ -141,8 +141,11 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
 
         <div class="pt-2 pb-3 space-y-1 border-gray-200 dark:border-gray-600">
-            <x-responsive-nav-link :href="route('triagem.index')" :active="request()->routeIs('triagem.index')">
+            <x-responsive-nav-link :href="route('triagem.dashboard')" :active="request()->routeIs('triagem.dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('triagem.index')" :active="request()->routeIs('triagem.index')">
+                {{ __('Início') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-600">
