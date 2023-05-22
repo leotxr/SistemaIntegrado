@@ -29,7 +29,7 @@ class StoreSignatureController extends Controller
         $new_width = $width * $percent;
         $new_height = $height * $percent;
 
-        if ($image && imagefilter($image, IMG_FILTER_CONTRAST, -100)) {
+        if ($image && imagefilter($image, IMG_FILTER_CONTRAST, -85)) {
             //imagefilter($image, IMG_FILTER_BRIGHTNESS, 10);
 
             $image_p = imagecreatetruecolor($new_width, $new_height);
