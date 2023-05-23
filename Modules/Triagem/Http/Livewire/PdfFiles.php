@@ -85,9 +85,6 @@ class PdfFiles extends Component
             $this->color = 'red';
             $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
-
-
-        //return $pdf->download('teste.pdf');
     }
 
     public function generate_pdf_report()
@@ -131,11 +128,6 @@ class PdfFiles extends Component
             $this->color = 'red';
             $this->description = "Ocorreu um erro ao gerar o arquivo.";
         }
-
-
-
-
-        //return $pdf->download('teste.pdf');
     }
 
     public function render()
