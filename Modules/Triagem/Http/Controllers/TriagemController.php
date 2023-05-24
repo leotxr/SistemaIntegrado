@@ -5,7 +5,6 @@ namespace Modules\Triagem\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Triagem\Entities\Term;
 use App\Models\User;
 
 class TriagemController extends Controller

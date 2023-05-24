@@ -8,12 +8,8 @@ use Illuminate\Routing\Controller;
 use Modules\Triagem\Entities\Term;
 use Modules\Triagem\Entities\TermFile;
 use Modules\Triagem\Entities\Sector;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Modules\Triagem\Entities\FileType;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class TermFileController extends Controller
 {
