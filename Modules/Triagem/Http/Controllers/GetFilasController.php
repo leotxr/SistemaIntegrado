@@ -52,7 +52,7 @@ class GetFilasController extends Controller
             WORK_LIST.STATUSID"))
             ->get();
 
-        $triagens = Term::whereDate('exam_date', $hoje_mysql)->get('patient_id');
+        $triagens = Term::whereDate('exam_date', $hoje_mysql)->get();
 
         return view('triagem::ressonancia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(1)]);
     }
@@ -93,7 +93,7 @@ class GetFilasController extends Controller
             PACIENTE.NOME PACIENTE,      
             PROCEDIMENTOS.DESCRICAO PROCEDIMENTO,
             WORK_FILAS.FILANOME AS SETOR,
-            FATURA.SETORID, 
+            FATURA.SETORID,
             WORK_LIST.STATUSID"))
             ->get();
 

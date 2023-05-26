@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>Ações</th>
-                    <th>Hora</th>
+                    <th>Hora Exame</th>
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Procedimento</th>
@@ -14,7 +14,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach ($pacientes as $paciente)
 
                 @php

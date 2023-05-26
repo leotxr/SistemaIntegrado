@@ -43,8 +43,10 @@ class ShowExams extends Component
         $this->modalFilters = true;
     }
 
+
     public function render()
     {
+
         return view('triagem::livewire.reports.show-exams',[
             'triagens' => Term::whereIn('sector_id', $this->sec)
             ->whereBetween('exam_date', [$this->initial_date, $this->final_date])

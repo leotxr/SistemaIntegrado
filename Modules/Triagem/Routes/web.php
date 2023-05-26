@@ -20,6 +20,7 @@ use Modules\Triagem\Http\Controllers\CreateContrastController;
 use Modules\Triagem\Http\Controllers\StoreContrastController;
 use Modules\Triagem\Http\Controllers\StoreSignatureController;
 use Modules\Triagem\Http\Controllers\TermFileController;
+use Modules\Triagem\Http\Controllers\MonitoringController;
 
 Route::get('teste-sig', function () {
     return view('triagem::teste-sig');
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('triagem')->group(function () {
             Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
             Route::get('relatorios', [ReportController::class, 'index'])->name('triagem.reports');
+            Route::get('monitoramento', [MonitoringController::class, 'index'])->name('triagem.monitoring');
         });
     });
 
