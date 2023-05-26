@@ -32,7 +32,7 @@
                                     class="label text-gray-900 dark:text-gray-50 font-light text-sm">Setores</label>
                                 <div id="setores">
                                     <div class="flex items-center mb-4">
-                                        <input wire:model='sec' id="default-checkbox" type="checkbox" value="31"
+                                        <input wire:model.defer='sec' id="default-checkbox" type="checkbox" value="31"
                                             name="sec[]"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="default-checkbox"
@@ -114,7 +114,7 @@
                     <td class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</td>
                     <td class="{{ $color }}">
                         @isset($a)
-                        <button type="button" wire:click='modalTriagem({{$a}})'>
+                        <button type="button" wire:click='showTriagem({{$a}})'>
                             Mais
                         </button>
                         @endisset
@@ -145,6 +145,25 @@
             </tbody>
         </table>
     </div>
+
+
+    {{--MODAL--}}
+    <x-modal.dialog wire:model.defer="modalTriagem">
+        <x-slot name="title">
+            
+        </x-slot>
+        <x-slot name="content">
+           <div>
+            
+           </div>
+
+        </x-slot>
+        <x-slot name="footer">
+           
+        </x-slot>
+        </form>
+    </x-modal.dialog>
+
 
 
 

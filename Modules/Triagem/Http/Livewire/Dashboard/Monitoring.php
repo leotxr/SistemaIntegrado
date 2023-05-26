@@ -13,20 +13,24 @@ class Monitoring extends Component
     use WithPagination;
 
     public $date;
-    public $modalFilters = false;
+    public $modalTriagem = false;
     public $sectors;
     public $sec = [14, 31];
+    public Term $showing;
 
-    public function mount()
+    public function mount(Term $term)
     {
         $this->date = date('Y-m-d');
         $this->sectors = Sector::all();
+        $this->showing = $term;
     }
 
-    public function searchFilters()
+    public function showTriagem(Term $term)
     {
-        $this->modalFilters = true;
+        $this->modalTriagem = true;
+        $this->showing = $term;
     }
+
     public function render()
     {
         $hoje_mysql = date('Y-m-d');
