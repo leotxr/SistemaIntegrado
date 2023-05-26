@@ -199,7 +199,7 @@
                 </dl>
             </div>
             <div>
-                <dl class="max-w-full text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700  mt-2">
+                <dl class="max-w-full text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 mt-4">
                     <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Observação</dt>
                         <dd class="text-md font-semibold">{{$showing->observation}}</dd>
