@@ -16,25 +16,25 @@ class Monitoring extends Component
     public $modalTriagem = false;
     public $sectors;
     public $sec = [14, 31];
-    public Term $showing;
+    public $showing;
 
-    public function mount(Term $term)
+    public function mount()
     {
         $this->date = date('Y-m-d');
         $this->sectors = Sector::all();
-        $this->showing = $term;
     }
 
-    public function showTriagem(Term $term)
+    public function showTriagem($patient_id)
     {
         $this->modalTriagem = true;
-        $this->showing = $term;
+        $this->showing = Term::where('patient_id', $patient_id)->first();
+
+
     }
 
     public function render()
     {
-        $hoje_mysql = date('Y-m-d');
-        $hoje = date('m/d/Y');
+
         return view('triagem::livewire.dashboard.monitoring', ['pacientes' => DB::connection('sqlserver')
         ->table('WORK_LIST')
         ->join('FATURA', function ($join) {
