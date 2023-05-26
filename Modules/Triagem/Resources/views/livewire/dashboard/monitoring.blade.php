@@ -153,21 +153,21 @@
             <x-title>Ver informações da Triagem</x-title>
         </x-slot>
         <x-slot name="content">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 text-center">
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Início da Triagem</dt>
                         <dd class="text-md font-semibold">{{$showing->start_hour}}</dd>
                     </div>
                 </dl>
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Final da Triagem</dt>
                         <dd class="text-md font-semibold">{{$showing->final_hour}}</dd>
                     </div>
                 </dl>
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Tempo de Triagem</dt>
                         <dd class="text-md font-semibold">
                             @if($showing->final_hour)
@@ -185,13 +185,13 @@
                 $enfermeira = $showing->find($showing->id)->relUserTerm;
                 @endphp
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Enfermeira</dt>
                         <dd class="text-md font-semibold">{{$enfermeira->name}}</dd>
                     </div>
                 </dl>
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
                         <dd class="text-md font-semibold">@if($showing->finished == 1) Finalizada @else Não Finalizada
                             @endif</dd>
@@ -199,8 +199,8 @@
                 </dl>
             </div>
             <div>
-                <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-                    <div class="flex flex-col pb-3">
+                <dl class="max-w-full text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 border-t-2">
+                    <div class="flex flex-col pb-3 border-2 rounded-md">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Observação</dt>
                         <dd class="text-md font-semibold">{{$showing->observation}}</dd>
                     </div>
