@@ -166,6 +166,21 @@
                         <dd class="text-md font-semibold">{{$showing->final_hour}}</dd>
                     </div>
                 </dl>
+                <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+                    <div class="flex flex-col pb-3">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Tempo de Triagem</dt>
+                        <dd class="text-md font-semibold">
+                            @if($triagem->final_hour)
+                            @php
+                            $tempo = gmdate('H:i:s', strtotime( $triagem->final_hour ) - strtotime( $triagem->start_hour
+                            )
+                            );
+                            @endphp
+                            {{$tempo}}
+                            @endif
+                        </dd>
+                    </div>
+                </dl>
                 @php
                 $enfermeira = $showing->find($showing->id)->relUserTerm;
                 @endphp
@@ -178,7 +193,8 @@
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                     <div class="flex flex-col pb-3">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
-                        <dd class="text-md font-semibold">@if($showing->finished == 1) Finalizada @else Não Finalizada @endif</dd>
+                        <dd class="text-md font-semibold">@if($showing->finished == 1) Finalizada @else Não Finalizada
+                            @endif</dd>
                     </div>
                 </dl>
             </div>
