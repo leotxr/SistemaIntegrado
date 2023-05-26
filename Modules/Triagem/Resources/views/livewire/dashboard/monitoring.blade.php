@@ -219,7 +219,7 @@
 
         </x-slot>
         <x-slot name="footer">
-
+            <x-secondary-button x-on:click="$dispatch('close')" class="mx-2">Fechar</x-secondary-button>
         </x-slot>
         </form>
     </x-modal.dialog>
