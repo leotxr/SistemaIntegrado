@@ -39,6 +39,11 @@ class Term extends Model
         return $this->belongsTo(Sector::class);
     }
 
+    public function relUserTerm()
+    {
+        return $this->belongsTo('App\Models\user', 'user_id', 'id');
+    }
+
     protected static function newFactory()
     {
         return \Modules\Triagem\Database\factories\TermFactory::new();
