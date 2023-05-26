@@ -149,10 +149,10 @@
     @isset($showing)
     {{--MODAL--}}
     <x-modal.dialog wire:model.defer="modalTriagem">
-        <x-slot name="title">
-            <x-title>Ver informações da Triagem</x-title>
+        <x-slot class="text-center font-extralight" name="title">
+            <x-title>Informações da Triagem</x-title>
         </x-slot>
-        <x-slot name="content">
+        <x-slot class="border" name="content">
             <div class="grid grid-cols-2 gap-4 text-center">
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                     <div class="flex flex-col pb-3 border-2 rounded-md">
