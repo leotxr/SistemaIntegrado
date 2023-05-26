@@ -53,7 +53,7 @@ class Monitoring extends Component
 
         ->whereIn('WORK_LIST.FILAID', $this->sec) //ressonancia
         ->where('WORK_LIST.DATA', '=', $this->date)
-        ->orderBy('HORA')
+        ->orderBy('ENTRADA')
         ->select(DB::raw("WORK_LIST.DATA, 
         RIGHT('0' + CAST(WORK_LIST.HORAAGENDA / 3600 AS VARCHAR),2) + ':' + 
         RIGHT('0' + CAST((WORK_LIST.HORAAGENDA / 60) % 60 AS VARCHAR),2) + ':' + 
