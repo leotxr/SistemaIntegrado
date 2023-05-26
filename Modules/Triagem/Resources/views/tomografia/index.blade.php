@@ -7,8 +7,8 @@
 
 @endsection
 @section('content')
-    <div class="shadow-md">
-        <div class="h-screen m-2 sm:grid justify-items-center">
+<div class="m-4 shadow-sm">
+    <div class="max-w-full px-12 justify-items-center">
             @livewire('triagem::tables.table-triagem', ['sector' => $sector])
         </div>
     </div>
