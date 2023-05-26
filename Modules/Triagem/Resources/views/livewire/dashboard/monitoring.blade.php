@@ -155,6 +155,12 @@
             </div>
         </x-slot>
         <x-slot name="content">
+            <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+                <div class="flex flex-col pb-3 border-2 rounded-md">
+                    <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Paciente</dt>
+                    <dd class="text-md font-semibold">{{$showing->patient_name}}</dd>
+                </div>
+            </dl>
             <div class="grid grid-cols-2 gap-4 text-center">
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
                     <div class="flex flex-col pb-3 border-2 rounded-md">
