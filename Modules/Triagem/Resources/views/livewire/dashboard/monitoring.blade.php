@@ -78,8 +78,8 @@
             <thead>
                 <tr>
                     <th>Hora Exame</th>
-                    <th>Entrada Triagem</th>
-                    <th>Saída Triagem</th>
+                    <th>Entrada Exame</th>
+                    <th>Saída Exame</th>
                     <th>Nome</th>
                     <th>Procedimento</th>
                     <th>Status</th>
@@ -107,7 +107,7 @@
                 @endphp
 
                 <tr>
-                    <th class="{{ $color }}">{{ $paciente->DATA }}</th>
+                    <th class="{{ $color }}">{{ $paciente->HORA }}</th>
                     <td class="{{ $color }}">{{ $paciente->ENTRADA }}</td>
                     <td class="{{ $color }}">{{ $paciente->SAIDA }}</td>
                     <td class="{{ $color }}">{{ $paciente->PACIENTE }}</td>
