@@ -170,9 +170,9 @@
                     <div class="flex flex-col pb-3">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Tempo de Triagem</dt>
                         <dd class="text-md font-semibold">
-                            @if($triagem->final_hour)
+                            @if($showing->final_hour)
                             @php
-                            $tempo = gmdate('H:i:s', strtotime( $triagem->final_hour ) - strtotime( $triagem->start_hour
+                            $tempo = gmdate('H:i:s', strtotime( $showing->final_hour ) - strtotime( $showing->start_hour
                             )
                             );
                             @endphp
