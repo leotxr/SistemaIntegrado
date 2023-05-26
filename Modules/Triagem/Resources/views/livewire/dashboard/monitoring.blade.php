@@ -107,7 +107,7 @@
                 @endphp
 
                 <tr>
-                    <th class="{{ $color }}">{{ $paciente->HORA }}</th>
+                    <th class="{{ $color }}">{{ $paciente->DATA }}</th>
                     <td class="{{ $color }}">{{ $paciente->ENTRADA }}</td>
                     <td class="{{ $color }}">{{ $paciente->SAIDA }}</td>
                     <td class="{{ $color }}">{{ $paciente->PACIENTE }}</td>

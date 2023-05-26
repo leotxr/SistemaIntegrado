@@ -19,7 +19,7 @@ class Monitoring extends Component
 
     public function mount()
     {
-        $this->date = date('m/d/Y');
+        $this->date = date('Y-m-d');
         $this->sectors = Sector::all();
     }
 
@@ -62,6 +62,6 @@ class Monitoring extends Component
         CONVERT(VARCHAR,WORK_LIST.HORASAIDA,108) AS SAIDA,
         FATURA.SETORID, 
         WORK_LIST.STATUSID"))
-        ->paginate(10), 'triagens' => Term::whereDate('exam_date', $hoje_mysql)->get(), ]);
+        ->paginate(10), 'triagens' => Term::whereDate('exam_date', $this->date)->get(), ]);
     }
 }
