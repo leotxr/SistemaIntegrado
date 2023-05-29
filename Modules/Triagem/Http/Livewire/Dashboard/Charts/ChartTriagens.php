@@ -14,11 +14,11 @@ class ChartTriagens extends Component
 
     public function render()
     {
-        $rm_hoje = Term::whereDate('created_at', today())->count();
-        $rm_ontem = Term::whereDate('created_at', today()->subDays(1))->count();
-        $rm_2_dias = Term::whereDate('created_at', today()->subDays(2))->count();
-        $rm_3_dias = Term::whereDate('created_at', today()->subDays(3))->count();
-        $rm_4_dias = Term::whereDate('created_at', today()->subDays(4))->count();
+        $rm_hoje = Term::whereDate('created_at', today())->where('sector_id', 1)->count();
+        $rm_ontem = Term::whereDate('created_at', today()->subDays(1))->where('sector_id', 1)->count();
+        $rm_2_dias = Term::whereDate('created_at', today()->subDays(2))->where('sector_id', 1)->count();
+        $rm_3_dias = Term::whereDate('created_at', today()->subDays(3))->where('sector_id', 1)->count();
+        $rm_4_dias = Term::whereDate('created_at', today()->subDays(4))->where('sector_id', 1)->count();
 
         $lineChartRM =
             (new lineChartModel())
