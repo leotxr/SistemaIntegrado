@@ -5,7 +5,7 @@ namespace Modules\Triagem\Http\Livewire\Dashboard\Charts;
 use Livewire\Component;
 use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 use Asantibanez\LivewireCharts\Models\RadarChartModel;
-use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Modules\Triagem\Entities\Term;
 
 class ChartTriagens extends Component
@@ -21,15 +21,15 @@ class ChartTriagens extends Component
         $rm_4_dias = Term::whereDate('created_at', today()->subDays(4))->where('sector_id', 1)->count();
 
         $lineChartRM =
-            (new lineChartModel())
+            (new ColumnChartModel())
             ->setAnimated($this->firstRun)
             ->setSmoothCurve()
             ->setTitle('Triagens de Ressonância por dia')
-            ->addPoint(today()->subDays(4)->format('d/m/y'), $rm_4_dias, '#f6ad55')
-            ->addPoint(today()->subDays(3)->format('d/m/y'), $rm_3_dias, '#f6ad55')
-            ->addPoint(today()->subDays(2)->format('d/m/y'), $rm_2_dias, '#f6ad55')
-            ->addPoint('Ontem', $rm_ontem, '#fc8181')
-            ->addPoint('Hoje', $rm_hoje, '#90cdf4');
+            ->addColumn(today()->subDays(4)->format('d/m/y'), $rm_4_dias, '#808080')
+            ->addColumn(today()->subDays(3)->format('d/m/y'), $rm_3_dias, '#90ee90')
+            ->addColumn(today()->subDays(2)->format('d/m/y'), $rm_2_dias, '#f6ad55')
+            ->addColumn('Ontem', $rm_ontem, '#fc8181')
+            ->addColumn('Hoje', $rm_hoje, '#90cdf4');
 
         $this->firstRun = false;
 
