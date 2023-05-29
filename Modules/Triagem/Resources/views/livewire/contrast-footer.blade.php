@@ -4,7 +4,7 @@
         <div class="grid grid-cols-2 gap-4 text-center">
             <div>
                 <div class="justify-center">
-                    <img src="{{ URL::asset($signature_path) }}" class="h-16" id="assinatura_medico" name="assinatura_medico">
+                    <img src="{{ URL::asset($signature_path) }}" value="{{ URL::asset($signature_path) }}" class="h-16" id="assinatura_medico" name="assinatura_medico">
                     <hr class="border-gray-200 sm:mx-auto dark:border-gray-700" />
                 </div>
                 <p id="nome_medico" class="mt-2 text-sm text-green-600 dark:text-green-400">Dr(a). {{ $name }}
@@ -13,8 +13,9 @@
 
             <div>
                 <div class="justify-center">
-                    <img src="{{ URL::asset(auth()->user()->signature) }}" class="h-16" id="assinatura_enfermagem"
-                        name="assinatura_enfermagem">
+                    <img src="{{ URL::asset(auth()->user()->signature) }}"  class="h-16" id="assinatura_enfermagem"
+                    value="{{ URL::asset(auth()->user()->signature) }}"    
+                    name="assinatura_enfermagem">
                     <hr class="border-gray-200 sm:mx-auto dark:border-gray-700" />
                 </div>
                 <p id="nome_enfermagem" class="mt-2 text-sm text-green-600 dark:text-green-400">
@@ -29,7 +30,7 @@
                 <label class="font-bold label" for="medico">
                     Médico
                 </label>
-                <select wire:model="medico" class="w-full max-w-xs select select-bordered">
+                <select wire:model="medico" class="w-full max-w-xs select select-bordered" name="medico">
                     <option selected>Selecione o médico</option>
                     @foreach ($user_medico as $medico)
                         <option value="{{ $medico->id }}">{{ $medico->name }}</option>

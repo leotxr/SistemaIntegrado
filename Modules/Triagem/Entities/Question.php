@@ -11,6 +11,7 @@ class Question extends Model
 
     protected $fillable = [
         'sector_id',
+        'file_type_id',
         'description'
     ];
 
@@ -19,6 +20,12 @@ class Question extends Model
     {
         return $this->belongsTo(Sector::class);
     }
+
+    public function relQuestionFileType()
+    {
+        return $this->belongsTo(FileType::class);
+    }
+
     
     protected static function newFactory()
     {

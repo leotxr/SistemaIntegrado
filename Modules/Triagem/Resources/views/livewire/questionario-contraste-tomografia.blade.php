@@ -1,10 +1,5 @@
 <div>
 
-    @php
-        $perguntas = ['Omnipaque', 'Soro Fisiológico', 'Contraste Retal'];
-        $i = 0;
-    @endphp
-
     <div class="relative w-full overflow-x-auto border border-dashed sm:rounded-lg">
         <table class="text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -33,46 +28,35 @@
                 </tr>
             </thead>
             <tbody class="text-sm">
+                @php
+                $i = 0;
+                @endphp
                 @foreach ($perguntas as $pergunta)
-                    @php
-                        $i++;
-                    @endphp
-                    <tr>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-pre-line dark:text-white">
-                            {{ $pergunta }}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="quant[{{ $i }}]"
-                                class="w-full mt-2 input input-bordered" value="" />
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="disp[{{ $i }}]"
-                                class="w-full mt-2 input input-bordered" value="" />
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="membro[{{ $i }}]"
-                                class="w-full mt-2 input input-bordered" value="" />
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="via[{{ $i }}]"
-                                class="w-full mt-2 input input-bordered" value="" />
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="lote[{{ $i }}]"
-                                class="w-full mt-2 input input-bordered" value="" />
-                        </th>
-                        <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <input type="text" name="validade[{{ $i }}]"
-                            class="w-full mt-2 input input-bordered" value="" />
+                {{$i++}}
+                <tr>
+                    <th scope="row" name="pergunta" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  dark:text-white">
+                        <input type="text" name="pergunta[{{$i}}]" class="w-full mt-2 input " value="{{$pergunta->description}}" readonly />
                     </th>
-                    </tr>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="quant[{{ $i }}]" class="w-full mt-2 input input-bordered" value="" />
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="disp[{{ $i }}]" class="w-full mt-2 input input-bordered" value="" />
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="membro[{{ $i }}]" class="w-full mt-2 input input-bordered" value="" />
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="via[{{ $i }}]" class="w-full mt-2 input input-bordered" value="" />
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="lote[{{ $i }}]" class="w-full mt-2 input input-bordered" value="" />
+                    </th>
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <input type="text" name="validade[{{ $i }}]" class="w-full mt-2 input input-bordered"
+                            value="" />
+                    </th>
+                </tr>
                 @endforeach
             </tbody>
         </table>
@@ -81,14 +65,14 @@
     @php
     $perguntas2 = ['Houve extravasamento?', 'Houve reação alérgica?', 'Administrado outra medicação?'];
     $i = 0;
-@endphp
+    @endphp
 
     <div>
         <div class="relative overflow-x-auto border border-dashed sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 @foreach ($perguntas2 as $pergunta)
                 @php
-                    $i++;
+                $i++;
                 @endphp
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -108,30 +92,26 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-pre-line dark:text-white">
-                            
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-pre-line dark:text-white">
+                            <input type="text" name="pergunta2[{{$i}}]" class="input" value="{{$pergunta}}" />
                         </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio-[{{$i}}]" class="mx-2 radio" />
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Sim" />
                         </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="radio" name="radio-[{{$i}}]" class="mx-2 radio" checked />
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Não" checked />
                         </th>
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <input type="text" name="observacao-[{{$i}}]"
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <input type="text" name="observacao[{{$i}}]"
                                 class="w-full max-w-xs mt-2 input input-bordered input-xs" value="" />
                         </th>
                     </tr>
-                    
+
                 </tbody>
                 @endforeach
             </table>
         </div>
-    
+
     </div>
 
 </div>
