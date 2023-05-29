@@ -12,28 +12,37 @@ class ChartTriagens extends Component
 {
     public $firstRun = true;
 
+
     public function render()
     {
-        $rm_hoje = Term::whereDate('created_at', today())->where('sector_id', 1)->count();
-        $rm_ontem = Term::whereDate('created_at', today()->subDays(1))->where('sector_id', 1)->count();
-        $rm_2_dias = Term::whereDate('created_at', today()->subDays(2))->where('sector_id', 1)->count();
-        $rm_3_dias = Term::whereDate('created_at', today()->subDays(3))->where('sector_id', 1)->count();
-        $rm_4_dias = Term::whereDate('created_at', today()->subDays(4))->where('sector_id', 1)->count();
+        $dias_atras = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
+        $colors = ['#f6ad55', '#fc8181', '#90cdf4', '#f6ad55', '#fc8181' ];
+        //$valores = Term::whereIn('created_at', $dias_atras)->where('sector_id', 1)->get();
 
-        $lineChartRM =
-            (new ColumnChartModel())
+        $chartRM = LivewireCharts::columnChartModel()
+            ->setTitle('Ressonâncias por dia')
             ->setAnimated($this->firstRun)
-            ->setSmoothCurve()
-            ->setTitle('Triagens de Ressonância por dia')
-            ->addColumn(today()->subDays(4)->format('d/m/y'), $rm_4_dias, '#808080')
-            ->addColumn(today()->subDays(3)->format('d/m/y'), $rm_3_dias, '#90ee90')
-            ->addColumn(today()->subDays(2)->format('d/m/y'), $rm_2_dias, '#f6ad55')
-            ->addColumn('Ontem', $rm_ontem, '#fc8181')
-            ->addColumn('Hoje', $rm_hoje, '#90cdf4');
+            ->setLegendVisibility(false)
+            ->withDataLabels(false)
+            ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
 
-        $this->firstRun = false;
+        $chartTC = LivewireCharts::columnChartModel()
+            ->setTitle('Tomografias por dia')
+            ->setAnimated($this->firstRun)
+            ->setLegendVisibility(false)
+            ->withDataLabels(false)
+            ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
+
+            foreach($dias_atras as $dia)
+            {
+                $columnChartRM = $chartRM->addColumn($dia->format('d/m/y'), Term::whereDate('created_at', $dia)->where('sector_id', 1)->count(), '#808080');
+                $columnChartTC = $chartTC->addColumn($dia->format('d/m/y'), Term::whereDate('created_at', $dia)->where('sector_id', 2)->count(), '#808080');
+            }
+            
+
+            $this->firstRun = false;
 
         return view('triagem::livewire.dashboard.charts.chart-triagens')
-            ->with(['lineChartRM' => $lineChartRM]);
+            ->with(['columnChartRM' => $columnChartRM, 'columnChartTC' => $columnChartTC]);
     }
 }
