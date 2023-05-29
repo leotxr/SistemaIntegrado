@@ -7,7 +7,6 @@ use Modules\Triagem\Entities\Term;
 
 class ShowStats extends Component
 {
-
     public $initial_date;
     public $final_date;
 
