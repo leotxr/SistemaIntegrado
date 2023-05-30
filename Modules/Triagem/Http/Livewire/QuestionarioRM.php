@@ -11,7 +11,7 @@ class QuestionarioRM extends Component
 
     public function mount()
     {
-        $this->perguntas = Question::where('sector_id', 1)->get();
+        $this->perguntas = Question::where('sector_id', 1)->where('file_type_id', 6)->get();
     }
     
     public function render()

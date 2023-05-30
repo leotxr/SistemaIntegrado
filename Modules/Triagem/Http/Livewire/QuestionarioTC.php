@@ -11,7 +11,7 @@ class QuestionarioTC extends Component
 
     public function mount()
     {
-        $this->perguntas = Question::where('sector_id', 2)->get();
+        $this->perguntas = Question::where('sector_id', 2)->where('file_type_id', 6)->get();
     }
     
 
