@@ -12,8 +12,10 @@
         <x-slot name="head">
             <x-table.heading sortable wire:click="sortBy('exams.exam_date')"
                 :direction="$sortField === 'exams.exam_date' ? $sortDirection : null">Data</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.paciente_id')"
+                :direction="$sortField === 'protocols.paciente_id' ? $sortDirection : null">Código</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('protocols.paciente_name')"
-                :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Nome</x-table.heading>
+                :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Paciente</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('exams.name')"
                 :direction="$sortField === 'exams.name' ? $sortDirection : null">Exame</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('exams.convenio')"
@@ -34,6 +36,7 @@
             <x-table.row>
                 <x-table.cell>{{
                     $protocols->exam_date }}</x-table.cell>
+                <x-table.cell>{{ $protocols->paciente_id ?? '?' }}</x-table.cell>
                 <x-table.cell>{{ $protocols->paciente_name ?? '?' }}</x-table.cell>
                 <x-table.cell>{{ $protocols->name ?? '?' }}</x-table.cell>
                 <x-table.cell>{{ $protocols->convenio ?? '?' }}</x-table.cell>
