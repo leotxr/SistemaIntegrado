@@ -51,16 +51,13 @@ class TermController extends Controller
             ->first();
 
 
-        if (Auth::user()->can('criar triagem')) {
-            if ($setor_id == 9)
-                return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-            elseif ($setor_id == 4)
-                return view('triagem::tomografia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-            else
-                return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
-        } else {
-            return redirect()->back()->withErrors(['msg' => 'Você não possui permissão para iniciar uma triagem.']);
-        }
+
+        if ($setor_id == 9)
+            return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+        elseif ($setor_id == 4)
+            return view('triagem::tomografia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+        else
+            return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
     }
 
     /**
