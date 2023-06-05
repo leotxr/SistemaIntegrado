@@ -7,7 +7,7 @@
                 <div class="stat-value text-gray-900">
                     @php
                     $count = \Modules\Autorizacao\Entities\Exam::where('exam_status_id', $status->id);
-                    if($status->id == 1 || $status->name == 'Autorizado')
+                    if($status->id == 1 || $status->id == 4)
                     {
                         $count = $count->whereDate('updated_at', date('Y-m-d'));
                     }
