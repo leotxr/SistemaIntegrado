@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Exam extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name', 
         'exam_date',
         'protocol_id',
         'exam_status',
+        'exam_status_id',
         'convenio',
         'created_by',
         'updated_by',
@@ -23,7 +25,11 @@ class Exam extends Model
     ];
     public function relProtocolExam()
     {
-        return $this->belongsTo(Protocol::class);
+        return $this->belongsTo('Modules\Autorizacao\Entities\Protocol', 'protocol_id', 'id');
+    }
+    public function relExamStatus()
+    {
+        return $this->hasOne('Modules\Autorizacao\Entities\ExamStatus', 'id');
     }
     
     protected static function newFactory()

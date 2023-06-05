@@ -12,31 +12,18 @@
 */
 
 use Modules\Autorizacao\Http\Controllers\AutorizacaoController;
-
-Route::prefix('autorizacao')->group(function () {
-    Route::get('/', function () {
-        return view('autorizacao::dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
-});
+use Modules\Autorizacao\Http\Controllers\SolicitationController;
 
 Route::middleware('auth')->group(function () {
-    Route::get('autorizacao/relatorioexames', 'AutorizacaoController@relExams');
-    Route::any('showtableexams', 'AutorizacaoController@showRelExams')->name('showtableexams');
+
+
+    Route::prefix('autorizacao')->group(function(){
+        Route::get('nova-solicitacao', [SolicitationController::class, 'create'])->name('autorizacao.create');
+        Route::any('buscar-dados', [GetProtocolController::class])->name('getProtocol');
+        Route::post('salvar-solicitacao', [AutorizacaoController::class, 'store'])->name('autorizacao.store');
+        Route::get('minhas-solicitacoes', [AutorizacaoController::class, 'myProtocols'])->name('autorizacao.myprotocols');
+        Route::get('relatorios', [AutorizacaoController::class, 'reports'])->name('autorizacao.reports');
+        Route::get('/', [AutorizacaoController::class, 'index'])->name('autorizacao.index');
+    });
 });
 
-Route::middleware('auth')->group(function () {
-    Route::resource('autorizacao', AutorizacaoController::class);
-});
-
-//Route::resource('protocols', ProtocolController::class);
-Route::middleware('auth')->group(function () {
-    Route::any('getProtocol', 'AutorizacaoController@getProtocol')->name('getProtocol');
-    Route::any('storewtprotocol', 'AutorizacaoController@storewtprotocol')->name('storewtprotocol');
-    Route::any('showlistaut', 'AutorizacaoController@showListAut')->name('showlistaut');
-    Route::any('destroy_exam/{exam}', 'ExamController@destroy');
-    Route::any('destroy_protocol/{protocol}', 'ProtocolController@destroy');
-    Route::any('update_exam/{exam}', 'AutorizacaoController@update');
-});
-
-
-#Route::GET('createProtocol', 'AutorizacaoController@create')->name('createProtocol');

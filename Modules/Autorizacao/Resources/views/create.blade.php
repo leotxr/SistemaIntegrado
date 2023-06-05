@@ -1,16 +1,12 @@
-<head>
-    @livewireStyles
-</head>
+@extends('autorizacao::layouts.master')
+@section('header')
 
-<body>
-    @livewireScripts
-    <livewire:autorizacao::layouts.app />
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Cadastro de Autorização') }}
-        </h2>
-    </div>
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        {{ __("Nova Solicitação") }}
+    </h2>
 
+@endsection
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
@@ -20,31 +16,14 @@
                         <div class="px-4 sm:px-0">
                             <h3 class="text-lg font-medium leading-6 text-gray-900">Pedido</h3>
                             <p class="mt-1 text-sm text-gray-600">Insira as informações do pedido para autorização.
-                                Caso seja uma autorização sem agendamento, apenas clicar no botão <b>Consultar Protocolo</b>.
+                                Caso seja uma autorização sem agendamento, marque a opção <b>Soliciatação sem Protocolo</b>.
                             </p>
                         </div>
                     </div>
                     <div class="form_busca mt-5 md:col-span-2 md:mt-0">
 
-                        <div class="shadow sm:overflow-hidden sm:rounded-md ">
-                            <div class="space-y-6 bg-white px-4 py-5 sm:p-6 content-center">
-                                <div class="gap-4 content-center">
-                                    <label for="protocolo"
-                                        class="block text-sm font-medium text-gray-700">Protocolo</label>
-                                    <div class="mt-1">
-                                        <input type="text" id="protocolo" name="protocolo"
-                                            class="input input-success w-full max-w-xs" />
-                                    </div>
-                                    <button type="button" class="btn mt-2 btn-primary" id="get_protocol">Consultar
-                                        Protocolo</button>
-                                </div>
-
-                                <div id="showprotocol">
-                                </div>
-
-
-                            </div>
-
+                        <div> 
+                            @livewire('autorizacao::forms.form-search')
                         </div>
 
                     </div>
@@ -53,22 +32,5 @@
 
         </div>
     </div>
-</body>
 
-<script>
-    $(document).ready(function() {
-        $("#get_protocol").click(function() {
-            const url = "{{ route('getProtocol') }}";
-            protocolo = $("#protocolo").val();
-            $.ajax({
-                url: url,
-                data: {
-                    'protocolo': protocolo,
-                },
-                success: function(data) {
-                    $("#showprotocol").html(data);
-                }
-            });
-        });
-    });
-</script>
+@endsection

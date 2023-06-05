@@ -1,78 +1,81 @@
+<div class="space-y-4">
 
-<body>
-    @livewireScripts
-<div class="overflow-x-auto">
-    <table id="table" class="w-full mx-auto table-zebra overflow-hidden bg-white divide-y divide-gray-100 rounded-lg">
-        <!-- head -->
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Nome</th>
-                <th>Exame</th>
-                <th>Convênio</th>
-                <th>Usuário</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($result as $protocols)
-                <tr>
-                    <th>{{ $protocols->exam_date }}</th>
-                    <td>{{ $protocols->paciente_name ?? '?' }}</td>
-                    <td>{{ $protocols->name ?? '?' }}</td>
-                    <td>{{ $protocols->convenio ?? '?' }}</td>
-                    <td>{{ $protocols->created_by ?? '?' }}</td>
-                    <td>{{ $protocols->exam_status ?? '?' }}</td>
-                    <td class="flex">
-                        <!--<label id="btn-edit" data-value="{{ $protocols->protocol_id }}" for="my-modal-6">Editar</label>-->
-                        <a href="{{ url("autorizacao/$protocols->protocol_id/edit") }}" class="btn btn-primary mx-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <div>
+        <div class="mt-4">
+            <x-text-input type="text" wire:model='search' placeholder="Buscar solicitações...">
+            </x-text-input>
+            <x-input-error class="mt-2" :messages="$errors->get('exam.exam')" />
+        </div>
+    </div>
+    {{$selectedStatus->links()}}
+    <x-table>
+        <x-slot name="head">
+            <x-table.heading sortable wire:click="sortBy('exams.exam_date')"
+                :direction="$sortField === 'exams.exam_date' ? $sortDirection : null">Data</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.paciente_name')"
+                :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Nome</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('exams.name')"
+                :direction="$sortField === 'exams.name' ? $sortDirection : null">Exame</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('exams.convenio')"
+                :direction="$sortField === 'exams.convenio' ? $sortDirection : null">Convênio</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.user_id')"
+                :direction="$sortField === 'protocols.user_id' ? $sortDirection : null">Usuário</x-table.heading>
+            <x-table.heading>Verificado</x-table.heading>
+            <x-table.heading>Status</x-table.heading>
+            <x-table.heading>Ações</x-table.heading>
+
+        </x-slot>
+
+        <x-slot name="body">
+            @foreach ($selectedStatus as $protocols)
+            @php
+            $exam_status = $protocols->find($protocols->exam_status_id)->relExamStatus;
+            @endphp
+            <x-table.row>
+                <x-table.cell>{{
+                    $protocols->exam_date }}</x-table.cell>
+                <x-table.cell>{{ $protocols->paciente_name ?? '?' }}</x-table.cell>
+                <x-table.cell>{{ $protocols->name ?? '?' }}</x-table.cell>
+                <x-table.cell>{{ $protocols->convenio ?? '?' }}</x-table.cell>
+                <x-table.cell>{{ $protocols->created_by ?? '?' }}</x-table.cell>
+                <x-table.cell class="text-center">
+                    @if($protocols->recebido == 1)
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    @else
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    @endif
+
+
+                </x-table.cell>
+                <x-table.cell class="text-{{$colors[$exam_status->id]}}-800 font-bold">{{ $exam_status->name ?? '?' }}
+                </x-table.cell>
+                <x-table.cell>
+                    
+                        <button wire:click='openEdit({{$protocols->protocol_id}})' class="text-blue-800 font-bold inline-flex"
+                            type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                             </svg>
-                        </a>
-                        <form action="{{ url('/destroy_exam/' . $protocols->id) }}" method="post">
-                            {{ method_field('DELETE') }}
-                            @csrf
-                            <button type="submit" for="my-modal-6" class="btn btn-error mx-2 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                </svg>
-                            </button>
-                        </form>
-
-                    </td>
-                </tr>
+                            Editar
+                        </button>
+                    
+                </x-table.cell>
+            </x-table.row>
             @endforeach
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
+    {{$selectedStatus->links()}}
 
 
+    @include('autorizacao::modals.modals-edit')
 </div>
-</body>
-
-<script>
-    $(document).ready(function() {
-        $('#table').DataTable();
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $("#btn-edit").click(function() {
-            var id = $(this).attr('data-value');
-            $.ajax({
-                url: 'autorizacao/' + id + '/edit',
-                success: function(data) {
-                    alert(id);
-                    //$("#edit-screen").html(data);
-                }
-            });
-        });
-
-    });
-</script>

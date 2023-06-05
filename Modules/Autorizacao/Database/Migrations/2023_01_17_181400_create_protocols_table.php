@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('paciente_name');
             $table->integer('paciente_id')->nullable();
             $table->string('observacao')->nullable();
-            $table->boolean('autorizado')->nullable();
+            $table->boolean('recebido')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
             $table->softDeletes();

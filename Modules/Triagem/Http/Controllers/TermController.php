@@ -51,19 +51,23 @@ class TermController extends Controller
             ->first();
 
 
-        if ($setor_id == 9)
-            return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-        elseif($setor_id == 4)
-            return view('triagem::tomografia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
-        else
-            return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
+        if (Auth::user()->can('criar triagem')) {
+            if ($setor_id == 9)
+                return view('triagem::ressonancia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+            elseif ($setor_id == 4)
+                return view('triagem::tomografia.create', compact('users', 'tipoexame', 'start', 'paciente', 'hoje'));
+            else
+                return redirect()->back()->withErrors(['msg' => 'Informe corretamente o Código do paciente e o procedimento.']);
+        } else {
+            return redirect()->back()->withErrors(['msg' => 'Você não possui permissão para iniciar uma triagem.']);
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -99,27 +103,25 @@ class TermController extends Controller
 
         ]);
 
-        
+
 
         for ($i = 1; $i < count($request->pergunta); $i++) {
 
             //$teste[$i] = ['id' => $i, 'pergunta' => $request->pergunta[$i], 'resposta' => $request->resposta[$i]];
             $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);
-            
         };
-        
+
         $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Ressonância Magnética", 'term' => $term]);
         $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
         $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf";
-        
-        if($path)
-        {
+
+        if ($path) {
             TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 6
             ]);
-        }else return redirect()->back()->with('error', 'Ocorreu um erro!');
+        } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if ($term && $path)
             return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
@@ -148,7 +150,7 @@ class TermController extends Controller
 
         $setor = Sector::find(2);
 
-        
+
         $term = Term::updateOrCreate([
             'patient_name' => $request->nome ?? NULL,
             'patient_id' => $request->pacienteid ?? NULL,
@@ -167,27 +169,24 @@ class TermController extends Controller
 
             //$teste[$i] = ['id' => $i, 'pergunta' => $request->pergunta[$i], 'resposta' => $request->resposta[$i]];
             $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);
-            
         };
-        
+
         $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Tomografia Computadorizada", 'term' => $term]);
         $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
         $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf";
 
-        if($path)
-        {
+        if ($path) {
             TermFile::updateOrInsert([
                 'url' => $path,
                 'term_id' => $term->id,
                 'file_type_id' => 6
             ]);
-        }else return redirect()->back()->with('error', 'Ocorreu um erro!');
+        } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if ($term && $path)
             return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
-            
     }
 
     public $path = "";
@@ -196,8 +195,7 @@ class TermController extends Controller
     {
         $term = Term::find($id);
         $this->path = TermFile::where('term_id', $term->id)->where('file_type_id', 5)->first();
-        
+
         return view('triagem::triagens.assinar', ['term' => $term, 'path' => $this->path]);
     }
-   
 }

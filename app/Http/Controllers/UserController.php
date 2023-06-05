@@ -118,11 +118,20 @@ class UserController extends Controller
             $sign = $request->file('signature')->store("storage/user_docs/$id/signature", ['disk' => 'my_files']);
             $user->signature = $sign;
         }
-        $user->syncPermissions("$request->permission");
+        //$user->syncPermissions("$request->permission");
         $user->syncRoles("$request->role");
         $user->save();
 
         if ($update)
+            return redirect('users')->with('message', 'Usuário alterado com sucesso!');
+    }
+
+    public function setUserRole(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->syncRoles("$request->role");
+
+        if ($user->save())
             return redirect('users')->with('message', 'Usuário alterado com sucesso!');
     }
 

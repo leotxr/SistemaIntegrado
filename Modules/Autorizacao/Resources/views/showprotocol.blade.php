@@ -7,7 +7,7 @@
                 <div class="col-span-6 sm:col-span-3 w-full">
                     <label for="pacientid" class="block text-sm font-medium text-gray-700">Código do Paciente</label>
                     <input readonly type="text" name="pacienteid" id="pacienteid" autocomplete="pacienteid"
-                        value="{{ $pacienteid ?? '' }}" class="input input-bordered input-bordered w-xs max-w-xs" />
+                        value="{{ $pacienteid ?? '' }}" class="input input-bordered w-xs max-w-xs" />
                 </div>
                 <div class="col-span-6 sm:col-span-3 w-full">
                     <label for="name" class="block text-sm font-medium text-gray-700">Paciente</label>

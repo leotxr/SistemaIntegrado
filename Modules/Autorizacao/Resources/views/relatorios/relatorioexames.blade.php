@@ -60,7 +60,7 @@
                         <a type="button" id="btn-buscar" class="btn btn-primary">Buscar</a>
 
                         <div class="p-6 ">
-                            <div class="border border-2 responsive" id="table-autorizacao">
+                            <div class="border responsive" id="table-autorizacao">
 
                             </div>
                         </div>

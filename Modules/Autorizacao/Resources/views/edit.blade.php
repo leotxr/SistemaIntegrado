@@ -1,16 +1,12 @@
-<head>
-    @livewireStyles
-</head>
+@extends('autorizacao::layouts.master')
+@section('header')
 
-<body>
-    @if(auth()->user())
-    @livewireScripts
-    <livewire:autorizacao::layouts.app />
-    <div name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar Solicitação') }}
-        </h2>
-    </div>
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        {{ __("Editar Solicitação") }}
+    </h2>
+
+@endsection
+@section('content')
 
     <form name="formEdit" id="formEdit" method="post" action="{{ url('/update_exam/' . $protocol->id) }}">
 
@@ -59,7 +55,7 @@
 
                         <div class="row">
                             @foreach ($protocol->relExams as $exams)
-                                <div class="exam border border-2 p-2 m-2">
+                                <div class="exam border p-2 m-2">
                                     <div class="grid grid-cols-4 sm:grid-cols-3 gap-2 font-bold bg-white p-2 ">
                                         <div class="p-2">
                                             <div class="max-w-sm">
@@ -170,7 +166,7 @@
                                     </div>
 
 
-                                    <div class="grid flex sm:grid-cols-3 gap-2 justify-items-center p-6">
+                                    <div class="grid sm:grid-cols-3 gap-2 justify-items-center p-6">
 
                                         @if(auth()->user()->can('admin') || auth()->user()->can('administrativo'))
                                             <label for="my-modal-6" type="button" id="excluir"
@@ -230,7 +226,7 @@
                             @endforeach
 
 
-                            <div class="flex flex-row grid sm:grid-cols-10 grid-cols-5 gap-2 p-6">
+                            <div class="flex-row grid sm:grid-cols-10 grid-cols-5 gap-2 p-6">
                                 @foreach ($protocol->relPhotos as $photos)
                                     <div type="button" class="h-16 w-16 btn btn-outline btn-accent">
                                         <a href="{{ URL::asset($photos->url) }}" target="_blank">
@@ -278,7 +274,7 @@
             window.location.href = "{{ url('/') }}"
         </script>
     @endif
-</body>
+@endsection
 
 
 
