@@ -7,14 +7,14 @@
     <x-slot name="content">
 
         @foreach($editing as $index => $exam)
-        @if(auth()->user()->cant('editar autorizacao')) @php $isDisabled = true; @endphp @endif
+        @if(auth()->user()->cant('excluir autorizacao')) @php $isDisabled = true; @endphp @else @php $isDisabled = false; @endphp @endif
         @php
         $protocol = $exam->find($exam->id)->relProtocolExam;
         $solicitante = $protocol->find($protocol->id)->relUserProtocol;
         $exam_status = $exam->find($exam->exam_status_id)->relExamStatus;
         @endphp
-        <div wire:key="exam-field-{{$exam->id}}" class="border-2 rounded-md border-gray-300 p-4 mb-2">
-            <div class="grid grid-cols-2 sm:grid-cols-3 divide-x gap-1 border-b">
+        <div wire:key="exam-field-{{$exam->id}}" class="p-4 mb-2 border-2 border-gray-300 rounded-md">
+            <div class="grid grid-cols-2 gap-1 border-b divide-x sm:grid-cols-3">
                 <div>
                     <div class="mt-2">
                         <dt class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">Paciente</dt>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 mx-2">
+            <div class="grid grid-cols-1 gap-1 mx-2 sm:grid-cols-2">
                 <div>
                     <div class="mt-4">
                         <x-input-label for="exam_cod" :value="__('Código')" />
@@ -74,7 +74,7 @@
                         <x-input-error class="mt-2" :messages="$errors->get('exam.convenio')" />
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     <div class="mt-4">
                         <x-input-label for="status" :value="__('Status')" />
                         <x-select id="exam_status" name="exam_status" autocomplete="exam_status"
@@ -107,7 +107,7 @@
     <x-slot name='subcontent'>
         @foreach($protocol->relPhotos as $photos)
 
-        <div class="flex space-x-2 mx-2">
+        <div class="flex mx-2 space-x-2">
             <a href="{{URL::asset($photos->url)}}" target="_blank()" rel="noopener noreferrer">
                 <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
                     src="{{URL::asset($photos->url)}}" alt="Bordered photo">

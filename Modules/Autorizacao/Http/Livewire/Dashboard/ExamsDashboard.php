@@ -61,7 +61,7 @@ class ExamsDashboard extends Component
         $this->editing = Exam::where('protocol_id', $protocol)->get();
         $this->editing_protocol = Protocol::find($protocol);
         
-        $this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
+        //$this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
 
     }
 
