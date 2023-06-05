@@ -34,10 +34,9 @@ class TermFileController extends Controller
         $file_types = FileType::all();
         $start = date('H:i:s');
 
-        if(Auth::user()->can('editar triagem'))
+
         return view('triagem::triagens.files.create', compact('triagem', 'file_types'));
-        else
-        return redirect()->back()->withErrors(['msg', 'Você não tem permissão acessar esta área.']);
+
     }
 
     /**
