@@ -108,7 +108,7 @@
         @foreach($protocol->relPhotos as $photos)
 
         <div class="flex space-x-2 mx-2">
-            <a href="{{URL::asset($photos->url)}}" target="_blank()">
+            <a href="{{URL::asset($photos->url)}}" target="_blank()" rel="noopener noreferrer">
                 <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
                     src="{{URL::asset($photos->url)}}" alt="Bordered photo">
             </a>
