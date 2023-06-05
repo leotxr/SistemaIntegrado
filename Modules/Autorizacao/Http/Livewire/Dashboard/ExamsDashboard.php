@@ -26,11 +26,13 @@ class ExamsDashboard extends Component
     public $sortDirection = 'desc';
     public $search = '';
     public $isDisabled;
+    public $modalObservacao = false;
 
     protected $rules = [
         'editing.*.exam_status_id' => 'required',
         'editing.*.exam_obs' => 'max:200',
         'editing_protocol.recebido' => 'boolean',
+        'editing_protocol.observacao' => 'string | required',
     ];
 
 
@@ -85,6 +87,12 @@ class ExamsDashboard extends Component
         return redirect()->route('autorizacao.index');
     }
 
+    public function showObservacao(Protocol $protocol)
+    {
+        $this->modalObservacao = true;
+        $this->editing_protocol = $protocol;
+    }
+
     public function save()
     {
         //$this->validate();
@@ -101,6 +109,7 @@ class ExamsDashboard extends Component
 
 
         $this->modalExam = false;
+        $this->modalObservacao = false;
         
     }
 
