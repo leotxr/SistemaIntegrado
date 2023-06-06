@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @can(['autorizacao', 'admin'])
+                    @can(['editar autorizacao', 'excluir autorizacao'])
                     <x-nav-link style="cursor: pointer" data-drawer-target="drawer-navigation"
                         data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
                         {{ __('Dashboard') }}
