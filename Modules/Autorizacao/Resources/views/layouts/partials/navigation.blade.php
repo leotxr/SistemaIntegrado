@@ -112,7 +112,7 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
 
         <div class="pt-2 pb-3 space-y-1 border-gray-200 dark:border-gray-600">
-            @can(['autorizacao', 'admin'])
+            @can(['editar autorizacao', 'excluir autorizacao'])
             <x-responsive-nav-link style="cursor: pointer" data-drawer-target="drawer-navigation"
                 data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
                 {{ __('Dashboard') }}
