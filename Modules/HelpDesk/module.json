@@ -1,0 +1,11 @@
+{
+    "name": "HelpDesk",
+    "alias": "helpdesk",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HelpDesk\\Providers\\HelpDeskServiceProvider"
+    ],
+    "files": []
+}
