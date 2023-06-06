@@ -1,10 +1,13 @@
 <div >
-    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mx-2 font-bold " wire:poll='selectStatus({{$activeStatus}})'>
+    <div class="grid grid-cols-1 gap-4 mx-2 font-bold sm:grid-cols-6 " wire:poll='selectStatus({{$activeStatus}})'>
+        @php
+        $colors = ['black', '#00C510', '#447FFF', '#8978D9', '#B2B2B2', '#FFBD33', '#FF5733'];
+        @endphp
         @foreach($statuses as $status)
         <div wire:click='selectStatus({{$status->id}})' class="cursor-pointer active:scale-95">
-            <div class="stat shadow-md max-h-auto rounded-lg bg-{{$colors[$status->id]}}-400 ">
+            <div class="rounded-lg shadow-md stat max-h-auto glass" style="background-color: {{$colors[$status->id]}};">
                 <div class="font-bold">{{$status->name}}</div>
-                <div class="stat-value text-gray-900">
+                <div class="text-gray-900 stat-value">
                     @php
                     $count = \Modules\Autorizacao\Entities\Exam::where('exam_status_id', $status->id);
                     if($status->id == 1 || $status->id == 4)
@@ -19,7 +22,7 @@
         </div>
         @endforeach
     </div>
-    <div class="p-6 w-full">
+    <div class="w-full p-6">
         <div class="border responsive">
             @include('autorizacao::tables.table-autorizacao-status')
         </div>

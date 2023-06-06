@@ -21,7 +21,6 @@ class ExamsDashboard extends Component
     public $exam_status;
     public $modalDelete = false;
     public $modalUpdate = false;
-    public $colors = ['black', 'green', 'cyan', 'indigo', 'stone', 'yellow', 'red'];
     public $sortField = 'exams.exam_date';
     public $sortDirection = 'desc';
     public $search = '';
