@@ -7,7 +7,7 @@
         <div wire:click='selectStatus({{$status->id}})' class="cursor-pointer active:scale-95">
             <div class="rounded-lg shadow-md stat max-h-auto glass" style="background-color: {{$colors[$status->id]}};">
                 <div class="font-bold">{{$status->name}}</div>
-                <div class="text-gray-900 stat-value">
+                <div class="text-gray-800 stat-value">
                     @php
                     $count = \Modules\Autorizacao\Entities\Exam::where('exam_status_id', $status->id);
                     if($status->id == 1 || $status->id == 4)
