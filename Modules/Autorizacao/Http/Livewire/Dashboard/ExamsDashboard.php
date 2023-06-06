@@ -22,7 +22,7 @@ class ExamsDashboard extends Component
     public $modalDelete = false;
     public $modalUpdate = false;
     public $sortField = 'exams.exam_date';
-    public $sortDirection = 'desc';
+    public $sortDirection = 'asc';
     public $search = '';
     public $isDisabled;
     public $modalObservacao = false;
@@ -39,8 +39,8 @@ class ExamsDashboard extends Component
     {
 
         $this->sortDirection = $this->sortField === $field
-            ? $this->sortDirection = $this->sortDirection === 'desc' ? 'asc' : 'desc'
-            : 'desc';
+            ? $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'
+            : 'asc';
 
         $this->sortField = $field;
     }
