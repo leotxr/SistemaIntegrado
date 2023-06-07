@@ -32,6 +32,9 @@ class ExamsDashboard extends Component
         'editing.*.exam_obs' => 'max:200',
         'editing_protocol.recebido' => 'boolean',
         'editing_protocol.observacao' => 'string | required',
+        'editing.*.exam_date' => 'required',
+        'editing.*.name' => 'required',
+        'editing.*.convenio' => 'required'
     ];
 
 

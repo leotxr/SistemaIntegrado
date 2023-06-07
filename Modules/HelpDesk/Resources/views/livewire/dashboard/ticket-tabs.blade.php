@@ -1,6 +1,6 @@
 <x-tab>
     <x-slot name='head'>
-        <x-tab.nav id='novos' :class="{'active':tab === 'novos'}" @click.prevent="tab = 'novos';">
+        <x-tab.nav id='novos' >
             Novos Chamados
         </x-tab.nav>
         <x-tab.nav id="vinculados">

@@ -50,7 +50,7 @@
                     <div class="mt-4">
                         <x-input-label for="exam" :value="__('Procedimento')" />
                         <x-text-input type="text" name='exam' disabled='{{$isDisabled}}' value="{{$exam->name}}"
-                            id='exam' class="w-full">
+                            id='exam' wire:model='editing.{{$index}}.name' class="w-full">
                         </x-text-input>
                         <x-input-error class="mt-2" :messages="$errors->get('exam.exam')" />
                     </div>
@@ -60,7 +60,7 @@
                     <div class="mt-4">
                         <x-input-label for="exam_date" :value="__('Data do exame')" />
                         <x-text-input type="date" name='exam_date' disabled='{{$isDisabled}}' class="w-xs"
-                            id="exam_date" value="{{$exam->exam_date}}">
+                            id="exam_date" wire:model='editing.{{$index}}.exam_date' value="{{$exam->exam_date}}">
                         </x-text-input>
                         <x-input-error class="mt-2" :messages="$errors->get('exam.exam_date')" />
                     </div>
@@ -69,7 +69,7 @@
                     <div class="mt-4">
                         <x-input-label for="convenio" :value="__('Convênio')" />
                         <x-text-input type="text" name='convenio' disabled='{{$isDisabled}}' class="w-full"
-                            id="convenio" value="{{$exam->convenio}}">
+                            id="convenio" value="{{$exam->convenio}}" wire:model='editing.{{$index}}.convenio'>
                         </x-text-input>
                         <x-input-error class="mt-2" :messages="$errors->get('exam.convenio')" />
                     </div>
