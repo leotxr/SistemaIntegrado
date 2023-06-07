@@ -11,7 +11,7 @@
     <div class="max-w-full px-12 justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
-                
+                @livewire('helpdesk::dashboard.ticket-tabs')
             </div>
         </div>
     </div>

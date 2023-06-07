@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module HelpDesk</title>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-       {{-- Laravel Vite - CSS File --}}
-       {{-- {{ module_vite('build-helpdesk', 'Resources/assets/sass/app.scss') }} --}}
+<head>
+    @include('helpdesk::layouts.partials.head')
 
-    </head>
-    <body>
-        @yield('content')
+    @include('helpdesk::layouts.partials.script')
+</head>
 
-        {{-- Laravel Vite - JS File --}}
-        {{-- {{ module_vite('build-helpdesk', 'Resources/assets/js/app.js') }} --}}
-    </body>
+<body class="font-sans antialiased">
+    @include('helpdesk::layouts.partials.alerts')
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        @include('helpdesk::layouts.partials.navigation')
+        <header class="bg-white shadow dark:bg-gray-800">
+            <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                @yield('header')
+            </div>
+        </header>
+        <main class="p-8 sm:ml-64">
+            @yield('content')
+        </main>
+    </div>
+
+</body>
+
 </html>

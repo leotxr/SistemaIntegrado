@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Modules\HelpDesk\Http\Controllers\TicketController;
 
-Route::prefix('helpdesk')->group(function() {
-    Route::get('/', 'HelpDeskController@index');
+Route::middleware('auth')->group(function () {
+
+    Route::prefix('helpdesk')->group(function () {
+
+        Route::get('/', [TicketController::class, 'index'])->name('helpdesk.index');
+        Route::get('/painel', [TicketController::class, 'index'])->name('helpdesk.dashboard');
+    });
 });
