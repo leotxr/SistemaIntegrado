@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-
+        Schema::create('ticket_statuses', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('ticket_statuses');
     }
 };

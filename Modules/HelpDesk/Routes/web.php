@@ -11,6 +11,8 @@
 |
 */
 use Modules\HelpDesk\Http\Controllers\TicketController;
+use Modules\HelpDesk\Http\Controllers\CategoryController;
+use Modules\HelpDesk\Http\Controllers\SubCategoryController;
 
 Route::middleware('auth')->group(function () {
 
@@ -18,5 +20,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/', [TicketController::class, 'index'])->name('helpdesk.index');
         Route::get('/painel', [TicketController::class, 'index'])->name('helpdesk.dashboard');
+        Route::get('/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
+        Route::get('/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
     });
 });
