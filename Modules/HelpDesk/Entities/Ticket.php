@@ -23,6 +23,33 @@ class Ticket extends Model
         'sub_category_id',
     ];
     
+    public function TicketRequester()
+    {
+        return $this->belongsTo('App\Models\User', 'requester_id', 'id');
+    }
+
+    public function TicketUser()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+    public function TicketCategory()
+    {
+        return $this->hasOne('Modules\HelpDesk\Entities\TicketCategory', 'id');
+    }
+
+    public function TicketSubCategory()
+    {
+        return $this->hasOne('Modules\HelpDesk\Entities\TicketSubCategory', 'id');
+    }
+
+    public function TicketStatus()
+    {
+        return $this->hasOne('Modules\HelpDesk\Entities\TicketStatus', 'id');
+    }
+
+
+
     protected static function newFactory()
     {
         return \Modules\HelpDesk\Database\factories\TicketFactory::new();

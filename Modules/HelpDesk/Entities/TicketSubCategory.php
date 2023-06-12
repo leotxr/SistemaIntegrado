@@ -13,9 +13,14 @@ class TicketSubCategory extends Model
         'name',
         'description',
         'order',
-        'ticket_category_id',
-        'priority_id'
+        'ticket_category_id'
     ];
+
+    public function relCategory()
+    {
+        return $this->belongsTo('Modules\HelpDesk\Entities\TicketCategory', 'ticket_category_id', 'id');
+    }
+
     
     protected static function newFactory()
     {

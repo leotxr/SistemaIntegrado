@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('order')->nullable();
+            $table->unsignedBigInteger('priority_id');
+            $table->foreign('priority_id')
+            ->references('id')
+            ->on('ticket_priorities');
+            
             $table->timestamps();
         });
     }

@@ -24,12 +24,27 @@
                         <x-input-error class="mt-2" :messages="$errors->get('ticketCategory.order')" />
                     </div>
                     <div class="m-4">
+                        <x-input-label for="priority_id" :value="__('Pioridade de Atendimento')" />
+                        <x-select type="text" wire:model.defer='ticketCategory.priority_id' name='priority_id'
+                            id="priority_id">
+                            <x-slot name='option'>
+                                <option selected>Selecione</option>
+                                @foreach($priorities as $priority)
+                                <x-select.option value="{{$priority->id}}">
+                                    {{$priority->name}}
+                                </x-select.option>
+                                @endforeach
+                            </x-slot>
+                        </x-select>
+                        <x-input-error class="mt-2" :messages="$errors->get('ticketCategory.priority_id')" />
+                    </div>
+                    <div class="m-4">
                         <x-primary-button type="submit">Salvar</x-primary-button>
                     </div>
                 </div>
                 <div>
                     @if (session()->has('message'))
-                    <div class="">
+                    <div class="alert">
                         {{ session('message') }}
                     </div>
                     @endif
@@ -75,12 +90,27 @@
                         <x-input-error class="mt-2" :messages="$errors->get('editingCategory.order')" />
                     </div>
                     <div class="m-4">
+                        <x-input-label for="priority_id" :value="__('Pioridade de Atendimento')" />
+                        <x-select type="text" wire:model.defer='editingCategory.priority_id' name='priority_id'
+                            id="priority_id">
+                            <x-slot name='option'>
+                                <option selected>Selecione</option>
+                                @foreach($priorities as $priority)
+                                <x-select.option value="{{$priority->id}}">
+                                    {{$priority->name}}
+                                </x-select.option>
+                                @endforeach
+                            </x-slot>
+                        </x-select>
+                        <x-input-error class="mt-2" :messages="$errors->get('ticketCategory.priority_id')" />
+                    </div>
+                    <div class="m-4">
                         <x-primary-button type="submit">Salvar</x-primary-button>
                     </div>
                 </div>
                 <div>
                     @if (session()->has('update_message'))
-                    <div class="">
+                    <div class="alert">
                         {{ session('update_message') }}
                     </div>
                     @endif
@@ -103,9 +133,15 @@
                 <x-table.heading>
                     Ordem de exibição
                 </x-table.heading>
+                <x-table.heading>
+                    Prioridade
+                </x-table.heading>
             </x-slot>
             <x-slot name='body'>
                 @foreach($categories as $category)
+                @php
+                    $priority = $category->find($category->id)->relPriority;
+                @endphp
                 <x-table.row>
                     <x-table.cell>
                         {{$category->id}}
@@ -119,9 +155,18 @@
                     <x-table.cell>
                         {{$category->order}}
                     </x-table.cell>
+                    <x-table.cell>
+                        {{$priority->name}}
+                    </x-table.cell>
                 </x-table.row>
                 @endforeach
             </x-slot>
         </x-table>
     </div>
+
+    <script>
+        setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 5000);
+    </script>
 </div>

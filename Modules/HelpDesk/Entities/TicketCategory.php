@@ -12,8 +12,14 @@ class TicketCategory extends Model
     protected $fillable = [
         'name',
         'description',
-        'order'
+        'order',
+        'priority_id'
     ];
+
+    public function relPriority()
+    {
+        return $this->belongsTo('Modules\HelpDesk\Entities\TicketPriority', 'priority_id', 'id');
+    }
     
     protected static function newFactory()
     {

@@ -25,12 +25,6 @@ return new class extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
-            $table->unsignedBigInteger('priority_id');
-            $table->foreign('priority_id')
-            ->references('id')
-            ->on('ticket_priorities');
-            
-
             $table->timestamps();
         });
     }
