@@ -1,7 +1,7 @@
 <div>
     <div class="shadow sm:overflow-hidden sm:rounded-md ">
-        <div class="space-y-6 bg-white px-4 py-5 sm:p-6 content-center">
-            <div class="gap-4 content-center">
+        <div class="content-center px-4 py-5 space-y-6 bg-white sm:p-6">
+            <div class="content-center gap-4">
                 <form wire:submit.prevent="render">
 
                     <label for="protocol" class="block text-sm font-medium text-gray-700">Protocolo</label>
@@ -12,8 +12,8 @@
                     <div class="flex">
                         <x-primary-button type="submit" class="mt-2" id="get_protocol">Consultar
                             Protocolo</x-primary-button>
-                        <div class="mx-2 mt-4 flex">
-                            <input type="checkbox" class="checkbox mx-2" id="checkbox"
+                        <div class="flex mx-2 mt-4">
+                            <input type="checkbox" class="mx-2 checkbox" id="checkbox"
                                 wire:click="$toggle('formProtocol')" />
                             <x-input-label for="checkbox" :value="__('Solicitação sem protocolo')" />
                         </div>
@@ -44,7 +44,7 @@
 
                 <form action="{{route('autorizacao.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid sm:grid-cols-2 grid-cols-1 gap-2">
+                    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
                         <div class="mt-4">
                             <x-input-label for="pacientid" :value="__('Código do Paciente')" />
                             <x-text-input type="text" name='pacienteid' class="w-xs"
@@ -54,7 +54,7 @@
                         <div class="mt-4">
                             <x-input-label for="name" :value="__('Nome do Paciente')" />
                             <x-text-input type="text" name='name' class="w-full"
-                                value="{{$show_data_patient->NOMEPAC}}"></x-text-input>
+                                value="{{$show_data_patient->NOMEPAC}}" required></x-text-input>
                             <x-input-error class="mt-2" :messages="$errors->get('data.patient_name')" />
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         </x-slot>
                         <x-slot name='content'>
                             @foreach($show_data_protocol as $data)
-                            <div class="grid grid-cols-2 gap-2 mt-4 border p-2">
+                            <div class="grid grid-cols-2 gap-2 p-2 mt-4 border">
                                 <div class="mt-4">
                                     <x-input-label for="exam_cod" :value="__('Código Procedimento')" />
                                     @if ($data->CONVENIOID == 4)
@@ -109,7 +109,7 @@
                             Cadastrar exames
                         </x-slot>
                         <x-slot name='content'>
-                            <div class="mt-4 border p-2">
+                            <div class="p-2 mt-4 border">
                                 @foreach($inputs as $key => $input)
                                 <div class="mt-4">
                                     <x-input-label for="exam" :value="__('Procedimento')" />
@@ -136,7 +136,7 @@
 
                                 @if($key > 0)
                                 <div wire:click="removeInput({{$key}})"
-                                    class="flex items-center justify-end text-red-600 text-sm w-full cursor-pointer">
+                                    class="flex items-center justify-end w-full text-sm text-red-600 cursor-pointer">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
@@ -149,7 +149,7 @@
 
                                 @endforeach
                                 <div wire:click="addInput"
-                                    class="flex items-center justify-center text-blue-600 text-sm py-4 w-full cursor-pointer">
+                                    class="flex items-center justify-center w-full py-4 text-sm text-blue-600 cursor-pointer">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
@@ -168,12 +168,12 @@
                         <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-700">Anexar arquivos</label>
                             <div
-                                class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                                class="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                                 <input type="file" name="photo[]" id="photo" wire:model='photo'
-                                    class="file-input file-input-bordered w-full max-w-xs" multiple />
+                                    class="w-full max-w-xs file-input file-input-bordered" multiple />
                             </div>
                         </div>
-                        <div class="grid sm:grid-cols-4 grid-cols-2 gap-2 py-4">
+                        <div class="grid grid-cols-2 gap-2 py-4 sm:grid-cols-4">
                             @if ($photo)
                             <label class="block text-sm font-medium text-gray-700">Fotos Anexadas</label>
                             @foreach($photo as $photos)
@@ -191,7 +191,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('data.observation')" />
                         </div>
                     </div>
-                    <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                    <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                         <x-primary-button type="submit" class="mt-2">Enviar</x-primary-button>
                     </div>
                 </form>
