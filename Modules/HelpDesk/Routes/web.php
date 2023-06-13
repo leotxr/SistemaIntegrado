@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('helpdesk')->group(function () {
 
         Route::group(['middleware' => ['permission:editar chamados']], function () {
-            Route::domain('painel.localhost')->group(function () {
+            Route::domain('painel.192.168.254.182')->group(function () {
                 Route::get('/', [TicketController::class, 'index'])->name('helpdesk.index');
                 Route::get('/painel', [TicketController::class, 'index'])->name('helpdesk.dashboard');
                 Route::get('/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::group(['middleware' => ['permission:abrir chamado']], function () {
-            Route::domain('cliente.localhost')->group(function () {
+            Route::domain('cliente.192.168.254.182')->group(function () {
                 Route::get('/', [GuestController::class, 'index']);
                 Route::get('/chamados', [GuestController::class, 'index'])->name('helpdesk.guest.index');
                 Route::get('/chamados/novo', [GuestController::class, 'create'])->name('helpdesk.guest.create');
