@@ -51,7 +51,7 @@ class AutorizacaoController extends Controller
     {
 
         $request->validate([
-            'paciente_name' => 'min:1',
+            'paciente_name' => 'max:191',
         ]);
         
         $protocol = Protocol::create([
