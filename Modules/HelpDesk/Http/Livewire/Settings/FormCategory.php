@@ -17,7 +17,7 @@ class FormCategory extends Component
         $this->ticketCategory = new TicketCategory();
     }
 
-    public $rules = [
+    protected $rules = [
 
         'ticketCategory.name' => 'required | string',
         'ticketCategory.description' => 'max:100',
@@ -33,6 +33,7 @@ class FormCategory extends Component
 
     public function save()
     {
+        
         $this->validate();
         $this->ticketCategory->save();
         
@@ -50,7 +51,7 @@ class FormCategory extends Component
     {
         $this->editingCategory = TicketCategory::find($this->selectCategory);
         return view('helpdesk::livewire.settings.form-category', [
-            'categories' => Ticketcategory::orderBy('order')->get(),
+            'categories' => Ticketcategory::orderBy('order')->paginate(10),
             'priorities' => TicketPriority::orderBy('order')->get(),]);
     }
 }

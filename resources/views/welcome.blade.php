@@ -22,7 +22,12 @@
                         </button>
                     </a>
 
-                    <a href="#">
+                    @cannot('editar chamados')
+                    <a href="{{route('helpdesk.guest.index')}}">
+                    @endcannot
+                    @can('editar chamados')
+                    <a href="{{route('helpdesk.index')}}">
+                    @endcan
                         <button class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
 
                             <img src="{{ URL::asset('storage/icons/ti.png') }}" class="w-20 h-20 m-2">

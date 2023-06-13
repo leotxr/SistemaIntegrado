@@ -5,21 +5,15 @@ namespace Modules\HelpDesk\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
+use Modules\Helpdesk\Entities\Ticket;
 
-class TicketController extends Controller
+class GuestController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
-    {
- 
-        return view('helpdesk::dashboard.dashboard');
-    }
-
-    public function guest()
     {
         return view('helpdesk::guest.index');
     }
@@ -30,7 +24,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('helpdesk::create');
+        return view('helpdesk::guest.create');
     }
 
     /**
@@ -50,7 +44,8 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        return view('helpdesk::show');
+        $ticket = Ticket::find($id);
+        return view('helpdesk::guest.show', compact('ticket'));
     }
 
     /**

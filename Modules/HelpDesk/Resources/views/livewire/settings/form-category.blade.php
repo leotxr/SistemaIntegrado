@@ -119,6 +119,7 @@
         </div>
     </div>
     <div class="pt-2">
+        {{$categories->links()}}
         <x-table>
             <x-slot name='head'>
                 <x-table.heading>

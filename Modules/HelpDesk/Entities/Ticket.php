@@ -45,7 +45,7 @@ class Ticket extends Model
 
     public function TicketStatus()
     {
-        return $this->hasOne('Modules\HelpDesk\Entities\TicketStatus', 'id');
+        return $this->belongsTo('Modules\HelpDesk\Entities\TicketStatus', 'status_id', 'id');
     }
 
 

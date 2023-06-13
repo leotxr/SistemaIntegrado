@@ -49,7 +49,11 @@ class AutorizacaoController extends Controller
      */
     public function store(Request $request)
     {
-    
+
+        $request->validate([
+            'paciente_name' => 'required',
+        ]);
+        
         $protocol = Protocol::create([
             'paciente_id' => $request->pacienteid ?? NULL,
             'paciente_name' => $request->name ?? NULL,
@@ -58,6 +62,8 @@ class AutorizacaoController extends Controller
             'created_by' => Auth::user()->name,
             'user_id' => Auth::user()->id
         ]);
+        
+        
 
         
         if ($protocol) {

@@ -47,7 +47,7 @@
             <x-title>Editar Sub-Categoria</x-title>
             <form wire:submit.prevent='update'>
                 <div class="m-4">
-                    <x-input-label for="subCategory" :value="__('Selecionar Sub-Categoria')" />
+                    <x-input-label for="subCategory_id" :value="__('Selecionar Sub-Categoria')" />
                     <x-select type="text" wire:model.defer='selectSubCategory' name='subCategory_id' id="subCategory_id">
                         <x-slot name='option'>
                             <option selected>Selecione</option>
