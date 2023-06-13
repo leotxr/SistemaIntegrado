@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['middleware' => ['permission:abrir chamado']], function () {
             
-                Route::get('/', [GuestController::class, 'index']);
+                
                 Route::get('/chamados', [GuestController::class, 'index'])->name('helpdesk.guest.index');
                 Route::get('/chamados/novo', [GuestController::class, 'create'])->name('helpdesk.guest.create');
                 Route::get('/chamados/{id}', [GuestController::class, 'show'])->name('helpdesk.guest.show');
