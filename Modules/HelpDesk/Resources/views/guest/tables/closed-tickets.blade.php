@@ -28,28 +28,29 @@
             $user = $ticket->find($ticket->id)->TicketUser;
             $category = $ticket->find($ticket->id)->TicketCategory;
             @endphp
-            <x-table.row>
-                <x-table.cell>
-                    #{{$ticket->id}}
-                </x-table.cell>
-                <x-table.cell>
-                    {{$ticket->title}}
-                </x-table.cell>
-                <x-table.cell>
-                    <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white" style="background-color: {{$colors[$status->id]}}">
-                       {{$status->name}} 
-                    </span>    
-                </x-table.cell>
-                <x-table.cell>
-                    {{$ticket->created_at->format('d/m/Y H:i:s')}}
-                </x-table.cell>
-                <x-table.cell>
-                    {{$category->name}}
-                </x-table.cell>
-                <x-table.cell class="font-bold">
-                    {{$user->name}}
-                </x-table.cell>
-            </x-table.row>
+                <x-table.row x-on:click="window.location.href = '{{route('helpdesk.guest.show',['id' => $ticket->id])}}'">
+                    <x-table.cell>
+                        #{{$ticket->id}}
+                    </x-table.cell>
+                    <x-table.cell>
+                        {{$ticket->title}}
+                    </x-table.cell>
+                    <x-table.cell>
+                        <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
+                            style="background-color: {{$colors[$status->id]}}">
+                            {{$status->name}}
+                        </span>
+                    </x-table.cell>
+                    <x-table.cell>
+                        {{$ticket->created_at->format('d/m/Y H:i:s')}}
+                    </x-table.cell>
+                    <x-table.cell>
+                        {{$category->name}}
+                    </x-table.cell>
+                    <x-table.cell class="font-bold">
+                        {{$user->name}}
+                    </x-table.cell>
+                </x-table.row>
             @endforeach
         </x-slot>
     </x-table>
