@@ -29,7 +29,7 @@
             $user = $ticket->find($ticket->id)->TicketUser;
             $category = $ticket->find($ticket->id)->TicketCategory;
             @endphp
-            <x-table.row>
+            <x-table.row style="cursor: pointer;" class="hover:bg-gray-50" x-on:click="window.location.href = '{{route('helpdesk.guest.show',['id' => $ticket->id])}}'">
                 <x-table.cell>
                     #{{$ticket->id}}
                 </x-table.cell>

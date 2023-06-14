@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HelpDesk\Entities\Ticket;
+use Modules\HelpDesk\Entities\TicketFile;
 
 class TicketController extends Controller
 {
@@ -40,7 +42,36 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+
+        $ticket = Ticket::create([
+            'title' => $request->ticket_title,
+            'description' => $request->ticket_description ?? NULL,
+            'requester_id' => Auth::user()->id,
+            'ticket_open' => date('Y-m-d H:i:s'),
+            'status_id' => 1,
+            'category_id' => $request->category_id,
+            'sub_category_id' => $request->subcategory_id
+        ]);
+       
+
+        if ($request->hasFile('ticket_files')) {
+            foreach ($request->file('ticket_files') as $photofile) {
+
+                $path = $photofile->store("storage/helpdesk/$ticket->id", ['disk' => 'my_files']);
+                TicketFile::create([
+                    'url' => $path,
+                    'ticket_id' => $ticket->id,
+                    'user_id' => Auth::user()->id
+                ]);
+
+            }
+        }
+
+        if ($ticket)
+            return redirect('/helpdesk/chamados')->with('success', 'Solicitação salva com sucesso!');
+        else
+            return redirect('/helpdesk/chamados')->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
 
     /**

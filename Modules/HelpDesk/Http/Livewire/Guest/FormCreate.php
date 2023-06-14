@@ -7,11 +7,15 @@ use Livewire\Component;
 use Modules\HelpDesk\Entities\TicketCategory;
 use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Entities\Ticket;
+use Modules\HelpDesk\Entities\TicketFile;
 use Illuminate\Support\Facades\Auth;
-
+use Livewire\WithFileUploads;
 
 class FormCreate extends Component
 {
+    use WithFileUploads;
+
+    public $ticket_files = [];
     public $hidden = false;
     public $category;
     public $subcategories = [];
@@ -22,6 +26,7 @@ class FormCreate extends Component
         'saving.sub_category_id' => 'required',
         'saving.title' => 'required | max:191',
         'saving.description' => 'max:200',
+        'ticket_files.*' => 'max:4096'
     ];
 
     public function mount()
@@ -36,6 +41,24 @@ class FormCreate extends Component
         $this->saving->ticket_open = date('Y-m-d H:i:s');
         $this->saving->status_id = 1;
         $this->saving->save();
+
+     
+
+        
+        foreach($this->ticket_files as $file)
+        {
+            $path = $file->store('storage/helpdesk/'.$this->saving->id, ['disk' => 'my_files']);
+            
+            $ticket_file = new TicketFile();
+            $ticket_file->url = $path;
+            $ticket_file->user_id = Auth::user()->id;
+            $ticket_file->ticket_id = $this->saving->id;
+            $ticket_file->save();
+        }
+        
+        
+
+        
         
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }

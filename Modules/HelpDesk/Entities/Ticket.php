@@ -4,6 +4,7 @@ namespace Modules\HelpDesk\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Helpdesk\Entities\TicketMessage;
 
 class Ticket extends Model
 {
@@ -33,9 +34,14 @@ class Ticket extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    public function TicketMessages()
+    {
+        return $this->hasMany(TicketMessage::class);
+    }
+
     public function TicketCategory()
     {
-        return $this->hasOne('Modules\HelpDesk\Entities\TicketCategory', 'id');
+        return $this->belongsTo('Modules\HelpDesk\Entities\TicketCategory','category_id', 'id');
     }
 
     public function TicketSubCategory()

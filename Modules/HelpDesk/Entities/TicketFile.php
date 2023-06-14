@@ -5,30 +5,27 @@ namespace Modules\HelpDesk\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TicketMessage extends Model
+class TicketFile extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'message',
-        'read',
+        'url',
         'ticket_id',
         'user_id'
     ];
 
-    public function MessageUser()
+    public function FileUser()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-
-
-    public function MessageTicket()
+    public function FileTicket()
     {
         return $this->belongsTo('Modules\HelpDesk\Entities\Ticket', 'ticket_id', 'id');
     }
     
     protected static function newFactory()
     {
-        return \Modules\HelpDesk\Database\factories\TicketMessageFactory::new();
+        return \Modules\HelpDesk\Database\factories\TicketFileFactory::new();
     }
 }

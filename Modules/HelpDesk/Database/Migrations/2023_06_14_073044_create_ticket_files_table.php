@@ -13,24 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_messages', function (Blueprint $table) {
+        Schema::create('ticket_files', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('message')->nullable();
-            $table->boolean('read');
+            $table->string('url');
+
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')
             ->references('id')
-            ->on('tickets')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            ->on('tickets');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
             ->references('id')
-            ->on('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
-
+            ->on('users');
 
             $table->timestamps();
         });
@@ -43,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_messages');
+        Schema::dropIfExists('ticket_files');
     }
 };
