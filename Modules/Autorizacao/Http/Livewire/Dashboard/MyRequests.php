@@ -31,6 +31,7 @@ class MyRequests extends Component
     public $editing_protocol;
     public $users;
     public $selectedUsers = [];
+    public $modalObservacao = false;
 
     protected $rules = [
         'editing.*.exam_status_id' => 'required',
@@ -97,6 +98,12 @@ class MyRequests extends Component
             $protocol->delete();
 
         return redirect()->route('autorizacao.index');
+    }
+
+    public function showObservacao(Protocol $protocol)
+    {
+        $this->modalObservacao = true;
+        $this->editing_protocol = $protocol;
     }
 
     public function save()
