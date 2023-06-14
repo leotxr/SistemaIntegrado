@@ -37,6 +37,7 @@ class MyRequests extends Component
         'editing.*.exam_status_id' => 'required',
         'editing.*.exam_obs' => 'max:200',
         'editing_protocol.recebido' => 'boolean',
+        'editing_protocol.observacao' => 'required'
     ];
 
 
