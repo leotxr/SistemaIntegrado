@@ -26,6 +26,7 @@ return new class extends Migration
             ->references('id')
             ->on('users');
             $table->datetime('ticket_open');
+            $table->datetime('ticket_start');
             $table->datetime('ticket_close');
             $table->datetime('ticket_start_pause')->nullable();
             $table->datetime('ticket_end_pause')->nullable();

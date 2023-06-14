@@ -7,8 +7,8 @@
 
 @endsection
 @section('content')
-<div class="m-4 shadow-sm">
-    <div class="max-w-full px-6 justify-items-center">
+<div class="shadow-sm">
+    <div class="max-w-full justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
                 @livewire('helpdesk::dashboard.ticket-tabs')

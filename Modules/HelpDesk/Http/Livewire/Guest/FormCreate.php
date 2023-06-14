@@ -37,6 +37,7 @@ class FormCreate extends Component
     public function save()
     {
         $this->validate();
+
         $this->saving->requester_id = Auth::user()->id;
         $this->saving->ticket_open = date('Y-m-d H:i:s');
         $this->saving->status_id = 1;

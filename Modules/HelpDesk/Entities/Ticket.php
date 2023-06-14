@@ -16,12 +16,14 @@ class Ticket extends Model
         'requester_id',
         'user_id',
         'ticket_open',
+        'ticket_start',
         'ticket_close',
         'ticket_start_pause',
         'ticket_end_pause',
         'status_id',
         'category_id',
         'sub_category_id',
+        'priority_id'
     ];
     
     public function TicketRequester()
@@ -53,6 +55,7 @@ class Ticket extends Model
     {
         return $this->belongsTo('Modules\HelpDesk\Entities\TicketStatus', 'status_id', 'id');
     }
+
 
 
 
