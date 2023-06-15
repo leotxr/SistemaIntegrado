@@ -20,9 +20,21 @@ class TicketTabs extends Component
     public Ticket $showing;
     public Ticket $finishing;
     public $message = '';
+    public $ticket_close;
+    public $finish_message = '';
 
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
+
+    protected $rules = [
+        'finishing.ticket_open' => 'required',
+        'ticket_close' => 'required'
+    ];
+
+    public function mount()
+    {
+        $this->ticket_close = now();
+    }
 
 
     public function selectStatus($id)
@@ -65,6 +77,7 @@ class TicketTabs extends Component
     {
         $this->modalFinish = true;
         $this->finishing = $ticket;
+        $this->ticket_close = now();
     }
 
     public function sendMessage(Ticket $ticket)
@@ -89,6 +102,6 @@ class TicketTabs extends Component
         ->where('tickets.status_id', $this->activeStatus)
         ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
         ->orderBy('ticket_priorities.order', 'desc')
-        ->paginate(7)]);
+        ->paginate(5)]);
     }
 }

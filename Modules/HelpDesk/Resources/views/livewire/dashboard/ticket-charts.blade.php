@@ -1,5 +1,5 @@
 <div>
-    <div class="py-2 mx-auto space-y-2 max-w-7xl" wire:poll.10000ms>
+    <div class="grid gap-3 py-2 mx-auto space-y-2 max-w-7xl lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1" wire:poll.10000ms>
         <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
             <x-title>Chamados abertos por dia</x-title>
             <span class="text-xs font-light text-gray-500">Exibe o total de chamados abertos dos nos ultimos 5 dias</span>

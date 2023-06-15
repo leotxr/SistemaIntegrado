@@ -4,12 +4,13 @@
             @foreach($priorities as $priority)
             <div class="cursor-pointer active:scale-95">
                 <div
-                    class="flex items-center justify-center px-4 py-8 text-center transition-transform duration-200 bg-white shadow-md card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
+                    class="flex items-center justify-center px-4 py-4 text-center transition-transform duration-200 bg-white shadow-md card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="p-2 text-blue-600 ">
                         <x-icon name="ticket" class="w-6 h-6" />
 
                         @php
-                        $count = \Modules\HelpDesk\Entities\Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
+                        $count = \Modules\HelpDesk\Entities\Ticket::join('ticket_categories', 'tickets.category_id',
+                        '=', 'ticket_categories.id')
                         ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
                         ->where('ticket_priorities.id', $priority->id)
                         ->where('tickets.status_id', 1)
@@ -29,7 +30,7 @@
             <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
                 @php
                 $icons = ['home',
-                 'clock',
+                'clock',
                 'check-circle',
                 'pause',
                 'play']
@@ -37,7 +38,7 @@
                 @foreach($statuses as $status)
 
                 <div wire:click='selectStatus({{$status->id}})'
-                    class="flex items-center justify-center px-4 py-8 text-center transition-transform duration-200 bg-white shadow-md cursor-pointer card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
+                    class="flex items-center justify-center px-4 py-2 text-center transition-transform duration-200 bg-white shadow-md cursor-pointer card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="text-xs font-bold text-gray-800 dark:text-gray-50">{{$status->description}}</div>
                     <div class="p-2 text-blue-600 ">
 
@@ -58,21 +59,20 @@
                 @endforeach
             </div>
         </div>
-        <section>
-            @livewire('helpdesk::dashboard.ticket-charts')
-        </section>
-        <aside>
-            @include('helpdesk::dashboard.tables.table-tickets')
-        </aside>
-
+    </div>
+    <div class="w-full">
+        @include('helpdesk::dashboard.tables.table-tickets')
+    </div>
+    <div class="w-full">
+        @livewire('helpdesk::dashboard.ticket-charts')
     </div>
     <div>
         @livewire('helpdesk::dashboard.ticket-stats')
         <div>
             @if (session()->has('message'))
-                <div class="alert alert-info">
-                    {{ session('message') }}
-                </div>
+            <div class="alert alert-info">
+                {{ session('message') }}
+            </div>
             @endif
         </div>
     </div>
