@@ -4,7 +4,7 @@ namespace Modules\HelpDesk\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Helpdesk\Entities\TicketMessage;
+use Modules\HelpDesk\Entities\TicketMessage;
 
 class Ticket extends Model
 {
