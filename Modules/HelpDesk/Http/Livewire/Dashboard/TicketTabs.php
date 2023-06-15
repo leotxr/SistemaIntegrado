@@ -28,7 +28,7 @@ class TicketTabs extends Component
 
     protected $rules = [
         'finishing.ticket_open' => 'required',
-        'ticket_close' => 'required'
+        'ticket_close' => 'required',
     ];
 
     public function mount()
@@ -90,6 +90,30 @@ class TicketTabs extends Component
         $ticket_message->read = 0;
         $ticket_message->save();
         $this->message = '';
+    }
+
+    public function finish()
+    {
+        //$this->validate();
+        $this->finishing->ticket_close = $this->ticket_close;
+        $this->finishing->status_id = 2;
+        $this->finishing->save();
+
+        $ticket_message = new TicketMessage();
+        $ticket_message->message = $this->finish_message;
+        $ticket_message->user_id = Auth::user()->id;
+        $ticket_message->ticket_id = $this->finishing->id;
+        $ticket_message->read = 0;
+        $ticket_message->save();
+
+        session()->flash('message', 'Chamado Finalizado');
+
+        
+        $this->modalFinish = false;
+        $this->modalTicket = false;
+        $this->message = '';
+
+
     }
 
     public function render()
