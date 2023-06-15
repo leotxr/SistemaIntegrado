@@ -26,7 +26,7 @@
                 $solicitante = $ticket->find($ticket->id)->TicketRequester;
                 $categoria = $ticket->find($ticket->id)->TicketCategory;
                 @endphp
-                <x-table.row class="text-xs">
+                <x-table.row  style="cursor: pointer;" class="text-xs hover:bg-gray-100" wire:click='showTicket({{$ticket->id}})' >
                     <x-table.cell>
                         {{date('d/m H:i:s', strtotime($ticket->created_at))}}
                     </x-table.cell>

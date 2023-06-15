@@ -1,6 +1,6 @@
 @props(['id' => null, 'maxWidth' => null, 'maxHeight' => null])
 
-<x-modal :id="$id" :maxWidth="$maxWidth" :maxHeight="$maxHeight" {{ $attributes }} class="bg-white dark:bg-black">
+<x-modal :id="$id" :maxWidth="$maxWidth" :maxHeight="$maxHeight" {{ $attributes }} class="bg-white dark:bg-gray-900">
     <div class="px-6 py-2">
         <div class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ $title }}
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row justify-start px-6 py-4 text-right dark:bg-gray-300 border-t">
+    <div class="flex flex-row justify-start px-6 py-4 text-right border-t dark:bg-gray-300">
         {{$subcontent}}
     </div>
 

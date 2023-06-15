@@ -68,5 +68,14 @@
     </div>
     <div>
         @livewire('helpdesk::dashboard.ticket-stats')
+        <div>
+            @if (session()->has('message'))
+                <div class="alert alert-info">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
     </div>
+    @include('helpdesk::dashboard.modals.modal-edit')
+    @include('helpdesk::dashboard.modals.modal-finish')
 </div>
