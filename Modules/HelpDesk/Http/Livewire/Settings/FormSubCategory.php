@@ -15,7 +15,7 @@ class FormSubCategory extends Component
 
     public function mount()
     {
-        $this->subCategory = new TicketSubCategory();
+       // $this->subCategory = new TicketSubCategory();
     }
 
     public $rules = [
