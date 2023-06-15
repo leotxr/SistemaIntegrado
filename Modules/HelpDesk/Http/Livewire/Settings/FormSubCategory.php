@@ -3,8 +3,8 @@
 namespace Modules\HelpDesk\Http\Livewire\Settings;
 
 use Livewire\Component;
-use Modules\Helpdesk\Entities\TicketSubCategory;
-use Modules\Helpdesk\Entities\TicketCategory;
+use Modules\HelpDesk\Entities\TicketSubCategory;
+use Modules\HelpDesk\Entities\TicketCategory;
 use Modules\HelpDesk\Entities\TicketPriority;
 
 class FormSubCategory extends Component
