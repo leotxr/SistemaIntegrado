@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Scripts -->
-    @wireUiScripts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <!-- style="background-image: url('/storage/icons/fundo.jpg')" bg-cover bg-center bg-no-repeat -->
