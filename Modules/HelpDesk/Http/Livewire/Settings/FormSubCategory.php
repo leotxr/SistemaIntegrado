@@ -15,7 +15,7 @@ class FormSubCategory extends Component
 
     public function mount()
     {
-       // $this->subCategory = new TicketSubCategory();
+       $this->subCategory = new TicketSubCategory();
     }
 
     public $rules = [
@@ -48,7 +48,7 @@ class FormSubCategory extends Component
 
     public function render()
     {
-        //$this->editingSubCategory = TicketSubCategory::find($this->selectSubCategory);
+        $this->editingSubCategory = TicketSubCategory::find($this->selectSubCategory);
         return view('helpdesk::livewire.settings.form-sub-category', [
             'categories' => TicketCategory::orderBy('order')->get(),
         'subcategories' => TicketSubCategory::paginate(10)]);
