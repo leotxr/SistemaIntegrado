@@ -44,7 +44,7 @@ class GuestController extends Controller
      */
     public function show($id)
     {
-        $ticket = Ticket::find($id);
+        $ticket = Ticket::findOrFail($id);
         return view('helpdesk::guest.show', compact('ticket'));
     }
 
