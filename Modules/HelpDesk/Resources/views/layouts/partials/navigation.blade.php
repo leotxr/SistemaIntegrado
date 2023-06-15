@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <a href="" class="flex ml-2 md:mr-24">
-                    <x-application-logo></x-application-logo>
+                    
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Sigma
                         HelpDesk</span>
                 </a>
