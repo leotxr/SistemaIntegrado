@@ -5,7 +5,7 @@ namespace Modules\HelpDesk\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Helpdesk\Entities\Ticket;
+use Modules\HelpDesk\Entities\Ticket;
 
 class GuestController extends Controller
 {
@@ -44,7 +44,7 @@ class GuestController extends Controller
      */
     public function show($id)
     {
-        $ticket = Ticket::findOrFail($id);
+        $ticket = Ticket::find($id);
         return view('helpdesk::guest.show', compact('ticket'));
     }
 
