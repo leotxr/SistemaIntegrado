@@ -30,10 +30,10 @@ $status = $showing->find($showing->id)->TicketStatus;
                     <span
                         class="absolute flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                         @if(isset($user_message->profile_img))
-                        <img class="rounded-full shadow-lg" src="{{URL::asset($user_message->profile_img)}}"
+                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset($user_message->profile_img)}}"
                             alt="{{$user_message->name}}" />
                         @else
-                        <img class="rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
+                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
                         alt="{{$user_message->name}}" />
                         @endif
                     </span>
