@@ -113,7 +113,7 @@ class TicketTabs extends Component
 
     public function pause()
     {
-        $this->pausing->ticket_pause = $this->ticket_pause;
+        $this->pausing->ticket_start_pause = now();
         $this->pausing->status_id = 3;
         $this->pausing->save();
 
