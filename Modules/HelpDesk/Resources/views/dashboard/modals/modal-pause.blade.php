@@ -8,8 +8,8 @@
     </x-slot>
     <x-slot name='content'>
         <div>
-            <x-input-label for='finish_mesage'>Motivo</x-input-label>
-            <x-text-area rows="7" wire:model.defer='pause_message' name="pause_message" id="pause_message"> </x-text-area>
+            <x-input-label for='pause_mesage'>Motivo</x-input-label>
+            <x-text-area rows="7" wire:model.defer='message' name="pause_message" id="pause_message"> </x-text-area>
         </div>
     </x-slot>
     <x-slot name='footer'>
