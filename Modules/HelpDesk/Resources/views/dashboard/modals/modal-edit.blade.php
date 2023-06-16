@@ -34,7 +34,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                             alt="{{$user_message->name}}" />
                         @else
                         <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
-                        alt="{{$user_message->name}}" />
+                            alt="{{$user_message->name}}" />
                         @endif
                     </span>
                     <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
@@ -55,8 +55,13 @@ $status = $showing->find($showing->id)->TicketStatus;
                 <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-800">
                     <span
                         class="absolute flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                        <img class="rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
-                            alt="{{$solicitante->name}}" />
+                        @if(isset($user_message->profile_img))
+                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset($user_message->profile_img)}}"
+                            alt="{{$user_message->name}}" />
+                        @else
+                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
+                            alt="{{$user_message->name}}" />
+                        @endif
                     </span>
                     <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
                         <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}}
@@ -75,15 +80,15 @@ $status = $showing->find($showing->id)->TicketStatus;
                 <li class="mt-2 ml-6" x-data="{ open: false }">
                     <form wire:submit.prevent='sendMessage({{$showing->id}})'>
                         @csrf
-                    <x-secondary-button x-on:click="open = ! open">Inserir Mensagem</x-secondary-button>
-                    <div class="mt-2 text-end" x-show="open" x-transition>
-                        <x-text-area wire:model.defer='message' name="message" id="message"></x-text-area>
+                        <x-secondary-button x-on:click="open = ! open">Inserir Mensagem</x-secondary-button>
+                        <div class="mt-2 text-end" x-show="open" x-transition>
+                            <x-text-area wire:model.defer='message' name="message" id="message"></x-text-area>
 
-                        <x-primary-button class="mt-2">
-                            <x-icon name='paper-airplane' class="w-5 h-5"></x-icon>
-                        </x-primary-button>
-                    </div>
-                </form>
+                            <x-primary-button class="mt-2">
+                                <x-icon name='paper-airplane' class="w-5 h-5"></x-icon>
+                            </x-primary-button>
+                        </div>
+                    </form>
                 </li>
                 @endif
             </ol>
