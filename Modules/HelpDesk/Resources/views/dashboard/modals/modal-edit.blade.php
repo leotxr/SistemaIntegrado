@@ -95,6 +95,8 @@ $status = $showing->find($showing->id)->TicketStatus;
         </div>
     </x-slot>
     <x-slot name='subcontent'>
+       @isset($showing->ticket_close)
+       @endisset
     </x-slot>
     <x-slot name='footer' class="space-x-4">
         <a type="button" class="mx-2 text-red-600">Excluir</a>

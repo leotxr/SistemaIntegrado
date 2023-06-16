@@ -23,7 +23,9 @@ class Ticket extends Model
         'status_id',
         'category_id',
         'sub_category_id',
-        'priority_id'
+        'priority_id',
+        'total_pause',
+        'total_ticket'
     ];
     
     public function TicketRequester()

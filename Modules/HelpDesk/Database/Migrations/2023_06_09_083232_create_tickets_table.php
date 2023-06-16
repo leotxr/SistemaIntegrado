@@ -30,6 +30,9 @@ return new class extends Migration
             $table->datetime('ticket_close');
             $table->datetime('ticket_start_pause')->nullable();
             $table->datetime('ticket_end_pause')->nullable();
+            $table->time('total_pause')->nullable();
+            $table->time('total_ticket')->nullable();
+
 
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')

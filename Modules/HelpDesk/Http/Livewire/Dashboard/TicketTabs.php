@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Modules\HelpDesk\Entities\TicketPriority;
 use Modules\HelpDesk\Entities\TicketStatus;
 use Modules\HelpDesk\Entities\TicketMessage;
+use Modules\HelpDesk\Entities\TicketPause;
 use Modules\HelpDesk\Entities\Ticket;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,16 @@ class TicketTabs extends Component
     {        
         $this->modalTicket = true;
         $this->showing = $ticket;
+
+        if(isset($this->showing->ticket_close))
+        {
+            $pause = gmdate('H:i:s', strtotime($this->showing->ticket_end_pause) - strtotime($this->showing->ticket_start_pause)) ;
+            $complete = gmdate('H:i:s', strtotime($this->showing->ticket_close) - strtotime($this->showing->ticket_open)) ;
+            $total = gmdate('H:i:s', strtotime($complete) - strtotime($pause)) ;
+           
+            
+        }
+
         
     }
 
@@ -115,18 +126,26 @@ class TicketTabs extends Component
 
     public function pause()
     {
-        $this->pausing->ticket_start_pause = now();
-        $this->pausing->status_id = 3;
-        $this->pausing->save();
 
-        $ticket_message = new TicketMessage();
-        $ticket_message->message = $this->message;
-        $ticket_message->user_id = Auth::user()->id;
-        $ticket_message->ticket_id = $this->pausing->id;
-        $ticket_message->read = 0;
-        $ticket_message->save();
+        $ticket_message = TicketMessage::create([
+            'message' => $this->message,
+            'user_id' => Auth::user()->id,
+            'ticket_id' => $this->pausing->id,
+            'read' => 0
+        ]);
+        $pause = TicketPause::create([
+            'start_pause' => now(),
+            'ticket_id' => $this->pausing->id,
+            'user_id' => Auth::user()->id,
+            'ticket_message_id' => $ticket_message->id ?? NULL
+        ]);
 
-        session()->flash('message', 'Chamado Pausado');
+        if($pause)
+        {
+            $this->pausing->status_id = 3;
+            $this->pausing->save();
+            session()->flash('message', 'Chamado Pausado');
+        }
 
         $this->modalPause = false;
         $this->modalTicket = false;
@@ -136,11 +155,36 @@ class TicketTabs extends Component
     public function endPause(Ticket $ticket)
     {
         $this->pausing = $ticket;
-        $this->pausing->ticket_end_pause = now();
-        $this->pausing->status_id = 4;
-        $this->message = 'Atendimento retomado.';
-        $this->sendMessage($ticket);
-        $this->pausing->save();
+        $pause_table = TicketPause::whereNull('end_pause')
+        ->where('ticket_id', $this->pausing->id)
+        ->update(['end_pause' => now()]);
+
+        if($pause_table)
+        {
+            $this->pausing->status_id = 4;
+            $this->message = 'Atendimento retomado.';
+            $this->sendMessage($ticket);
+            $this->pausing->save();
+        }
+
+        $pauses = TicketPause::whereNotNull('end_pause')
+        ->where('ticket_id', $this->pausing->id)
+        ->get();
+
+        $teste = 0;
+        $v = 0;
+        foreach($pauses as $p)
+        {
+            $start = strtotime($p->start_pause);
+            $end = strtotime($p->end_pause);
+            $total_pause = date('H:i:s', $end - $start);
+            $teste = strtotime($total_pause) + strtotime($teste);
+            $v = $v + $teste;
+        }
+
+        $this->pausing->total_pause = gmdate("H:i:s", $v);
+        $this->pausing->save(); 
+        
 
         $this->modalPause = false;
         $this->modalTicket = false;
