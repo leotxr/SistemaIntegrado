@@ -131,6 +131,19 @@ class TicketTabs extends Component
         $this->message = '';
     }
 
+    public function endPause(Ticket $ticket)
+    {
+        $this->pausing = $ticket;
+        $this->pausing->ticket_end_pause = now();
+        $this->pausing->status_id = 4;
+        $this->message = 'Atendimento retomado.';
+        $this->sendMessage($ticket);
+        $this->pausing->save();
+
+        $this->modalPause = false;
+        $this->modalTicket = false;
+    }
+
     public function sendMessage(Ticket $ticket)
     {
         $editing_ticket = $ticket;

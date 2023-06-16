@@ -110,6 +110,9 @@ $status = $showing->find($showing->id)->TicketStatus;
         @if($showing->status_id === 2)
         <x-secondary-button wire:click='confirmReopen()'>Reabrir</x-secondary-button>
         @endif
+        @if($showing->status_id === 3)
+        <x-secondary-button wire:click='endPause({{$showing->id}})'>Retomar Atendimento</x-secondary-button>
+        @endif
     </x-slot>
 </x-modal.form>
 @endisset
