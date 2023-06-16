@@ -55,12 +55,12 @@ $status = $showing->find($showing->id)->TicketStatus;
                 <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-800">
                     <span
                         class="absolute flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                        @if(isset($user_message->profile_img))
-                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset($user_message->profile_img)}}"
-                            alt="{{$user_message->name}}" />
+                        @if(isset($solicitante->profile_img))
+                        <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset($solicitante->profile_img)}}"
+                            alt="{{$solicitante->name}}" />
                         @else
                         <img class="w-12 h-12 rounded-full shadow-lg" src="{{URL::asset('storage/icons/user.png')}}"
-                            alt="{{$user_message->name}}" />
+                            alt="{{$solicitante->name}}" />
                         @endif
                     </span>
                     <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
