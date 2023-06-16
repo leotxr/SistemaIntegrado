@@ -29,7 +29,9 @@ class TicketTabs extends Component
 
     protected $rules = [
         'finishing.ticket_open' => 'required',
-        'ticket_close' => 'required'
+        'ticket_close' => 'required',
+        'finishing.ticket_start_pause' => 'required',
+        'finishing.ticket_end_pause' => 'required'
     ];
 
     public function mount()

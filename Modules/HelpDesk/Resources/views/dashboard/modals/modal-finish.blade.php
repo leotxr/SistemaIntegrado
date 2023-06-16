@@ -9,7 +9,7 @@
     <x-slot name='content'>
         <div>
             <x-input-label for='finish_mesage'>Mensagem de Finalização</x-input-label>
-            <x-text-area rows="7" wire:model.defer='finish_message' name="finish_message" id="finish_message"> </x-text-area>
+            <x-text-area rows="7" wire:model.defer='message' name="finish_message" id="finish_message"> </x-text-area>
         </div>
         <div class="grid grid-cols-2 gap-3">
             <div class="mt-4">
@@ -19,18 +19,18 @@
             </div>
             <div class="mt-4">
                 <x-input-label for="exam" :value="__('Hora de Finalização')" />
-                <input type="datetime-local" value="{{$ticket_close}}" class="input" name="ticket_close" id="ticket_close" />
+                <input type="datetime-local" step='1' value="{{$ticket_close}}" class="input" name="ticket_close" id="ticket_close" />
                 <x-input-error class="mt-2" :messages="$errors->get('ticket_close')" />
             </div>
-            @isset($finishing->start_pause)
+            @isset($finishing->ticket_start_pause)
             <div class="mt-4">
                 <x-input-label for="start_pause" :value="__('Início da Pausa')" />
-                <input type="datetime" class="input" name="start_pause" id="start_pause" wire:model.defer='finishing.ticket_start_pause'/>
+                <input type="datetime-local" step='1' class="input" name="start_pause" id="start_pause" wire:model.defer='finishing.ticket_start_pause'/>
                 <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_start_pause')" />
             </div>
             <div class="mt-4">
                 <x-input-label for="end_pause" :value="__('Fim da Pausa')" />
-                <input type="datetime" class="input" name="end_pause" id="end_pause" wire:model.defer='finishing.ticket_end_pause'/>
+                <input type="datetime-local" step='1' class="input" name="end_pause" id="end_pause" wire:model.defer='finishing.ticket_end_pause'/>
                 <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_end_pause')" />
             </div>
             @endisset
