@@ -102,9 +102,13 @@ $status = $showing->find($showing->id)->TicketStatus;
         <x-primary-button class="mx-2 bg-blue-800" wire:click='startTicket({{$showing->id}})'>Atender</x-primary-button>
         @endif
         @if($showing->status_id === 4)
-        <x-primary-button class="mx-2 bg-green-400" wire:click='openFinishTicket({{$showing->id}})'>Finalizar
+        <x-primary-button class="mx-2 bg-yellow-400" wire:click='openPauseTicket({{$showing->id}})'>Pausar
         </x-primary-button>
-        <x-primary-button class="mx-2 bg-yellow-400">Pausar</x-primary-button>
+        <x-primary-button class="mx-2 bg-blue-800" wire:click='openFinishTicket({{$showing->id}})'>Finalizar
+        </x-primary-button>
+        @endif
+        @if($showing->status_id === 2)
+        <x-secondary-button wire:click='confirmReopen()'>Reabrir</x-secondary-button>
         @endif
     </x-slot>
 </x-modal.form>

@@ -57,12 +57,9 @@ class FormCreate extends Component
             $ticket_file->save();
         }
         
-        
-
-        
-        
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
+
 
 
     public function render()

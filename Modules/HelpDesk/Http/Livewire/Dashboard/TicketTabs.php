@@ -17,18 +17,19 @@ class TicketTabs extends Component
     public $activeStatus = 1;
     public $modalTicket = false;
     public $modalFinish = false;
+    public $modalPause = false;
     public Ticket $showing;
     public Ticket $finishing;
+    public Ticket $pausing;
     public $message = '';
     public $ticket_close;
-    public $finish_message = '';
 
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
 
     protected $rules = [
         'finishing.ticket_open' => 'required',
-        'ticket_close' => 'required',
+        'ticket_close' => 'required'
     ];
 
     public function mount()
@@ -80,18 +81,6 @@ class TicketTabs extends Component
         $this->ticket_close = now();
     }
 
-    public function sendMessage(Ticket $ticket)
-    {
-        $editing_ticket = $ticket;
-        $ticket_message = new TicketMessage();
-        $ticket_message->message = $this->message;
-        $ticket_message->user_id = Auth::user()->id;
-        $ticket_message->ticket_id = $editing_ticket->id;
-        $ticket_message->read = 0;
-        $ticket_message->save();
-        $this->message = '';
-    }
-
     public function finish()
     {
         //$this->validate();
@@ -100,7 +89,7 @@ class TicketTabs extends Component
         $this->finishing->save();
 
         $ticket_message = new TicketMessage();
-        $ticket_message->message = $this->finish_message;
+        $ticket_message->message = $this->message;
         $ticket_message->user_id = Auth::user()->id;
         $ticket_message->ticket_id = $this->finishing->id;
         $ticket_message->read = 0;
@@ -115,6 +104,46 @@ class TicketTabs extends Component
 
 
     }
+
+    public function openPauseTicket(Ticket $ticket)
+    {
+        $this->modalPause = true;
+        $this->pausing = $ticket;
+    }
+
+    public function pause()
+    {
+        $this->pausing->ticket_pause = $this->ticket_pause;
+        $this->pausing->status_id = 3;
+        $this->pausing->save();
+
+        $ticket_message = new TicketMessage();
+        $ticket_message->message = $this->message;
+        $ticket_message->user_id = Auth::user()->id;
+        $ticket_message->ticket_id = $this->pausing->id;
+        $ticket_message->read = 0;
+        $ticket_message->save();
+
+        session()->flash('message', 'Chamado Pausado');
+
+        $this->modalPause = false;
+        $this->modalTicket = false;
+        $this->message = '';
+    }
+
+    public function sendMessage(Ticket $ticket)
+    {
+        $editing_ticket = $ticket;
+        $ticket_message = new TicketMessage();
+        $ticket_message->message = $this->message;
+        $ticket_message->user_id = Auth::user()->id;
+        $ticket_message->ticket_id = $editing_ticket->id;
+        $ticket_message->read = 0;
+        $ticket_message->save();
+        $this->message = '';
+    }
+
+
 
     public function render()
     {
