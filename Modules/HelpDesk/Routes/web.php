@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/chamados/novo', [GuestController::class, 'create'])->name('helpdesk.guest.create');
                 Route::get('/chamados/{id}', [GuestController::class, 'show'])->name('helpdesk.guest.show');
                 Route::post('/chamados/store', [TicketController::class, 'store'])->name('helpdesk.guest.store');
-           
+                
         });
     });
 });

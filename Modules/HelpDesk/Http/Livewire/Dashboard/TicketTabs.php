@@ -215,7 +215,9 @@ class TicketTabs extends Component
 
     public function incrementTicketCount()
     {
-       $this->render();
+        
+       //$this->render();
+       dd("chegou");
     }
 
     public function render()

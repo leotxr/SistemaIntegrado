@@ -1,8 +1,8 @@
 <div>
-    <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1" wire:poll.10000>
+    <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1" wire:poll.5000>
         <div class="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @foreach($priorities as $priority)
-            <a class="cursor-pointer active:scale-95" >
+            <a class="cursor-pointer active:scale-95" wire:click="$emit('ticketCreated')">
                 <div
                     class="flex items-center justify-center px-4 py-4 text-center transition-transform duration-200 bg-white shadow-md card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="p-2 text-blue-600 ">
@@ -63,19 +63,7 @@
     <div class="w-full">
         @include('helpdesk::dashboard.tables.table-tickets')
     </div>
-    <div class="w-full">
-        @livewire('helpdesk::dashboard.ticket-charts')
-    </div>
-    <div>
-        @livewire('helpdesk::dashboard.ticket-stats')
-        <div>
-            @if (session()->has('message'))
-            <div class="alert alert-info">
-                {{ session('message') }}
-            </div>
-            @endif
-        </div>
-    </div>
+
     @include('helpdesk::dashboard.modals.modal-edit')
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')

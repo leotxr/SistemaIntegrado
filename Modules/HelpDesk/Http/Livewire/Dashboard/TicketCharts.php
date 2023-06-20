@@ -24,6 +24,12 @@ class TicketCharts extends Component
         dd($point);
     }
 
+    public function emitTeste()
+    {
+         
+        $this->emitTo('helpdesk::dashboard.ticket-tabs', 'ticketCreated');
+    }
+
     public function render()
     {
         $groups = UserGroup::whereNotNull('description')->get();

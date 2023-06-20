@@ -4,6 +4,7 @@ namespace Modules\HelpDesk\Http\Livewire\Guest;
 
 use DateTime;
 use Livewire\Component;
+use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
 use Modules\HelpDesk\Entities\TicketCategory;
 use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Entities\Ticket;
@@ -44,10 +45,9 @@ class FormCreate extends Component
         $this->saving->status_id = 1;
         $this->saving->save();
 
-        foreach($this->ticket_files as $file)
-        {
-            $path = $file->store('storage/helpdesk/'.$this->saving->id, ['disk' => 'my_files']);
-            
+        foreach ($this->ticket_files as $file) {
+            $path = $file->store('storage/helpdesk/' . $this->saving->id, ['disk' => 'my_files']);
+
             $ticket_file = new TicketFile();
             $ticket_file->url = $path;
             $ticket_file->user_id = Auth::user()->id;
@@ -55,20 +55,17 @@ class FormCreate extends Component
             $ticket_file->save();
         }
 
-       
-        $this->emit('ticketCreated');
+
+
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
 
-
-
     public function render()
     {
-        if(!empty($this->saving->category_id))
-        {
+        if (!empty($this->saving->category_id)) {
             $this->subcategories = TicketSubCategory::where('ticket_category_id', $this->saving->category_id)->get();
         }
-        
+
         return view('helpdesk::livewire.guest.form-create', ['categories' => TicketCategory::all()]);
     }
 }

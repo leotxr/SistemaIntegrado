@@ -6,6 +6,7 @@ use Livewire\Component;
 use Modules\HelpDesk\Entities\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use Modules\HelpDesk\http\Livewire\Dashboard\TicketTabs;
 
 class MyTickets extends Component
 {
@@ -13,6 +14,12 @@ class MyTickets extends Component
 
 
    public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
+
+   public function emitTeste()
+   {
+        
+       $this->emitTo('helpdesk::dashboard.ticket-tabs', 'ticketCreated');
+   }
 
     
     public function render()
