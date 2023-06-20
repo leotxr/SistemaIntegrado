@@ -98,11 +98,21 @@ class TicketTabs extends Component
         $this->ticket_close = now();
     }
 
+    public function calcInterval($date1, $date2)
+    {
+        $inicio = new DateTime($date1);
+        $fim = new DateTime($date2);
+        $diff = $inicio->diff($fim);
+        $tempo = $diff->format("%H:%I:%S");
+
+        return $tempo;
+    }
     public function finish()
     {
         //$this->validate();
         $this->finishing->ticket_close = $this->ticket_close;
         $this->finishing->status_id = 2;
+        $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
         $this->finishing->save();
 
         $ticket_message = new TicketMessage();

@@ -59,7 +59,7 @@ class FormCreate extends Component
         }
 
        
-        
+        $this->emit('ticketCreated');
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
 
