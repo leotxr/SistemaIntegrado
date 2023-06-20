@@ -1,4 +1,5 @@
 @isset($finishing)
+
 <form wire:submit.prevent='finish'>
     @csrf
 <x-modal.dialog wire:model.defer='modalFinish'>
@@ -13,25 +14,20 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
             <div class="mt-4">
-                <x-input-label for="ticket_open" :value="__('Hora de Início')" />
-                <input type="datetime-local" step='1' class="input" name="ticket_open" id="ticket_open" wire:model.defer='finishing.ticket_open' />
-                <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_open')" />
+                <x-input-label for="ticket_start" :value="__('Inicio do atendimento')" />
+                <input type="datetime-local" step='1' class="input" name="ticket_start" id="ticket_start" wire:model.defer='finishing.ticket_start' />
+                <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_start')" />
             </div>
             <div class="mt-4">
                 <x-input-label for="exam" :value="__('Hora de Finalização')" />
                 <input type="datetime-local" step='1' value="{{$ticket_close}}" class="input" name="ticket_close" id="ticket_close" />
                 <x-input-error class="mt-2" :messages="$errors->get('ticket_close')" />
             </div>
-            @isset($finishing->ticket_start_pause)
+            @isset($finishing->total_pause)
             <div class="mt-4">
-                <x-input-label for="start_pause" :value="__('Início da Pausa')" />
-                <input type="datetime-local" step='1' class="input" name="start_pause" id="start_pause" wire:model.defer='finishing.ticket_start_pause'/>
-                <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_start_pause')" />
-            </div>
-            <div class="mt-4">
-                <x-input-label for="end_pause" :value="__('Fim da Pausa')" />
-                <input type="datetime-local" step='1' class="input" name="end_pause" id="end_pause" wire:model.defer='finishing.ticket_end_pause'/>
-                <x-input-error class="mt-2" :messages="$errors->get('finishing.ticket_end_pause')" />
+                <x-input-label for="total_pause" :value="__('Tempo de Pausa')" />
+                <input type="time" step='1' class="input" name="total_pause" id="total_pause" wire:model.defer='finishing.total_pause'/>
+                <x-input-error class="mt-2" :messages="$errors->get('finishing.total_pause')" />
             </div>
             @endisset
         </div>

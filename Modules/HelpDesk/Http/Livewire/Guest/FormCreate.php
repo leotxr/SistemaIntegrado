@@ -29,6 +29,7 @@ class FormCreate extends Component
         'ticket_files.*' => 'max:4096'
     ];
 
+
     public function mount()
     {
         $this->saving = new Ticket();
@@ -56,6 +57,8 @@ class FormCreate extends Component
             $ticket_file->ticket_id = $this->saving->id;
             $ticket_file->save();
         }
+
+       
         
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }

@@ -96,6 +96,9 @@ $status = $showing->find($showing->id)->TicketStatus;
     </x-slot>
     <x-slot name='subcontent'>
        @isset($showing->ticket_close)
+       <div class="inline-flex">
+        <div class="font-bold text-md">Tempo de Atendimento: <span class="font-light text-md">{{$total}}</span></div> 
+       </div>
        @endisset
     </x-slot>
     <x-slot name='footer' class="space-x-4">

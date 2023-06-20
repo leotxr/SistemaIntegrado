@@ -2,7 +2,7 @@
     <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1">
         <div class="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @foreach($priorities as $priority)
-            <div class="cursor-pointer active:scale-95">
+            <a class="cursor-pointer active:scale-95" >
                 <div
                     class="flex items-center justify-center px-4 py-4 text-center transition-transform duration-200 bg-white shadow-md card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="p-2 text-blue-600 ">
@@ -23,7 +23,7 @@
                         {{$count}}
                     </div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
         <div>
