@@ -44,9 +44,6 @@ class FormCreate extends Component
         $this->saving->status_id = 1;
         $this->saving->save();
 
-     
-
-        
         foreach($this->ticket_files as $file)
         {
             $path = $file->store('storage/helpdesk/'.$this->saving->id, ['disk' => 'my_files']);
