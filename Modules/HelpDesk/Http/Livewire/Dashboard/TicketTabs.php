@@ -240,6 +240,11 @@ class TicketTabs extends Component
 
     public function transfer()
     {
+        
+        $novo = User::find($this->transfering->user_id);
+        $this->transfering->status_id = 3;
+        $this->message = "Chamado transferido para o usuário $novo->name.";
+        $this->sendMessage($this->transfering);
         $this->transfering->save();
         $this->modalTransfer = false;
     }
