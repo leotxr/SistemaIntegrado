@@ -242,10 +242,20 @@ class TicketTabs extends Component
     {
         
         $novo = User::find($this->transfering->user_id);
-        $this->transfering->status_id = 3;
         $this->message = "Chamado transferido para o usuário $novo->name.";
         $this->sendMessage($this->transfering);
-        $this->transfering->save();
+        $pause = TicketPause::create([
+            'start_pause' => now(),
+            'ticket_id' => $this->transfering->id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        if ($pause) {
+            $this->transfering->status_id = 3;
+            $this->transfering->save();
+            $this->dispatchBrowserEvent('notify', 
+            ['type' => 'info', 'message' =>'Chamado Pausado']);
+        }
         $this->modalTransfer = false;
     }
 
