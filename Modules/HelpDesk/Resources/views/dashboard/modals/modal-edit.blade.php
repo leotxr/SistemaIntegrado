@@ -95,21 +95,37 @@ $status = $showing->find($showing->id)->TicketStatus;
         </div>
     </x-slot>
     <x-slot name='subcontent'>
-       @isset($showing->ticket_close)
-       <div class="inline-flex">
-        <div class="font-bold text-md">Tempo de Atendimento: <span class="font-light text-md">{{$total}}</span></div> 
-       </div>
-       @endisset
+        @isset($showing->ticket_close)
+        <div class="inline-flex">
+            <div class="font-bold text-md">Tempo de Atendimento: <span class="font-light text-md">{{$total}}</span>
+            </div>
+        </div>
+        @endisset
     </x-slot>
     <x-slot name='footer' class="space-x-4">
-        <a type="button" class="mx-2 text-red-600">Excluir</a>
+        <div>
+            <div class="dropdown dropdown-top dropdown-end">
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    @if($showing->status_id === 4)
+                    <li><a wire:click='openPauseTicket({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
+                    <li><a wire:click='openTransferTicket({{$showing->id}})'><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>
+                    @endif
+                    <li><a> <x-icon name="trash" class="w-4 h-4"/> Excluir</a></li>
+                </ul>
+                <button tabindex="0">
+                    <x-icon name="dots-horizontal" class="w-6 h-6" />
+                </button>
+
+
+            </div>
+        </div>
+
         @if($showing->status_id === 1)
         <x-primary-button class="mx-2 bg-blue-800" wire:click='startTicket({{$showing->id}})'>Atender</x-primary-button>
         @endif
         @if($showing->status_id === 4)
-        <x-primary-button class="mx-2 bg-yellow-400" wire:click='openPauseTicket({{$showing->id}})'>Pausar
-        </x-primary-button>
-        <x-primary-button class="mx-2 bg-blue-800" wire:click='openFinishTicket({{$showing->id}})'>Finalizar
+        <x-primary-button class="mx-2 bg-blue-600 hover:bg-blue-400" wire:click='openFinishTicket({{$showing->id}})'>
+            Finalizar
         </x-primary-button>
         @endif
         @if($showing->status_id === 2)

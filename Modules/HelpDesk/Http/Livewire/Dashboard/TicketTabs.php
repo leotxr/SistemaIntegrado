@@ -11,6 +11,9 @@ use Modules\HelpDesk\Entities\TicketMessage;
 use Modules\HelpDesk\Entities\TicketPause;
 use Modules\HelpDesk\Entities\Ticket;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class TicketTabs extends Component
 {
@@ -20,12 +23,18 @@ class TicketTabs extends Component
     public $modalTicket = false;
     public $modalFinish = false;
     public $modalPause = false;
+    public $modalTransfer = false;
     public Ticket $showing;
     public Ticket $finishing;
     public Ticket $pausing;
+    public Ticket $started;
+    public Ticket $transfering;
     public $message = '';
     public $ticket_close;
     public $total;
+    public $users;
+    public $user;
+    
 
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
@@ -35,7 +44,8 @@ class TicketTabs extends Component
         'ticket_close' => 'required',
         'finishing.ticket_start_pause' => 'required',
         'finishing.ticket_end_pause' => 'required',
-        'finishing.total_pause' => 'required'
+        'finishing.total_pause' => 'required',
+        'transfering.user_id' => 'required'
     ];
 
     protected $listeners = ['ticketCreated' => 'incrementTicketCount'];
@@ -74,14 +84,15 @@ class TicketTabs extends Component
 
     public function startTicket(Ticket $ticket)
     {
-        $started = $ticket;
-        if ($started->status_id == 1) {
-            $started->status_id = 4;
-            $started->ticket_start = date('Y-m-d H:i:s');
-            $started->user_id = Auth::user()->id;
+        $this->started = $ticket;
+
+        if ($this->started->status_id == 1) {
+            $this->started->status_id = 4;
+            $this->started->ticket_start = date('Y-m-d H:i:s');
+            $this->started->user_id = Auth::user()->id;
             $this->message = 'Atendimento iniciado.';
             $this->sendMessage($ticket);
-            $started->save();
+            $this->started->save();
             $this->dispatchBrowserEvent('notify', 
             ['type' => 'success', 'message' =>'Status alterado para Em atendimento!']);
         } else {
@@ -218,6 +229,19 @@ class TicketTabs extends Component
         
        //$this->render();
        dd("chegou");
+    }
+
+    public function openTransferTicket(Ticket $ticket)
+    {
+        $this->users = User::where('user_group_id', 9)->get();
+        $this->modalTransfer = true;
+        $this->transfering = $ticket;
+    }
+
+    public function transfer()
+    {
+        $this->transfering->save();
+        $this->modalTransfer = false;
     }
 
     public function render()
