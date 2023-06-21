@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('helpdesk.guest.index')" :active="request()->routeIs('helpdesk.guest.index')">
                         {{ __('Início') }}
                     </x-nav-link>
-                    <x-nav-link >
+                    <x-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
                         {{ __('Meus Chamados') }}
                     </x-nav-link>
                     <x-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
@@ -86,10 +86,10 @@
             <x-responsive-nav-link :href="route('helpdesk.guest.index')" :active="request()->routeIs('helpdesk.guest.index')">
                 {{ __('Início') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('autorizacao.index')">
+            <x-responsive-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
                 {{ __('Novo Chamado') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('autorizacao.index')">
+            <x-responsive-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
                 {{ __('Meus Chamados') }}
             </x-responsive-nav-link>
         </div>

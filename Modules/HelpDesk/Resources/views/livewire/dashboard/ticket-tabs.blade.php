@@ -1,5 +1,5 @@
 <div>
-    <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1" >
+    <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1">
         <div class="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @foreach($priorities as $priority)
             <a class="cursor-pointer active:scale-95" wire:click="$emit('ticketCreated')">
@@ -60,12 +60,16 @@
             </div>
         </div>
     </div>
+
+
     <div class="w-full">
         @include('helpdesk::dashboard.tables.table-tickets')
     </div>
+
 
     @include('helpdesk::dashboard.modals.modal-edit')
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')
     @include('helpdesk::dashboard.modals.modal-transfer')
+
 </div>
