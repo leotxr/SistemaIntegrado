@@ -2,7 +2,7 @@
 @php
 $status = $showing->find($showing->id)->TicketStatus;
 @endphp
-<x-modal.form wire:model.defer='modalEditTicket'>
+<x-modal.form wire:model.defer='modalTicket'>
     <x-slot name='title'>
 
         <x-title>Detalhes do Chamado: #{{$showing->id}} - {{$showing->title}}</x-title>

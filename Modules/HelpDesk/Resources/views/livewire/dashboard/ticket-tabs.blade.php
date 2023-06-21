@@ -66,7 +66,7 @@
         @include('helpdesk::dashboard.tables.table-tickets')
     </div>
 
-
+    @include('helpdesk::dashboard.modals.modal-show')
     @include('helpdesk::dashboard.modals.modal-edit')
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')
