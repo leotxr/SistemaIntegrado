@@ -14,7 +14,7 @@ class TicketStats extends Component
     {
         
 
-        $tma =  Ticket::whereBetween('ticket_open', [date('Y-m-d', strtotime("-1 days")), date('Y-m-d')])->avg('total_ticket');
+        $tma =  Ticket::whereBetween('ticket_open', [date('Y-m-d'), date('Y-m-d')])->avg('total_ticket');
         $tma_hoje = gmdate("H:i:s", $tma);
         //$tma_hoje = $tma->format("%H:%I:%S");
         return view('helpdesk::livewire.dashboard.ticket-stats', 
