@@ -36,7 +36,7 @@ class TicketTabs extends Component
     public $total;
     public $users;
     public $user;
-    
+
 
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
@@ -95,11 +95,15 @@ class TicketTabs extends Component
             $this->message = 'Atendimento iniciado.';
             $this->sendMessage($ticket);
             $this->started->save();
-            $this->dispatchBrowserEvent('notify', 
-            ['type' => 'success', 'message' =>'Status alterado para Em atendimento!']);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'success', 'message' => 'Status alterado para Em atendimento!']
+            );
         } else {
-            $this->dispatchBrowserEvent('notify', 
-            ['type' => 'error', 'message' =>'Este chamado já está em atendimento!']);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Este chamado já está em atendimento!']
+            );
         }
         $this->modalTicket = false;
     }
@@ -125,7 +129,14 @@ class TicketTabs extends Component
         //$this->validate();
         $this->finishing->ticket_close = $this->ticket_close;
         $this->finishing->status_id = 2;
-        $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
+        if ($this->finishing->total_pause) {
+            $total_at = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
+            $pausa = $this->finishing->total_pause;
+            
+            $total = $this->calcInterval($total_at, $pausa);
+
+            $this->finishing->total_ticket = $total;
+        } else $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
         $this->finishing->save();
 
         $ticket_message = new TicketMessage();
@@ -138,8 +149,10 @@ class TicketTabs extends Component
         $this->modalFinish = false;
         $this->modalTicket = false;
         $this->message = '';
-        $this->dispatchBrowserEvent('notify', 
-        ['type' => 'success', 'message' =>'Chamado finalizado com sucesso!']);
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'success', 'message' => 'Chamado finalizado com sucesso!']
+        );
     }
 
     public function openPauseTicket(Ticket $ticket)
@@ -167,8 +180,10 @@ class TicketTabs extends Component
         if ($pause) {
             $this->pausing->status_id = 3;
             $this->pausing->save();
-            $this->dispatchBrowserEvent('notify', 
-            ['type' => 'info', 'message' =>'Chamado Pausado']);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'info', 'message' => 'Chamado Pausado']
+            );
         }
 
         $this->modalPause = false;
@@ -210,8 +225,10 @@ class TicketTabs extends Component
 
         $this->modalPause = false;
         $this->modalTicket = false;
-        $this->dispatchBrowserEvent('notify', 
-        ['type' => 'success', 'message' =>'Status alterado para em atendimento!']);
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'success', 'message' => 'Status alterado para em atendimento!']
+        );
     }
 
     public function sendMessage(Ticket $ticket)
@@ -228,9 +245,9 @@ class TicketTabs extends Component
 
     public function incrementTicketCount()
     {
-        
-       //$this->render();
-       dd("chegou");
+
+        //$this->render();
+        dd("chegou");
     }
 
     public function openTransferTicket(Ticket $ticket)
@@ -242,7 +259,7 @@ class TicketTabs extends Component
 
     public function transfer()
     {
-        
+
         $novo = User::find($this->transfering->user_id);
         $this->message = "Chamado transferido para o usuário $novo->name.";
         $this->sendMessage($this->transfering);
@@ -255,8 +272,10 @@ class TicketTabs extends Component
         if ($pause) {
             $this->transfering->status_id = 3;
             $this->transfering->save();
-            $this->dispatchBrowserEvent('notify', 
-            ['type' => 'info', 'message' =>'Chamado Pausado']);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'info', 'message' => 'Chamado Pausado']
+            );
         }
         $this->modalTransfer = false;
     }
@@ -270,10 +289,8 @@ class TicketTabs extends Component
     public function delete()
     {
         $delete = Ticket::where('id', $this->deleting->id)->delete();
-        if($delete)
-        {
+        if ($delete) {
             return redirect()->route('helpdesk.index');
-
         }
     }
     public function render()
