@@ -99,6 +99,27 @@
                         class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                 </x-side-link>
             </li>
+            <li x-data="{chamados:false}">
+                <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        <path fill-rule="evenodd" d="M1.5 9.832v1.793c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875V9.832a3 3 0 00-.722-1.952l-3.285-3.832A3 3 0 0016.215 3h-8.43a3 3 0 00-2.278 1.048L2.222 7.88A3 3 0 001.5 9.832zM7.785 4.5a1.5 1.5 0 00-1.139.524L3.881 8.25h3.165a3 3 0 012.496 1.336l.164.246a1.5 1.5 0 001.248.668h2.092a1.5 1.5 0 001.248-.668l.164-.246a3 3 0 012.496-1.336h3.165l-2.765-3.226a1.5 1.5 0 00-1.139-.524h-8.43z" clip-rule="evenodd" />
+                        <path d="M2.813 15c-.725 0-1.313.588-1.313 1.313V18a3 3 0 003 3h15a3 3 0 003-3v-1.688c0-.724-.588-1.312-1.313-1.312h-4.233a3 3 0 00-2.496 1.336l-.164.246a1.5 1.5 0 01-1.248.668h-2.092a1.5 1.5 0 01-1.248-.668l-.164-.246A3 3 0 007.046 15H2.812z" />
+                      </svg>                      
+                    <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
+                </x-side-link>
+                <div x-show="chamados" x-transition>
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
+                        :active="request()->routeIs('helpdesk.settings.sub-category')">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
+                    </x-side-link>
+                    <x-side-link class="w-full">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
+                    </x-side-link>
+                    <x-side-link class="w-full">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
+                    </x-side-link>
+                </div>
+            </li>
             <li x-data="{open:false}">
                 <x-side-link class="w-full" x-on:click="open = ! open" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
