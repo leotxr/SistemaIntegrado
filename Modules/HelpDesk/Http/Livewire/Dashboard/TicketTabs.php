@@ -48,7 +48,7 @@ class TicketTabs extends Component
         'transfering.user_id' => 'required'
     ];
 
-    protected $listeners = ['ticketCreated' => 'incrementTicketCount'];
+    protected $listeners = ['echo:dashboard,TicketCreated' => 'render'];
 
     public function mount()
     {

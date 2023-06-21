@@ -11,6 +11,7 @@ use Modules\HelpDesk\Entities\Ticket;
 use Modules\HelpDesk\Entities\TicketFile;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use App\Events\TicketCreated;
 
 class FormCreate extends Component
 {
@@ -55,7 +56,7 @@ class FormCreate extends Component
             $ticket_file->save();
         }
 
-
+        TicketCreated::dispatch();
 
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
