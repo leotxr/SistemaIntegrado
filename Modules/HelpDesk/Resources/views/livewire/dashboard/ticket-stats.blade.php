@@ -12,7 +12,7 @@
                         <span>Ontem</span>
                     </div>
                     <div>
-                        <x-title class="text-3xl font-bold">00:00:00</x-title>
+                        <x-title class="text-3xl font-bold">{{$tma_7d}}</x-title>
                         <span>7 dias</span>
                     </div>
                 </div>
