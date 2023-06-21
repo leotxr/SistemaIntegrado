@@ -13,9 +13,6 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('helpdesk.guest.index')" :active="request()->routeIs('helpdesk.guest.index')">
-                        {{ __('Início') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
                         {{ __('Meus Chamados') }}
                     </x-nav-link>
                     <x-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
@@ -83,13 +80,10 @@
 
         <div class="pt-2 pb-3 space-y-1 border-gray-200 dark:border-gray-600">
             
-            <x-responsive-nav-link :href="route('helpdesk.guest.index')" :active="request()->routeIs('helpdesk.guest.index')">
-                {{ __('Início') }}
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
                 {{ __('Novo Chamado') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('helpdesk.guest.create')" :active="request()->routeIs('helpdesk.guest.create')">
+            <x-responsive-nav-link :href="route('helpdesk.guest.index')" :active="request()->routeIs('helpdesk.guest.index')">
                 {{ __('Meus Chamados') }}
             </x-responsive-nav-link>
         </div>
