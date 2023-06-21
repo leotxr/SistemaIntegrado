@@ -15,8 +15,10 @@ class TicketCharts extends Component
     public $firstRun = true;
     public $showDataLabels = false;
 
+
     protected $listeners = [
         'onPointClick' => 'handleOnPointClick',
+        'echo:dashboard,TicketCreated' => 'render'
     ];
 
     public function handleOnPointClick($point)
