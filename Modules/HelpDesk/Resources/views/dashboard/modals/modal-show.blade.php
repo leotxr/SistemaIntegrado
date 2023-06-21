@@ -110,6 +110,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                     <li><a wire:click='openPauseTicket({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
                     <li><a wire:click='openTransferTicket({{$showing->id}})'><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>
                     @endif
+                    <li><a wire:click='openEditTicket({{$showing->id}})'> <x-icon name="pencil" class="w-4 h-4"/> Editar</a></li>
                     <li><a wire:click='openDeleteTicket({{$showing->id}})'> <x-icon name="trash" class="w-4 h-4"/> Excluir</a></li>
                 </ul>
                 <button tabindex="0">

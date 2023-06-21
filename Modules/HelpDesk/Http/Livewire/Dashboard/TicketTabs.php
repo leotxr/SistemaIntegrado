@@ -9,6 +9,8 @@ use Modules\HelpDesk\Entities\TicketPriority;
 use Modules\HelpDesk\Entities\TicketStatus;
 use Modules\HelpDesk\Entities\TicketMessage;
 use Modules\HelpDesk\Entities\TicketPause;
+use Modules\HelpDesk\Entities\TicketCategory;
+use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Entities\Ticket;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -19,18 +21,21 @@ class TicketTabs extends Component
 {
     use WithPagination;
 
+    public $subcategories = [];
     public $activeStatus = 1;
     public $modalTicket = false;
     public $modalFinish = false;
     public $modalPause = false;
     public $modalTransfer = false;
     public $modalDelete = false;
+    public $modalEdit = false;
     public Ticket $showing;
     public Ticket $finishing;
     public Ticket $pausing;
     public Ticket $started;
     public Ticket $transfering;
     public Ticket $deleting;
+    public Ticket $editing;
     public $message = '';
     public $ticket_close;
     public $total;
@@ -47,7 +52,11 @@ class TicketTabs extends Component
         'finishing.ticket_start_pause' => 'required',
         'finishing.ticket_end_pause' => 'required',
         'finishing.total_pause' => 'required',
-        'transfering.user_id' => 'required'
+        'transfering.user_id' => 'required',
+        'editing.category_id' => 'required',
+        'editing.sub_category_id' => 'required',
+        'editing.title' => 'required',
+        'editing.description' => 'required'
     ];
 
     protected $listeners = ['echo:dashboard,TicketCreated' => 'render'];
@@ -280,6 +289,26 @@ class TicketTabs extends Component
         $this->modalTransfer = false;
     }
 
+    public function openEditTicket(Ticket $ticket)
+    {
+        $this->modalEdit = true;
+        $this->editing = $ticket;
+    }
+
+    public function update()
+    {
+        //$this->validate();
+        $this->editing->save();
+        $this->message = "Chamado editado pelo usuário ".Auth::user()->name;
+        $this->sendMessage($this->editing);
+        $this->modalEdit = false;
+        $this->modalTicket = false;
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'info', 'message' => 'Chamado Editado com sucesso']
+        );
+    }
+
     public function openDeleteTicket(Ticket $ticket)
     {
         $this->modalDelete = true;
@@ -295,6 +324,10 @@ class TicketTabs extends Component
     }
     public function render()
     {
+        if (!empty($this->editing->category_id)) {
+            $this->subcategories = TicketSubCategory::where('ticket_category_id', $this->editing->category_id)->get();
+        }
+
         return view('helpdesk::livewire.dashboard.ticket-tabs', [
             'priorities' => TicketPriority::orderBy('order', 'desc')->get(),
             'statuses' => TicketStatus::orderBy('order', 'asc')->get(),
@@ -303,7 +336,8 @@ class TicketTabs extends Component
                 ->where('tickets.status_id', $this->activeStatus)
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
                 ->orderBy('ticket_priorities.order', 'desc')
-                ->paginate(5)
+                ->paginate(5),
+            'categories' => TicketCategory::all()
         ]);
     }
 }
