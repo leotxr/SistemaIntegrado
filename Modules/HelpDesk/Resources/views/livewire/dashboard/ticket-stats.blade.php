@@ -8,7 +8,7 @@
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">
                     <div>
-                        <x-title class="text-3xl font-bold">00:00:00</x-title>
+                        <x-title class="text-3xl font-bold">{{$tma_ontem}}</x-title>
                         <span>Ontem</span>
                     </div>
                     <div>
