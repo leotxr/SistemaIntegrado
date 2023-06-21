@@ -14,8 +14,9 @@
                     </svg>
                 </button>
                 <a href="/" class="flex ml-2 md:mr-24">
-                    <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200"></x-application-logo>
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Sigma
+                    <x-application-logo class="block w-auto text-gray-800 fill-current h-9 mr-2 dark:text-gray-200">
+                    </x-application-logo>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                         HelpDesk</span>
                 </a>
             </div>
@@ -109,16 +110,18 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Configurações</span>
                 </x-side-link>
                 <div x-show="open" x-transition>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.category')" :active="request()->routeIs('helpdesk.settings.category')">
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.category')"
+                        :active="request()->routeIs('helpdesk.settings.category')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')" :active="request()->routeIs('helpdesk.settings.sub-category')" >
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
+                        :active="request()->routeIs('helpdesk.settings.sub-category')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Sub-Categorias</span>
                     </x-side-link>
-                    <x-side-link class="w-full" >
+                    <x-side-link class="w-full">
                         <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
                     </x-side-link>
-                    <x-side-link class="w-full" >
+                    <x-side-link class="w-full">
                         <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
                     </x-side-link>
                 </div>
