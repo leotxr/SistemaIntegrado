@@ -50,7 +50,7 @@ class Ticket extends Model
 
     public function TicketSubCategory()
     {
-        return $this->hasOne('Modules\HelpDesk\Entities\TicketSubCategory', 'id');
+        return $this->belongsTo('Modules\HelpDesk\Entities\TicketSubCategory', 'sub_category_id', 'id');
     }
 
     public function TicketStatus()
