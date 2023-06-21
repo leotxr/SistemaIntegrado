@@ -71,5 +71,6 @@
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')
     @include('helpdesk::dashboard.modals.modal-transfer')
+    @include('helpdesk::dashboard.modals.modal-delete')
 
 </div>

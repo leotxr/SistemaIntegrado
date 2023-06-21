@@ -24,11 +24,13 @@ class TicketTabs extends Component
     public $modalFinish = false;
     public $modalPause = false;
     public $modalTransfer = false;
+    public $modalDelete = false;
     public Ticket $showing;
     public Ticket $finishing;
     public Ticket $pausing;
     public Ticket $started;
     public Ticket $transfering;
+    public Ticket $deleting;
     public $message = '';
     public $ticket_close;
     public $total;
@@ -259,6 +261,21 @@ class TicketTabs extends Component
         $this->modalTransfer = false;
     }
 
+    public function openDeleteTicket(Ticket $ticket)
+    {
+        $this->modalDelete = true;
+        $this->deleting = $ticket;
+    }
+
+    public function delete()
+    {
+        $delete = Ticket::where('id', $this->deleting->id)->delete();
+        if($delete)
+        {
+            return redirect()->route('helpdesk.index');
+
+        }
+    }
     public function render()
     {
         return view('helpdesk::livewire.dashboard.ticket-tabs', [
