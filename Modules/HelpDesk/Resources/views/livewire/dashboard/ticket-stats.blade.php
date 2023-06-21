@@ -3,16 +3,16 @@
         <x-title>Tempo médio de atendimento</x-title>
         <span class="text-xs font-light text-gray-500">Tempo médio entre o início e final do atendimento</span>
         <div class="grid content-center h-48 text-center">
-            <x-title class="text-5xl font-extrabold">{{$tma_hoje}}</x-title>
+            <x-title class="text-5xl font-extrabold oldstyle-nums">{{$tma_hoje}}</x-title>
             <span>Hoje</span>
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">
                     <div>
-                        <x-title class="text-3xl font-bold">{{$tma_ontem}}</x-title>
+                        <x-title class="text-3xl font-bold oldstyle-nums">{{$tma_ontem}}</x-title>
                         <span>Ontem</span>
                     </div>
                     <div>
-                        <x-title class="text-3xl font-bold">{{$tma_7d}}</x-title>
+                        <x-title class="text-3xl font-bold oldstyle-nums">{{$tma_7d}}</x-title>
                         <span>7 dias</span>
                     </div>
                 </div>
