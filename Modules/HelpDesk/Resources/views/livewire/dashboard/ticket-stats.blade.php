@@ -3,7 +3,7 @@
         <x-title>Tempo médio de atendimento</x-title>
         <span class="text-xs font-light text-gray-500">Tempo médio entre o início e final do atendimento</span>
         <div class="grid content-center h-48 text-center">
-            <x-title class="text-5xl font-extrabold oldstyle-nums">{{$tma_hoje}}</x-title>
+            <x-title class="text-5xl font-extrabold oldstyle-nums">@if(empty($tma_hoje)) 00:00:00 @else{{gmdate("H:i:s", $tma_hoje)}} @endif</x-title>
             <span>Hoje</span>
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">
