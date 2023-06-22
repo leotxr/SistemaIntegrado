@@ -28,6 +28,8 @@ class AllTickets extends Component
         $this->sortField = $field;
     }
 
+    public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
+
     public function showTicket(Ticket $ticket)
     {
         $this->modalTicket = true;
