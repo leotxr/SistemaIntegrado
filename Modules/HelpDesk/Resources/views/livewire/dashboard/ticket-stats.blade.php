@@ -1,4 +1,4 @@
-<div class="grid grid-cols-2 gap-3">
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xs:grid-cols-1 gap-3">
     <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
         <x-title>Tempo médio de atendimento</x-title>
         <span class="text-xs font-light text-gray-500">Tempo médio entre o início e final do atendimento</span>
