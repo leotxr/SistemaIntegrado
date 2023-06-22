@@ -81,7 +81,7 @@
     </div>
 
 
-    <div class="w-full text-center">
+    <div class="w-full">
         <div>
             @if($ticketStatus)
             @include('helpdesk::dashboard.tables.table-tickets')
