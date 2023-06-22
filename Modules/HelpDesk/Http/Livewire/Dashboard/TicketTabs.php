@@ -343,7 +343,7 @@ class TicketTabs extends Component
             'my_tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
                 ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
                 ->where('user_id', Auth::user()->id)
-                ->where('status_id', 4)
+                ->whereIn('status_id', [3,4])
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
                 ->orderBy('ticket_priorities.order', 'desc')
                 ->paginate(5)
