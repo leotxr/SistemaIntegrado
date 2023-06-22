@@ -102,6 +102,7 @@ class TicketTabs extends Component
         if ($this->started->status_id == 1) {
             $this->started->status_id = 4;
             $this->started->ticket_start = date('Y-m-d H:i:s');
+            $this->started->wait_time = $this->calcInterval(date('Y-m-d H:i:s'), $this->started->ticket_open);
             $this->started->user_id = Auth::user()->id;
             $this->message = 'Atendimento iniciado.';
             $this->sendMessage($ticket);

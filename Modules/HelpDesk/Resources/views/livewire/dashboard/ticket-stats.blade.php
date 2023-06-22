@@ -23,16 +23,16 @@
         <x-title>Tempo médio de espera</x-title>
         <span class="text-xs font-light text-gray-500">Tempo médio de espera até o início do atendimento</span>
         <div class="grid content-center h-48 text-center">
-            <x-title class="text-5xl font-extrabold">{{$tme_hoje}}</x-title>
+            <x-title class="text-5xl font-extrabold">@if(empty($tme_hoje)) 00:00:00 @else{{gmdate("H:i:s", $tme_hoje)}} @endif</x-title>
             <span>Hoje</span>
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">
                     <div>
-                        <x-title class="text-3xl font-bold">00:00:00</x-title>
+                        <x-title class="text-3xl font-bold">@if(empty($tme_ontem)) 00:00:00 @else{{gmdate("H:i:s", $tme_ontem)}} @endif </x-title>
                         <span>Ontem</span>
                     </div>
                     <div>
-                        <x-title class="text-3xl font-bold">00:00:00</x-title>
+                        <x-title class="text-3xl font-bold">@if(empty($tme_7d)) 00:00:00 @else{{gmdate("H:i:s", $tme_7d)}} @endif </x-title>
                         <span>7 dias</span>
                     </div>
                 </div>

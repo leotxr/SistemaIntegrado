@@ -24,12 +24,13 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
             ->references('id')
-            ->on('users');
+            ->on('users')->nullable();
             $table->datetime('ticket_open');
-            $table->datetime('ticket_start');
-            $table->datetime('ticket_close');
+            $table->datetime('ticket_start')->nullable();
+            $table->datetime('ticket_close')->nullable();
             $table->datetime('ticket_start_pause')->nullable();
             $table->datetime('ticket_end_pause')->nullable();
+            $table->time('wait_time')->nullable();
             $table->time('total_pause')->nullable();
             $table->time('total_ticket')->nullable();
 
