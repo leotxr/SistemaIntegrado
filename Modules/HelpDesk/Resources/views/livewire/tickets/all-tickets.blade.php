@@ -43,7 +43,8 @@
             $categoria = $ticket->find($ticket->id)->TicketCategory;
             $subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
             @endphp
-            <x-table.row>
+            <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-500"
+            wire:click='showTicket({{$ticket->id}})'>
                 <x-table.cell>{{
                     $ticket->id }}</x-table.cell>
                 <x-table.cell>{{ $ticket->ticket_open ?? '?' }}</x-table.cell>
@@ -62,4 +63,5 @@
     </x-table>
     {{$tickets->links()}}
 
+    @include("helpdesk::dashboard.modals.modal-show")
 </div>
