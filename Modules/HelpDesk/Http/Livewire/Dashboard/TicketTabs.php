@@ -41,6 +41,7 @@ class TicketTabs extends Component
     public $total;
     public $users;
     public $user;
+    public $ticketStatus = true;
 
 
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
@@ -68,6 +69,7 @@ class TicketTabs extends Component
 
     public function selectStatus($id)
     {
+        $this->ticketStatus = true;
         $status = TicketStatus::find($id);
         $this->activeStatus = $status->id;
     }
@@ -330,14 +332,21 @@ class TicketTabs extends Component
 
         return view('helpdesk::livewire.dashboard.ticket-tabs', [
             'priorities' => TicketPriority::orderBy('order', 'desc')->get(),
-            'statuses' => TicketStatus::orderBy('order', 'asc')->get(),
+            'statuses' => TicketStatus::whereNot('order', 0)->orderBy('order', 'asc')->get(),
             'tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
                 ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
                 ->where('tickets.status_id', $this->activeStatus)
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
                 ->orderBy('ticket_priorities.order', 'desc')
                 ->paginate(5),
-            'categories' => TicketCategory::all()
+            'categories' => TicketCategory::all(),
+            'my_tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
+                ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
+                ->where('user_id', Auth::user()->id)
+                ->where('status_id', 4)
+                ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
+                ->orderBy('ticket_priorities.order', 'desc')
+                ->paginate(5)
         ]);
     }
 }
