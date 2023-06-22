@@ -70,7 +70,7 @@
                     <div class="text-2xl font-bold text-blue-600">
                         @php
                         $count = \Modules\HelpDesk\Entities\Ticket::where('user_id',
-                        Auth::user()->id)->where('status_id', 4)->count();
+                        Auth::user()->id)->whereIn('status_id', [3,4])->count();
 
                         @endphp
                         {{$count}}
