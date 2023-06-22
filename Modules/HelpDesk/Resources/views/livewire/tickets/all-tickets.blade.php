@@ -43,7 +43,7 @@
             $categoria = $ticket->find($ticket->id)->TicketCategory;
             $subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
             @endphp
-            <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-500"
+            <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-700"
             wire:click='showTicket({{$ticket->id}})'>
                 <x-table.cell>{{
                     $ticket->id }}</x-table.cell>
