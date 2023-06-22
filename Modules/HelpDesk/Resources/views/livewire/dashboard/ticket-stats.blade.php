@@ -23,7 +23,7 @@
         <x-title>Tempo médio de espera</x-title>
         <span class="text-xs font-light text-gray-500">Tempo médio de espera até o início do atendimento</span>
         <div class="grid content-center h-48 text-center">
-            <x-title class="text-5xl font-extrabold">00:00:00</x-title>
+            <x-title class="text-5xl font-extrabold">{{$tme_hoje}}</x-title>
             <span>Hoje</span>
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">

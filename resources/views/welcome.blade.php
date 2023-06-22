@@ -26,7 +26,7 @@
                     <a href="{{route('helpdesk.guest.index')}}">
                     @endcannot
                     @can('editar chamados')
-                    <a href="{{route('helpdesk.index')}}">
+                    <a href="{{route('helpdesk.dashboard')}}">
                     @endcan
                         <button class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
 

@@ -70,7 +70,7 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             <li>
-                <x-side-link :href="route('helpdesk.index')" :active="request()->routeIs('helpdesk.index')"
+                <x-side-link :href="route('helpdesk.dashboard')" :active="request()->routeIs('helpdesk.dashboard')"
                     class="w-full">
                     <svg aria-hidden="true"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -108,8 +108,8 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
                 </x-side-link>
                 <div x-show="chamados" x-transition>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
-                        :active="request()->routeIs('helpdesk.settings.sub-category')">
+                    <x-side-link class="w-full" :href="route('helpdesk.tickets')"
+                        :active="request()->routeIs('helpdesk.tickets')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
                     </x-side-link>
                     <x-side-link class="w-full">

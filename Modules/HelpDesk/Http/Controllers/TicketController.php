@@ -35,6 +35,11 @@ class TicketController extends Controller
         return view('helpdesk::create');
     }
 
+    public function all()
+    {
+        return view('helpdesk::tickets.all_tickets');
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param Request $request

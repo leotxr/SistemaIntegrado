@@ -24,8 +24,9 @@ Route::middleware('auth')->group(function () {
             
                 Route::get('/', [TicketController::class, 'index'])->name('helpdesk.index');
                 Route::get('/painel', [TicketController::class, 'index'])->name('helpdesk.dashboard');
-                Route::get('/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
-                Route::get('/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
+                Route::get('/painel/chamados', [TicketController::class, 'all'])->name('helpdesk.tickets');
+                Route::get('/painel/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
+                Route::get('/painel/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
             
         });
 
