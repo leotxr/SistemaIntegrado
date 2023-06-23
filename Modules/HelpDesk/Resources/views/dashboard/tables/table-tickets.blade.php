@@ -42,7 +42,7 @@
                     $atendente = $ticket->find($ticket->id)->TicketUser;
                     $prioridade = $categoria->find($categoria->id)->relPriority;
                     @endphp
-                    <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100"
+                    <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600"
                         wire:click='showTicket({{$ticket->id}})'>
                         <x-table.cell>
                             #{{$ticket->id}}

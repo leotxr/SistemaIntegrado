@@ -40,7 +40,7 @@ class TicketCharts extends Component
 
         $TicketsDia = LivewireCharts::areaChartModel()
             ->setAnimated($this->firstRun)
-            ->setLegendVisibility(false)
+            ->setLegendVisibility(true)
             ->setColors('#0080ff')
             ->setDataLabelsEnabled($this->showDataLabels)
             ->setXAxisVisible(true)
@@ -50,7 +50,7 @@ class TicketCharts extends Component
         $TicketsSetor = LivewireCharts::ColumnChartModel()
         ->setAnimated($this->firstRun)
         ->setLegendVisibility(false)
-        ->withDataLabels(false)
+        ->withDataLabels(true)
         ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
 
         foreach ($dias_atras as $dia) {
@@ -65,7 +65,7 @@ class TicketCharts extends Component
             ->where('user_groups.id', $grupo->id)
             ->whereMonth('tickets.created_at', date('m'))
             ->count(), 
-            '#808080');
+            '#b0aeae');
         }
 
         

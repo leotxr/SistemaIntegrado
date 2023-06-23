@@ -20,7 +20,7 @@ $status = $showing->find($showing->id)->TicketStatus;
             $messages = $messages->sortDesc();
             $solicitante = $showing->find($showing->id)->TicketRequester;
             @endphp
-            <ol class="relative p-4 bg-white border-l border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+            <ol class="relative p-4 bg-white border-l border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                 @isset($messages)
                 @foreach($messages as $message)
                 @php
@@ -74,7 +74,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                             </div>
                         </div>
                     </div>
-                    <p class="mb-1 text-sm font-normal text-gray-400 sm:order-last sm:mb-0">Chamado criado</p>
+                    <p class="mb-1 text-sm font-normal text-gray-400 dark:text-gray-300 sm:order-last sm:mb-0">Chamado criado</p>
                 </li>
                 @if($showing->status_id === 4)
                 <li class="mt-2 ml-6" x-data="{ open: false }">
@@ -105,7 +105,7 @@ $status = $showing->find($showing->id)->TicketStatus;
     <x-slot name='footer' class="space-x-4">
         <div>
             <div class="dropdown dropdown-top dropdown-end">
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
                     @if($showing->status_id === 4)
                     <li><a wire:click='openPauseTicket({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
                     <li><a wire:click='openTransferTicket({{$showing->id}})'><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>
@@ -114,7 +114,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                     <li><a wire:click='openDeleteTicket({{$showing->id}})'> <x-icon name="trash" class="w-4 h-4"/> Excluir</a></li>
                 </ul>
                 <button tabindex="0">
-                    <x-icon name="dots-horizontal" class="w-6 h-6" />
+                    <x-icon name="dots-horizontal" class="w-6 h-6 dark:text-gray-50" />
                 </button>
 
 

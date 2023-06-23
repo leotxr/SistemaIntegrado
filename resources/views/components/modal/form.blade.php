@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row justify-start px-6 py-4 text-right border-t dark:bg-gray-300">
+    <div class="flex flex-row justify-start px-6 py-4 text-right border-t dark:bg-gray-700">
         {{$subcontent}}
     </div>
 
