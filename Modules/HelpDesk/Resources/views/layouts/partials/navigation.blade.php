@@ -124,6 +124,25 @@
                     </x-side-link>
                 </div>
             </li>
+            <li x-data="{open:false}">
+                <x-side-link class="w-full" x-on:click="open = ! open" href="#">
+                    <x-icon name="document-report" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></x-icon>                 
+                    <span class="flex-1 ml-3 whitespace-nowrap">Relatórios</span>
+                </x-side-link>
+                <div x-show="open" x-transition>
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.category')"
+                        :active="request()->routeIs('helpdesk.settings.category')">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Geral</span>
+                    </x-side-link>
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
+                        :active="request()->routeIs('helpdesk.settings.sub-category')">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Setor</span>
+                    </x-side-link>
+                    <x-side-link class="w-full">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Categoria</span>
+                    </x-side-link>
+                </div>
+            </li>
 
         </ul>
     </div>
