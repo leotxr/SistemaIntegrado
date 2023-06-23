@@ -46,11 +46,11 @@ class NotifyTicketCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Novo chamado criado - #' . $this->ticket->id . " - " . $this->ticket->title)
-                    ->greeting('Novo chamado criado.')
+                    ->subject('Novo Chamado - #' . $this->ticket->id . " - " . $this->ticket->title)
+                    ->greeting('Novo Chamado.')
                     ->line('Assunto: ' . $this->ticket->title)
                     ->line('Descrição: ' . $this->ticket->description)
-                    ->action('Acessar Painel', 'http://192.168.254.182/helpdesk/painel')
+                    ->action('Acessar Painel', 'http://192.168.254.182:81/helpdesk/painel')
                     ->line('Chamado aberto por: ' . $this->user->name)
                     ->salutation('Sigma - Ultrimagem');
     }
