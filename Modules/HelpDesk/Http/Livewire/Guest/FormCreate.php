@@ -12,6 +12,9 @@ use Modules\HelpDesk\Entities\TicketFile;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use App\Events\TicketCreated;
+use Modules\HelpDesk\Notifications\NotifyTicketCreated;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 
 class FormCreate extends Component
 {
@@ -40,6 +43,7 @@ class FormCreate extends Component
     public function save()
     {
         $this->validate();
+        $users = User::where('user_group_id', 9)->get();
 
         $this->saving->requester_id = Auth::user()->id;
         $this->saving->ticket_open = date('Y-m-d H:i:s');
@@ -56,6 +60,8 @@ class FormCreate extends Component
             $ticket_file->save();
         }
 
+        //$user->notify(new NotifyTicketCreated($user));
+        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
         TicketCreated::dispatch();
 
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
