@@ -26,7 +26,7 @@
             @isset($finishing->total_pause)
             <div class="mt-4">
                 <x-input-label for="total_pause" :value="__('Tempo de Pausa')" />
-                <input type="time" step='1' class="input" name="total_pause" id="total_pause" wire:model.defer='finishing.total_pause'/>
+                <input x-mask="99:99:99" step='1' class="input" name="total_pause" id="total_pause" wire:model.defer='finishing.total_pause'/>
                 <x-input-error class="mt-2" :messages="$errors->get('finishing.total_pause')" />
             </div>
             @endisset
