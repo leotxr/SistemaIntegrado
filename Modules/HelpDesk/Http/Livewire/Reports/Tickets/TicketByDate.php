@@ -15,7 +15,9 @@ class TicketByDate extends Component
 
     public function render()
     {
-        return view('helpdesk::livewire.reports.tickets.ticket-by-date', ['tickets' => Ticket::whereBetween('ticket_open', [$this->initial_date, $this->final_date])->paginate(10)])
-        ->layout('helpdesk::layouts.master');
+        return view('helpdesk::livewire.reports.tickets.ticket-by-date', 
+        ['tickets' => Ticket::whereBetween('ticket_open', [$this->initial_date, $this->final_date])->paginate(10)])
+        ->layout('helpdesk::layouts.master')
+        ->section('body');
     }
 }

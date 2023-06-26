@@ -32,7 +32,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('helpdesk::create');
+        return view('helpdesk::tickets.create');
     }
 
     public function all()

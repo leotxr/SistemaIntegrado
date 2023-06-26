@@ -110,6 +110,10 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
                 </x-side-link>
                 <div x-show="chamados" x-transition>
+                    <x-side-link class="w-full" :href="route('helpdesk.tickets.create')"
+                        :active="request()->routeIs('helpdesk.tickets.create')">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Novo</span>
+                    </x-side-link>
                     <x-side-link class="w-full" :href="route('helpdesk.tickets')"
                         :active="request()->routeIs('helpdesk.tickets')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>

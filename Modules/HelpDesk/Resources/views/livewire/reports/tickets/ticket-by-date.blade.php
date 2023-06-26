@@ -3,17 +3,17 @@
     <div class="max-w-full justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-4">
-                <div class="p-2 bg-white shadow sm:p-4 dark:bg-gray-800 sm:rounded-lg">
-                    <x-accordion>
-                        <x-slot name="title">
-                            <div class="text-gray-900 dark:text-white font-bold justify-start flex mx-2">
-                                <x-icon name="filter" class="w-6 h-6"></x-icon>
-                                <h1>Filtros<h1>
-                            </div>
-                        </x-slot>
-                        <x-slot name="content">
-                            <form wire:submit.prevent='render'>
-                                @csrf
+                <form wire:submit.prevent='render'>
+                    @csrf
+                    <div class="p-2 bg-white shadow sm:p-4 dark:bg-gray-800 sm:rounded-lg">
+                        <x-accordion>
+                            <x-slot name="title">
+                                <div class="text-gray-900 dark:text-white font-bold justify-start flex mx-2">
+                                    <x-icon name="filter" class="w-6 h-6"></x-icon>
+                                    <h1>Filtros<h1>
+                                </div>
+                            </x-slot>
+                            <x-slot name="content">
                                 <div class="max-w-full">
                                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 content-center">
                                         <div>
@@ -41,11 +41,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </x-slot>
-                    </x-accordion>
 
-                </div>
+                            </x-slot>
+                        </x-accordion>
+
+                    </div>
+                </form>
+               
+                {{$initial_date}}
                 @foreach($tickets as $ticket)
                 {{$ticket->id}}
                 @endforeach
