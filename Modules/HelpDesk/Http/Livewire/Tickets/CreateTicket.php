@@ -71,6 +71,6 @@ class CreateTicket extends Component
             $this->subcategories = TicketSubCategory::where('ticket_category_id', $this->saving->category_id)->get();
         }
         return view('helpdesk::livewire.tickets.create-ticket', ['categories' => TicketCategory::all(),
-    'requesters' => User::permission('abrir chamado')->get()]);
+    'requesters' => User::permission('abrir chamado')->orderBy('name', 'asc')->get()]);
     }
 }
