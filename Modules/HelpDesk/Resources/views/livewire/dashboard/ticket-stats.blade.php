@@ -8,11 +8,11 @@
             <div class="border-t">
                 <div class="grid grid-cols-2 gap-2 border-r">
                     <div>
-                        <x-title class="text-3xl font-bold oldstyle-nums">{{$tma_ontem}}</x-title>
+                        <x-title class="text-3xl font-bold oldstyle-nums">@if(empty($tma_ontem)) 00:00:00 @else{{gmdate("H:i:s", $tma_ontem)}} @endif</x-title>
                         <span class="text-gray-400">Ontem</span>
                     </div>
                     <div>
-                        <x-title class="text-3xl font-bold oldstyle-nums">{{$tma_7d}}</x-title>
+                        <x-title class="text-3xl font-bold oldstyle-nums">@if(empty($tma_ontem)) 00:00:00 @else{{gmdate("H:i:s", $tma_ontem)}} @endif</x-title>
                         <span class="text-gray-400">7 dias</span>
                     </div>
                 </div>
