@@ -10,7 +10,7 @@
                             <option class="text-gray-900 dark:text-gray-100" selected> Selecione </option>
                             @foreach($requesters as $requester)
                             <x-select.option value="{{$requester->id}}">
-                                {{$requester->name}}
+                                {{$requester->name}} {{$requester->lastname}}
                             </x-select.option>
                             @endforeach
                         </x-slot>
