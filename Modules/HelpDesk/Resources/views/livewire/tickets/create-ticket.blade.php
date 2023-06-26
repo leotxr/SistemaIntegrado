@@ -5,9 +5,9 @@
                 @csrf
                 <div class="m-4">
                     <x-input-label for="requester_id" :value="__('Solicitante')" class="text-lg font-bold" />
-                    <x-select name='requester_id' wire:model.defer='saving.requester_id' id="requester_id" class="w-24 sm:w-96">
+                    <x-select name='requester_id' wire:model.defer='saving.requester_id' id="requester_id" class="w-24 sm:w-96 dark:text-gray-100">
                         <x-slot name='option'>
-                            <option selected> Selecione </option>
+                            <option class="text-gray-900 dark:text-gray-100" selected> Selecione </option>
                             @foreach($requesters as $requester)
                             <x-select.option value="{{$requester->id}}">
                                 {{$requester->name}}
@@ -19,7 +19,7 @@
                 </div>
                 <div class="m-4">
                     <x-input-label for="category_id" :value="__('Selecionar Categoria')" class="text-lg font-bold" />
-                    <x-select name='category_id' wire:model='saving.category_id' id="category_id" class="w-24 sm:w-96">
+                    <x-select name='category_id' wire:model='saving.category_id' id="category_id" class="w-24 sm:w-96 dark:text-gray-100">
                         <x-slot name='option'>
                             <option selected> Selecione </option>
                             @foreach($categories as $category)
@@ -56,7 +56,7 @@
                         <x-input-label for="subcategory_id" :value="__('Selecionar Sub-Categoria')"
                             class="text-lg font-bold" />
                         <x-select name='subcategory_id' wire:model.defer='saving.sub_category_id' id="subcategory_id"
-                            class="w-24 sm:w-96">
+                            class="w-24 sm:w-96 dark:text-gray-100">
                             <x-slot name='option'>
                                 <option selected> Selecione </option>
                                 @foreach($subcategories as $subcategory)
