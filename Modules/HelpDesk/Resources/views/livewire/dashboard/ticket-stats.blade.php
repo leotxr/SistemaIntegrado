@@ -12,7 +12,7 @@
                         <span class="text-gray-400">Ontem</span>
                     </div>
                     <div>
-                        <x-title class="text-3xl font-bold oldstyle-nums">@if(empty($tma_ontem)) 00:00:00 @else{{gmdate("H:i:s", $tma_ontem)}} @endif</x-title>
+                        <x-title class="text-3xl font-bold oldstyle-nums">@if(empty($tma_7d)) 00:00:00 @else{{gmdate("H:i:s", $tma_7d)}} @endif</x-title>
                         <span class="text-gray-400">7 dias</span>
                     </div>
                 </div>
