@@ -43,6 +43,12 @@ class Ticket extends Model
         return $this->hasMany(TicketMessage::class);
     }
 
+
+    public function TicketFiles()
+    {
+        return $this->hasMany(TicketFile::class);
+    }
+
     public function TicketCategory()
     {
         return $this->belongsTo('Modules\HelpDesk\Entities\TicketCategory','category_id', 'id');

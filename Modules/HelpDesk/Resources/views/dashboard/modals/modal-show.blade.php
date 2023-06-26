@@ -19,6 +19,7 @@ $status = $showing->find($showing->id)->TicketStatus;
             $messages = $showing->find($showing->id)->TicketMessages;
             $messages = $messages->sortDesc();
             $solicitante = $showing->find($showing->id)->TicketRequester;
+            $files = $showing->find($showing->id)->TicketFiles;
             @endphp
             <ol class="relative p-4 bg-white border-l border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                 @isset($messages)
@@ -95,16 +96,29 @@ $status = $showing->find($showing->id)->TicketStatus;
         </div>
     </x-slot>
     <x-slot name='subcontent'>
+        <div class="flex">
         @isset($showing->ticket_close)
         <div class="inline-flex">
-            <div class="font-bold text-md">Tempo de Atendimento: <span class="font-light text-md">{{$total}}</span>
+            <div class="font-bold text-md dark:text-gray-100">Tempo de Atendimento: <span class="font-light text-md">{{$total}}</span>
             </div>
         </div>
         @endisset
+        <div class="border-l mx-4">
+            @if(!empty($files))
+            @foreach($files as $file)
+            <div class="inline-flex mx-4">
+                <a href="{{ URL::asset($file->url) }}" target="_blank()">
+                    <img class="w-6 border-gray-700 rounded-full max-h-6" src="{{ URL::asset($file->url) }}">
+                </a>
+            </div>
+            @endforeach
+            @endif
+        </div>
+    </div>
     </x-slot>
     <x-slot name='footer' class="space-x-4">
         <div>
-            <div class="dropdown dropdown-top dropdown-end">
+            <div class="dropdown dropdown-top dropdown-end mx-4">
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
                     @if($showing->status_id === 4)
                     <li><a wire:click='openPauseTicket({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
