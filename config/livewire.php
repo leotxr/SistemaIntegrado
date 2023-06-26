@@ -39,8 +39,8 @@ return [
     |
     */
 
-    'layout' => 'layouts.app',
-
+    #'layout' => 'layouts.app',
+    'layout' => 'app.other_default_layout',
     /*
     |--------------------------------------------------------------------------
     | Livewire Assets URL
