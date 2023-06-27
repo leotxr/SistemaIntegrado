@@ -40,6 +40,11 @@ class TicketController extends Controller
         return view('helpdesk::tickets.all_tickets');
     }
 
+    public function notifications()
+    {
+        return view('helpdesk::tickets.unread_notifications');
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param Request $request

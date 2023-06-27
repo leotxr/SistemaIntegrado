@@ -12,8 +12,8 @@ use Modules\HelpDesk\Entities\Ticket;
 class NotifyTicketCreated extends Notification 
 {
     use Queueable;
-    private $user;
-    private $ticket;
+    public $user;
+    public $ticket;
 
     /**
      * Create a new notification instance.
@@ -34,7 +34,7 @@ class NotifyTicketCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -64,7 +64,10 @@ class NotifyTicketCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'ticket_id' => $this->ticket->id,
+            'ticket_title' => $this->ticket->title,
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name,
         ];
     }
 }

@@ -33,4 +33,5 @@ class TicketCreated implements ShouldBroadcast
     {
         return new Channel('dashboard');
     }
+
 }

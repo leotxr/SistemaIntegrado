@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('helpdesk::layouts.partials.head')
@@ -38,6 +38,5 @@
         document.documentElement.classList.add('dark');
     } else {
         document.documentElement.classList.remove('dark')
-    }
-
+    };
 </script>

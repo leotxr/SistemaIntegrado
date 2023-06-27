@@ -1,0 +1,38 @@
+<?php
+
+namespace Modules\HelpDesk\Http\Livewire\Tickets;
+
+use Livewire\Component;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
+use App\Events\TicketCreated;
+
+class TicketNotifications extends Component
+{
+    public $notification;
+
+    protected $listeners = ['echo:dashboard,TicketCreated' => '$refresh'];
+
+
+    public function readNotification($notification)
+    {
+        $this->notification = Auth::user()->unreadNotifications->where('id', $notification)->markAsRead();
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'success', 'message' => 'Notificação marcada como lida.']
+        );
+        
+        
+        
+        
+        //$this->notification->markAsRead();
+
+
+    }
+
+    public function render()
+    {
+        return view('helpdesk::livewire.tickets.ticket-notifications',[ 'unread' => Auth::user()->unreadNotifications]);
+    }
+}

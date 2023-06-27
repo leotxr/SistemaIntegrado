@@ -16,10 +16,21 @@ use Modules\HelpDesk\Http\Controllers\CategoryController;
 use Modules\HelpDesk\Http\Controllers\SubCategoryController;
 use Modules\HelpDesk\Http\Controllers\GuestController;
 use Modules\HelpDesk\Http\Livewire\Reports\ReportIndex;
+use Modules\HelpDesk\Notifications\NotifyTicketCreated;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Notifications\NotifyTest;
+use Illuminate\Support\Facades\Notification;
 
 Route::middleware('auth')->group(function () {
 
     Route::prefix('helpdesk')->group(function () {
+        Route::get('notifica.broadcast/{msg}', function ($msg){
+            //$users = User::where('user_group_id', 9)->get();
+            $user = User::find(Auth::user()->id);
+            //Notification::send($user, new NotifyTest($msg));
+            $user->notify(new NotifyTest($msg));
+        });
 
         Route::group(['middleware' => ['permission:editar chamados']], function () {
             
@@ -31,6 +42,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/painel/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
                 Route::get('/painel/relatorios', '\Modules\HelpDesk\Http\Livewire\Reports\ReportIndex@__invoke')->name('helpdesk.reports');
                 Route::get('/painel/relatorios/chamados-por-periodo', '\Modules\HelpDesk\Http\Livewire\Reports\Tickets\TicketByDate@__invoke')->name('helpdesk.reports.ticket-by-date');
+                Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
                 
         });
 
