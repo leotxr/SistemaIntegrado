@@ -44,7 +44,7 @@
             window.onload=function() {
         Echo.private('App.Models.User.{{Auth::user()->id}}')
     .notification((NotifyTicketCreated) => {
-        const notification = new Notification("Novo chamado!");
+        alert("Novo chamado!");
     });
 };
       
