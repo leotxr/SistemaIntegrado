@@ -36,7 +36,7 @@ class NotifyTicketCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['broadcast','database'];
+        return ['broadcast','database','mail'];
     }
 
     /**
