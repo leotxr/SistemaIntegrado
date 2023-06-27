@@ -8,11 +8,11 @@
             role="alert">
             <div class="flex items-center mb-3">
                 <span class="mb-1 text-sm font-semibold text-gray-900 dark:text-white">Novo Chamado</span>
-                <button type="button" wire:click="readNotification('{{$notification->id}}')"
+                <a type="button" wire:click="readNotification('{{$notification->id}}')"
                     class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">
                     <span class="sr-only">Marcar como lida</span>
                     <x-icon name="mail" class="w-5 h-5"></x-icon>
-                </button>
+                </a>
             </div>
             <div class="flex items-center">
                 <div class="ml-3 text-sm font-normal">
