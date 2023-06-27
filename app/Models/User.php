@@ -32,6 +32,11 @@ class User extends Authenticatable
         'signature'
     ];
 
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'users.'.$this->id;
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

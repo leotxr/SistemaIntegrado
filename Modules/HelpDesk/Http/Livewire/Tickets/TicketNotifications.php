@@ -12,8 +12,20 @@ class TicketNotifications extends Component
 {
     public $notification;
 
-    protected $listeners = ['echo:dashboard,TicketCreated' => '$refresh'];
+    protected $listeners = ['echo:dashboard,TicketCreated' => '$refresh', 'refreshComponent' => '$refresh'];
 
+    public function readAll()
+    {
+        $user = User::find(Auth::user()->id);
+
+        $user->unreadNotifications->markAsRead();
+
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'success', 'message' => 'Notificações lidas.']
+        );
+        $this->emit('refreshComponent');
+    }
 
     public function readNotification($notification)
     {
@@ -22,10 +34,10 @@ class TicketNotifications extends Component
             'notify',
             ['type' => 'success', 'message' => 'Notificação marcada como lida.']
         );
-        
-        
-        
-        
+
+
+
+
         //$this->notification->markAsRead();
 
 
@@ -33,6 +45,6 @@ class TicketNotifications extends Component
 
     public function render()
     {
-        return view('helpdesk::livewire.tickets.ticket-notifications',[ 'unread' => Auth::user()->unreadNotifications]);
+        return view('helpdesk::livewire.tickets.ticket-notifications', ['unread' => Auth::user()->unreadNotifications]);
     }
 }

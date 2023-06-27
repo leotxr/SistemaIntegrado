@@ -6,10 +6,12 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+
 use App\Models\User;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Modules\HelpDesk\Entities\Ticket;
 
-class NotifyTicketCreated extends Notification 
+class NotifyTicketCreated extends Notification implements ShouldQueue
 {
     use Queueable;
     public $user;
@@ -34,7 +36,7 @@ class NotifyTicketCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['broadcast','database'];
     }
 
     /**
@@ -46,13 +48,13 @@ class NotifyTicketCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Novo Chamado - #' . $this->ticket->id . " - " . $this->ticket->title)
-                    ->greeting('Novo Chamado.')
-                    ->line('Assunto: ' . $this->ticket->title)
-                    ->line('Descrição: ' . $this->ticket->description)
-                    ->action('Acessar Painel', 'http://192.168.254.182:81/helpdesk/painel')
-                    ->line('Chamado aberto por: ' . $this->user->name)
-                    ->salutation('Sigma - Ultrimagem');
+            ->subject('Novo Chamado - #' . $this->ticket->id . " - " . $this->ticket->title)
+            ->greeting('Novo Chamado.')
+            ->line('Assunto: ' . $this->ticket->title)
+            ->line('Descrição: ' . $this->ticket->description)
+            ->action('Acessar Painel', 'http://192.168.254.182:81/helpdesk/painel')
+            ->line('Chamado aberto por: ' . $this->user->name)
+            ->salutation('Sigma - Ultrimagem');
     }
 
     /**
@@ -69,5 +71,16 @@ class NotifyTicketCreated extends Notification
             'user_id' => $this->user->id,
             'user_name' => $this->user->name,
         ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+
+        return new BroadcastMessage([
+            'ticket_id' => $this->ticket->id,
+            'ticket_title' => $this->ticket->title,
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name,
+        ]);
     }
 }
