@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <a href="/" class="flex ml-2 md:mr-24">
-                    <x-application-logo class="block w-auto text-gray-800 fill-current h-9 mr-2 dark:text-gray-200">
+                    <x-application-logo class="block w-auto mr-2 text-gray-800 fill-current h-9 dark:text-gray-200">
                     </x-application-logo>
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                         HelpDesk</span>
@@ -24,7 +24,7 @@
                 <div class="flex items-center ml-3">
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <button id="theme-toggle" type="button"
-                        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm mx-4">
+                        class="mx-4 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
                         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor"
                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
