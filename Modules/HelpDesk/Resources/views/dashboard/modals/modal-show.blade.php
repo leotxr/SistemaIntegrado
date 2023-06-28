@@ -69,7 +69,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                         </div>
                         <div class="items-center justify-between p-4 sm:flex ">
                             <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
-                                {{date('d/m/Y H:i:s', strtotime($showing->ticket_open))}}
+                                {{date('d/m/Y H:i:s', strtotime($showing->created_at))}}
                             </time>
                             <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$showing->description}}
                             </div>
