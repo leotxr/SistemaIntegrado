@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Events\TicketUpdated;
 
 class TicketTabs extends Component
 {
@@ -60,7 +61,8 @@ class TicketTabs extends Component
         'editing.description' => 'required'
     ];
 
-    protected $listeners = ['echo:dashboard,TicketCreated' => 'render'];
+    protected $listeners = ['echo:dashboard,TicketCreated' => 'render', 
+    'echo:dashboard,TicketUpdated' => '$refresh'];
 
     public function mount()
     {
@@ -118,6 +120,8 @@ class TicketTabs extends Component
             );
         }
         $this->modalTicket = false;
+
+        TicketUpdated::dispatch();
     }
 
     public function openFinishTicket(Ticket $ticket)
@@ -165,6 +169,8 @@ class TicketTabs extends Component
             'notify',
             ['type' => 'success', 'message' => 'Chamado finalizado com sucesso!']
         );
+
+        TicketUpdated::dispatch();
     }
 
     public function openPauseTicket(Ticket $ticket)
@@ -201,6 +207,8 @@ class TicketTabs extends Component
         $this->modalPause = false;
         $this->modalTicket = false;
         $this->message = '';
+
+        TicketUpdated::dispatch();
     }
 
     public function endPause(Ticket $ticket)
@@ -241,6 +249,8 @@ class TicketTabs extends Component
             'notify',
             ['type' => 'success', 'message' => 'Status alterado para em atendimento!']
         );
+
+        TicketUpdated::dispatch();
     }
 
     public function sendMessage(Ticket $ticket, $message)
@@ -290,6 +300,8 @@ class TicketTabs extends Component
             );
         }
         $this->modalTransfer = false;
+
+        TicketUpdated::dispatch();
     }
 
     public function openEditTicket(Ticket $ticket)
@@ -310,6 +322,8 @@ class TicketTabs extends Component
             'notify',
             ['type' => 'info', 'message' => 'Chamado Editado com sucesso']
         );
+
+        TicketUpdated::dispatch();
     }
 
     public function openDeleteTicket(Ticket $ticket)
