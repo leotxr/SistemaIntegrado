@@ -64,4 +64,5 @@
     {{$tickets->links()}}
 
     @include("helpdesk::dashboard.modals.modal-show")
+    @include("helpdesk::dashboard.modals.modal-delete")
 </div>

@@ -105,7 +105,7 @@ class TicketTabs extends Component
             $this->started->wait_time = $this->calcInterval(date('Y-m-d H:i:s'), $this->started->ticket_open);
             $this->started->user_id = Auth::user()->id;
             $this->message = 'Atendimento iniciado.';
-            $this->sendMessage($ticket);
+            $this->sendMessage($ticket, $this->message);
             $this->started->save();
             $this->dispatchBrowserEvent(
                 'notify',
@@ -213,7 +213,7 @@ class TicketTabs extends Component
         if ($pause_table) {
             $this->pausing->status_id = 4;
             $this->message = 'Atendimento retomado.';
-            $this->sendMessage($ticket);
+            $this->sendMessage($ticket, $this->message);
             $this->pausing->save();
         }
 
@@ -243,11 +243,11 @@ class TicketTabs extends Component
         );
     }
 
-    public function sendMessage(Ticket $ticket)
+    public function sendMessage(Ticket $ticket, $message)
     {
         $editing_ticket = $ticket;
         $ticket_message = new TicketMessage();
-        $ticket_message->message = $this->message;
+        $ticket_message->message = $message;
         $ticket_message->user_id = Auth::user()->id;
         $ticket_message->ticket_id = $editing_ticket->id;
         $ticket_message->read = 0;
@@ -274,7 +274,7 @@ class TicketTabs extends Component
 
         $novo = User::find($this->transfering->user_id);
         $this->message = "Chamado transferido para o usuário $novo->name.";
-        $this->sendMessage($this->transfering);
+        $this->sendMessage($this->transfering, $this->message);
         $pause = TicketPause::create([
             'start_pause' => now(),
             'ticket_id' => $this->transfering->id,
@@ -303,7 +303,7 @@ class TicketTabs extends Component
         //$this->validate();
         $this->editing->save();
         $this->message = "Chamado editado pelo usuário ".Auth::user()->name;
-        $this->sendMessage($this->editing);
+        $this->sendMessage($this->editing, $this->message);
         $this->modalEdit = false;
         $this->modalTicket = false;
         $this->dispatchBrowserEvent(
@@ -325,6 +325,7 @@ class TicketTabs extends Component
             return redirect()->route('helpdesk.index');
         }
     }
+
     public function render()
     {
         if (!empty($this->editing->category_id)) {

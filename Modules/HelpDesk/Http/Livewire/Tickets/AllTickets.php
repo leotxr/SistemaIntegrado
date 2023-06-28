@@ -6,6 +6,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\HelpDesk\Entities\Ticket;
 use DateTime;
+use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
+use Illuminate\Support\Facades\Auth;
+use Modules\HelpDesk\Entities\TicketPause;
 
 class AllTickets extends Component
 {
@@ -17,6 +20,9 @@ class AllTickets extends Component
     public Ticket $showing;
     public $modalTicket = false;
     public $total;
+    public Ticket $reopening;
+    public $modalReopen = false;
+    public $message = '';
 
     public function sortBy($field)
     {
@@ -51,11 +57,59 @@ class AllTickets extends Component
         }
     }
 
+    public function confirmReopen(Ticket $ticket)
+    {
+        $this->modalReopen = true;
+        $this->reopening = $ticket;
+    }
+
+    public function setNull(Ticket $ticket)
+    {
+        $update = Ticket::where('id', $ticket->id)
+            ->update([
+                'ticket_start' => null,
+                'ticket_close' => null,
+                'status_id' => 1,
+                'total_pause' => null,
+                'total_ticket' => null,
+                'wait_time' => null,
+                'ticket_open' => now()
+            ]);
+
+        if ($update) {
+            $delete_pause = TicketPause::where('ticket_id', $ticket->id)->delete();
+            $this->modalReopen = false;
+            $this->modalTicket = false;
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'info', 'message' => 'Chamado reaberto! Verifique o painel.']
+            );
+        } else {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Ocorreu um erro ao reabrir o chamado.']
+            );
+        }
+    }
+
+    public function reopen()
+    {
+        $this->setNull($this->reopening);
+        //$this->message = "Chamado reaberto pelo usuário ".Auth::user()->name;
+        //$ticket_tabs = new TicketTabs;
+        //$ticket_tabs->sendMessage($this->reopening, $this->message);   
+
+
+    }
+
+
     public function render()
     {
-        return view('helpdesk::livewire.tickets.all-tickets',
-    [
-        'tickets' => Ticket::whereNotNull('ticket_close')->search($this->sortField, $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)
-    ]);
+        return view(
+            'helpdesk::livewire.tickets.all-tickets',
+            [
+                'tickets' => Ticket::whereNotNull('ticket_close')->search($this->sortField, $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)
+            ]
+        );
     }
 }
