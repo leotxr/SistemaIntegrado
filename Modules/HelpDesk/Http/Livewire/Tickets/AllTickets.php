@@ -9,6 +9,7 @@ use DateTime;
 use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
 use Illuminate\Support\Facades\Auth;
 use Modules\HelpDesk\Entities\TicketPause;
+use App\Events\TicketCreated;
 
 class AllTickets extends Component
 {
@@ -84,6 +85,7 @@ class AllTickets extends Component
                 'notify',
                 ['type' => 'info', 'message' => 'Chamado reaberto! Verifique o painel.']
             );
+            TicketCreated::dispatch();
         } else {
             $this->dispatchBrowserEvent(
                 'notify',
@@ -95,9 +97,9 @@ class AllTickets extends Component
     public function reopen()
     {
         $this->setNull($this->reopening);
-        //$this->message = "Chamado reaberto pelo usuário ".Auth::user()->name;
-        //$ticket_tabs = new TicketTabs;
-        //$ticket_tabs->sendMessage($this->reopening, $this->message);   
+        $this->message = "Chamado reaberto pelo usuário ".Auth::user()->name;
+        $ticket_tabs = new TicketTabs;
+        $ticket_tabs->sendMessage($this->reopening, $this->message);   
 
 
     }
