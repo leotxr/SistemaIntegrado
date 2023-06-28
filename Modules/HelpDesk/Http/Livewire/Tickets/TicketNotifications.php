@@ -29,7 +29,7 @@ class TicketNotifications extends Component
             'notify',
             ['type' => 'success', 'message' => 'Notificações lidas.']
         );
-        return redirect()->back();
+        return redirect()->to('/helpdesk/painel/notificacoes');
     }
 
     public function deleteAll()
@@ -40,7 +40,7 @@ class TicketNotifications extends Component
             'notify',
             ['type' => 'info', 'message' => 'Notificações excluidas.']
         );
-        return redirect()->back();
+        return redirect()->to('/helpdesk/painel/notificacoes');
     }
 
     public function readNotification($notification)
