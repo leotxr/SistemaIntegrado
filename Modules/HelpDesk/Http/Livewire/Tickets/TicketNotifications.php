@@ -29,7 +29,7 @@ class TicketNotifications extends Component
             'notify',
             ['type' => 'success', 'message' => 'Notificações lidas.']
         );
-        $this->emit('refreshComponent');
+        return redirect()->back();
     }
 
     public function deleteAll()
@@ -40,7 +40,7 @@ class TicketNotifications extends Component
             'notify',
             ['type' => 'info', 'message' => 'Notificações excluidas.']
         );
-        $this->emit('refreshComponent');
+        return redirect()->back();
     }
 
     public function readNotification($notification)
