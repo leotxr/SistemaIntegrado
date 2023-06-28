@@ -14,6 +14,11 @@ class TicketNotifications extends Component
 
     protected $listeners = ['echo:dashboard,TicketCreated' => '$refresh', 'refreshComponent' => '$refresh'];
 
+    public function mount()
+    {
+        $this->readAll();
+    }
+
     public function readAll()
     {
         $user = User::find(Auth::user()->id);
@@ -23,6 +28,17 @@ class TicketNotifications extends Component
         $this->dispatchBrowserEvent(
             'notify',
             ['type' => 'success', 'message' => 'Notificações lidas.']
+        );
+        $this->emit('refreshComponent');
+    }
+
+    public function deleteAll()
+    {
+        $user = User::find(Auth::user()->id);
+        $user->notifications()->delete();
+        $this->dispatchBrowserEvent(
+            'notify',
+            ['type' => 'info', 'message' => 'Notificações excluidas.']
         );
         $this->emit('refreshComponent');
     }
@@ -45,6 +61,6 @@ class TicketNotifications extends Component
 
     public function render()
     {
-        return view('helpdesk::livewire.tickets.ticket-notifications', ['unread' => Auth::user()->unreadNotifications]);
+        return view('helpdesk::livewire.tickets.ticket-notifications', ['unread' => Auth::user()->notifications]);
     }
 }
