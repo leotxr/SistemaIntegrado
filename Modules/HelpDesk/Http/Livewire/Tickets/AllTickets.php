@@ -55,7 +55,7 @@ class AllTickets extends Component
     {
         return view('helpdesk::livewire.tickets.all-tickets',
     [
-        'tickets' => Ticket::search($this->sortField, $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)
+        'tickets' => Ticket::whereNotNull('ticket_close')->search($this->sortField, $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate(10)
     ]);
     }
 }

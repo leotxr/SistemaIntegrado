@@ -116,7 +116,7 @@
                     </x-side-link>
                     <x-side-link class="w-full" :href="route('helpdesk.tickets')"
                         :active="request()->routeIs('helpdesk.tickets')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Encerrados</span>
                     </x-side-link>
                     <x-side-link class="w-full">
                         <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
