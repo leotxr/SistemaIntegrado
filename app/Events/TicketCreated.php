@@ -16,18 +16,15 @@ class TicketCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
-    public $ticket;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, Ticket $ticket)
+    public function __construct()
     {
-        $this->user = $user;
-        $this->ticket = $ticket;
+
     }
 
     /**

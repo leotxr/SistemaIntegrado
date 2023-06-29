@@ -8,10 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 use App\Models\User;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Modules\HelpDesk\Entities\Ticket;
 
-class NotifyTicketCreated extends Notification implements ShouldQueue
+class NotifyTicketCreated extends Notification implements ShouldQueue, ShouldBroadcast
 {
     use Queueable;
     public $user;
@@ -36,7 +37,7 @@ class NotifyTicketCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['broadcast','database','mail'];
+        return ['broadcast'];
     }
 
     /**
