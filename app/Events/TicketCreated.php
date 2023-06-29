@@ -37,9 +37,5 @@ class TicketCreated implements ShouldBroadcast
         return new Channel('dashboard');
     }
 
-    public function broadcastAs()
-    {
-        return 'newTicket';
-    }
 
 }
