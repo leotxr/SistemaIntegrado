@@ -46,8 +46,9 @@
         Echo.channel('dashboard')
     .listen('TicketCreated', (e) => {
         
-        const text = `Novo chamado recebido`;
-        const notification = new Notification("HelpDesk - Ultrimagem", { body: text});
+        alert('Chamado recebido');
+        //const text = `Novo chamado recebido`;
+        //const notification = new Notification("HelpDesk - Ultrimagem", { body: text});
         
     });
     
