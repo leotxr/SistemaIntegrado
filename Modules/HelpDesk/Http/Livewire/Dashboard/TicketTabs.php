@@ -338,6 +338,8 @@ class TicketTabs extends Component
         if ($delete) {
             return redirect()->route('helpdesk.index');
         }
+
+        TicketUpdated::dispatch();
     }
 
     public function render()
