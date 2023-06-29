@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{id}/setor/{sector}/contraste/create', [CreateContrastController::class, 'createContrast'])->name('create.contraste');
         Route::post('ressonancia/contraste/store/{id}', [StoreContrastController::class, 'storeContrast'])->name('store.contraste');
 
-        Route::post('{id}/files/create', [TermFileController::class, 'create'])->name('create.term-file');
+        Route::any('{id}/files/create', [TermFileController::class, 'create'])->name('create.term-file');
         Route::post('{id}/files/store', [TermFileController::class, 'store'])->name('store.term-file');
 
 

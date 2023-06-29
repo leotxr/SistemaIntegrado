@@ -108,8 +108,8 @@ class TermController extends Controller
             $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);
         };
 
-        $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Ressonância Magnética", 'term' => $term]);
-        $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
+       $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $collection, 'title' => "Questionário para realização de Ressonância Magnética", 'term' => $term]);
+       $save = Storage::disk('my_files')->put("storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf", $pdf->output());
         $path = "storage/termos/$term->patient_name/$setor->name/$hoje/questionario-$term->patient_name.pdf";
 
         if ($path) {
@@ -121,7 +121,7 @@ class TermController extends Controller
         } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if ($term && $path)
-            return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
+            return redirect()->action('Modules\Triagem\Http\Controllers\TermFileController@create', [$term])->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
     }
@@ -181,7 +181,7 @@ class TermController extends Controller
         } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if ($term && $path)
-            return view('triagem::triagens.assinar', compact('term'))->with('success', 'Triagem salva com sucesso!');
+        return redirect()->action('Modules\Triagem\Http\Controllers\TermFileController@create', [$term])->with('success', 'Triagem salva com sucesso!');
         else
             return redirect()->back()->with('error', 'Ocorreu um erro!');
     }
