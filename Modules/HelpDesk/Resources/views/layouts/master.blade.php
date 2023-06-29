@@ -41,6 +41,17 @@
     };
 
     
-
+ window.onload=function() {
+    
+        Echo.channel('dashboard')
+    .listen('TicketCreated', (e) => {
+        
+        const text = `Novo chamado recebido`;
+        const notification = new Notification("HelpDesk - Ultrimagem", { body: text});
+        
+    });
+    
+    
+};
   
 </script>
