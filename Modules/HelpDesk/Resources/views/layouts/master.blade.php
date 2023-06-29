@@ -46,16 +46,8 @@
         Echo.channel('dashboard')
     .listen('TicketCreated', (e) => {
         
-        Notification.requestPermission((perm) => {
-  if (perm == "granted") {
-    window.navigator.serviceWorker.ready.then(reg =>
-      reg.active.postMessage({
-        method: "notify",
-        title: "HelpDesk - Ultrimagem",
-        options: {body: "Novo chamado recebido."}
-      }));
-  }
-});
+       
+alert("Novo chamado recebido");
         
     });
     
