@@ -40,12 +40,13 @@
         document.documentElement.classList.remove('dark')
     };
 
-
-            window.onload=function() {
-        Echo.private('App.Models.User.{{Auth::user()->id}}')
-    .notification((NotifyTicketCreated) => {
-        alert("Novo chamado!");
+    
+ window.onload=function() {
+        Echo.channel('dashboard')
+    .listen('TicketCreated', (e) => {
+        const text = `Novo chamado recebido`;
+        const notification = new Notification("HelpDesk - Ultrimagem", { body: text});
     });
 };
-      
+  
 </script>
