@@ -46,9 +46,16 @@
         Echo.channel('dashboard')
     .listen('TicketCreated', (e) => {
         
-        alert('Chamado recebido');
-        //const text = `Novo chamado recebido`;
-        //const notification = new Notification("HelpDesk - Ultrimagem", { body: text});
+        Notification.requestPermission((perm) => {
+  if (perm == "granted") {
+    window.navigator.serviceWorker.ready.then(reg =>
+      reg.active.postMessage({
+        method: "notify",
+        title: "HelpDesk - Ultrimagem",
+        options: {body: "Novo chamado recebido."}
+      }));
+  }
+});
         
     });
     
