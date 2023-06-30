@@ -104,7 +104,7 @@
                 </ol>
             </div>
         </div>
-        <div class="p-4 text-gray-900 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-50">
+        <div class="p-4 text-gray-900 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:text-gray-50 max-h-36">
             <x-title class="text-xl font-bold text-gray-900 dark:text-gray-50">Solicitante</x-title>
             <div class="flex">
                 <div class="my-2 mr-2">
