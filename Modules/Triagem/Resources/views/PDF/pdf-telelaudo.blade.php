@@ -17,7 +17,7 @@
     </p>
 
     <br>
-    <img src="{{$signature->url}}" width="350px" height="100px"> </img>
+   
     <p>Assinatura do titular ou responsável</p>
     <br>
 

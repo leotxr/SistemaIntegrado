@@ -28,7 +28,7 @@
     <br>
     <div class="grid-container">
         <div class="grid-item">
-            <img src="{{ $signature->url }}" width="350px" height="100px"> </img>
+           
             <p>Assinatura do titular ou responsável</p>
         </div>
         <div class="grid-item">
