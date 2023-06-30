@@ -103,7 +103,7 @@ $status = $showing->find($showing->id)->TicketStatus;
             </div>
         </div>
         @endisset
-        <div class="border-l mx-4">
+        <div class="mx-4 border-l">
             @if(!empty($files))
             @foreach($files as $file)
             <div class="inline-flex mx-4">
@@ -117,9 +117,19 @@ $status = $showing->find($showing->id)->TicketStatus;
     </div>
     </x-slot>
     <x-slot name='footer' class="space-x-4">
+        <div class="flex justify-between" x-data="{popover: false}">
+            <span x-show="popover" class="order-1 inline-block dark:text-gray-50" x-transition>
+                Abrir em nova aba
+            </span>
+            <a class="order-last" href="{{route('helpdesk.tickets.edit', ['id' => $showing->id])}}" target="_blank" x-on:mouseover="popover = true" x-on:mouseleave="popover = false">
+            <x-icon name="external-link" class="w-6 h-6 dark:text-gray-50" />
+            </a>
+            
+        </div>
+
         <div>
-            <div class="dropdown dropdown-top dropdown-end mx-4">
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
+            <div class="mx-4 dropdown dropdown-top dropdown-end">
+                <ul tabindex="0" class="p-2 shadow dropdown-content menu bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
                     @if($showing->status_id === 4)
                     <li><a wire:click='openPauseTicket({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
                     <li><a wire:click='openTransferTicket({{$showing->id}})'><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>

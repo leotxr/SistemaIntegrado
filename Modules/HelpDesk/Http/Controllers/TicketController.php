@@ -101,7 +101,8 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        return view('helpdesk::edit');
+        $ticket = Ticket::find($id);
+        return view('helpdesk::tickets.edit', compact('ticket'));
     }
 
     /**
