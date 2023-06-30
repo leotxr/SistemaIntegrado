@@ -4,6 +4,8 @@ namespace Modules\HelpDesk\Http\Livewire\Tickets;
 
 use Livewire\Component;
 use Modules\Helpdesk\Entities\Ticket;
+use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
+use Modules\HelpDesk\Http\Livewire\Tickets\AllTickets;
 
 class ShowTicket extends Component
 {

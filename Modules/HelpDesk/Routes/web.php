@@ -16,6 +16,8 @@ use Modules\HelpDesk\Http\Controllers\CategoryController;
 use Modules\HelpDesk\Http\Controllers\SubCategoryController;
 use Modules\HelpDesk\Http\Controllers\GuestController;
 use Modules\HelpDesk\Http\Livewire\Reports\ReportIndex;
+use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
+use Modules\HelpDesk\Http\Livewire\Tickets\AllTickets;
 use Modules\HelpDesk\Notifications\NotifyTicketCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -28,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['middleware' => ['permission:editar chamados']], function () {
 
+            #ROTAS PARA ACESSO AS PAGINAS
             Route::get('/', [TicketController::class, 'index'])->name('helpdesk.index');
             Route::get('/painel', [TicketController::class, 'index'])->name('helpdesk.dashboard');
             Route::get('/painel/chamados', [TicketController::class, 'all'])->name('helpdesk.tickets');
@@ -40,6 +43,10 @@ Route::middleware('auth')->group(function () {
                 return view('helpdesk::reports.tickets-by-date');
             })->name('helpdesk.reports.ticket-by-date');
             Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
+
+            #ROTAS PARA ACOES E CONTROLLERS LIVEWIRE
+            Route::get('reopen/{ticket}', [AllTickets::class, 'confirmReopen'])->name('ticket.reopen');
+
         });
 
         Route::group(['middleware' => ['permission:abrir chamado']], function () {

@@ -162,7 +162,7 @@ class TermController extends Controller
 
         ]);
 
-        for ($i = 1; $i < count($request->pergunta); $i++) {
+        for ($i = 0; $i < count($request->pergunta); $i++) {
 
             //$teste[$i] = ['id' => $i, 'pergunta' => $request->pergunta[$i], 'resposta' => $request->resposta[$i]];
             $collection[$i] = collect(['pergunta' => $request->pergunta[$i], 'resposta' => $request->radio[$i], 'observacao' => $request->observacao[$i]]);

@@ -21,7 +21,7 @@
             </span>
         </div>
     </div>
-    <div class="flex justify-end my-2 bg-white rounded-lg shadow-md">
+    <div class="flex justify-end my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div class="mx-4 my-2 dropdown dropdown-down dropdown-end">
             <ul tabindex="0"
                 class="p-2 shadow dropdown-content menu bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
@@ -40,7 +40,7 @@
                         <x-icon name="trash" class="w-4 h-4" /> Excluir
                     </a></li>
             </ul>
-            <button tabindex="0" >
+            <button tabindex="0">
                 <x-icon name="menu" class="w-8 h-8 dark:text-gray-50" />
             </button>
         </div>
@@ -55,10 +55,11 @@
             </x-primary-button>
             @endif
             @if($ticket->status_id === 2)
-            <x-secondary-button wire:click='confirmReopen({{$ticket->id}})'>Reabrir</x-secondary-button>
+            <x-secondary-button class="mx-2" :href="route('autorizacao.index')" type="button">Reabrir</x-secondary-button>
             @endif
             @if($ticket->status_id === 3)
-            <x-secondary-button wire:click='endPause({{$ticket->id}})'>Retomar Atendimento</x-secondary-button>
+            <x-secondary-button class="mx-2" wire:click='endPause({{$ticket->id}})'>Retomar Atendimento
+            </x-secondary-button>
             @endif
         </div>
     </div>
@@ -209,4 +210,11 @@
             </div>
         </div>
     </div>
+
+    @include('helpdesk::dashboard.modals.modal-show')
+    @include('helpdesk::dashboard.modals.modal-edit')
+    @include('helpdesk::dashboard.modals.modal-finish')
+    @include('helpdesk::dashboard.modals.modal-pause')
+    @include('helpdesk::dashboard.modals.modal-transfer')
+    @include('helpdesk::dashboard.modals.modal-delete')
 </div>
