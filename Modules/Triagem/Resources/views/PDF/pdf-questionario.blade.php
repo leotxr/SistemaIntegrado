@@ -78,7 +78,6 @@
 
 
     <p style="text-align: center;">SIGMA - Ultrimagem Ubá</p>
-    <p style="text-align: center;">{{now()}}</p>
 </body>
 
 </html>
