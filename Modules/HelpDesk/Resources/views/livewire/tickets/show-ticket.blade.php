@@ -21,6 +21,47 @@
             </span>
         </div>
     </div>
+    <div class="flex justify-end my-2 bg-white rounded-lg shadow-md">
+        <div class="mx-4 my-2 dropdown dropdown-down dropdown-end">
+            <ul tabindex="0"
+                class="p-2 shadow dropdown-content menu bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
+                @if($ticket->status_id === 4)
+                <li><a wire:click='openPauseTicket({{$ticket->id}})'>
+                        <x-icon name="pause" class="w-4 h-4" /> Pausar
+                    </a></li>
+                <li><a wire:click='openTransferTicket({{$ticket->id}})'>
+                        <x-icon name="switch-horizontal" class="w-4 h-4" /> Transferir
+                    </a></li>
+                @endif
+                <li><a wire:click='openEditTicket({{$ticket->id}})'>
+                        <x-icon name="pencil" class="w-4 h-4" /> Editar
+                    </a></li>
+                <li><a wire:click='openDeleteTicket({{$ticket->id}})'>
+                        <x-icon name="trash" class="w-4 h-4" /> Excluir
+                    </a></li>
+            </ul>
+            <button tabindex="0" >
+                <x-icon name="menu" class="w-8 h-8 dark:text-gray-50" />
+            </button>
+        </div>
+        <div class="my-2">
+            @if($ticket->status_id === 1)
+            <x-primary-button class="mx-2 bg-blue-800" wire:click='startTicket({{$ticket->id}})'>Atender
+            </x-primary-button>
+            @endif
+            @if($ticket->status_id === 4)
+            <x-primary-button class="mx-2 bg-blue-600 hover:bg-blue-400" wire:click='openFinishTicket({{$ticket->id}})'>
+                Finalizar
+            </x-primary-button>
+            @endif
+            @if($ticket->status_id === 2)
+            <x-secondary-button wire:click='confirmReopen({{$ticket->id}})'>Reabrir</x-secondary-button>
+            @endif
+            @if($ticket->status_id === 3)
+            <x-secondary-button wire:click='endPause({{$ticket->id}})'>Retomar Atendimento</x-secondary-button>
+            @endif
+        </div>
+    </div>
     <div class="grid gap-4 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-1">
         <div
             class="p-4 text-gray-900 bg-white rounded-lg shadow-md lg:col-span-2 md:col-span-1 sm:col-span-1 bg-opacity-80 dark:bg-gray-800 dark:text-gray-50">
