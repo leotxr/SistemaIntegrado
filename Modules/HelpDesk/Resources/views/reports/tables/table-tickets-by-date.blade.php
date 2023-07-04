@@ -2,7 +2,6 @@
     <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
         @isset($tickets)
         <div>
-            {{$tickets->links()}}
             <x-table>
                 <x-slot name='head'>
                     <x-table.heading>
@@ -60,7 +59,7 @@
                             {{$solicitante->name}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$setor->name}}
+                            {{$setor->name ?? "Sem setor"}}
                         </x-table.cell>
                         <x-table.cell>
                             {{$categoria->name}}

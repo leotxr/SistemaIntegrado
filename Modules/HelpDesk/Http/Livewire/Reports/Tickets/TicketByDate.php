@@ -20,7 +20,7 @@ class TicketByDate extends Component
     {
         $range = ['initial_date'=>$this->initial_date, 
         'final_date'=>$this->final_date];
-        return Excel::download(new TicketsExport($range), 'tickets.xlsx');
+        return Excel::download(new TicketsExport($range), 'tickets'.now().'.xlsx');
     }
 
     public function render()

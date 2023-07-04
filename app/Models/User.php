@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->belongsTo(Permission::class, 'model_has_permissions', 'model_id', 'permission_id');
     }
 
+    public function relUserGroup()
+    {
+        return $this->belongsTo(UserGroup::class, 'user_group_id', 'id');
+    }
+
     public function relExtraTimes()
     {
         return $this->hasMany(ExtraTime::class, 'user_id');

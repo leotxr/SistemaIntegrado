@@ -26,7 +26,7 @@ class TicketsExport implements FromView
      */
     public function view(): View
     {
-        return view('helpdesk::dashboard.tables.table-tickets-report', 
-        ['tickets' => Ticket::whereBetween('ticket_open', [$this->start, $this->end])->paginate(10)]);
+        return view('helpdesk::reports.tables.table-tickets-by-date', 
+        ['tickets' => Ticket::whereBetween('ticket_open', [$this->start, $this->end])->get()]);
     }
 }
