@@ -170,6 +170,15 @@
                     </x-side-link>
                 </div>
             </li>
+            <li >
+                <x-side-link class="w-full" href="#">
+                    <x-icon name="book-open"
+                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                    </x-icon>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Base de Conhecimento</span>
+                </x-side-link>
+                
+            </li>
         </ul>
     </div>
 </aside>
