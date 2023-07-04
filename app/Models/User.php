@@ -25,7 +25,7 @@ class User extends Authenticatable
         'name',
         'lastname',
         'username',
-        'setor_id',
+        'user_group_id',
         'email',
         'password',
         'profile_img',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserGroup;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $groups = UserGroup::all();
+        return view('auth.register', compact('groups'));
     }
 
     /**
@@ -33,6 +35,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             //'email' => ['required', 'string', 'email', 'max:255'],
+            'user_group_id' => ['required'],
             'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -42,6 +45,7 @@ class RegisteredUserController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'username' => $request->username,
+            'user_group_id' => $request->user_group_id,
             'password' => Hash::make($request->password),
         ])->givePermissionTo('user');
 
