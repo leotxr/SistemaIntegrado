@@ -43,7 +43,7 @@
                                             <label for="excel"
                                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Gerar
                                                 relatório</label>
-                                            <x-secondary-button id="excel" type="excel">
+                                            <x-secondary-button id="excel" type="button">
                                                 <x-icon name="document" wire:click='export' class="w-6 h-6"></x-icon>
                                                 <span>Exportar<span>
                                             </x-secondary-button>
