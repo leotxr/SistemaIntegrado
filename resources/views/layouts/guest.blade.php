@@ -17,7 +17,7 @@
 <!-- style="background-image: url('/storage/icons/fundo.jpg')" bg-cover bg-center bg-no-repeat -->
 
 <body
-    class="font-sans text-gray-800 antialiased  bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-sky-400 to-indigo-900">
+    class="font-sans antialiased text-gray-800 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-sky-400 to-blue-500">
     <div class="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 ">
         <div>
             <a href="/">
