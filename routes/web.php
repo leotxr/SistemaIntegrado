@@ -45,6 +45,7 @@ Route::any('/userPassUpdate/{id}', [UserController::class, 'passwordUpdate'])->n
 Route::group(['middleware' => ['role:Super-Admin|admin|ti']], function () {
     Route::resource('/users', UserController::class);
     Route::patch('/userSetRole/{id}', [UserController::class, 'setUserRole'])->name('setUserRole');
+    Route::patch('/users/update_group/{id}', [UserController::class, 'setUserGroup'])->name('user.group_update');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

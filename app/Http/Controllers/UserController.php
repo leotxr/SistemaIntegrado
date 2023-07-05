@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserGroup;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
@@ -73,10 +74,11 @@ class UserController extends Controller
         $user = User::find($id);
         $permissions = Permission::all();
         $roles = Role::all();
+        $groups = UserGroup::all();
 
 
 
-        return view('users.edit', compact('user', 'permissions', 'roles'));
+        return view('users.edit', compact('user', 'permissions', 'roles', 'groups'));
     }
 
     /**
@@ -89,13 +91,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 
-
         $update = User::where(['id' => $id])->update([
             'name' => $request->name ?? NULL,
             'lastname' => $request->lastname ?? NULL,
             'email' => $request->email ?? NULL,
-            //'profile_img' => $path ?? NULL,
-            //'signature_'
         ]);
 
         $user = User::find($id);
@@ -109,9 +108,6 @@ class UserController extends Controller
             $sign = $request->file('signature')->store("storage/user_docs/$id/signature", ['disk' => 'my_files']);
             $user->signature = $sign;
         }
-        //$user->syncPermissions("$request->permission");
-       // $user->syncRoles("$request->role");
-        //$user->save();
 
         if ($update)
             return back()->with('status', 'user-updated');
@@ -124,6 +120,15 @@ class UserController extends Controller
 
         if ($user->save())
             return back()->with('status', 'permission-updated');
+    }
+
+    public function setUserGroup(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->user_group_id = $request->group;
+
+        if ($user->save())
+            return back()->with('status', 'group-updated');
     }
 
     public function passwordUpdate(Request $request, $id)
@@ -139,6 +144,8 @@ class UserController extends Controller
 
         return redirect('users');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
