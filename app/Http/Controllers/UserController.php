@@ -88,15 +88,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
-        $user = User::where(['id' => $id])->update([
-            'name' => $request->name,
-            'email' => $request->email ?? NULL,
-        ]);
-        */
-
-
-        //$sign = $request->file('signature')->store("storage/user_docs/$id/signature", ['disk' => 'my_files']);
 
 
         $update = User::where(['id' => $id])->update([
@@ -119,11 +110,11 @@ class UserController extends Controller
             $user->signature = $sign;
         }
         //$user->syncPermissions("$request->permission");
-        $user->syncRoles("$request->role");
-        $user->save();
+       // $user->syncRoles("$request->role");
+        //$user->save();
 
         if ($update)
-            return redirect('users')->with('message', 'Usuário alterado com sucesso!');
+            return back()->with('status', 'user-updated');
     }
 
     public function setUserRole(Request $request, $id)
@@ -132,7 +123,7 @@ class UserController extends Controller
         $user->syncRoles("$request->role");
 
         if ($user->save())
-            return redirect('users')->with('message', 'Usuário alterado com sucesso!');
+            return back()->with('status', 'permission-updated');
     }
 
     public function passwordUpdate(Request $request, $id)
