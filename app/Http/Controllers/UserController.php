@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -36,9 +37,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $groups = UserGroup::all();
+        $permissions = Permission::all();
+        $roles = Role::all();
 
-        return view('dashboard', compact('user'));
+        return view('users.create', compact('groups', 'permissions', 'roles'));
     }
 
     /**
@@ -49,7 +52,36 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'user_group_id' => ['required'],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'user_group_id' => $request->user_group_id,
+            'password' => Hash::make($request->password),
+
+        ])->assignRole("$request->role");
+
+
+        if ($request->file('photo')) {
+            $user = User::find($user->id);
+            $path = $request->file('photo')->store("storage/user_docs/$user->id/profile_photo", ['disk' => 'my_files']);
+            $user->profile_img = $path;
+            $user->save();
+        };
+
+
+        if ($user)
+        return back()->with('status', 'user-created');
+
     }
 
     /**
