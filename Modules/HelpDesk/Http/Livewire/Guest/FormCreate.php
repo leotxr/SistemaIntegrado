@@ -9,6 +9,7 @@ use Modules\HelpDesk\Entities\TicketCategory;
 use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Entities\Ticket;
 use Modules\HelpDesk\Entities\TicketFile;
+use Modules\HelpDesk\Entities\TicketPause;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use App\Events\TicketCreated;
@@ -47,8 +48,19 @@ class FormCreate extends Component
 
         $this->saving->requester_id = Auth::user()->id;
         $this->saving->ticket_open = date('Y-m-d H:i:s');
-        $this->saving->ticket_open > date('Y-m-d 18:00:00') ? $this->saving->status_id = 3 : $this->saving->status_id = 1;
-        $this->saving->save();
+        if ($this->saving->ticket_open > date('Y-m-d 08:00:00')) {
+            $this->saving->status_id = 3;
+            $this->saving->save();
+            TicketPause::create([
+                'start_pause' => now(),
+                'ticket_id' => $this->saving->id,
+                'user_id' => Auth::user()->id,
+                'ticket_message_id' => NULL
+            ]);
+        } else {
+            $this->saving->status_id = 1;
+            $this->saving->save();
+        };
 
         foreach ($this->ticket_files as $file) {
             $path = $file->store('storage/helpdesk/' . $this->saving->id, ['disk' => 'my_files']);
@@ -58,14 +70,13 @@ class FormCreate extends Component
             $ticket_file->user_id = Auth::user()->id;
             $ticket_file->ticket_id = $this->saving->id;
             $ticket_file->save();
-        }
+        };
 
         //$user->notify(new NotifyTicketCreated($user));
         TicketCreated::dispatch(Auth::user(), $this->saving);
-        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
-        
+        //Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
 
-        return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
+            return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
 
     public function render()

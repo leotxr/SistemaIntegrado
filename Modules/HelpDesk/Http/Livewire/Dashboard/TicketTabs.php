@@ -61,8 +61,10 @@ class TicketTabs extends Component
         'editing.description' => 'required'
     ];
 
-    protected $listeners = ['echo:dashboard,TicketCreated' => 'render', 
-    'echo:dashboard,TicketUpdated' => '$refresh'];
+    protected $listeners = [
+        'echo:dashboard,TicketCreated' => 'render',
+        'echo:dashboard,TicketUpdated' => '$refresh'
+    ];
 
     public function mount()
     {
@@ -148,7 +150,7 @@ class TicketTabs extends Component
         if ($this->finishing->total_pause) {
             $total_at = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
             $pausa = $this->finishing->total_pause;
-            
+
             $total = $this->calcInterval($total_at, $pausa);
 
             $this->finishing->total_ticket = $total;
@@ -222,6 +224,7 @@ class TicketTabs extends Component
             $this->pausing->status_id = 4;
             $this->message = 'Atendimento retomado.';
             $this->sendMessage($ticket, $this->message);
+            if ($this->pausing->ticket_start === NULL)  $this->pausing->ticket_start = now();
             $this->pausing->save();
         }
 
@@ -314,7 +317,7 @@ class TicketTabs extends Component
     {
         //$this->validate();
         $this->editing->save();
-        $this->message = "Chamado editado pelo usuário ".Auth::user()->name;
+        $this->message = "Chamado editado pelo usuário " . Auth::user()->name;
         $this->sendMessage($this->editing, $this->message);
         $this->modalEdit = false;
         $this->modalTicket = false;
@@ -361,7 +364,7 @@ class TicketTabs extends Component
             'my_tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
                 ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
                 ->where('user_id', Auth::user()->id)
-                ->whereIn('status_id', [3,4])
+                ->whereIn('status_id', [3, 4])
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
                 ->orderBy('ticket_priorities.order', 'desc')
                 ->paginate(5)
