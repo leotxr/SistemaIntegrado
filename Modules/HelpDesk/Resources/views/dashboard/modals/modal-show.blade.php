@@ -42,10 +42,10 @@ $status = $showing->find($showing->id)->TicketStatus;
                         <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$user_message->name}}
                         </div>
                         <div class="items-center justify-between p-4 sm:flex ">
-                            <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
+                            <time class="mb-1 text-xs font-normal text-gray-600 dark:text-gray-300 sm:order-last sm:mb-0">
                                 {{date('d/m/Y H:i:s', strtotime($message->created_at))}}
                             </time>
-                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$message->message}}
+                            <div class="text-sm font-normal text-gray-600 dark:text-gray-100">{{$message->message}}
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ $status = $showing->find($showing->id)->TicketStatus;
                 @endforeach
                 @endisset
 
-                <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-800">
+                <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-900">
                     <span
                         class="absolute flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                         @if(isset($solicitante->profile_img))
@@ -64,14 +64,14 @@ $status = $showing->find($showing->id)->TicketStatus;
                             alt="{{$solicitante->name}}" />
                         @endif
                     </span>
-                    <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
+                    <div class="bg-gray-800 border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
                         <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}}
                         </div>
                         <div class="items-center justify-between p-4 sm:flex ">
-                            <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
+                            <time class="mb-1 text-xs font-normal text-gray-600 dark:text-gray-300 sm:order-last sm:mb-0">
                                 {{date('d/m/Y H:i:s', strtotime($showing->created_at))}}
                             </time>
-                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$showing->description}}
+                            <div class="text-sm font-normal text-gray-600 dark:text-gray-100">{{$showing->description}}
                             </div>
                         </div>
                     </div>
