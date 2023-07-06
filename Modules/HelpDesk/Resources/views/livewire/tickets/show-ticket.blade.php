@@ -34,7 +34,7 @@
                     </a></li>
                 @endif
                 <li><a class="disabled">
-                    <x-icon name="duplicate" class="w-4 h-4" /> Mesclar
+                    <x-icon name="link" class="w-4 h-4" /> Mesclar
                 </a></li>
                 <li><a wire:click='openEditTicket({{$ticket->id}})'>
                         <x-icon name="pencil" class="w-4 h-4" /> Editar

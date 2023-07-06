@@ -5,8 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{route('triagem.index')}}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
+                    <a href="/" class="flex ml-2 md:mr-24">
+                        <x-application-logo class="block w-auto mr-2 text-gray-800 fill-current h-9 dark:text-gray-200">
+                        </x-application-logo>
+                        <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">
+                            Triagem</span>
                     </a>
                 </div>
 

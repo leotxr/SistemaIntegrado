@@ -4,11 +4,12 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex items-center shrink-0">
-                    <a href="/">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
-                    </a>
-                </div>
+                <a href="/" class="flex ml-2 md:mr-24">
+                    <x-application-logo class="block w-auto mr-2 text-gray-800 fill-current h-9 dark:text-gray-200">
+                    </x-application-logo>
+                    <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">
+                        sigma</span>
+                </a>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
