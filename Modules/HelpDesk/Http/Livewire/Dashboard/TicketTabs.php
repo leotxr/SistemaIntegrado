@@ -66,10 +66,6 @@ class TicketTabs extends Component
         'echo:dashboard,TicketUpdated' => '$refresh'
     ];
 
-    public function mount()
-    {
-        $this->ticket_close = now();
-    }
 
     public function selectStatus($id)
     {
