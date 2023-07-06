@@ -47,7 +47,7 @@ class FormCreate extends Component
 
         $this->saving->requester_id = Auth::user()->id;
         $this->saving->ticket_open = date('Y-m-d H:i:s');
-        $this->saving->status_id = 1;
+        $this->saving->ticket_open > date('Y-m-d 08:00:00') ? $this->saving->status_id = 3 : $this->saving->status_id = 1;
         $this->saving->save();
 
         foreach ($this->ticket_files as $file) {
