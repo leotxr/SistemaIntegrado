@@ -7,7 +7,7 @@
     <livewire:welcome />
     <div class="min-h-screen hero">
         <div class="text-center hero-content">
-            <div class="max-w-xl">
+            <div class="max-w-2xl">
                 <h1 class="pb-6 text-2xl font-bold text-white">Olá {{ auth()->user()->name }}</h1>
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 ">
 
