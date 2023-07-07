@@ -34,9 +34,9 @@
                     </a></li>
                 @endif
                 <li><a class="disabled">
-                    <x-icon name="link" class="w-4 h-4" /> Mesclar
-                </a></li>
-                <li><a wire:click='openEditTicket({{$ticket->id}})'>
+                        <x-icon name="link" class="w-4 h-4" /> Mesclar
+                    </a></li>
+                <li><a wire:click="callEdit({{$ticket->id}})">
                         <x-icon name="pencil" class="w-4 h-4" /> Editar
                     </a></li>
                 <li><a wire:click='openDeleteTicket({{$ticket->id}})'>
@@ -213,9 +213,10 @@
     </div>
 
     @include('helpdesk::dashboard.modals.modal-show')
-    @include('helpdesk::dashboard.modals.modal-edit')
+    @livewire('helpdesk::tickets.crud.edit-ticket')
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')
     @include('helpdesk::dashboard.modals.modal-transfer')
     @include('helpdesk::dashboard.modals.modal-delete')
+
 </div>

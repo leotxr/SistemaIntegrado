@@ -5,7 +5,7 @@
     @endphp
     <x-modal.form wire:model.defer='modalEdit'>
         <x-slot name='title'>
-            <x-title>Editar Chamado: #{{$showing->id}} - {{$showing->title}}</x-title>
+            <x-title>Editar Chamado: #{{$editing->id}} - {{$editing->title}}</x-title>
             <div class='justify-items-end'>
                 <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
                     style="background-color: {{$colors[$status->id]}}">
