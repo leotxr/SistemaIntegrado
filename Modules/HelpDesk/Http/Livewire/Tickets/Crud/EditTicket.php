@@ -37,7 +37,6 @@ class EditTicket extends Component
 
     protected $listeners = [
         'TicketEdit' => 'edit',
-        'TicketTransfer' => 'openTransferTicket',
         'TicketStart' => 'start',
         'echo:dashboard,TicketUpdated' => '$refresh',
         'TicketReopen' => 'confirmReopen'

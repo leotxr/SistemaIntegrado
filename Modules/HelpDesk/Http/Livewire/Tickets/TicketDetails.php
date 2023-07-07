@@ -26,6 +26,11 @@ class TicketDetails extends Component
         'echo:dashboard,TicketUpdated' => '$refresh',
     ];
 
+    public function callStart(Ticket $ticket)
+    {
+        $this->emit('TicketStart', $ticket->id);
+    }
+
     public function callEdit(Ticket $ticket)
     {
         $this->emit('TicketEdit', $ticket->id);
@@ -39,6 +44,21 @@ class TicketDetails extends Component
     public function callTransfer(Ticket $ticket)
     {
         $this->emit('TicketTransfer', $ticket->id);
+    }
+
+    public function callPause(Ticket $ticket)
+    {
+        $this->emit('TicketPause', $ticket->id);
+    }
+
+    public function callEndPause(Ticket $ticket)
+    {
+        $this->emit('TicketEndPause', $ticket->id);
+    }
+
+    public function callReopen(Ticket $ticket)
+    {
+        $this->emit('TicketReopen', $ticket->id);
     }
 
     public function callFinish(Ticket $ticket)

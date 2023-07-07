@@ -133,7 +133,7 @@
                     <ul tabindex="0" class="p-2 shadow dropdown-content menu bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
                         @if($showing->status_id === 4)
                         <li><a wire:click='callPause({{$showing->id}})'><x-icon name="pause" class="w-4 h-4"/> Pausar</a></li>
-                        <li><a wire:click='openTransferTicket({{$showing->id}})'><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>
+                        <li><a wire:click="$emit('TicketTransfer', {{$showing->id}})"><x-icon name="switch-horizontal" class="w-4 h-4"/> Transferir</a></li>
                         @endif
                         <li><a wire:click='callEdit({{$showing->id}})'> <x-icon name="pencil" class="w-4 h-4"/> Editar</a></li>
                         <li><a wire:click='callDelete({{$showing->id}})'> <x-icon name="trash" class="w-4 h-4"/> Excluir</a></li>
@@ -164,6 +164,7 @@
     </x-modal.form>
     @endisset
 
+    @livewire('helpdesk::tickets.crud.transfer-ticket')
     @livewire('helpdesk::tickets.crud.edit-ticket')
     @livewire('helpdesk::tickets.crud.finish-ticket')
     @livewire('helpdesk::tickets.crud.pause-ticket')

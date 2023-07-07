@@ -48,9 +48,7 @@ class TicketTabs extends Component
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
 
-    protected $rules = [
-        'transfering.user_id' => 'required',
-    ];
+
 
     protected $listeners = [
         'echo:dashboard,TicketCreated' => 'render',
@@ -102,39 +100,6 @@ class TicketTabs extends Component
         $ticket_message->read = 0;
         $ticket_message->save();
         $this->message = '';
-    }
-
-
-    public function openTransferTicket(Ticket $ticket)
-    {
-        $this->users = User::where('user_group_id', 9)->get();
-        $this->modalTransfer = true;
-        $this->transfering = $ticket;
-    }
-
-    public function transfer()
-    {
-
-        $novo = User::find($this->transfering->user_id);
-        $this->message = "Chamado transferido para o usuário $novo->name.";
-        $this->sendMessage($this->transfering, $this->message);
-        $pause = TicketPause::create([
-            'start_pause' => now(),
-            'ticket_id' => $this->transfering->id,
-            'user_id' => Auth::user()->id
-        ]);
-
-        if ($pause) {
-            $this->transfering->status_id = 3;
-            $this->transfering->save();
-            $this->dispatchBrowserEvent(
-                'notify',
-                ['type' => 'info', 'message' => 'Chamado Pausado']
-            );
-        }
-        $this->modalTransfer = false;
-
-        TicketUpdated::dispatch();
     }
 
 
