@@ -212,12 +212,8 @@
         </div>
     </div>
 
-    @include('helpdesk::dashboard.modals.modal-show')
+    
     @livewire('helpdesk::tickets.crud.edit-ticket')
     @livewire('helpdesk::tickets.crud.delete-ticket')
-    @include('helpdesk::dashboard.modals.modal-finish')
-    @include('helpdesk::dashboard.modals.modal-pause')
-    @include('helpdesk::dashboard.modals.modal-transfer')
-    @include('helpdesk::dashboard.modals.modal-delete')
 
 </div>
