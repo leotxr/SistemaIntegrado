@@ -44,6 +44,7 @@ class TicketCharts extends Component
             ->setColors('#0080ff')
             ->setDataLabelsEnabled($this->showDataLabels)
             ->setXAxisVisible(true)
+            ->withDataLabels()
             ->setYAxisVisible(true)
             ->withOnPointClickEvent('onAreaPointClick');
 
