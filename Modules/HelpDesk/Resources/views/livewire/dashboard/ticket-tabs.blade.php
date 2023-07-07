@@ -95,11 +95,7 @@
         </div>
     </div>
 
-    @include('helpdesk::dashboard.modals.modal-show')
-    @include('helpdesk::dashboard.modals.modal-edit')
-    @include('helpdesk::dashboard.modals.modal-finish')
-    @include('helpdesk::dashboard.modals.modal-pause')
-    @include('helpdesk::dashboard.modals.modal-transfer')
-    @include('helpdesk::dashboard.modals.modal-delete')
+    
+    @livewire('helpdesk::tickets.crud.show-ticket')
 
 </div>

@@ -102,4 +102,24 @@
     </x-modal.form>
     </form>
     @endisset
+
+    @isset($reopening)
+    <form wire:submit.prevent='reopen'>
+        @csrf
+        <x-modal.confirmation wire:model.defer='modalReopen'>
+
+            <x-slot name='dialog'>
+                <x-title>Reabrir chamado #{{$reopening->id}}-{{$reopening->title}}?</x-title>
+                <p class="mb-4 text-sm font-light text-gray-500 dark:text-gray-100">As horas de trabalho serão zeradas!
+                    Deseja continuar?</p>
+            </x-slot>
+
+            <x-slot name='buttons'>
+                <x-secondary-button x-on:click="$dispatch('close')" class="mx-2">Cancelar</x-secondary-button>
+                <x-primary-button class="mx-2" type="submit">Reabrir</x-primary-button>
+            </x-slot>
+
+        </x-modal.confirmation>
+    </form>
+    @endisset
 </div>

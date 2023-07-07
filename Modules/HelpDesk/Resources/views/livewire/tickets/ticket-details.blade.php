@@ -39,7 +39,7 @@
                 <li><a wire:click="callEdit({{$ticket->id}})">
                         <x-icon name="pencil" class="w-4 h-4" /> Editar
                     </a></li>
-                <li><a wire:click='openDeleteTicket({{$ticket->id}})'>
+                <li><a wire:click='callDelete({{$ticket->id}})'>
                         <x-icon name="trash" class="w-4 h-4" /> Excluir
                     </a></li>
             </ul>
@@ -214,6 +214,7 @@
 
     @include('helpdesk::dashboard.modals.modal-show')
     @livewire('helpdesk::tickets.crud.edit-ticket')
+    @livewire('helpdesk::tickets.crud.delete-ticket')
     @include('helpdesk::dashboard.modals.modal-finish')
     @include('helpdesk::dashboard.modals.modal-pause')
     @include('helpdesk::dashboard.modals.modal-transfer')

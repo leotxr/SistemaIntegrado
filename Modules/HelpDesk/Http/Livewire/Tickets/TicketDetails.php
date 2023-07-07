@@ -9,8 +9,9 @@ use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
 use Modules\HelpDesk\Http\Livewire\Tickets\AllTickets;
 
-class ShowTicket extends Component
+class TicketDetails extends Component
 {
+
     public $categories;
     public $subcategories;
     public Ticket $ticket;
@@ -30,10 +31,24 @@ class ShowTicket extends Component
         $this->emit('TicketEdit', $ticket->id);
     }
 
+    public function callDelete(Ticket $ticket)
+    {
+        $this->emit('TicketDelete', $ticket->id);
+    }
+
+    public function callTransfer(Ticket $ticket)
+    {
+        $this->emit('TicketTransfer', $ticket->id);
+    }
+
+    public function callFinish(Ticket $ticket)
+    {
+        $this->emit('TicketFinish', $ticket->id);
+    }
 
 
     public function render()
     {
-        return view('helpdesk::livewire.tickets.show-ticket');
+        return view('helpdesk::livewire.tickets.ticket-details');
     }
 }

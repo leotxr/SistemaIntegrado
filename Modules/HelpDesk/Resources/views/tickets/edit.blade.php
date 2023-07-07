@@ -4,7 +4,7 @@
     <div class="max-w-full justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
-                @livewire('helpdesk::tickets.show-ticket', ['ticket' => $ticket])
+                @livewire('helpdesk::tickets.ticket-details', ['ticket' => $ticket])
 
             </div>
         </div>
