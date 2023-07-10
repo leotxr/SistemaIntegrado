@@ -54,7 +54,7 @@ class NotifyTicketCreated extends Notification implements ShouldQueue, ShouldBro
             ->greeting('Novo Chamado.')
             ->line('Assunto: ' . $this->ticket->title)
             ->line('Descrição: ' . $this->ticket->description)
-            ->action('Acessar Painel', 'http://192.168.254.182:81/helpdesk/painel')
+            ->action('Acessar Chamado', 'http://192.168.254.182:81/helpdesk/painel/chamados/' . $this->ticket->id . '/detalhes')
             ->line('Chamado aberto por: ' . $this->user->name)
             ->salutation('Sigma - Ultrimagem');
     }
