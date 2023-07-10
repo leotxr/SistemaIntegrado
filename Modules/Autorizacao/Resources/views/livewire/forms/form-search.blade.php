@@ -53,8 +53,8 @@
                         </div>
                         <div class="mt-4">
                             <x-input-label for="name" :value="__('Nome do Paciente')" />
-                            <x-text-input type="text" name='name' class="w-full"
-                                value="{{$show_data_patient->NOMEPAC}}" required></x-text-input>
+                            <x-text-input type="text" name='name' class="w-full" value="{{$show_data_patient->NOMEPAC}}"
+                                required></x-text-input>
                             <x-input-error class="mt-2" :messages="$errors->get('data.patient_name')" />
                         </div>
                     </div>
@@ -164,13 +164,21 @@
                     </x-accordion>
                     @endif
 
-                    <div>
+                    <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+                        x-on:livewire-upload-finish="isUploading = false"
+                        x-on:livewire-upload-error="isUploading = false"
+                        x-on:livewire-upload-progress="progress = $event.detail.progress">
                         <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-700">Anexar arquivos</label>
                             <div
                                 class="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
                                 <input type="file" name="photo[]" id="photo" wire:model='photo'
                                     class="w-full max-w-xs file-input file-input-bordered" multiple />
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700"
+                                x-show="isUploading">
+                                <div class="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500" min="0" max="100"
+                                    x-bind:style="`width:${progress}%`"></div>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2 py-4 sm:grid-cols-4">
