@@ -15,7 +15,6 @@
                     #{{$ticket->id}}</span> </x-title>
         </div>
         <div class="my-1 ml-8 text-end">
-            teste
             <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
                 style="background-color: {{$colors[$status->id]}}">
                 {{$status->name}}
