@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 use Modules\HelpDesk\Http\Controllers\TicketController;
 use Modules\HelpDesk\Http\Controllers\CategoryController;
 use Modules\HelpDesk\Http\Controllers\SubCategoryController;
