@@ -4,6 +4,7 @@
         class="mb-4 text-lg text-blue-600 dark:text-blue-400 hover:line">Marcar todas como lida</a>
     <a type="button" wire:click='deleteAll' style="cursor: pointer"
         class="mx-4 mb-4 text-red-600 text-md dark:text-red-400 hover:line">Excluir todas notificações</a>
+    {!! $unread->links() !!}
     <div class="grid grid-cols-3 gap-2">
         @foreach($unread as $notification)
         <div id="toast-notification"
@@ -15,7 +16,7 @@
                     class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">
                     <span class="sr-only">Marcar como lida</span>
                     @if($notification->read_at)
-                        <x-icon name='external-link' class="w-5 h-5 text-gray-400"></x-icon>
+                    <x-icon name='external-link' class="w-5 h-5 text-gray-400"></x-icon>
                     @else
                     <x-icon name="mail" class="w-5 h-5"></x-icon>
                     @endif

@@ -61,6 +61,6 @@ class TicketNotifications extends Component
 
     public function render()
     {
-        return view('helpdesk::livewire.tickets.ticket-notifications', ['unread' => Auth::user()->notifications]);
+        return view('helpdesk::livewire.tickets.ticket-notifications', ['unread' => Auth::user()->notifications()->paginate(10)]);
     }
 }
