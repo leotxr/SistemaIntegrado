@@ -51,9 +51,6 @@ class TicketNotifications extends Component
             ['type' => 'success', 'message' => 'Notificação marcada como lida.']
         );
 
-
-
-
         //$this->notification->markAsRead();
 
 

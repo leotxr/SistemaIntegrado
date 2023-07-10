@@ -20,6 +20,11 @@
                     @else
                     <x-icon name="mail" class="w-5 h-5"></x-icon>
                     @endif
+
+                </a>
+                <a type="button"
+                    class="mx-2 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <x-icon name='trash' class="w-5 h-5 text-gray-400"></x-icon>
                 </a>
             </div>
             <div class="flex items-center">
