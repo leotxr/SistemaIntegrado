@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/painel/chamados', [TicketController::class, 'all'])->name('helpdesk.tickets');
             Route::get('/painel/chamados/novo', [TicketController::class, 'create'])->name('helpdesk.tickets.create');
             Route::get('/painel/chamados/{id}/detalhes', [TicketController::class, 'edit'])->name('helpdesk.tickets.edit');
+            Route::get('/painel/chamados/{id}', function($id)
+            {
+                return to_route('helpdesk.tickets.edit', ['id' => $id]);
+            });
             Route::get('/painel/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
             Route::get('/painel/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
             Route::get('/painel/relatorios', '\Modules\HelpDesk\Http\Livewire\Reports\ReportIndex@__invoke')->name('helpdesk.reports');
