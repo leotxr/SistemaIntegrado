@@ -15,13 +15,15 @@
                     #{{$ticket->id}}</span> </x-title>
         </div>
         <div class="my-1 ml-8 text-end">
+            teste
             <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
                 style="background-color: {{$colors[$status->id]}}">
                 {{$status->name}}
             </span>
+
         </div>
     </div>
-    <div class="flex justify-end my-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <div class="flex justify-end my-2 rounded-lg shadow-md ">
         <div class="mx-4 my-2 dropdown dropdown-down dropdown-end">
             <ul tabindex="0"
                 class="p-2 shadow dropdown-content menu bg-base-100 dark:bg-gray-600 dark:text-gray-50 rounded-box w-52">
@@ -49,7 +51,7 @@
         </div>
         <div class="my-2">
             @if($ticket->status_id === 1)
-            <x-primary-button class="mx-2 bg-blue-800" wire:click="$emit('TicketTransfer', {{$ticket->id}})">Atender
+            <x-primary-button class="mx-2 bg-blue-800" wire:click="$emit('TicketStart', {{$ticket->id}})">Atender
             </x-primary-button>
             @endif
             @if($ticket->status_id === 4)

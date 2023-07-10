@@ -49,9 +49,10 @@
 
                     <div class="text-2xl font-bold text-blue-600">
                         @php
-                        $status->id === 1 
-                        ? 
-                        $count = \Modules\HelpDesk\Entities\Ticket::where('status_id', $status->id)->orWhere('user_id', NULL)->count() 
+                        $status->id === 1
+                        ?
+                        $count = \Modules\HelpDesk\Entities\Ticket::where('status_id', $status->id)->orWhere('user_id',
+                        NULL)->count()
                         :
                         $count = \Modules\HelpDesk\Entities\Ticket::where('status_id', $status->id)->count();
 
@@ -95,7 +96,7 @@
         </div>
     </div>
 
-    
+
     @livewire('helpdesk::tickets.crud.show-ticket')
 
 </div>
