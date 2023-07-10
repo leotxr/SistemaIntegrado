@@ -5,7 +5,6 @@
     @endphp
     <x-modal.form wire:model.defer='modalTicket'>
         <x-slot name='title'>
-
             <x-title>Detalhes do Chamado: #{{$showing->id}} - {{$showing->title}}</x-title>
             <div class='justify-items-end'>
                 <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
@@ -15,18 +14,10 @@
             </div>
         </x-slot>
         <x-slot name='content'>
-
-            <div role="status" class="max-w-sm animate-pulse">
-                <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-                <span class="sr-only">Loading...</span>
-            </div>
-
             <div class="max-w-3xl p-8">
+                <div wire:loading>
+                    <span class="loading_bar"></span>
+                </div>
                 @php
                 $messages = $showing->find($showing->id)->TicketMessages;
                 $messages = $messages->sortDesc();
