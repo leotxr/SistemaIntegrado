@@ -52,6 +52,7 @@ class QueueMonitoring extends Component
                 ->whereBetween('WORK_LIST.DATA', ['2023-07-11', '2023-07-11'])
                 ->where('PACIENTE.UNIDADEID', 1)
                 ->select(DB::raw("PACIENTE.NOME AS NOME, WORK_FILAS.FILAID AS FILAID, WORK_LIST.STATUSID AS STATUSID"))
+                ->distinct()
                 ->get()
         ]);
     }
