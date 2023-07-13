@@ -1,37 +1,19 @@
-<head>
-    @livewireStyles
-</head>
+@extends('administrativo::layouts.master')
+@section('header')
 
-<body>
-    @livewireScripts
-    <livewire:administrativo::layouts.app />
-    <div name="header">
-        <h2 class="font-semibold text-2xl leading-tight">
-            {{ __('Módulo Administrativo') }}
-        </h2>
-    </div>
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        {{ __("Nova Solicitação") }}
+    </h2>
 
-    <div class="p-2">
-        <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Tempo Extra</th>
-                        <th>Funcionário</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr>
-                            <th>{{$user->id}}</th>
-                            <td>{{ $user->tempo }}</td>
-                            <td>{{ $user->name }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+@endsection
+@section('content')
+<div class="m-4 shadow-sm">
+    <div class="max-w-full px-12 justify-items-center">
+        <div class="overflow-hidden shadow-sm sm:rounded-lg">
+            <div>
+                
+            </div>
         </div>
     </div>
-
-</body>
+</div>
+@endsection

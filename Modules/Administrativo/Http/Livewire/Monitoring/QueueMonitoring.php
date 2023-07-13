@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace Modules\Administrativo\Http\Livewire\Monitoring;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +30,8 @@ class QueueMonitoring extends Component
 
     public function render()
     {
-        return view('livewire.queue-monitoring', [
+        return view('administrativo::livewire.monitoring.queue-monitoring', [
+
             'queue' =>
             DB::connection('sqlserver')->table('WORK_LIST')
                 ->leftJoin('FATURA', function ($join_fatura) {
@@ -49,11 +50,13 @@ class QueueMonitoring extends Component
                 ->leftJoin('RESULTADOEXAME', 'RESULTADOEXAME.RESULT_EXAMEID', '=', 'FATURA.RESULT_EXAMEID')
                 ->leftJoin('WORK_FILAS', 'WORK_FILAS.FILAID', '=', 'WORK_LIST.FILAID')
                 ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.TECNICOID')
-                ->whereBetween('WORK_LIST.DATA', ['2023-07-11', '2023-07-11'])
+                ->whereDate('WORK_LIST.DATA', date('Y-m-d'))
                 ->where('PACIENTE.UNIDADEID', 1)
-                ->select(DB::raw("PACIENTE.NOME AS NOME, WORK_FILAS.FILAID AS FILAID, WORK_LIST.STATUSID AS STATUSID"))
+                ->whereIn('WORK_FILAS.FILAID', $this->count_filas)
+                ->select(DB::raw("PACIENTE.NOME AS NOME, WORK_FILAS.FILAID AS FILAID, WORK_LIST.STATUSID AS STATUSID, WORK_LIST.HORAAGENDA AS AGENDA, GETDATE() AS HORAATUAL, DATEDIFF(second,0,CONVERT (TIME, GETDATE())) AS AGORACONV, (DATEDIFF(second,0,CONVERT (TIME, GETDATE())) - WORK_LIST.HORAAGENDA) AS ATRASO"))
                 ->distinct()
                 ->get()
+
         ]);
     }
 }

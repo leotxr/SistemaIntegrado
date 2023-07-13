@@ -11,16 +11,13 @@
 |
 */
 
+
 use Modules\Administrativo\Http\Controllers\AdministrativoController;
+use Modules\Administrativo\Http\Livewire\Monitoring\QueueMonitoring;
 
-/*
-Route::prefix('administrativo')->group(function() {
-    Route::get('/', function () {
-        return view('administrativo::dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('administrativo')->group(function () {
+    Route::get('/monitoramento', function(){
+        return view('administrativo::monitoramento.index');
+    })->name('adm.monitoring');
+    Route::resource('administrativo', AdministrativoController::class);
 });
-*/
-
-Route::resource('extratimes', ExtraTimeController::class);
-Route::resource('missedtimes', MissedTimeController::class);
-Route::resource('administrativo', AdministrativoController::class);
