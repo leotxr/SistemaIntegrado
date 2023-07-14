@@ -75,7 +75,7 @@
                     @endif
 
                     @if (auth()->user()->can('admin') ||
-                            auth()->user()->can('administrativo'))
+                            auth()->user()->can('administrativo') || auth()->user()->can('abrir chamado'))
                         <a href="{{ url('administrativo') }}">
                             <button
                                 class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">

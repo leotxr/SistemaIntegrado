@@ -39,11 +39,7 @@
 
             <!-- Page Content -->
             <main>
-                @include('components.floating-action-button')
                 {{ $slot }}
-                <div class="absolute top-0 grid w-screen h-screen loader-wrapper bg-base-200 place-items-center opacity-90">
-                    <span class="loader"></span>
-                </div>
             </main>
         </div>
 
@@ -53,9 +49,6 @@
 </html>
 
 <script>
-    $(window).on("load", function() {
-        $(".loader-wrapper").fadeOut("slow");
-    });
     setTimeout(function() {
         $('.alert').fadeOut('slow');
     }, 5000);

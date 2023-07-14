@@ -16,12 +16,7 @@ class AdministrativoController extends Controller
      */
     public function index()
     {
-        $users = User::
-            select(DB::raw('SEC_TO_TIME( SUM( TIME_TO_SEC(extra_times.tempo))) AS tempo, users.name, users.id'))
-            ->groupBy('users.id')
-            ->join('extra_times', 'extra_times.user_id', '=', 'users.id')
-            ->get();
-        return view('administrativo::dashboard', compact('users'));
+        return view('administrativo::dashboard');
     }
 
     /**

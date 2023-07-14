@@ -19,5 +19,6 @@ Route::prefix('administrativo')->group(function () {
     Route::get('/monitoramento', function(){
         return view('administrativo::monitoramento.index');
     })->name('adm.monitoring');
+    
     Route::resource('administrativo', AdministrativoController::class);
 });

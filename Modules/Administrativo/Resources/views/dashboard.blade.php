@@ -11,7 +11,7 @@
     <div class="max-w-full px-12 justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
-                
+                <a href="{{url('/administrativo/monitoramento')}}">Painel de monitoramento</a>
             </div>
         </div>
     </div>
