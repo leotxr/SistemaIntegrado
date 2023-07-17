@@ -50,7 +50,7 @@ class FinishTicket extends Component
             $total_at = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
             $pausa = $this->finishing->total_pause;
             $tot = $this->absInterval($pausa, $total_at);
-            dd($pausa);
+            
             
 
             $this->finishing->total_ticket = $tot;
