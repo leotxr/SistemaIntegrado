@@ -39,7 +39,6 @@ class FinishTicket extends Component
         $this->modalFinish = true;
         $this->finishing = $ticket;
         $this->ticket_close = now();
-        
     }
 
     public function finish()
@@ -48,13 +47,13 @@ class FinishTicket extends Component
         $this->finishing->ticket_close = $this->ticket_close;
         $this->finishing->status_id = 2;
         if ($this->finishing->total_pause) {
-            $total_at = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
+            $total_at = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
             $pausa = $this->finishing->total_pause;
 
-            $total = $this->calcInterval($total_at, $pausa);
+            $total = $this->absInterval($pausa, $total_at);
 
             $this->finishing->total_ticket = $total;
-        } else $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_start, $this->finishing->ticket_close);
+        } else $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
         $this->finishing->save();
 
         $ticket_message = new TicketMessage();
@@ -74,16 +73,33 @@ class FinishTicket extends Component
         TicketUpdated::dispatch();
     }
 
+    public function absInterval($date1, $date2)
+    {
+        /*
+        $inicio = new DateTime($date1);
+        $fim = new DateTime($date2);
+        $diff = $inicio->diff($fim);
+        $tempo = $diff->format("%H:%I:%S");
+        */
+        $start = strtotime($date1);
+        $end = strtotime($date2);
+        $seconds = abs($end - $start);
+        $hours = floor($seconds / 3600);
+        $mins = floor($seconds / 60 % 60);
+        $secs = floor($seconds % 60);
+        $tempo = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+
+        return $tempo;
+    }
+
     public function calcInterval($date1, $date2)
     {
         $inicio = new DateTime($date1);
         $fim = new DateTime($date2);
         $diff = $inicio->diff($fim);
         $tempo = $diff->format("%H:%I:%S");
-
         return $tempo;
     }
-
     public function render()
     {
         return view('helpdesk::livewire.tickets.crud.finish-ticket');

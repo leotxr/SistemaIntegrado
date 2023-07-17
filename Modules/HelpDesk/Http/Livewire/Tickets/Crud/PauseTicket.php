@@ -8,6 +8,7 @@ use Modules\HelpDesk\Entities\TicketMessage;
 use Modules\HelpDesk\Entities\TicketPause;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TicketUpdated;
+use DateTime;
 
 class PauseTicket extends Component
 {
@@ -87,12 +88,21 @@ class PauseTicket extends Component
         foreach ($pauses as $p) {
             $start = strtotime($p->start_pause);
             $end = strtotime($p->end_pause);
-            $total_pause = date('H:i:s', $end - $start);
-            $teste = strtotime($total_pause) + strtotime($teste);
-            $v = $v + $teste;
-        }
+            //$total_pause = date('H:i:s', $end - $start);
+            //$teste = strtotime($total_pause) + strtotime($teste);
+            //$v = $v + $teste;
+            //$pause = $this->calcInterval($p->start_pause, $p->end_pause);
+            //$t = gmdate($pause);
 
-        $this->pausing->total_pause = gmdate("H:i:s", $v);
+            $seconds = abs($end - $start);
+            $hours = floor($seconds / 3600);
+            $mins = floor($seconds / 60 % 60);
+            $secs = floor($seconds % 60);
+            $pause = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+        }
+        //dd($pause);
+
+        $this->pausing->total_pause = $pause;
         $this->pausing->save();
 
 
@@ -105,6 +115,17 @@ class PauseTicket extends Component
 
         TicketUpdated::dispatch();
     }
+
+    public function calcInterval($date1, $date2)
+    {
+        $inicio = new DateTime($date1);
+        $fim = new DateTime($date2);
+        $diff = $inicio->diff($fim);
+        //$tempo = $diff->format("%H:%I:%S");
+
+        return $diff;
+    }
+
 
     public function sendMessage(Ticket $ticket, $message)
     {
