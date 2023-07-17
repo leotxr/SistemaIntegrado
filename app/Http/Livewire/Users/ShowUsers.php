@@ -8,12 +8,13 @@ use Livewire\WithPagination;
 
 class ShowUsers extends Component
 {
-    use WithPagination;
+    public $search_user = '';
+    public $sortField = 'name';
         
     public function render()
     {
         return view('livewire.users.show-users', [
-            'users' => User::all()->paginate(10)
+            'users' => User::search($this->sortField, $this->search_user)->paginate(10)
         ]);
     }
 }

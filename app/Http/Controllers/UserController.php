@@ -22,12 +22,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate('10');
-        $permissions = Permission::all();
+        //$users = User::paginate('10');
+        //$permissions = Permission::all();
 
 
 
-        return view('users.usuarios', compact('users', 'permissions'));
+        return view('users.usuarios');
     }
 
     /**
