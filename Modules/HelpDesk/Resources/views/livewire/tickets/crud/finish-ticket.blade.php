@@ -10,18 +10,8 @@
         </x-slot>
         <x-slot name='content'>
             <div>
-                <div class="p-4">
-                    <div class="mt-2 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-50" wire:ignore.self>
-                        <div class="h-64" x-data x-ref="quillEditor" x-init="
-                          quill = new Quill($refs.quillEditor, {theme: 'snow'});
-                          quill.on('text-change', function () {
-                            $dispatch('input', quill.root.innerHTML);
-                          });
-                        ">
-        
-                        </div>
-                    </div>
-                </div>
+                <x-input-label for='finish_mesage'>Mensagem de Finalização</x-input-label>
+                <x-text-area rows="7" wire:model.defer='message' name="finish_message" id="finish_message"> </x-text-area>
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <div class="mt-4">
