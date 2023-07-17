@@ -3,7 +3,7 @@
         <div>
             <x-text-input type="text" wire:model='search_user' placeholder="Buscar usuários...">
             </x-text-input>
-            </div>
+        </div>
         <a type="button" href="{{url('/users/create')}}">
             <x-primary-button>
                 <x-icon name="plus" class="w-5 h-5"></x-icon>

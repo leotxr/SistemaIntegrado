@@ -10,3 +10,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @livewireChartsScripts
     <livewire:scripts />
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
