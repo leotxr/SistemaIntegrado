@@ -49,11 +49,12 @@ class FinishTicket extends Component
         if ($this->finishing->total_pause) {
             $total_at = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
             $pausa = $this->finishing->total_pause;
+            $tot = $this->absInterval($pausa, $total_at);
+            dd($pausa);
+            
 
-            $total = $this->absInterval($pausa, $total_at);
-
-            $this->finishing->total_ticket = $total;
-        } else $this->finishing->total_ticket = $this->calcInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
+            $this->finishing->total_ticket = $tot;
+        } else $this->finishing->total_ticket = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
         $this->finishing->save();
 
         $ticket_message = new TicketMessage();
@@ -81,6 +82,7 @@ class FinishTicket extends Component
         $diff = $inicio->diff($fim);
         $tempo = $diff->format("%H:%I:%S");
         */
+        unset($tempo);
         $start = strtotime($date1);
         $end = strtotime($date2);
         $seconds = abs($end - $start);
@@ -88,7 +90,6 @@ class FinishTicket extends Component
         $mins = floor($seconds / 60 % 60);
         $secs = floor($seconds % 60);
         $tempo = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
-
         return $tempo;
     }
 
