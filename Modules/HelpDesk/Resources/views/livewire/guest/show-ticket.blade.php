@@ -93,7 +93,12 @@
                             <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
                                 {{date('d/m/Y H:i:s', strtotime($message->created_at))}}
                             </time>
-                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$message->message}}
+                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">
+                                <div class="max-w-full">
+                                    @php
+                                    echo $message->message
+                                    @endphp
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +119,12 @@
                             <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
                                 {{date('d/m/Y H:i:s', strtotime($ticket->ticket_open))}}
                             </time>
-                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$ticket->description}}
+                            <div class="text-sm font-normal text-gray-600 dark:text-gray-300">
+                                <div class="max-w-full">
+                                    @php
+                                    echo $ticket->description
+                                    @endphp
+                                </div>
                             </div>
                         </div>
                     </div>

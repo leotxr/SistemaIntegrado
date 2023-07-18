@@ -78,8 +78,19 @@
                 </div>
                 <div class="m-4">
                     <x-input-label for="ticket_description" :value="__('Mensagem')" class="text-lg font-bold" />
-                    <x-text-area rows="5" type='text' name="ticket_description" id="ticket_description"
-                        wire:model.defer='saving.description' class="w-full" value=''></x-text-area>
+                    <div>
+                        <div class="mt-2 bg-white" wire:ignore>
+                            <div class="h-64" x-data x-ref="quillEditor" x-init="
+                            quill = new Quill($refs.quillEditor, {theme: 'snow'});
+                            quill.on('text-change', function () {
+                              $dispatch('input', quill.root.innerHTML);
+                            });
+                          " wire:model.defer='saving.description'>
+                          
+                          {!! $description !!}
+                            </div>
+                        </div>
+                    </div>
                     <x-input-error class="mt-2" :messages="$errors->get('saving.description')" />
                 </div>
 
