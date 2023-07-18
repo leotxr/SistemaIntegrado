@@ -15,7 +15,7 @@ class FinishTicket extends Component
 
     public $modalFinish = false;
     public $modalTicket;
-    public $message;
+    public $message = '';
     public Ticket $finishing;
     public DateTime $ticket_close;
 

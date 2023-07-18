@@ -97,7 +97,10 @@
                                 <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
                                     {{date('d/m/Y H:i:s', strtotime($message->created_at))}}
                                 </time>
-                                <div class="text-sm font-normal text-gray-600 dark:text-gray-300">{{$message->message}}
+                                <div class="max-w-full">
+                                    @php
+                                    echo $message->message
+                                    @endphp
                                 </div>
                             </div>
                         </div>
