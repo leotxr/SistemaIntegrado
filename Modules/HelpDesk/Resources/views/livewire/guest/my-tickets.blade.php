@@ -7,13 +7,13 @@
             class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
             <!-- The tabs navigation -->
             <nav>
-                <a :class="{ 'active': tab === 'ativos' }"
+                <x-nav-link :class="{ 'active': tab === 'ativos' }"  :active="Request::is('helpdesk/chamados#ativos')"
                     class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                    @click.prevent="tab = 'ativos'; window.location.hash = 'ativos'" href="#">Meus Chamados Ativos</a>
-                <a :class="{ 'active': tab === 'encerrados' }"
+                    @click.prevent="tab = 'ativos'; window.location.hash = 'ativos'" href="#">Meus Chamados Ativos</x-nav-link>
+                <x-nav-link :class="{ 'active': tab === 'encerrados' }" :active="Request::is('helpdesk/chamados#encerrados')"
                     class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                     @click.prevent="tab = 'encerrados'; window.location.hash = 'encerrados'" href="#">Meus Chamados
-                    Encerrados</a>
+                    Encerrados</x-nav-link>
             </nav>
 
             <!-- The tabs content -->
