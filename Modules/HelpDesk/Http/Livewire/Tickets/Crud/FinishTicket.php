@@ -75,7 +75,7 @@ class FinishTicket extends Component
         );
 
         TicketUpdated::dispatch();
-        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(Auth::user(), $this->finishing));
+        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
     }
 
     public function absInterval($date1, $date2)
