@@ -9,6 +9,9 @@ use Modules\HelpDesk\Entities\TicketSubCategory;
 use App\Events\TicketUpdated;
 use Illuminate\Support\Facades\Auth;
 use DateTime;
+use Modules\HelpDesk\Notifications\NotifyTicketFinished;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
 
 class FinishTicket extends Component
 {
@@ -72,6 +75,7 @@ class FinishTicket extends Component
         );
 
         TicketUpdated::dispatch();
+        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(Auth::user(), $this->finishing));
     }
 
     public function absInterval($date1, $date2)

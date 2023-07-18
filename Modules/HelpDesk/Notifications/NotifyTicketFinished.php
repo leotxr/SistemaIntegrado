@@ -15,6 +15,7 @@ class NotifyTicketFinished extends Notification implements ShouldQueue
 
     public $user;
     public $ticket;
+    public $atendente;
 
     /**
      * Create a new notification instance.
@@ -25,6 +26,7 @@ class NotifyTicketFinished extends Notification implements ShouldQueue
     {
         $this->user = $user;
         $this->ticket = $ticket;
+        $this->atendente = $ticket->find($ticket->id)->TicketUser;
     }
 
     /**
@@ -49,10 +51,10 @@ class NotifyTicketFinished extends Notification implements ShouldQueue
         return (new MailMessage)
         ->from('informatica@ultrimagemuba.com.br', 'HelpDesk - Sigma Ultrimagem')
         ->subject('Chamado Finalizado - #' . $this->ticket->id . " - " . $this->ticket->title)
-        ->greeting('Chamado Finalizado.')
-        ->line('Assunto: ' . $this->ticket->title)
-        ->line('Descrição: ' . $this->ticket->description)
-        ->line('Chamado aberto por: ' . $this->user->name)
+        ->greeting('Olá ' . $this->user->name . '!')
+        ->line('Seu Chamado - ' . $this->ticket->title)
+        ->line('Foi finalizado pelo atendente: ' . $this->atendente->name )
+        ->action('Acessar Chamado', 'http://192.168.254.182:81/helpdesk/chamados/' . $this->ticket->id)
         ->salutation('Sigma - Ultrimagem');
     }
 
