@@ -6,7 +6,7 @@
 
                     <label for="protocol" class="block text-sm font-medium text-gray-700">Protocolo</label>
                     <div class="mt-1">
-                        <x-text-input type="text" id="protocol" wire:model.defer='protocol' required
+                        <x-text-input type="number" id="protocol" wire:model.defer='protocol' required
                             class="w-full max-w-xs" />
                     </div>
                     <div class="flex">
@@ -40,6 +40,7 @@
                 </div>
             </div>
 
+
             <div>
 
                 <form action="{{route('autorizacao.store')}}" method="POST" enctype="multipart/form-data">
@@ -47,7 +48,7 @@
                     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
                         <div class="mt-4">
                             <x-input-label for="pacientid" :value="__('Código do Paciente')" />
-                            <x-text-input type="text" name='pacienteid' class="w-xs"
+                            <x-text-input type="number" name='pacienteid' class="w-xs"
                                 value="{{$show_data_patient->PACIENTEID}}"></x-text-input>
                             <x-input-error class="mt-2" :messages="$errors->get('data.patient_id')" />
                         </div>
@@ -204,8 +205,6 @@
                     </div>
                 </form>
             </div>
-
-
 
         </div>
 

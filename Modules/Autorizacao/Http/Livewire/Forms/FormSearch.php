@@ -68,7 +68,10 @@ class FormSearch extends Component
                 ->whereNotNull('VW_AGENDA.CONVENIOID')
                 ->select(DB::raw("VW_CL_AGENDA_PORTALAGENDA.HORREQID, FORMAT(VW_AGENDA.DATA, 'yyyy-MM-dd') AS DATA, VW_AGENDA.PACIENTEID, VW_AGENDA.NOMEPAC, VW_AGENDA.CONVDESC, VW_CL_AGENDA_PORTALAGENDA.NOME_PROCEDIMENTO, PROCEDIMENTOS.CODIGO, PROCEDIMENTOS.CODTUSS, VW_AGENDA.CONVENIOID"))
                 ->get();
+
+            return view('autorizacao::livewire.forms.form-search', ['show_data_protocol' => $protocolos, 'show_data_patient' => $pacientes]);
         }
-        return view('autorizacao::livewire.forms.form-search', ['show_data_protocol' => $protocolos, 'show_data_patient' => $pacientes]);
+        else
+            return redirect()->to('autorizacao/nova-solicitacao')->with('info', 'Protocolo não encontrado');
     }
 }
