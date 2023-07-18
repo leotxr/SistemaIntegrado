@@ -1,5 +1,5 @@
 <div class="2-full">
-    {{$tickets->links()}}
+    {{$closed->links()}}
     <x-table>
         <x-slot name='head'>
             <x-table.heading>
