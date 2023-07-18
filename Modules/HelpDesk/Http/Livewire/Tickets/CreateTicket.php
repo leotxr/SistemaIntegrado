@@ -27,7 +27,7 @@ class CreateTicket extends Component
         'saving.category_id' => 'required',
         'saving.sub_category_id' => 'required',
         'saving.title' => 'required | max:191',
-        'saving.description' => 'max:200',
+        'saving.description' => 'max:2000',
         'saving.requester_id' => 'required',
         'ticket_files.*' => 'max:4096'
     ];
@@ -58,7 +58,7 @@ class CreateTicket extends Component
         }
 
         //$user->notify(new NotifyTicketCreated($user));
-        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
+        //Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
         TicketCreated::dispatch();
 
         return redirect()->to('/helpdesk/painel')->with('message', 'Chamado criado com sucesso!');

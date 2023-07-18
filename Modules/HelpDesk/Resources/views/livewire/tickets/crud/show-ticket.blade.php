@@ -12,12 +12,16 @@
                     {{$status->name}}
                 </span>
             </div>
+            <div class="h-1">
+                <div wire:loading>
+                    <span class="relative flex w-full">
+                        <span class="absolute inline-flex w-8 h-1 animate-bar bg-sky-500"></span>
+                    </span>
+                </div>
+            </div>
         </x-slot>
         <x-slot name='content'>
             <div class="max-w-3xl p-8">
-                <div wire:loading>
-                    <span class="loading_bar"></span>
-                </div>
                 @php
                 $messages = $showing->find($showing->id)->TicketMessages;
                 $messages = $messages->sortDesc();
