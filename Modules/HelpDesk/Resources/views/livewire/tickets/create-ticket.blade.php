@@ -85,9 +85,9 @@
                             quill.on('text-change', function () {
                               $dispatch('input', quill.root.innerHTML);
                             });
-                          " wire:model.defer='saving.description'>
+                          " wire:model='saving.description'>
                           
-                          {!! $description !!}
+                          {!! $saving->description !!}
                             </div>
                         </div>
                     </div>
