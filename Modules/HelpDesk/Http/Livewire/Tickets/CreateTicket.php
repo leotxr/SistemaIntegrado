@@ -58,8 +58,8 @@ class CreateTicket extends Component
         }
 
         //$user->notify(new NotifyTicketCreated($user));
-        //Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
-        TicketCreated::dispatch();
+        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
+        TicketCreated::dispatch(Auth::user(), $this->saving);
 
         return redirect()->to('/helpdesk/painel')->with('message', 'Chamado criado com sucesso!');
     }
