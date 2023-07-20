@@ -26,7 +26,7 @@ class ShowExams extends Component
     {
         $this->initial_date = date('Y-m-d');
         $this->final_date = date('Y-m-d');
-        $this->users = User::permission('enfermagem')->get();
+        $this->users = User::permission('criar triagem')->get();
         $this->sectors = Sector::all();
         foreach($this->users as $user)
         {
