@@ -25,7 +25,8 @@ class RoleController extends Controller
 
 
     public function set_permission(Request $request)
-    {
+    {   
+
         $store = DB::table('role_has_permissions')->insert([
             'permission_id' => $request->permission_id,
             'role_id' => $request->role_id

@@ -47,6 +47,9 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    <x-nav-link :href="route('settings.create')" :active="request()->routeIs('settings.create')">
+                        {{ __('Configurações') }}
+                    </x-nav-link>
                 </div>
             </div>
 
