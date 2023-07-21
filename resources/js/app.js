@@ -4,13 +4,14 @@ import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus'
 import ApexCharts from 'apexcharts'
 import mask from '@alpinejs/mask'
-
+import Quill from 'quill';
 import 'flowbite';
 
 //import domtoimage from 'dom-to-image';
 
 
 window.Alpine = Alpine;
+window.Quill = Quill;
 
 Alpine.start();
 Alpine.plugin(focus);
@@ -19,6 +20,9 @@ Alpine.plugin(mask);
 if (navigator.userAgent.match(/Android/i)) {
   window.scrollTo(0, 1);
 }
+
+
+// TEMA ESCURO
 
 var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -58,5 +62,11 @@ themeToggleBtn.addEventListener('click', function() {
             localStorage.setItem('color-theme', 'dark');
         }
     }
+
+    // FIM TEMA ESCURO
+
+    //CONFIGURACOES QUILL EDITOR
+
+    //FIM CONFIGURACOES
     
 });
