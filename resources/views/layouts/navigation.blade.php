@@ -15,9 +15,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @can('ver configuracoes')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @endcan
+                    @can('editar usuarios')
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -47,9 +50,12 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    @endcan
+                    @can('ver configuracoes')
                     <x-nav-link :href="route('settings.create')" :active="request()->routeIs('settings.create')">
                         {{ __('Configurações') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

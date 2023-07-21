@@ -11,6 +11,7 @@
                 <h1 class="pb-6 text-2xl font-bold text-white">Olá {{ auth()->user()->name }}</h1>
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 ">
 
+                    @can('criar autorizacao')
                     <a href="{{ url('autorizacao') }}">
                         <button class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
 
@@ -21,6 +22,7 @@
 
                         </button>
                     </a>
+                    @endcan
 
                     @cannot('editar chamados')
                     <a href="{{route('helpdesk.guest.index')}}">
@@ -48,7 +50,7 @@
 
                         </button>
                     </a>
-
+                    @can('ver triagem')
                     <a href="{{ url('triagem') }}">
                         <button class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
 
@@ -59,8 +61,9 @@
 
                         </button>
                     </a>
+                    @endcan
 
-                    @if (auth()->user()->can('admin'))
+                    @can('ver configuracoes')
                         <a href="{{ url('dashboard') }}">
                             <button
                                 class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
@@ -72,7 +75,7 @@
 
                             </button>
                         </a>
-                    @endif
+                    @endcan
 
                     @if (auth()->user()->can('admin') ||
                             auth()->user()->can('administrativo') || auth()->user()->can('abrir chamado'))

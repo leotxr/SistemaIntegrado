@@ -38,24 +38,24 @@ Route::get('/', function () {
 
 
 
+Route::middleware('auth')->group(function () {
 
+    Route::any('/userPassUpdate/{id}', [UserController::class, 'passwordUpdate'])->name('user.password');
 
-Route::any('/userPassUpdate/{id}', [UserController::class, 'passwordUpdate'])->name('user.password');
+    Route::group(['middleware' => ['role:Super-Admin|admin|ti']], function () {
+        Route::resource('/users', UserController::class);
+        Route::patch('/userSetRole/{id}', [UserController::class, 'setUserRole'])->name('setUserRole');
+        Route::patch('/users/update_group/{id}', [UserController::class, 'setUserGroup'])->name('user.group_update');
 
-Route::group(['middleware' => ['role:Super-Admin|admin|ti']], function () {
-    Route::resource('/users', UserController::class);
-    Route::patch('/userSetRole/{id}', [UserController::class, 'setUserRole'])->name('setUserRole');
-    Route::patch('/users/update_group/{id}', [UserController::class, 'setUserGroup'])->name('user.group_update');
-    
-    
+        Route::get('/configuracoes/criar', SettingsController::class)->name('settings.create');
+        Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
+        Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
+        Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/configuracoes/criar', SettingsController::class)->name('settings.create');
-    Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
-    Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
-    Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
