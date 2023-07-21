@@ -126,7 +126,9 @@
                                     {{date('d/m/Y H:i:s', strtotime($ticket->created_at))}}
                                 </time>
                                 <div class="text-sm font-normal text-gray-600 dark:text-gray-300">
-                                    {{$ticket->description}}
+                                    @php
+                                    echo $ticket->description
+                                    @endphp
                                 </div>
                             </div>
                         </div>
