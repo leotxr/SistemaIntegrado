@@ -47,6 +47,11 @@ class ShowTicket extends Component
         $this->emit('TicketPause', $ticket->id);
     }
 
+    public function callDelete(Ticket $ticket)
+    {
+        $this->emit('TicketDelete', $ticket->id);
+    }
+
 
     public function show(Ticket $ticket)
     {
@@ -69,7 +74,7 @@ class ShowTicket extends Component
         }
     }
 
-    
+
 
     public function render()
     {

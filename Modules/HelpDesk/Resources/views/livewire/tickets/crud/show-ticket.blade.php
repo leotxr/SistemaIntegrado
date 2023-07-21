@@ -201,4 +201,6 @@
     @livewire('helpdesk::tickets.crud.edit-ticket')
     @livewire('helpdesk::tickets.crud.finish-ticket')
     @livewire('helpdesk::tickets.crud.pause-ticket')
+    @livewire('helpdesk::tickets.crud.delete-ticket')
+
 </div>
