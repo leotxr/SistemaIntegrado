@@ -18,4 +18,20 @@
         </div>
 
     </div>
+
+    <x-modal.dialog wire:model.defer='modalChart'>
+        <x-slot name='title'>
+            <x-title> Chamados Abertos </x-title>
+        </x-slot>
+        <x-slot name='content'>
+
+            @include('helpdesk::dashboard.tables.table-tickets-modal')
+            
+
+        </x-slot>
+        <x-slot name='footer' class="space-x-4">
+
+        </x-slot>
+    </x-modal.dialog>
+
 </div>

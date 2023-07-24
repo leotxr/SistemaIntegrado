@@ -9,21 +9,35 @@ use Asantibanez\LivewireCharts\Models\AreaChartModel;
 use Modules\HelpDesk\Entities\Ticket;
 use Spatie\Permission\Models\Role;
 use App\Models\UserGroup;
+use Livewire\WithPagination;
 
 class TicketCharts extends Component
 {
+    use WithPagination;
+
     public $firstRun = true;
     public $showDataLabels = false;
+    public $modalChart = false;
+    public $tickets;
 
 
     protected $listeners = [
         'onPointClick' => 'handleOnPointClick',
+        'onColumnClick' => 'handleOnColumnClick',
         'echo:dashboard,TicketCreated' => 'render'
     ];
 
     public function handleOnPointClick($point)
     {
-        dd($point);
+        $date = $point['title'];
+        $date = str_replace('/', '-', $date);
+        $this->tickets = Ticket::whereDate('created_at', date('Y-m-d', strtotime($date)))->get();
+        $this->modalChart = true;
+    }
+
+    public function handleOnColumnClick($column)
+    {
+        dd($column);
     }
 
     public function emitTeste()
@@ -46,16 +60,17 @@ class TicketCharts extends Component
             ->setXAxisVisible(true)
             ->withDataLabels()
             ->setYAxisVisible(true)
-            ->withOnPointClickEvent('onAreaPointClick');
+            ->withOnPointClickEvent('onPointClick');
 
         $TicketsSetor = LivewireCharts::ColumnChartModel()
         ->setAnimated($this->firstRun)
         ->setLegendVisibility(false)
         ->withDataLabels(true)
-        ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
+        ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5'])
+        ->withOnColumnClickEventName('onColumnClick');
 
         foreach ($dias_atras as $dia) {
-            $ChartDias = $TicketsDia->addPoint($dia->format('d/m/y'), Ticket::whereDate('created_at', $dia)->count(), '#808080');
+            $ChartDias = $TicketsDia->addPoint($dia->format('d/m/Y'), Ticket::whereDate('created_at', $dia)->count(), '#808080');
         }
 
         foreach($groups as $grupo)
