@@ -13,13 +13,13 @@ Atualmente o sistema conta com 3 módulos ativos e um módulo principal para con
 O sistema integrado foi desenvolvido utilizando TALL Stack :
 
 - [Tailwindcss](https://tailwindcss.com/);
-- AlpineJS;
-- Laravel;
-- Livewire;
+- [AlpineJS](https://alpinejs.dev/);
+- [Laravel](https://laravel.com/);
+- [Livewire](https://laravel-livewire.com/);
 
 Outros pacotes e bibliotecas utilizados:
 
-- Spatie Permission;
-- Laravel Modules;
-- Laravel DomPDF;
-- Livewire Charts;
+- [Spatie Laravel-Permission](https://spatie.be/docs/laravel-permission/v5/introduction);
+- [Laravel Modules](https://nwidart.com/laravel-modules/v6/introduction);
+- [Laravel DomPDF](https://github.com/barryvdh/laravel-dompdf);
+- [Livewire Charts](https://github.com/asantibanez/livewire-charts);
