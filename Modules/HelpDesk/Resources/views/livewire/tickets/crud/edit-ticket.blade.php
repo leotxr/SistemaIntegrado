@@ -77,14 +77,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2">
                     <div class="m-4">
                         <x-input-label for="ticket_open" :value="__('Data/Hora Abertura')" class="text-lg font-bold" />
-                        <input type='datetime-local' class="input input-bordered dark:bg-gray-900 dark:border-gray-50" name="ticket_open" id="ticket_open" wire:model.defer='editing.ticket_open'
+                        <input type='datetime-local' step="1" class="input input-bordered dark:bg-gray-900 dark:border-gray-50" name="ticket_open" id="ticket_open" wire:model.defer='editing.ticket_open'
                             class="w-full">
                         <x-input-error class="mt-2" :messages="$errors->get('editing.ticket_open')" />
                     </div>
                     @isset($editing->ticket_start)
                     <div class="m-4">
                         <x-input-label for="ticket_start" :value="__('Data/Hora Inicio Atendimento')" class="text-lg font-bold" />
-                        <input type='datetime-local' class="input input-bordered dark:bg-gray-900 dark:border-gray-50" name="ticket_start" id="ticket_start" wire:model.defer='editing.ticket_start'
+                        <input type='datetime-local' step="1" class="input input-bordered dark:bg-gray-900 dark:border-gray-50" name="ticket_start" id="ticket_start" wire:model.defer='editing.ticket_start'
                             class="w-full">
                         <x-input-error class="mt-2" :messages="$errors->get('editing.ticket_start')" />
                     </div>

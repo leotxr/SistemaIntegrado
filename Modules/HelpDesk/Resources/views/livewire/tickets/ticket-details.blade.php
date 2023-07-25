@@ -108,7 +108,7 @@
                     @endforeach
                     @endisset
 
-                    <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-800">
+                    <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-900">
                         <span
                             class="absolute flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                             @if(isset($solicitante->profile_img))
@@ -118,7 +118,7 @@
                             <x-icon name="user-circle" class="w-12 h-12 text-gray-400" />
                             @endif
                         </span>
-                        <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600">
+                        <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600 dark:bg-gray-800">
                             <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}}
                             </div>
                             <div class="items-center justify-between p-4 sm:flex ">

@@ -85,7 +85,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <x-side-link :href="route('helpdesk.dashboard')" :active="request()->routeIs('helpdesk.dashboard')"
-                    class="w-full">
+                    :active="Request::is('helpdesk', 'helpdesk/painel')" class="w-full">
                     <x-icon name="squares"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                     </x-icon>
@@ -99,12 +99,12 @@
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                     </x-icon>
                     <span class="flex-1 ml-3 whitespace-nowrap">Notificações</span>
-                    <span
-                        class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{{auth()->user()->unreadNotifications->count()}}</span>
+                    @livewire('helpdesk::components.notification-dot')
                 </x-side-link>
             </li>
             <li x-data="{chamados:false}">
-                <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#">
+                <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#"
+                    :active="Request::is('helpdesk/painel/chamados', 'helpdesk/painel/chamados/*')">
                     <x-icon name="collection"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                     </x-icon>
@@ -128,7 +128,8 @@
                 </div>
             </li>
             <li x-data="{open:false}">
-                <x-side-link class="w-full" x-on:click="open = ! open" href="#">
+                <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                    :active="Request::is('helpdesk/painel/configuracoes/*')">
                     <x-icon name="cog"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                     </x-icon>
@@ -153,7 +154,7 @@
             </li>
             <li x-data="{open:false}">
                 <x-side-link class="w-full" x-on:click="open = ! open" href="#"
-                    :active="request()->routeIs('helpdesk.reports')">
+                    :active="Request::is('helpdesk/painel/relatorios', 'helpdesk/painel/relatorios/*')">
                     <x-icon name="document-report"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                     </x-icon>
