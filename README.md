@@ -10,12 +10,16 @@ Atualmente o sistema conta com 3 módulos ativos e um módulo principal para con
 - Triagem: Triagem de pacientes e monitoramento de filas com integração ao RIS da clínica.
 - HelpDesk: Sistema para solicitação de chamados internos ao setor de TI.
 
-O sistema integrado foi desenvolvido utilizando TALL Stack:
+O sistema integrado foi desenvolvido utilizando TALL Stack :
 
 - Tailwindcss;
 - AlpineJS;
 - Laravel;
 - Livewire;
 
+Outros pacotes e bibliotecas utilizados:
 
-
+- Spatie Permission;
+- Laravel Modules;
+- Laravel DomPDF;
+- Livewire Charts;
