@@ -30,7 +30,7 @@ Route::get('teste-sig', function () {
 Route::middleware('auth')->group(function () {
 
 
-    Route::group(['middleware' => ['role:radiologia|Super-Admin|administrativo']], function () {
+    Route::group(['middleware' => ['can:editar triagem, excluir triagem']], function () {
         Route::prefix('triagem')->group(function () {
             Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
             Route::get('relatorios', [ReportController::class, 'index'])->name('triagem.reports');
