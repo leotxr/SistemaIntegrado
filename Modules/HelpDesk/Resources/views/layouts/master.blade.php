@@ -48,6 +48,13 @@
         
        
 alert("Novo chamado recebido");
+notification = new Notification(
+    "HelpDesk - Sigma Ultrimagem", 
+    {
+        body: "Novo Chamado Recebido!",
+        tag: "Acesse o Painel",
+    }
+)
         
     });
     
