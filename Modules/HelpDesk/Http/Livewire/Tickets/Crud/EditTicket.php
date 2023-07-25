@@ -32,7 +32,9 @@ class EditTicket extends Component
         'editing.category_id' => 'required',
         'editing.sub_category_id' => 'required',
         'editing.title' => 'required',
-        'editing.description' => 'required'
+        'editing.description' => 'required',
+        'editing.ticket_open' => 'required',
+        'editing.ticket_start' =>'max:255'
     ];
 
     protected $listeners = [
