@@ -20,7 +20,10 @@
 
         <div class="p-2 bg-white shadow-md dark:bg-black">
             <div class="col-span-full">
-                <div id="file_input">
+                <div id="file_input" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+                x-on:livewire-upload-finish="isUploading = false"
+                x-on:livewire-upload-error="isUploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress">
                     <form wire:submit.prevent='save' enctype="multipart/form-data">
                         <div>
                             @if (session()->has('message'))
@@ -50,9 +53,13 @@
                             </div>
 
                         </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700" x-show="isUploading">
+                            <div class="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500" min="0" max="100"
+                                x-bind:style="`width:${progress}%`"></div>
+                        </div>
 
                         <div class="m-2">
-                            <x-primary-button type="submit">Salvar</x-primary-button>
+                            <x-primary-button type="submit" x-show="isUploaded">Salvar</x-primary-button>
                         </div>
                     </form>
                 </div>
