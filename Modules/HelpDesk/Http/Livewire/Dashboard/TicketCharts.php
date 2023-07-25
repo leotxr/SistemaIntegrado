@@ -66,8 +66,7 @@ class TicketCharts extends Component
         ->setAnimated($this->firstRun)
         ->setLegendVisibility(false)
         ->withDataLabels(true)
-        ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5'])
-        ->withOnColumnClickEventName('onColumnClick');
+        ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
 
         foreach ($dias_atras as $dia) {
             $ChartDias = $TicketsDia->addPoint($dia->format('d/m/Y'), Ticket::whereDate('created_at', $dia)->count(), '#808080');
