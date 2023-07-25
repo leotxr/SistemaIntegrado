@@ -12,7 +12,7 @@ Atualmente o sistema conta com 3 módulos ativos e um módulo principal para con
 
 O sistema integrado foi desenvolvido utilizando TALL Stack :
 
-- Tailwindcss;
+- [Tailwindcss](https://tailwindcss.com/);
 - AlpineJS;
 - Laravel;
 - Livewire;
