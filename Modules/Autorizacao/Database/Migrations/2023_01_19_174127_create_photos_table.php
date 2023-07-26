@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->unsignedBigInteger('protocol_id');
-            $table->foreign('protocol_id')->references('id')->on('protocols');
+            $table->foreign('protocol_id')->references('id')->on('protocols')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

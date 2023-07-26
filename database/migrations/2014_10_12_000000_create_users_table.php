@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username');
+            $table->string('lastname');
             $table->unsignedBigInteger('user_group_id')->nullable();
             $table->foreign('user_group_id')->references('id')->on('user_groups');
             $table->string('email')->nullable();
