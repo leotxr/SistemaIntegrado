@@ -30,13 +30,13 @@ Route::get('teste-sig', function () {
 Route::middleware('auth')->group(function () {
 
 
-    Route::group(['middleware' => ['can:editar triagem, excluir triagem, ver triagem']], function () {
+    
         Route::prefix('triagem')->group(function () {
             Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
             Route::get('relatorios', [ReportController::class, 'index'])->name('triagem.reports');
             Route::get('monitoramento', [MonitoringController::class, 'index'])->name('triagem.monitoring');
         });
-    });
+   
 
 
     Route::prefix('triagem')->group(function () {
