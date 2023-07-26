@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reasons', function (Blueprint $table) {
-            $table->id();
-
+        Schema::create('sectors', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('description');
+            $table->integer('xclinic_id');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reasons');
+        //
     }
 };
