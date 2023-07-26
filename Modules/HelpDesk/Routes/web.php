@@ -44,10 +44,22 @@ Route::middleware('auth')->group(function () {
             });
             Route::get('/painel/configuracoes/categorias', [CategoryController::class, 'index'])->name('helpdesk.settings.category');
             Route::get('/painel/configuracoes/sub-categorias', [SubCategoryController::class, 'index'])->name('helpdesk.settings.sub-category');
+            Route::get('/painel/configuracoes/prioridades', function()
+            {
+                return view('helpdesk::settings.priority');
+            })->name('helpdesk.settings.priorities');
+
+            Route::get('/painel/configuracoes/status', function()
+            {
+                return view('helpdesk::settings.status');
+            })->name('helpdesk.settings.statuses');
+
+
             Route::get('/painel/relatorios', '\Modules\HelpDesk\Http\Livewire\Reports\ReportIndex@__invoke')->name('helpdesk.reports');
             Route::get('/painel/relatorios/chamados-por-periodo', function () {
                 return view('helpdesk::reports.tickets-by-date');
             })->name('helpdesk.reports.ticket-by-date');
+
             Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
 
             #ROTAS PARA ACOES E CONTROLLERS LIVEWIRE

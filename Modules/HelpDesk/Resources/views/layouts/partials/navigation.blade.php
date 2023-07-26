@@ -119,7 +119,8 @@
                         :active="request()->routeIs('helpdesk.tickets')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Encerrados</span>
                     </x-side-link>
-                    <x-side-link class="w-full">
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
+                    :active="request()->routeIs('helpdesk.settings.priorities')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
                     </x-side-link>
                     <x-side-link class="w-full">
@@ -144,11 +145,13 @@
                         :active="request()->routeIs('helpdesk.settings.sub-category')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Sub-Categorias</span>
                     </x-side-link>
-                    <x-side-link class="w-full">
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
+                    :active="request()->routeIs('helpdesk.settings.priorities')">
                         <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
                     </x-side-link>
-                    <x-side-link class="w-full">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
+                    <x-side-link class="w-full" :href="route('helpdesk.settings.statuses')"
+                    :active="request()->routeIs('helpdesk.settings.statuses')">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Status</span>
                     </x-side-link>
                 </div>
             </li>

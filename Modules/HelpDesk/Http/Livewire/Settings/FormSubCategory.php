@@ -35,20 +35,22 @@ class FormSubCategory extends Component
         //dd($this->subCategory);
         //$this->validate();
         $this->subCategory->save();
-        return redirect()->to('/helpdesk/configuracoes/sub-categorias')->with('message', 'Sub-Categoria criada com sucesso!');
+        return redirect()->to('/helpdesk/painel/configuracoes/sub-categorias')->with('message', 'Sub-Categoria criada com sucesso!');
     }
 
     public function update()
     {
         //$this->validate();
         $this->editingSubCategory->save();
-        return redirect()->to('/helpdesk/configuracoes/sub-categorias')->with('update_message', 'Sub-Categoria atualizada com sucesso!');
+        return redirect()->to('/helpdesk/painel/configuracoes/sub-categorias')->with('update_message', 'Sub-Categoria atualizada com sucesso!');
     }
 
 
     public function render()
     {
+        if(TicketSubCategory::find($this->selectSubCategory))
         $this->editingSubCategory = TicketSubCategory::find($this->selectSubCategory);
+        
         return view('helpdesk::livewire.settings.form-sub-category', [
             'categories' => TicketCategory::orderBy('order')->get(),
         'subcategories' => TicketSubCategory::paginate(10)]);

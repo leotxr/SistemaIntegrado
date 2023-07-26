@@ -37,19 +37,21 @@ class FormCategory extends Component
         $this->validate();
         $this->ticketCategory->save();
         
-        return redirect()->to('/helpdesk/configuracoes/categorias')->with('message', 'Categoria criada com sucesso!');
+        return redirect()->to('/helpdesk/painel/configuracoes/categorias')->with('message', 'Categoria criada com sucesso!');
     }
 
     public function update()
     {
         //$this->validate();
         $this->editingCategory->save();
-        return redirect()->to('/helpdesk/configuracoes/categorias')->with('update_message', 'Categoria atualizada com sucesso!');
+        return redirect()->to('/helpdesk/painel/configuracoes/categorias')->with('update_message', 'Categoria atualizada com sucesso!');
     }
 
     public function render()
     {
+        if(TicketCategory::find($this->selectCategory))
         $this->editingCategory = TicketCategory::find($this->selectCategory);
+
         return view('helpdesk::livewire.settings.form-category', [
             'categories' => Ticketcategory::orderBy('order')->paginate(10),
             'priorities' => TicketPriority::orderBy('order')->get(),]);
