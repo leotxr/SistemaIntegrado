@@ -6,7 +6,10 @@
             class="flex items-center justify-between w-full py-4 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
             @click="open = ! open">
             <span>{{$title}}</span>
-            <x-icon name="chevron-down" class="w-6 h-6 shrink-0"></x-icon>
+            
+            <span class="block text-lg transition-all"
+            :class="open === true ? 'rotate-180' : ''"><x-icon name="chevron-up" class="w-6 h-6"></x-icon></span>
+
         </button>
     </h2>
     <div id="accordion-flush-body-1" class="block" x-show="open" x-transition>
