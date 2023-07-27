@@ -1,10 +1,10 @@
-<div id="accordion-flush" data-accordion="collapse"
+<div id="accordion-flush" x-data="{open: true}"
     data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
     data-inactive-classes="text-gray-500 dark:text-gray-400">
     <h2 id="accordion-flush-heading-1">
         <button type="button"
             class="flex items-center justify-between w-full py-4 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-            data-accordion-target="#accordion-flush-body-1" aria-expanded="true" aria-controls="accordion-flush-body-1">
+            @click="open = ! open">
             <span>{{$title}}</span>
             <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
             </svg>
         </button>
     </h2>
-    <div id="accordion-flush-body-1" class="block" aria-labelledby="accordion-flush-heading-1">
+    <div id="accordion-flush-body-1" class="block" x-show="open" x-transition>
        {{$content}}
     </div>
 </div>
