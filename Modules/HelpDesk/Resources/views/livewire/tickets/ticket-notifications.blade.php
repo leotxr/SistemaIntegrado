@@ -5,7 +5,7 @@
     <a type="button" wire:click='deleteAll' style="cursor: pointer"
         class="mx-4 mb-4 text-red-600 text-md dark:text-red-400 hover:line">Excluir todas notificações</a>
     {!! $unread->links() !!}
-    <div class="grid grid-cols-3 gap-2">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
         @foreach($unread as $notification)
         <div id="toast-notification"
             class="w-full max-w-xs p-4 text-gray-900 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-300"
