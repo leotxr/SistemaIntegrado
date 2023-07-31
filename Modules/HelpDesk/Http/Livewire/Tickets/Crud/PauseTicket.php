@@ -103,6 +103,7 @@ class PauseTicket extends Component
         //dd($pause);
 
         $this->pausing->total_pause = $pause;
+        $this->pausing->user_id = Auth::user()->id;
         $this->pausing->save();
 
 
