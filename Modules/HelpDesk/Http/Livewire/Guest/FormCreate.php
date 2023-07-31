@@ -16,6 +16,7 @@ use App\Events\TicketCreated;
 use Modules\HelpDesk\Notifications\NotifyTicketCreated;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
+use Modules\HelpDesk\Entities\TicketMessage;
 
 class FormCreate extends Component
 {
@@ -26,6 +27,7 @@ class FormCreate extends Component
     public $category;
     public $subcategories = [];
     public Ticket $saving;
+    public $message = '';
 
     protected $rules = [
         'saving.category_id' => 'required',
@@ -41,15 +43,11 @@ class FormCreate extends Component
         $this->saving = new Ticket();
     }
 
-    public function save()
+    public function checkTime(Ticket $saving, $time)
     {
-        $this->validate();
-        $users = User::where('user_group_id', 9)->get();
-
-        $this->saving->requester_id = Auth::user()->id;
-        $this->saving->ticket_open = date('Y-m-d H:i:s');
-        if ($this->saving->ticket_open > date('Y-m-d 18:00:00')) {
-            $this->saving->status_id = 3;
+        $ticket = $saving;
+        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00')) {
+            $ticket->status_id = 3;
             $this->saving->save();
             TicketPause::create([
                 'start_pause' => now(),
@@ -58,9 +56,20 @@ class FormCreate extends Component
                 'ticket_message_id' => NULL
             ]);
         } else {
-            $this->saving->status_id = 1;
-            $this->saving->save();
-        };
+            $ticket->status_id = 1;
+            $ticket->save();
+        }
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $users = User::where('user_group_id', 9)->get();
+
+        $this->saving->requester_id = Auth::user()->id;
+        $this->saving->ticket_open = date('Y-m-d H:i:s');
+        $this->checkTime($this->saving, date('Y-m-d H:i:s'));
+
 
         foreach ($this->ticket_files as $file) {
             $path = $file->store('storage/helpdesk/' . $this->saving->id, ['disk' => 'my_files']);
@@ -71,12 +80,13 @@ class FormCreate extends Component
             $ticket_file->ticket_id = $this->saving->id;
             $ticket_file->save();
         };
+        $this->saving->save();
 
         //$user->notify(new NotifyTicketCreated($user));
         TicketCreated::dispatch(Auth::user(), $this->saving);
         Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
 
-            return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
+        return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
 
     public function render()
