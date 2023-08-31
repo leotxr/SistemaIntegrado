@@ -3,5 +3,6 @@
     "Estoque": true,
     "Triagem": true,
     "Administrativo": true,
-    "HelpDesk": true
+    "HelpDesk": true,
+    "Orcamento": true
 }
