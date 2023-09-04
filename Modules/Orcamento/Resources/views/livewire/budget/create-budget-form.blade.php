@@ -35,9 +35,9 @@
                                 <x-select.option selected disabled value="">
                                     Selecione
                                 </x-select.option>
-                                @foreach($plans as $plan)
-                                <x-select.option value="{{$plan->name}}">
-                                    {{$plan->description}}
+                                @foreach($plans as $conv)
+                                <x-select.option value="{{$conv->xclinic_id}}">
+                                    {{$conv->description}}
                                 </x-select.option>
                                 @endforeach
                             </x-slot>
@@ -45,6 +45,7 @@
                         @error('plan')
                         <span class="error">{{ $message }}</span>
                         @enderror
+                        {{$plan}}
                     </div>
                     <div class="col-span-6 sm:col-span-3" x-data>
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
