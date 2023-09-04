@@ -103,7 +103,7 @@
                                 {{$exam->PLANODESCRICAO}}
                             </x-table.cell>
                             <x-table.cell>
-                                {{$exam->QUANTCH}}
+                                R$ {{$exam->QUANTCH}}
                             </x-table.cell>
                             <x-table.cell>
                                 <button type="button"
@@ -151,7 +151,7 @@
                                 {{$value['exam_name']}}
                             </x-table.cell>
                             <x-table.cell>
-                                {{$value['exam_value']}}
+                                R$ {{$value['exam_value']}}
                             </x-table.cell>
                             <x-table.cell>
                                 <button type="button"
