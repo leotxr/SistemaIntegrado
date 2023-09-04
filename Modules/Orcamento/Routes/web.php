@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('orcamento')->group(function() {
-    Route::get('/', 'OrcamentoController@index');
+Route::middleware('auth')->group(function () {
+    Route::prefix('orcamento')->group(function () {
+        Route::get('/', function () {
+            return view('orcamento::index');
+        })->name('orcamento.index');
+    });
 });

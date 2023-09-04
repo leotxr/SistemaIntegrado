@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Orcamento</title>
 
-       {{-- Laravel Vite - CSS File --}}
-       {{-- {{ module_vite('build-orcamento', 'Resources/assets/sass/app.scss') }} --}}
+<head>
+    @include('orcamento::layouts.partials.head')
+    @include('orcamento::layouts.partials.script')
+</head>
 
-    </head>
-    <body>
-        @yield('content')
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        @include('orcamento::layouts.partials.navigation')
+        <main>
+            @yield('content')
+        </main>
+    </div>
+</body>
 
-        {{-- Laravel Vite - JS File --}}
-        {{-- {{ module_vite('build-orcamento', 'Resources/assets/js/app.js') }} --}}
-    </body>
 </html>

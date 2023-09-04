@@ -77,15 +77,14 @@
                         </a>
                     @endcan
 
-                    @if (auth()->user()->can('admin') ||
-                            auth()->user()->can('administrativo') || auth()->user()->can('abrir chamado'))
-                        <a href="{{ url('administrativo') }}">
+                    @if (auth()->user()->can('criar orcamento'))
+                        <a href="{{ url('orcamento') }}">
                             <button
                                 class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
 
                                 <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="w-20 h-20 m-2">
 
-                                Adm
+                                Orçamentos
 
 
                             </button>
