@@ -13,7 +13,8 @@ use Modules\Orcamento\Entities\BudgetExam;
 class CreateBudgetForm extends Component
 {
     public Budget $orcamento;
-    public $plan;
+    public BudgetPlan $convenio;
+    public $plan = 1;
     public $search = '';
     public $exams = [];
     public Collection $selectedExams;
@@ -32,13 +33,12 @@ class CreateBudgetForm extends Component
     {
         $this->orcamento = new Budget();
         $this->selectedExams = collect([]);
-        $this->plan = BudgetPlan::find(1);
+        
     }
 
     public function selectExam($descricao, $valor, $convenio)
     {
-        dd($convenio);
-        $cartExam = new BudgetCart(['id' => $this->count + 1, 'exam_name' => $descricao, 'exam_value' => $valor, 'plan_id' => $convenio['id']]);
+        $cartExam = new BudgetCart(['id' => $this->count + 1, 'exam_name' => $descricao, 'exam_value' => $valor, 'plan_id' => $convenio]);
 
         $this->selectedExams->push($cartExam);
         $this->total = $this->selectedExams->sum('exam_value');
@@ -86,8 +86,7 @@ class CreateBudgetForm extends Component
 
     public function render()
     {
-
-        //$xid = BudgetPlan::where('id', 1)->firstOrFail();
+        $this->convenio = BudgetPlan::findOrFail($this->plan);
         //$selectplan = BudgetPlan::find($this->plan['id']);
 
         $this->exams = DB::connection('sqlserver')->table('PROCTABELASITENS')
@@ -95,7 +94,7 @@ class CreateBudgetForm extends Component
             ->join('PROCEDIMENTOS', 'PROCTABELASITENS.PROCID', '=', 'PROCEDIMENTOS.PROCID')
             ->join('PROCTABELAS', 'PROCTABELASITENS.PROCTABID', '=', 'PROCTABELAS.PROCTABID')
             ->join('CONVENIOSPLANOS', 'CONVENIOSPLANOS.PROCTABID', '=', 'PROCTABELASITENS.PROCTABID')
-            ->where('CONVENIOSPLANOS.PLANODESCRICAO', 'PARTICULAR')
+            ->where('CONVENIOSPLANOS.PLANODESCRICAO', $this->convenio->name)
             ->select('CONVENIOSPLANOS.PLANODESCRICAO', 'PROCEDIMENTOS.DESCRICAO', 'PROCTABELASITENS.QUANTCH', 'CONVENIOSPLANOS.CONVENIOID')
             ->distinct()
             ->get();

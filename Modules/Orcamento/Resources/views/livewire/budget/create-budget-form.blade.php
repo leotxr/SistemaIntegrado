@@ -36,7 +36,7 @@
                                     Selecione
                                 </x-select.option>
                                 @foreach($plans as $conv)
-                                <x-select.option value="{{$conv->xclinic_id}}">
+                                <x-select.option value="{{$conv->id}}">
                                     {{$conv->description}}
                                 </x-select.option>
                                 @endforeach
@@ -45,7 +45,7 @@
                         @error('plan')
                         <span class="error">{{ $message }}</span>
                         @enderror
-                        {{$plan}}
+                        {{$convenio}}
                     </div>
                     <div class="col-span-6 sm:col-span-3" x-data>
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
