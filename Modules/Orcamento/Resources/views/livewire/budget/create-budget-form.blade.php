@@ -45,7 +45,6 @@
                         @error('plan')
                         <span class="error">{{ $message }}</span>
                         @enderror
-                        {{$convenio}}
                     </div>
                     <div class="col-span-6 sm:col-span-3" x-data>
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
