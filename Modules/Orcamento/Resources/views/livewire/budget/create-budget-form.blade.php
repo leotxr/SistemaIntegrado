@@ -84,6 +84,9 @@
                             Exame
                         </x-table.heading>
                         <x-table.heading>
+                            Convênio
+                        </x-table.heading>
+                        <x-table.heading>
                             Valor
                         </x-table.heading>
                         <x-table.heading>
@@ -95,6 +98,9 @@
                         <x-table.row class="hover:bg-gray-100">
                             <x-table.cell>
                                 {{$exam->DESCRICAO}}
+                            </x-table.cell>
+                            <x-table.cell>
+                                {{$exam->PLANODESCRICAO}}
                             </x-table.cell>
                             <x-table.cell>
                                 {{$exam->QUANTCH}}

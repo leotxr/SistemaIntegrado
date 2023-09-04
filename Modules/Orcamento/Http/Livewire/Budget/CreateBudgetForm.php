@@ -94,7 +94,7 @@ class CreateBudgetForm extends Component
             ->join('PROCEDIMENTOS', 'PROCTABELASITENS.PROCID', '=', 'PROCEDIMENTOS.PROCID')
             ->join('PROCTABELAS', 'PROCTABELASITENS.PROCTABID', '=', 'PROCTABELAS.PROCTABID')
             ->join('CONVENIOSPLANOS', 'CONVENIOSPLANOS.PROCTABID', '=', 'PROCTABELASITENS.PROCTABID')
-            ->where('CONVENIOSPLANOS.PLANODESCRICAO', $this->convenio->name)
+            ->where('CONVENIOSPLANOS.CONVENIOID', $this->convenio->xclinic_id)
             ->select('CONVENIOSPLANOS.PLANODESCRICAO', 'PROCEDIMENTOS.DESCRICAO', 'PROCTABELASITENS.QUANTCH', 'CONVENIOSPLANOS.CONVENIOID')
             ->distinct()
             ->get();
