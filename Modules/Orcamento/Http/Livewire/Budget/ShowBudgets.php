@@ -14,8 +14,9 @@ class ShowBudgets extends Component
     public Budget $showing;
 
     protected $listeners = [
-        'closeModal' => 'closeModalBudget',
+        'close-modal' => 'closeModalBudget',
         'echo:budget-dashboard,BudgetUpdated' => '$refresh',
+        'budget-updated' => '$refresh'
     ];
 
     public function openModalBudget()
@@ -32,6 +33,7 @@ class ShowBudgets extends Component
     public function closeModalBudget()
     {
         $this->modalBudget = false;
+        $this->modalDetails = false;
         $this->render();
     }
     

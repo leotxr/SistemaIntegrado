@@ -4,16 +4,18 @@ namespace Modules\Orcamento\Http\Livewire\Budget;
 
 use Livewire\Component;
 use Modules\Orcamento\Entities\Budget;
-use Modules\Orcamento\Entities\BudgetExam;
+use Modules\Orcamento\Entities\BudgetStatus;
 use Modules\Orcamento\Events\BudgetUpdated;
 
 class BudgetDetails extends Component
 {
     public Budget $orcamento;
     public $exams;
+    public $modalObservation = false;
 
     protected $rules = 
     [
+        'orcamento.budget_status_id' => 'required',
         'orcamento.patient_name' => 'required',
         'orcamento.patient_born_date' => 'required',
         'orcamento.patient_phone' => 'required'
@@ -27,17 +29,28 @@ class BudgetDetails extends Component
         //$this->exams = BudgetExam::where('budget_id', $this->orcamento->id)->get();
     }
 
-    public function markScheduled(Budget $orcamento)
+    public function update()
     {
-        $this->orcamento = $orcamento;
-        $this->orcamento->scheduled === 0 ? $this->orcamento->scheduled = 1 : $this->orcamento->scheduled = 0;
+        $this->validate(
+            [
+                'orcamento.budget_status_id' => 'required'
+            ]
+        );
         $this->orcamento->save();
         BudgetUpdated::dispatch();
-        //$this->emitUp('budget-updated');
+        $this->emitUp('budget-updated');
+        $this->emitUp('close-modal');
+        $this->render();
+    }
+
+    public function showObservation(Budget $orcamento)
+    {
+        $this->orcamento = $orcamento;
+        $this->modalObservation = true;
     }
 
     public function render()
     {
-        return view('orcamento::livewire.budget.budget-details');
+        return view('orcamento::livewire.budget.budget-details', ['statuses' => BudgetStatus::all()]);
     }
 }

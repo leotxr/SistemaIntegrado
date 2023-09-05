@@ -14,12 +14,18 @@ class Budget extends Model
         'patient_born_date',
         'patient_phone',
         'discount',
-        'total_value'
+        'total_value',
+        'budget_status_id'
     ];
 
     public function relExams()
     {
         return $this->hasMany(BudgetExam::class);
+    }
+
+    public function relStatus()
+    {
+        return $this->belongsTo(BudgetStatus::class, 'budget_status_id', 'id');
     }
     
     protected static function newFactory()

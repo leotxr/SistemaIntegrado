@@ -28,6 +28,9 @@
                 </x-slot>
                 <x-slot name="body">
                     @foreach($orcamentos as $orcamento)
+                    @php
+                        $status_orcamento = $orcamento->find($orcamento->id)->relStatus;
+                    @endphp
                     <x-table.row class="cursor-pointer hover:bg-gray-100"
                         wire:click='openModalDetails({{$orcamento->id}})'>
                         <x-table.cell>
@@ -43,14 +46,8 @@
                             R$ {{$orcamento->total_value}}
                         </x-table.cell>
                         <x-table.cell>
-                            @if($orcamento->scheduled === 1)
                             <span
-                                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Agendado</span>
-                            @else
-                            <span
-                                class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">Não
-                                Agendado</span>
-                            @endif
+                                class="text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded  dark:text-gray-300" style="background-color: {{$status_orcamento->color}}">{{$status_orcamento->name}}</span>
                         </x-table.cell>
                     </x-table.row>
                     @endforeach

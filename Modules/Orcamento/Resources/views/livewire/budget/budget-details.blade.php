@@ -1,7 +1,7 @@
 <div class="p-4">
     <div class="pt-2">
-        <form wire:submit.prevent="save">
-            <div class="px-4 py-5 bg-white shadow sm:p-6">
+        <form wire:submit.prevent="update">
+            <div class="px-4 py-5 bg-white shadow dark:bg-gray-900 sm:p-6">
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-4" x-data>
                         <x-input-label for="patient_name" value="{{ __('Nome do Paciente') }}" />
@@ -19,13 +19,32 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-span-6 sm:col-span-3" x-data>
+                    <div class="col-span-6 sm:col-span-2" x-data>
                         <x-input-label for="phone_number" value="{{ __('Telefone de Contato') }}" />
                         <x-text-input name="phone_number" id="phone_number" type="text"
                             x-mask:dynamic="$input.startsWith('9', 4) ? '(99)99999-9999' : '(99)9999-9999'"
                             placeholder="(32)99999-9999" class="block w-full mt-1 input"
                             wire:model.defer='orcamento.patient_phone' readonly />
                         @error('orcamento.patient_phone')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-span-6 sm:col-span-2" x-data>
+                        <x-input-label for="status" value="{{ __('Status') }}" />
+                        <x-select id="status" name="status" wire:model='orcamento.budget_status_id'
+                            class="block w-full mt-1 input">
+                            <x-slot name="option">
+                                <x-select.option selected disabled value="">
+                                    Selecione
+                                </x-select.option>
+                                @foreach($statuses as $status)
+                                <x-select.option value="{{$status->id}}">
+                                    {{$status->name}}
+                                </x-select.option>
+                                @endforeach
+                            </x-slot>
+                        </x-select>
+                        @error('status')
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
@@ -38,20 +57,6 @@
                         <span id="quantidade"
                             class="text-xl font-bold text-gray-600">{{$orcamento->relExams->count()}}</span>
                     </div>
-
-                    <div class="col-span-6 sm:col-span-1">
-                        @if($orcamento->scheduled === 0)
-
-                        <button type="button"
-                            class="p-2 text-green-800 border border-green-800 rounded-lg text-md hover:bg-green-800 hover:text-white"
-                            wire:click='markScheduled({{$orcamento->id}})'>Marcar como Agendado</button>
-                        @else
-                        <button type="button"
-                            class="p-2 text-white bg-green-800 border border-green-800 rounded-lg text-md hover:bg-white hover:text-red-800 hover:border-red-800" 
-                            wire:click='markScheduled({{$orcamento->id}})'>Agendado</button>
-                        @endif
-                    </div>
-
 
                 </div>
             </div>
@@ -89,10 +94,37 @@
                 </x-table>
             </div>
             <div
-                class="flex items-center justify-end px-4 py-3 space-x-2 text-right shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
-                <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+                class="flex items-center justify-end px-4 py-3 space-x-2 shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
+                <div class="justify-start mr-10">
+                    <button type="button" wire:click='showObservation({{$orcamento->id}})'>
+                        <x-icon name="bell" solid class="w-6 h-6 text-yellow-300" />
+                    </button>
+                </div>
+
+                <div class="flex justify-end space-x-2">
+                    <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+                    <x-primary-button type="submit">Salvar</x-primary-button>
+                </div>
             </div>
 
         </form>
     </div>
+    @isset($orcamento->observation)
+    <x-modal wire:model.defer='modalObservation'>
+        <div>
+            <x-title>Observação do orçamento #{{$orcamento->id}}</x-title>
+        </div>
+        <div class="pt-2">
+            <div class="p-4 border border-gray-500 rounded-lg dark:border-gray-400">
+            {{$orcamento->observation ?? 'Sem Observações'}}
+            </div>
+        </div>
+        <div
+            class="flex items-center justify-end px-4 py-3 space-x-2 shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
+
+            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+
+        </div>
+    </x-modal>
+    @endisset
 </div>

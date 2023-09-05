@@ -15,26 +15,32 @@ class CreateBudgetForm extends Component
     public Budget $orcamento;
     public BudgetPlan $convenio;
     public $plan = 1;
-    public $search = '';
+    public $search;
     public $exams = [];
     public Collection $selectedExams;
-    public $count = 0;
-    public $total = 0.0;
+    public $count;
+    public $total;
     public $modalExams = false;
+    public $modalObservation = false;
 
     protected $rules = [
         'plan' => 'required',
         'orcamento.patient_name' => 'required',
         'orcamento.patient_born_date' => 'required',
-        'orcamento.patient_phone' => 'required'
+        'orcamento.patient_phone' => 'required',
+        'orcamento.observation' => 'max:220'
     ];
 
     public function mount()
     {
         $this->orcamento = new Budget();
         $this->selectedExams = collect([]);
+        $this->total = 0.0;
+        $this->count = 0;
+        $this->search = '';
         
     }
+
 
     public function selectExam($descricao, $valor, $convenio)
     {
@@ -80,7 +86,7 @@ class CreateBudgetForm extends Component
         };
 
         unset($this->orcamento);
-        $this->emitUp('closeModal');
+        $this->emitUp('close-modal');
         $this->render();
     }
 

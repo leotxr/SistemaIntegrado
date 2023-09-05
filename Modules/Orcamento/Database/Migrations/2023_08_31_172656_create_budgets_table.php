@@ -20,8 +20,13 @@ return new class extends Migration
             $table->string('patient_phone')->nullable();
             $table->float('discount')->nullable();
             $table->float('total_value')->nullable();
-            $table->boolean('scheduled')->default(0);
-
+            $table->unsignedBigInteger('budget_status_id')->default(1);
+            $table->foreign('budget_status_id')
+            ->references('id')
+            ->on('budget_statuses')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }
