@@ -186,10 +186,9 @@
             </div>
         </div>
     </x-modal>
-    @isset($orcamento->observation)
     <x-modal wire:model.defer='modalObservation'>
         <div>
-            <x-title>Observação do orçamento #{{$orcamento->id}}</x-title>
+            <x-title>Observação do orçamento</x-title>
         </div>
         <div class="pt-2">
             <div class="grid grid-cols-6 gap-6">
@@ -210,5 +209,5 @@
 
         </div>
     </x-modal>
-    @endisset
+    
 </div>

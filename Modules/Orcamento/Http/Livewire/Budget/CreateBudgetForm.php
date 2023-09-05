@@ -84,7 +84,6 @@ class CreateBudgetForm extends Component
             ]);
             $save->save();
         };
-
         unset($this->orcamento);
         $this->emitUp('close-modal');
         $this->render();
