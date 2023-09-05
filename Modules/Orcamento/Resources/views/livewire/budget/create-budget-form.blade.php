@@ -148,6 +148,9 @@
                             Valor
                         </x-table.heading>
                         <x-table.heading>
+                            Convênio
+                        </x-table.heading>
+                        <x-table.heading>
                             Ação
                         </x-table.heading>
                     </x-slot>
@@ -161,6 +164,12 @@
                             </x-table.cell>
                             <x-table.cell>
                                 R$ {{$value['exam_value']}}
+                            </x-table.cell>
+                            <x-table.cell>
+                                @php
+                                $convenio = \Modules\Orcamento\Entities\BudgetPlan::find($value['plan_id']);
+                                @endphp
+                                {{$convenio->name}}
                             </x-table.cell>
                             <x-table.cell>
                                 <button type="button"
