@@ -109,14 +109,21 @@
 
         </form>
     </div>
-    @isset($orcamento->observation)
+    
     <x-modal wire:model.defer='modalObservation'>
         <div>
-            <x-title>Observação do orçamento #{{$orcamento->id}}</x-title>
+            <x-title>Observação do orçamento</x-title>
         </div>
         <div class="pt-2">
-            <div class="p-4 border border-gray-500 rounded-lg dark:border-gray-400">
-            {{$orcamento->observation ?? 'Sem Observações'}}
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6">
+                    <x-input-label for="observation" value="{{ __('Observação') }}" />
+                    <x-text-area name="observation" id="observation" type="text" wire:model='orcamento.observation'
+                        placeholder="Escreva uma breve observação" class="block w-full mt-1"></x-text-area>
+                    @error('orcamento.observation')
+                    <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
         </div>
         <div
@@ -126,5 +133,5 @@
 
         </div>
     </x-modal>
-    @endisset
+    
 </div>

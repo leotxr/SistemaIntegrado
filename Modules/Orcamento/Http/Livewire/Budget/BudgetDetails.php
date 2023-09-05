@@ -18,7 +18,8 @@ class BudgetDetails extends Component
         'orcamento.budget_status_id' => 'required',
         'orcamento.patient_name' => 'required',
         'orcamento.patient_born_date' => 'required',
-        'orcamento.patient_phone' => 'required'
+        'orcamento.patient_phone' => 'required',
+        'orcamento.observation' => 'max:220'
         
         
     ];
