@@ -49,7 +49,7 @@
                                 </x-select.option>
                                 @foreach($plans as $conv)
                                 <x-select.option value="{{$conv->id}}">
-                                    {{$conv->description}}
+                                    {{$conv->name}}
                                 </x-select.option>
                                 @endforeach
                             </x-slot>
@@ -237,7 +237,7 @@
         <div class="px-4 py-3">
             <x-title class="text-xl font-bold ">Atenção</x-title>
             <div>
-                <p><span class="text-center text-gray-500 text-md">Não repassar valores deste convênio diretamente para o paciente.</span></p>
+                <p><span class="text-center text-gray-500 text-md">{{$convenio->description}}</span></p>
             </div>
         </div>
         <div
