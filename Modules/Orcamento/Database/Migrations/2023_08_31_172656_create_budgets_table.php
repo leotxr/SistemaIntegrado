@@ -26,6 +26,18 @@ return new class extends Migration
             ->on('budget_statuses')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->unsignedBigInteger('last_user_id');
+            $table->foreign('last_user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->text('observation')->nullable();
             $table->timestamps();
         });

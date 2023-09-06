@@ -15,7 +15,8 @@ class Budget extends Model
         'patient_phone',
         'discount',
         'total_value',
-        'budget_status_id'
+        'budget_status_id',
+        'user_id'
     ];
 
     public function relExams()
@@ -26,6 +27,11 @@ class Budget extends Model
     public function relStatus()
     {
         return $this->belongsTo(BudgetStatus::class, 'budget_status_id', 'id');
+    }
+
+    public function relUser()
+    {
+        return $this->belongsTo(User::class);
     }
     
     protected static function newFactory()

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('xclinic_id');
             $table->boolean('active')->nullable();
+            $table->boolean('show_values')->default(1);
 
             $table->timestamps();
         });

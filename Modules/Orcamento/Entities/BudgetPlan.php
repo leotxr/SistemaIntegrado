@@ -13,7 +13,8 @@ class BudgetPlan extends Model
         'name',
         'description',
         'active',
-        'xclinic_id'
+        'xclinic_id',
+        'show_values'
     ];
     
     public function relExams()

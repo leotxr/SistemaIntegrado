@@ -9,6 +9,7 @@ use Modules\Orcamento\Entities\BudgetCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\BudgetExam;
+use Illuminate\Support\Facades\Auth;
 
 class CreateBudgetForm extends Component
 {
@@ -22,6 +23,8 @@ class CreateBudgetForm extends Component
     public $total;
     public $modalExams = false;
     public $modalObservation = false;
+    public $modalAlert = false;
+    public $first_run;
 
     protected $rules = [
         'plan' => 'required',
@@ -38,7 +41,8 @@ class CreateBudgetForm extends Component
         $this->total = 0.0;
         $this->count = 0;
         $this->search = '';
-        
+        $this->first_run = true;
+    
     }
 
 
@@ -49,11 +53,6 @@ class CreateBudgetForm extends Component
         $this->selectedExams->push($cartExam);
         $this->total = $this->selectedExams->sum('exam_value');
         $this->count = $this->selectedExams->count();
-    }
-
-    public function showSelectedExams()
-    {
-        $this->modalExams = true;
     }
 
     public function deselectExam($key)
@@ -72,6 +71,8 @@ class CreateBudgetForm extends Component
     public function save()
     {
         $this->validate();
+        $this->orcamento->user_id = Auth::user()->id;
+        $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->total_value = $this->total;
         $this->orcamento->save();
 
@@ -94,17 +95,19 @@ class CreateBudgetForm extends Component
         $this->convenio = BudgetPlan::findOrFail($this->plan);
         //$selectplan = BudgetPlan::find($this->plan['id']);
 
+        if($this->convenio->show_values === 0)
+        $this->modalAlert = true;
+
+
         $this->exams = DB::connection('sqlserver')->table('PROCTABELASITENS')
             ->search('PROCEDIMENTOS.DESCRICAO', $this->search)
             ->join('PROCEDIMENTOS', 'PROCTABELASITENS.PROCID', '=', 'PROCEDIMENTOS.PROCID')
             ->join('PROCTABELAS', 'PROCTABELASITENS.PROCTABID', '=', 'PROCTABELAS.PROCTABID')
             ->join('CONVENIOSPLANOS', 'CONVENIOSPLANOS.PROCTABID', '=', 'PROCTABELASITENS.PROCTABID')
-            ->where('CONVENIOSPLANOS.CONVENIOID', $this->convenio->xclinic_id)
+            ->where('CONVENIOSPLANOS.PLANOID', $this->convenio->xclinic_id)
             ->select('CONVENIOSPLANOS.PLANODESCRICAO', 'PROCEDIMENTOS.DESCRICAO', 'PROCTABELASITENS.QUANTCH', 'CONVENIOSPLANOS.CONVENIOID')
             ->distinct()
             ->get();
-
-
 
         return view('orcamento::livewire.budget.create-budget-form', [
             'plans' => BudgetPlan::where('active', 1)->get(),

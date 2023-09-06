@@ -6,6 +6,7 @@ use Livewire\Component;
 use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetStatus;
 use Modules\Orcamento\Events\BudgetUpdated;
+use Illuminate\Support\Facades\Auth;
 
 class BudgetDetails extends Component
 {
@@ -37,6 +38,7 @@ class BudgetDetails extends Component
                 'orcamento.budget_status_id' => 'required'
             ]
         );
+        $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->save();
         BudgetUpdated::dispatch();
         $this->emitUp('budget-updated');

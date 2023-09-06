@@ -3,10 +3,21 @@
         <form wire:submit.prevent="save">
             <div class="px-4 py-5 bg-white shadow sm:p-6">
                 <div class="grid grid-cols-6 gap-6">
-                    <div class="col-span-6 sm:col-span-4" x-data>
+                    <div 
+                    class="col-span-6 sm:col-span-4" 
+                    x-data="{patient_name: ''}" 
+                    x-init="patient_name = patient_name.toUpperCase()
+                    $watch('patient_name', (value) => patient_name = value.toUpperCase())">
                         <x-input-label for="patient_name" value="{{ __('Nome do Paciente') }}" />
-                        <x-text-input name="patient_name" id="patient_name" type="text" placeholder="José da Silva"
-                            class="block w-full mt-1 input" wire:model.defer='orcamento.patient_name' autofocus />
+                        <x-text-input 
+                        x-model="patient_name" 
+                        name="patient_name" 
+                        id="patient_name" 
+                        type="text" 
+                        placeholder="José da Silva" 
+                        class="block w-full mt-1 input" 
+                        wire:model.defer='orcamento.patient_name' 
+                        autofocus />
                         @error('orcamento.patient_name')
                         <span class="error">{{ $message }}</span>
                         @enderror
@@ -47,9 +58,13 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-span-6 sm:col-span-3" x-data>
+                    <div 
+                    class="col-span-6 sm:col-span-3" 
+                    x-data="{search_exam: ''}"
+                    x-init="search_exam = search_exam.toUpperCase()
+                    $watch('search_exam', (value) => search_exam = value.toUpperCase())">
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
-                        <x-text-input name="search_exam" id="search_exam" type="text" wire:model='search'
+                        <x-text-input x-model='search_exam' name="search_exam" id="search_exam" type="text" wire:model='search'
                             class="block w-full mt-1 input" />
                         @error('search_exam')
                         <span class="error">{{ $message }}</span>
@@ -68,17 +83,15 @@
                     <div class="col-span-6 sm:col-span-1">
                         <button type="button"
                             class="p-2 text-xl text-green-800 border border-green-800 rounded-lg hover:bg-green-800 hover:text-white"
-                            wire:click='showSelectedExams'>Ver
+                            wire:click="$set('modalExams', true)">Ver
                             exames</button>
                     </div>
                     @endif
-
+                    {{$first_run}}
                 </div>
             </div>
             <div>
-                <div wire:loading wire:target='render'>
-                    Carregando...
-                </div>
+                <div >
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading>
@@ -104,12 +117,12 @@
                                 {{$exam->PLANODESCRICAO}}
                             </x-table.cell>
                             <x-table.cell>
-                                R$ {{$exam->QUANTCH}}
+                                {{$exam->QUANTCH}}
                             </x-table.cell>
                             <x-table.cell>
                                 <button type="button"
                                     class="flex text-green-800 border border-green-800 rounded-lg hover:bg-green-800 hover:text-white"
-                                    wire:click="selectExam('{{$exam->DESCRICAO}}', {{$exam->QUANTCH}}, {{$plan}})">
+                                    wire:click="selectExam('{{$exam->DESCRICAO}}', {{$exam->QUANTCH}}, {{$convenio->id}})">
                                     <span>
                                         <x-icon name="plus" class="w-8 h-8 " solid></x-icon>
                                     </span>
@@ -119,6 +132,7 @@
                         @endforeach
                     </x-slot>
                 </x-table>
+                </div>
             </div>
             <div
                 class="flex items-center justify-end px-4 py-3 space-x-2 shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
@@ -217,6 +231,21 @@
             <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
 
         </div>
+    </x-modal>
+
+    <x-modal wire:model.defer='modalAlert' maxWidth='sm'>
+        <div class="px-4 py-3">
+            <x-title class="text-xl font-bold ">Atenção</x-title>
+            <div>
+                <p><span class="text-center text-gray-500 text-md">Não repassar valores deste convênio diretamente para o paciente.</span></p>
+            </div>
+        </div>
+        <div
+        class="flex items-center justify-center px-4 py-3 space-x-2 sm:px-6">
+
+        <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+
+    </div>
     </x-modal>
     
 </div>
