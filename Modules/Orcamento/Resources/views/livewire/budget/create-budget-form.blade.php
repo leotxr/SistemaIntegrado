@@ -87,7 +87,6 @@
                             exames</button>
                     </div>
                     @endif
-                    {{$first_run}}
                 </div>
             </div>
             <div>
