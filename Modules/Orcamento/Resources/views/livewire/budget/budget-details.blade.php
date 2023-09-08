@@ -86,7 +86,7 @@
                                 R$ {{$exam->value}}
                             </x-table.cell>
                             <x-table.cell>
-                                {{$convenio->description}}
+                                {{$convenio->name}}
                             </x-table.cell>
                         </x-table.row>
                         @endforeach
