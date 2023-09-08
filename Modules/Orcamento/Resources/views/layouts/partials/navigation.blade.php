@@ -21,10 +21,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @endcan
-                    <x-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('autorizacao.index')">
+                    <x-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('orcamento.index')">
                         {{ __('Início') }}
                     </x-nav-link>
-                    {{--DROPDOWN RESSONANCIA--}}
+                    {{--DROPDOWN RESSONANCIA
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -55,7 +55,7 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
-                    {{--FIM DROPDOWN RESSONANCIA--}}
+                    FIM DROPDOWN RESSONANCIA--}}
 
                 </div>
             </div>
