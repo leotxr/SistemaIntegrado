@@ -51,7 +51,7 @@ class ShowBudgets extends Component
     public function render()
     {
         return view('orcamento::livewire.budget.show-budgets', ['orcamentos' => Budget::whereIn('budget_status_id', $this->selectedStatus)
-        ->whereBetween('created_at', [$this->initial_date, $this->final_date])
+        ->whereBetween('budget_date', [$this->initial_date, $this->final_date])
         ->paginate(10),
         'statuses' => BudgetStatus::all()]);
     }

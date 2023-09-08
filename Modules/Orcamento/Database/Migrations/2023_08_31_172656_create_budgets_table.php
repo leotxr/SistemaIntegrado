@@ -39,6 +39,7 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
             $table->text('observation')->nullable();
+            $table->date('budget_date');
             $table->timestamps();
         });
     }

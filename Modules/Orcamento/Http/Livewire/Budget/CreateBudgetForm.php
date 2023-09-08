@@ -74,6 +74,7 @@ class CreateBudgetForm extends Component
         $this->orcamento->user_id = Auth::user()->id;
         $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->total_value = $this->total;
+        $this->orcamento->budget_date = date('Y-m-d');
         $this->orcamento->save();
 
         foreach ($this->selectedExams as $key => $value) {
