@@ -33,7 +33,7 @@
                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Data Final</label>
                             <input type="date" wire:model='final_date' id="final_date" class="border-gray-300 input">
                         </div>
-                        <div class="col-span-2 sm:col-span-3 sm:mt-4 ">
+                        <div class="col-span-1 sm:col-span-3 sm:mt-4 ">
                             <h3 class="font-semibold text-gray-900 dark:text-white">Status</h3>
                             <ul
                                 class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -51,7 +51,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="col-span-6 sm:col-span-3 ">
+                        <div class="col-span-1 sm:col-span-3 ">
                             <label for="search_patient"
                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar Paciente</label>
                             <x-text-input type="text" wire:model='search' id="search_patient" name="search_patient"
