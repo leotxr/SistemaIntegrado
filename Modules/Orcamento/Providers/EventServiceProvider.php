@@ -3,14 +3,15 @@
 namespace Modules\Orcamento\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Modules\Orcamento\Events\BudgetUpdated;
+use Modules\Orcamento\Listeners\NotifyBudgetUpdated;
 
 class EventServiceProvider extends ServiceProvider
 {
 
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        BudgetUpdated::class => [
+            NotifyBudgetUpdated::class,
         ],
     ];
     

@@ -40,7 +40,7 @@ class BudgetDetails extends Component
         );
         $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->save();
-        BudgetUpdated::dispatch();
+        BudgetUpdated::dispatch(Auth::user(), $this->orcamento);
         $this->emitUp('budget-updated');
         $this->emitUp('close-modal');
         $this->render();

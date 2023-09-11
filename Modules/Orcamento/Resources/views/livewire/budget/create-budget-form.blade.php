@@ -6,16 +6,15 @@
                     <div 
                     class="col-span-6 sm:col-span-4" 
                     x-data="{patient_name: ''}" 
-                    x-init="patient_name = patient_name.toUpperCase()
-                    $watch('patient_name', (value) => patient_name = value.toUpperCase())">
+                    >
                         <x-input-label for="patient_name" value="{{ __('Nome do Paciente') }}" />
                         <x-text-input 
-                        x-model="patient_name" 
+                        
                         name="patient_name" 
                         id="patient_name" 
                         type="text" 
                         placeholder="José da Silva" 
-                        class="block w-full mt-1 input" 
+                        class="block w-full mt-1 uppercase input" 
                         wire:model.defer='orcamento.patient_name' 
                         autofocus />
                         @error('orcamento.patient_name')
@@ -60,12 +59,10 @@
                     </div>
                     <div 
                     class="col-span-6 sm:col-span-3" 
-                    x-data="{search_exam: ''}"
-                    x-init="search_exam = search_exam.toUpperCase()
-                    $watch('search_exam', (value) => search_exam = value.toUpperCase())">
+                    >
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
-                        <x-text-input x-model='search_exam' name="search_exam" id="search_exam" type="text" wire:model='search'
-                            class="block w-full mt-1 input" />
+                        <x-text-input name="search_exam" id="search_exam" type="text" wire:model='search'
+                            class="block w-full mt-1 uppercase input" />
                         @error('search_exam')
                         <span class="error">{{ $message }}</span>
                         @enderror

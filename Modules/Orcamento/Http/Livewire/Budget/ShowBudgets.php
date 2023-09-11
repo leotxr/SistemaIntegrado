@@ -19,7 +19,7 @@ class ShowBudgets extends Component
 
     protected $listeners = [
         'close-modal' => 'closeModalBudget',
-        'echo:budget-dashboard,BudgetUpdated' => '$refresh',
+        'echo:budget-dashboard,BudgetUpdated' => 'render',
         'budget-updated' => '$refresh'
     ];
 

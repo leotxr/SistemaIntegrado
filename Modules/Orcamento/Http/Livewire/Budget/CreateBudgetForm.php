@@ -10,13 +10,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\BudgetExam;
 use Illuminate\Support\Facades\Auth;
+use Modules\Orcamento\Events\BudgetUpdated;
+use Illuminate\Support\Facades\Notification;
+use Modules\Orcamento\Listeners\NotifyBudgetUpdated;
+use App\Models\User;
 
 class CreateBudgetForm extends Component
 {
     public Budget $orcamento;
     public BudgetPlan $convenio;
     public $plan = 1;
-    public $search;
+    public $search = '';
     public $exams = [];
     public Collection $selectedExams;
     public $count;
@@ -40,7 +44,6 @@ class CreateBudgetForm extends Component
         $this->selectedExams = collect([]);
         $this->total = 0.0;
         $this->count = 0;
-        $this->search = '';
         $this->first_run = true;
     
     }
@@ -66,6 +69,9 @@ class CreateBudgetForm extends Component
     {
         $this->selectedExams = collect([]);
         $this->total = $this->selectedExams->sum('exam_value');
+        unset($this->orcamento);
+        $this->search = '';
+
     }
 
     public function save()
@@ -86,8 +92,10 @@ class CreateBudgetForm extends Component
             ]);
             $save->save();
         };
-        unset($this->orcamento);
         $this->emitUp('close-modal');
+        BudgetUpdated::dispatch(Auth::user(), $this->orcamento);
+        //Notification::send(User::all(), new NotifyBudgetUpdated(Auth::user(), $this->orcamento));
+        $this->unsetCollection();
         $this->render();
     }
 
