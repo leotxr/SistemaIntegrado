@@ -5,7 +5,7 @@ namespace Modules\Orcamento\Http\Livewire\Budget;
 use Livewire\Component;
 use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetStatus;
-use Modules\Orcamento\Events\BudgetUpdated;
+use App\Events\BudgetCreated;
 use Illuminate\Support\Facades\Auth;
 
 class BudgetDetails extends Component
@@ -40,8 +40,8 @@ class BudgetDetails extends Component
         );
         $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->save();
-        BudgetUpdated::dispatch(Auth::user(), $this->orcamento);
-        $this->emitUp('budget-updated');
+        BudgetCreated::dispatch();
+        //$this->emitUp('budget-updated');
         $this->emitUp('close-modal');
         $this->render();
     }

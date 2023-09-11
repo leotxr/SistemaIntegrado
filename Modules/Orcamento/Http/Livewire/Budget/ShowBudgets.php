@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetStatus;
+use App\Events\BudgetCreated;
+use App\Events\TicketUpdated;
 
 class ShowBudgets extends Component
 {
@@ -20,7 +22,7 @@ class ShowBudgets extends Component
 
     protected $listeners = [
         'close-modal' => 'closeModalBudget',
-        'echo:budget-dashboard,BudgetUpdated' => 'render',
+        'echo:budget-dashboard,BudgetCreated' => '$refresh',
         'budget-updated' => '$refresh'
     ];
 

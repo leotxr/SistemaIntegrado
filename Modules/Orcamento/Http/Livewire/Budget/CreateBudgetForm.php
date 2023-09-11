@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\BudgetExam;
 use Illuminate\Support\Facades\Auth;
-use Modules\Orcamento\Events\BudgetUpdated;
+use App\Events\Budgets\BudgetCreated;
 
 use Modules\Orcamento\Listeners\NotifyBudgetUpdated;
 use App\Models\User;
@@ -97,10 +97,10 @@ class CreateBudgetForm extends Component
             $save->save();
         };
         $this->emitUp('close-modal');
-        BudgetUpdated::dispatch(Auth::user(), $this->orcamento);
+        BudgetCreated::dispatch();
         //Notification::send(User::all(), new NotifyBudgetUpdated(Auth::user(), $this->orcamento));
         $this->unsetCollection();
-        $this->render();
+        //$this->render();
     }
 
     public function render()
