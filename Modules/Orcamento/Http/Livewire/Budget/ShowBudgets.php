@@ -16,6 +16,7 @@ class ShowBudgets extends Component
     public $initial_date;
     public $final_date;
     public $selectedStatus = [1];
+    public $search = '';
 
     protected $listeners = [
         'close-modal' => 'closeModalBudget',
@@ -50,7 +51,7 @@ class ShowBudgets extends Component
 
     public function render()
     {
-        return view('orcamento::livewire.budget.show-budgets', ['orcamentos' => Budget::whereIn('budget_status_id', $this->selectedStatus)
+        return view('orcamento::livewire.budget.show-budgets', ['orcamentos' => Budget::search('patient_name', $this->search)->whereIn('budget_status_id', $this->selectedStatus)
         ->whereBetween('budget_date', [$this->initial_date, $this->final_date])
         ->paginate(10),
         'statuses' => BudgetStatus::all()]);

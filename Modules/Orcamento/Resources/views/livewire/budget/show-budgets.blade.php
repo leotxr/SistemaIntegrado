@@ -41,7 +41,8 @@
                                 <li
                                     class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
-                                        <input id="status_{{$status->id}}" type="checkbox" value="{{$status->id}}" wire:model='selectedStatus'
+                                        <input id="status_{{$status->id}}" type="checkbox" value="{{$status->id}}"
+                                            wire:model='selectedStatus'
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="status_{{$status->id}}"
                                             class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$status->name}}</label>
@@ -50,6 +51,12 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <div class="col-span-6 sm:col-span-4 ">
+                            <label for="search_patient"
+                                class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar Paciente</label>
+                            <x-text-input type="text" wire:model='search' id="search_patient" name="search_patient"
+                                placeholder="buscar paciente"></x-text-input>
+                        </div>
                     </div>
                 </div>
             </x-slot>
@@ -57,6 +64,7 @@
         <div class="mt-4">
             <p>Mostrando orçamentos realizados entre {{date('d/m/Y', strtotime($initial_date))}} e {{date('d/m/Y',
                 strtotime($final_date))}}</p>
+            {{$orcamentos->links()}}
             <x-table>
                 <x-slot name="head">
                     <x-table.heading>
