@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\BudgetExam;
 use Illuminate\Support\Facades\Auth;
-use App\Events\Budgets\BudgetCreated;
+use App\Events\BudgetCreated;
 
 use Modules\Orcamento\Listeners\NotifyBudgetUpdated;
 use App\Models\User;
