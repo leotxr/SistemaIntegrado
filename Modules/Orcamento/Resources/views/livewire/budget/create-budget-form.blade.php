@@ -2,9 +2,9 @@
     <div class="pt-2">
         <form wire:submit.prevent="save">
             <div class="px-4 py-5 bg-white shadow sm:p-6">
-                <div class="grid grid-cols-6 gap-6">
+                <div class="grid grid-cols-7 gap-6">
                     <div 
-                    class="col-span-6 sm:col-span-4" 
+                    class="col-span-6 sm:col-span-3" 
                     x-data="{patient_name: ''}" 
                     >
                         <x-input-label for="patient_name" value="{{ __('Nome do Paciente') }}" />
@@ -29,7 +29,7 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-span-6 sm:col-span-3" x-data>
+                    <div class="col-span-6 sm:col-span-2" x-data>
                         <x-input-label for="phone_number" value="{{ __('Telefone de Contato') }}" />
                         <x-text-input name="phone_number" id="phone_number" type="text"
                             x-mask:dynamic="$input.startsWith('9', 4) ? '(99)99999-9999' : '(99)9999-9999'"
@@ -57,8 +57,26 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="col-span-6 sm:col-span-3" x-data>
+                        <x-input-label for="status" value="{{ __('Status') }}" />
+                        <x-select id="status" name="status" wire:model='budget_status_id' class="block w-full mt-1 input">
+                            <x-slot name="option">
+                                <option selected disabled>
+                                    Selecione
+                                </option>
+                                @foreach($statuses as $status)
+                                <x-select.option value="{{$status->id}}">
+                                    {{$status->name}}
+                                </x-select.option>
+                                @endforeach
+                            </x-slot>
+                        </x-select>
+                        @error('budget_status_id')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div 
-                    class="col-span-6 sm:col-span-3" 
+                    class="col-span-6 sm:col-span-4" 
                     >
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
                         <x-text-input name="search_exam" id="search_exam" type="text" wire:model='search'

@@ -51,11 +51,11 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="col-span-6 sm:col-span-4 ">
+                        <div class="col-span-6 sm:col-span-3 ">
                             <label for="search_patient"
                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar Paciente</label>
                             <x-text-input type="text" wire:model='search' id="search_patient" name="search_patient"
-                                placeholder="buscar paciente"></x-text-input>
+                                class="block w-full mt-1 uppercase input"></x-text-input>
                         </div>
                     </div>
                 </div>

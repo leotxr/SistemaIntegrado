@@ -6,12 +6,13 @@ use Livewire\Component;
 use Modules\Orcamento\Entities\BudgetPlan;
 use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetCart;
+use Modules\Orcamento\Entities\BudgetStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\BudgetExam;
 use Illuminate\Support\Facades\Auth;
 use Modules\Orcamento\Events\BudgetUpdated;
-use Illuminate\Support\Facades\Notification;
+
 use Modules\Orcamento\Listeners\NotifyBudgetUpdated;
 use App\Models\User;
 
@@ -20,6 +21,7 @@ class CreateBudgetForm extends Component
     public Budget $orcamento;
     public BudgetPlan $convenio;
     public $plan = 1;
+    public $budget_status_id = 1;
     public $search = '';
     public $exams = [];
     public Collection $selectedExams;
@@ -35,7 +37,8 @@ class CreateBudgetForm extends Component
         'orcamento.patient_name' => 'required',
         'orcamento.patient_born_date' => 'required',
         'orcamento.patient_phone' => 'required',
-        'orcamento.observation' => 'max:220'
+        'orcamento.observation' => 'max:220',
+        'budget_status_id' => 'required'
     ];
 
     public function mount()
@@ -81,6 +84,7 @@ class CreateBudgetForm extends Component
         $this->orcamento->last_user_id = Auth::user()->id;
         $this->orcamento->total_value = $this->total;
         $this->orcamento->budget_date = date('Y-m-d');
+        $this->orcamento->budget_status_id = $this->budget_status_id ?? 1;
         $this->orcamento->save();
 
         foreach ($this->selectedExams as $key => $value) {
@@ -121,6 +125,7 @@ class CreateBudgetForm extends Component
         return view('orcamento::livewire.budget.create-budget-form', [
             'plans' => BudgetPlan::where('active', 1)->get(),
             'exams' => $this->exams,
+            'statuses' => BudgetStatus::all()
         ]);
     }
 }
