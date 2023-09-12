@@ -21,7 +21,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @endcan
-                    <x-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('orcamento.index')">
+                    <x-nav-link :href="route('orcamento.index')" :active="request()->routeIs('orcamento.index')">
                         {{ __('Início') }}
                     </x-nav-link>
                     {{--DROPDOWN RESSONANCIA
@@ -124,19 +124,8 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @endcan
-            <x-responsive-nav-link :href="route('autorizacao.index')" :active="request()->routeIs('autorizacao.index')">
+            <x-responsive-nav-link :href="route('orcamento.index')" :active="request()->routeIs('orcamento.index')">
                 {{ __('Início') }}
-            </x-responsive-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-600">
-            <h1 class="space-x-1 font-bold ">Solicitações</h1>
-            <x-responsive-nav-link :href="route('autorizacao.create')"
-                :active="request()->routeIs('autorizacao.create')">
-                {{ __('Nova Solicitação') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('autorizacao.myprotocols')"
-                :active="request()->routeIs('autorizacao.myprotocols')">
-                {{ __('Minhas Solicitações') }}
             </x-responsive-nav-link>
         </div>
 
