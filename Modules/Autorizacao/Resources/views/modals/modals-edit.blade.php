@@ -15,6 +15,20 @@
         $exam_status = $exam->find($exam->exam_status_id)->relExamStatus;
         @endphp
         <div wire:key="exam-field-{{$exam->id}}" class="p-4 mb-2 border-2 border-gray-300 rounded-md">
+            <div class="grid grid-cols-2 gap-1 border-b divide-x sm:grid-cols-3">
+                <div class="mt-2">
+                    <dt class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">Paciente</dt>
+                    <dd class="text-sm font-semibold">{{$protocol->paciente_name}}</dd>
+                </div>
+                <div class="mt-2">
+                    <dt class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">Data da Solicitação</dt>
+                    <dd class="text-sm font-semibold">{{$exam->created_at->format('d/m/Y H:i:s ')}}</dd>
+                </div>
+                <div class="mt-2">
+                    <dt class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">Usuário Solicitante</dt>
+                    <dd class="text-sm font-semibold">{{$solicitante->name}}</dd>
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 gap-2 mx-2 sm:grid-cols-6">
 
@@ -53,20 +67,20 @@
                     <x-input-error class="mt-2" :messages="$errors->get('exam.convenio')" />
                 </div>
 
-                    <div class="col-span-1 mt-4 sm:col-span-2">
-                        <x-input-label for="status" :value="__('Status')" />
-                        <x-select id="exam_status" name="exam_status" autocomplete="exam_status" class="block w-full input"
-                            wire:model='editing.{{$index}}.exam_status_id' disabled='{{$isDisabled}}'>
-                            <x-slot name='option'>
-                                @foreach($statuses as $status)
-                                <x-select.option value="{{ $status->id }}">
-                                    {{ $status->name }}
-                                </x-select.option>
-                                @endforeach
-                            </x-slot>
-                        </x-select>
-                        <x-input-error class="mt-2" :messages="$errors->get('exam.status')" />
-                    </div>
+                <div class="col-span-1 mt-4 sm:col-span-2">
+                    <x-input-label for="status" :value="__('Status')" />
+                    <x-select id="exam_status" name="exam_status" autocomplete="exam_status" class="block w-full input"
+                        wire:model='editing.{{$index}}.exam_status_id' disabled='{{$isDisabled}}'>
+                        <x-slot name='option'>
+                            @foreach($statuses as $status)
+                            <x-select.option value="{{ $status->id }}">
+                                {{ $status->name }}
+                            </x-select.option>
+                            @endforeach
+                        </x-slot>
+                    </x-select>
+                    <x-input-error class="mt-2" :messages="$errors->get('exam.status')" />
+                </div>
             </div>
             <div>
                 <div class="col-span-1 mt-4 sm:col-span-6">
