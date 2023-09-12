@@ -37,6 +37,10 @@ class ExamsDashboard extends Component
         'editing.*.convenio' => 'required'
     ];
 
+    protected $listeners = [
+        'echo:autorization-dashboard,AutorizationCreated' => '$refresh',
+    ];
+
 
     public function sortBy($field)
     {

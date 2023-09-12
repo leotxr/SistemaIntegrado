@@ -2,6 +2,7 @@
 
 namespace Modules\Autorizacao\Http\Controllers;
 
+use App\Events\AutorizationCreated;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -100,7 +101,11 @@ class AutorizacaoController extends Controller
         }
 
         if ($protocol)
-            return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
+        {
+            AutorizationCreated::dispatch();
+             return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
+        }
+           
         else
             return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }

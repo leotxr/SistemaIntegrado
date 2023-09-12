@@ -1,5 +1,5 @@
 <div >
-    <div class="grid grid-cols-1 gap-4 mx-2 font-bold sm:grid-cols-6 " wire:poll.60000ms='selectStatus({{$activeStatus}})'>
+    <div class="grid grid-cols-1 gap-4 mx-2 font-bold sm:grid-cols-6 " >
         @php
         $colors = ['black', '#00C510', '#447FFF', '#8978D9', '#B2B2B2', '#FFBD33', '#FF5733'];
         @endphp
