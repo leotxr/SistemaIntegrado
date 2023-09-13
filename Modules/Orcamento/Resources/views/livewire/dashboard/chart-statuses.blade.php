@@ -21,6 +21,10 @@ name: 'Agendado',
 data: @json($agendado)
 },
 {
+name: 'Pendente',
+data: @json($pendente)
+},
+{
 name: 'Não Agendado',
 data: @json($naoagendado)
 },],

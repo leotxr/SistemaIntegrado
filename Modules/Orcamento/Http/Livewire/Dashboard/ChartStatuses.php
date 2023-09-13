@@ -12,6 +12,7 @@ class ChartStatuses extends Component
     public $total_values = [];
     public $agendado = [];
     public $naoagendado = [];
+    public $pendente = [];
     public $statuses;
 
     public function mount()
@@ -35,6 +36,10 @@ class ChartStatuses extends Component
         foreach($this->days as $month)
         {
             $this->naoagendado[] = Budget::whereMonth('created_at', $month)->where('budget_status_id', 2)->count();
+        }
+        foreach($this->days as $month)
+        {
+            $this->pendente[] = Budget::whereMonth('created_at', $month)->where('budget_status_id', 1)->count();
         }
         $this->statuses = $this->statuses->pluck('name');
 
