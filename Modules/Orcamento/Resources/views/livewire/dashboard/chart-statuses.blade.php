@@ -7,8 +7,7 @@
     <script>
         var options = {
 chart: {
-type: 'area',
-stacked: true
+type: 'area'
 },
 title: {
     text: 'Orçamentos por mês'
