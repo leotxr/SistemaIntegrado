@@ -16,8 +16,12 @@ Route::middleware('auth')->group(function () {
             return view('orcamento::index');
         })->name('orcamento.index');
 
+        Route::get('/painel', function() {
+            return view('orcamento::dashboard');
+        })->name('orcamento.dashboard');
+
         Route::get('/relatorio', function() {
             return view('orcamento::report');
-        });
+        })->name('orcamento.reports');
     });
 });

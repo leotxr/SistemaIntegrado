@@ -18,44 +18,15 @@
                     @can(['editar autorizacao', 'excluir autorizacao'])
                     <x-nav-link style="cursor: pointer" data-drawer-target="drawer-navigation"
                         data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-                        {{ __('Dashboard') }}
+                        {{ __('Relatórios') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('orcamento.dashboard')" :active="request()->routeIs('orcamento.dashboard')">
+                        {{ __('Painel') }}
                     </x-nav-link>
                     @endcan
                     <x-nav-link :href="route('orcamento.index')" :active="request()->routeIs('orcamento.index')">
-                        {{ __('Início') }}
+                        {{ __('Orçamentos') }}
                     </x-nav-link>
-                    {{--DROPDOWN RESSONANCIA
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button
-                                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
-                                    <div>Solicitações</div>
-
-                                    <div class="ml-1">
-                                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('autorizacao.create')"
-                                    :active="request()->routeIs('autorizacao.create')">
-                                    {{ __('Nova Solicitação') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('autorizacao.myprotocols')"
-                                    :active="request()->routeIs('autorizacao.myprotocols')">
-                                    {{ __('Minhas Solicitações') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
-                    FIM DROPDOWN RESSONANCIA--}}
 
                 </div>
             </div>
@@ -157,46 +128,16 @@
 
 <x-drawer>
     <x-slot name="drawer_title">
-        Autorização
+        Orçamento
     </x-slot>
     <x-slot name="button_menu">
         <div class="pb-5 text-xl">
-            <x-nav-link class="w-full">
-                <svg aria-hidden="true"
-                    class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg>
-                <span class="ml-3">Estatísticas</span>
-            </x-nav-link>
-        </div>
-        <div class="pb-5 text-xl">
-            <x-nav-link :href="route('autorizacao.reports')" :active="request()->routeIs('autorizacao.reports')"
+            <x-side-link :href="route('orcamento.reports')" :active="request()->routeIs('orcamento.reports')"
                 class="w-full">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                    class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    <path fill-rule="evenodd"
-                        d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
-                        clip-rule="evenodd" />
-                    <path fill-rule="evenodd"
-                        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z"
-                        clip-rule="evenodd" />
-                </svg>
+                <x-icon name="presentation-chart-bar" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span class="ml-3">Relatórios</span>
-            </x-nav-link>
+            </x-side-link>
         </div>
-        <div class="pb-5 text-xl">
-            <x-nav-link :active="request()->routeIs('triagem.monitoring')" class="w-full">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                    class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    <path fill-rule="evenodd"
-                        d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.54 15h6.42l.5 1.5H8.29l.5-1.5zm8.085-8.995a.75.75 0 10-.75-1.299 12.81 12.81 0 00-3.558 3.05L11.03 8.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l2.47-2.47 1.617 1.618a.75.75 0 001.146-.102 11.312 11.312 0 013.612-3.321z"
-                        clip-rule="evenodd" />
-                </svg>
-
-                <span class="ml-3">Monitoramento</span>
-            </x-nav-link>
-        </div>
+    
     </x-slot>
 </x-drawer>

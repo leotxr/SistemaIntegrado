@@ -70,7 +70,7 @@
 
                                 <img src="{{ URL::asset('storage/icons/seguranca.png') }}" class="w-20 h-20 m-2">
 
-                                TI
+                                Configurações
 
 
                             </button>
