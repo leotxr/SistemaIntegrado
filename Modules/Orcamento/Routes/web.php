@@ -15,5 +15,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return view('orcamento::index');
         })->name('orcamento.index');
+
+        Route::get('/relatorio', function() {
+            return view('orcamento::report');
+        });
     });
 });
