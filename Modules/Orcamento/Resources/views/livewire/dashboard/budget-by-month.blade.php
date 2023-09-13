@@ -1,6 +1,6 @@
 <div>
-    <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
-        <div class="col-span-1" id="chart">
+    <div class="w-full">
+        <div id="chart">
         </div>
     </div>
 
