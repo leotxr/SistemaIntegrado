@@ -18,11 +18,16 @@ $maxWidth = [
 <div x-data="{ show: @entangle($attributes->wire('model')).defer }" x-on:close.stop="show = false"
     x-on:keydown.escape.window="show = false" x-show="show" id="{{ $id }}"
     class="fixed inset-0 z-50 px-4 py-6 overflow-y-auto jetstream-modal sm:px-0" style="display: none;">
-    <div x-show="show" class="fixed inset-0 transition-all transform" x-on:click="show = false"
-        x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
-        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+    <div x-show="show" class="fixed inset-0 transition-all transform" x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        <div class="relative grid justify-end p-8 text-end">
+            <button type="button" x-on:click="$dispatch('close')">
+                <x-icon name="x" class="w-8 h-8 text-white"></x-icon>
+            </button>
+        </div>
     </div>
 
     <div x-show="show"

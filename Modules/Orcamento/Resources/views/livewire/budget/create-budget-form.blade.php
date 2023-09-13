@@ -3,20 +3,11 @@
         <form wire:submit.prevent="save">
             <div class="px-4 py-5 bg-white shadow sm:p-6">
                 <div class="grid grid-cols-7 gap-6">
-                    <div 
-                    class="col-span-6 sm:col-span-3" 
-                    x-data="{patient_name: ''}" 
-                    >
+                    <div class="col-span-6 sm:col-span-3" x-data="{patient_name: ''}">
                         <x-input-label for="patient_name" value="{{ __('Nome do Paciente') }}" />
-                        <x-text-input 
-                        
-                        name="patient_name" 
-                        id="patient_name" 
-                        type="text" 
-                        placeholder="José da Silva" 
-                        class="block w-full mt-1 uppercase input" 
-                        wire:model.defer='orcamento.patient_name' 
-                        autofocus />
+                        <x-text-input name="patient_name" id="patient_name" type="text" placeholder="José da Silva"
+                            class="block w-full mt-1 uppercase input" wire:model.defer='orcamento.patient_name'
+                            autofocus />
                         @error('orcamento.patient_name')
                         <span class="error">{{ $message }}</span>
                         @enderror
@@ -59,7 +50,8 @@
                     </div>
                     <div class="col-span-6 sm:col-span-3" x-data>
                         <x-input-label for="status" value="{{ __('Status') }}" />
-                        <x-select id="status" name="status" wire:model='budget_status_id' class="block w-full mt-1 input">
+                        <x-select id="status" name="status" wire:model='budget_status_id'
+                            class="block w-full mt-1 input">
                             <x-slot name="option">
                                 <option selected disabled>
                                     Selecione
@@ -75,9 +67,7 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div 
-                    class="col-span-6 sm:col-span-4" 
-                    >
+                    <div class="col-span-6 sm:col-span-3">
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
                         <x-text-input name="search_exam" id="search_exam" type="text" wire:model='search'
                             class="block w-full mt-1 uppercase input" />
@@ -101,51 +91,54 @@
                             wire:click="$set('modalExams', true)">Ver
                             exames</button>
                     </div>
+                    <div class="col-span-6 sm:col-span-1">
+                        <x-primary-button type="submit">Salvar</x-primary-button>
+                    </div>
                     @endif
                 </div>
             </div>
             <div>
-                <div >
-                <x-table>
-                    <x-slot name="head">
-                        <x-table.heading>
-                            Exame
-                        </x-table.heading>
-                        <x-table.heading>
-                            Convênio
-                        </x-table.heading>
-                        <x-table.heading>
-                            Valor
-                        </x-table.heading>
-                        <x-table.heading>
-                            Ação
-                        </x-table.heading>
-                    </x-slot>
-                    <x-slot name="body">
-                        @foreach($exams as $exam)
-                        <x-table.row class="hover:bg-gray-100">
-                            <x-table.cell>
-                                {{$exam->DESCRICAO}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                {{$exam->PLANODESCRICAO}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                {{$exam->QUANTCH}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                <button type="button"
-                                    class="flex text-green-800 border border-green-800 rounded-lg hover:bg-green-800 hover:text-white"
-                                    wire:click="selectExam('{{$exam->DESCRICAO}}', {{$exam->QUANTCH}}, {{$convenio->id}})">
-                                    <span>
-                                        <x-icon name="plus" class="w-8 h-8 " solid></x-icon>
-                                    </span>
-                                </button>
-                            </x-table.cell>
-                        </x-table.row>
-                        @endforeach
-                    </x-slot>
-                </x-table>
+                <div>
+                    <x-table>
+                        <x-slot name="head">
+                            <x-table.heading>
+                                Exame
+                            </x-table.heading>
+                            <x-table.heading>
+                                Convênio
+                            </x-table.heading>
+                            <x-table.heading>
+                                Valor
+                            </x-table.heading>
+                            <x-table.heading>
+                                Ação
+                            </x-table.heading>
+                        </x-slot>
+                        <x-slot name="body">
+                            @foreach($exams as $exam)
+                            <x-table.row class="hover:bg-gray-100">
+                                <x-table.cell>
+                                    {{$exam->DESCRICAO}}
+                                </x-table.cell>
+                                <x-table.cell>
+                                    {{$exam->PLANODESCRICAO}}
+                                </x-table.cell>
+                                <x-table.cell>
+                                    {{$exam->QUANTCH}}
+                                </x-table.cell>
+                                <x-table.cell>
+                                    <button type="button"
+                                        class="flex text-green-800 border border-green-800 rounded-lg hover:bg-green-800 hover:text-white"
+                                        wire:click="selectExam('{{$exam->DESCRICAO}}', {{$exam->QUANTCH}}, {{$convenio->id}})">
+                                        <span>
+                                            <x-icon name="plus" class="w-8 h-8 " solid></x-icon>
+                                        </span>
+                                    </button>
+                                </x-table.cell>
+                            </x-table.row>
+                            @endforeach
+                        </x-slot>
+                    </x-table>
                 </div>
             </div>
             <div
@@ -231,8 +224,8 @@
             <div class="grid grid-cols-6 gap-6">
                 <div class="col-span-6">
                     <x-input-label for="observation" value="{{ __('Observação') }}" />
-                    <x-text-area name="observation" id="observation" type="text" wire:model='orcamento.observation' placeholder="Escreva uma breve observação"
-                        class="block w-full mt-1"></x-text-area>
+                    <x-text-area name="observation" id="observation" type="text" wire:model='orcamento.observation'
+                        placeholder="Escreva uma breve observação" class="block w-full mt-1"></x-text-area>
                     @error('orcamento.observation')
                     <span class="error">{{ $message }}</span>
                     @enderror
@@ -254,12 +247,11 @@
                 <p><span class="text-center text-gray-500 text-md">{{$convenio->description}}</span></p>
             </div>
         </div>
-        <div
-        class="flex items-center justify-center px-4 py-3 space-x-2 sm:px-6">
+        <div class="flex items-center justify-center px-4 py-3 space-x-2 sm:px-6">
 
-        <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
 
-    </div>
+        </div>
     </x-modal>
-    
+
 </div>
