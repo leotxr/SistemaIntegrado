@@ -1,13 +1,14 @@
 <div>
     <div class="w-full">
-        <div id="chart_day">
+        <div id="chart_day" class="max-h-48" >
         </div>
     </div>
 
     <script>
         var options = {
 chart: {
-type: 'area'
+type: 'area',
+height: '480px'
 },
 title: {
     text: 'Orçamentos por dia'

@@ -22,7 +22,7 @@ class BudgetByMonth extends Component
     public function mount()
     {
         
-        $this->days = [today()->subMonths(4)->format('m'), today()->subMonths(3)->format('m'), today()->subMonths(2)->format('m'), today()->subMonths(1)->format('m'), today()->subDays(0)->format('m')];
+        $this->days = [1,2,3,4,5,6,7,8,9,10,11,12];
         $this->statuses = BudgetStatus::all();
 
         foreach($this->days as $month)

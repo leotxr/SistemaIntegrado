@@ -12,6 +12,7 @@ use Modules\Administrativo\Entities\ExtraTime;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Modules\Orcamento\Entities\Budget;
 
 class User extends Authenticatable
 {
@@ -75,6 +76,11 @@ class User extends Authenticatable
     public function relMissedTimes()
     {
         return $this->hasMany(MissedTime::class, 'user_id');
+    }
+
+    public function relBudgets()
+    {
+        return $this->hasMany(Budget::class, 'user_id');
     }
     
     
