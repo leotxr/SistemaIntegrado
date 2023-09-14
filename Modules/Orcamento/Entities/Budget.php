@@ -4,6 +4,7 @@ namespace Modules\Orcamento\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 
 class Budget extends Model
 {
@@ -29,7 +30,7 @@ class Budget extends Model
         return $this->belongsTo(BudgetStatus::class, 'budget_status_id', 'id');
     }
 
-    public function relUser()
+    public function User()
     {
         return $this->belongsTo(User::class);
     }

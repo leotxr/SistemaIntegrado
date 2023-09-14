@@ -8,11 +8,11 @@
                 @livewire('orcamento::dashboard.budget-stats')
             </div>
             <div class="grid grid-cols-1 gap-2 p-2 text-gray-900 dark:text-gray-100 sm:grid-cols-6 ">
-                <div class="col-span-1 p-2 bg-white sm:col-span-3 dark:bg-gray-800">
-                @livewire('orcamento::dashboard.budget-by-month')
+                <div class="col-span-1 p-2 sm:col-span-6">
+                    @livewire('orcamento::dashboard.top-users')
                 </div>
                 <div class="col-span-1 p-2 bg-white sm:col-span-3 dark:bg-gray-800">
-                    @livewire('orcamento::dashboard.top-users')
+                @livewire('orcamento::dashboard.budget-by-month')
                 </div>
                 <div class="col-span-1 p-2 bg-white sm:col-span-5 dark:bg-gray-800">
                     @livewire('orcamento::dashboard.budget-by-day')
