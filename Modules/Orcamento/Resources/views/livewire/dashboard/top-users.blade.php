@@ -10,8 +10,8 @@
             @foreach($users as $user)
             <x-table.row>
                 <x-table.cell>{{$user->name}}</x-table.cell>
-                <x-table.cell>{{$user->relBudgets->count()}}</x-table.cell>
-                <x-table.cell>{{$user->relBudgets->count()}}</x-table.cell>
+                <x-table.cell>{{$user->relBudgets->where('budget_status_id', 3)->count()}}</x-table.cell>
+                <x-table.cell>{{$user->relBudgets->where('budget_status_id', 2)->count()}}</x-table.cell>
                 <x-table.cell>{{$user->relBudgets->count()}}</x-table.cell>
             </x-table.row>
             @endforeach
