@@ -7,16 +7,14 @@
     <script>
         var options = {
 chart: {
-type: 'area',
+stacked: true,
+type: 'bar',
 height: '480px'
 },
 title: {
     text: 'Orçamentos por dia'
 },
-series: [{
-name: 'Total',
-data: @json($total_values)
-},
+series: [
 {
 name: 'Agendado',
 data: @json($agendado)
