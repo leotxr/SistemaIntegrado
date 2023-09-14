@@ -11,6 +11,10 @@ stacked: true,
 type: 'bar',
 height: '480px'
 },
+theme: {
+    mode: 'light',
+    palette: 'palette3'
+},
 title: {
     text: 'Orçamentos por dia'
 },

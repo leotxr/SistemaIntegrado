@@ -11,6 +11,10 @@ type: 'bar',
 stacked:true,
 height: '320px'
 },
+theme: {
+    mode: 'light',
+    palette: 'palette3'
+},
 title: {
     text: 'Orçamentos por mês'
 },
