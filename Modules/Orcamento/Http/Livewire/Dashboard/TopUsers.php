@@ -23,14 +23,14 @@ class TopUsers extends Component
             //$this->values[] = Budget::whereBelongsTo($user, 'User')->count();
             if($user->relBudgets->count() > 0) 
             {
-                $this->values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('created_at', [today()->subMonths(1), today()->subMonths(0)])->count();
+                $this->values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subMonths(1), today()->subMonths(0)])->count();
                 $this->user_names[] = $user->name; 
                 $this->users[] = $user;
             }
 
         }
 
-       // dd($this->values);
+       //dd($this->users);
         //dd($this->values);
 
         
