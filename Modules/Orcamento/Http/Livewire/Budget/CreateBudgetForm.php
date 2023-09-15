@@ -48,6 +48,7 @@ class CreateBudgetForm extends Component
         $this->total = 0.0;
         $this->count = 0;
         $this->first_run = true;
+        $this->search = '';
     
     }
 
@@ -68,14 +69,6 @@ class CreateBudgetForm extends Component
         $this->count = $this->selectedExams->count();
     }
 
-    public function unsetCollection()
-    {
-        $this->selectedExams = collect([]);
-        $this->total = $this->selectedExams->sum('exam_value');
-        unset($this->orcamento);
-        $this->search = '';
-
-    }
 
     public function save()
     {
@@ -98,9 +91,8 @@ class CreateBudgetForm extends Component
         };
         $this->emitUp('close-modal');
         BudgetCreated::dispatch();
-        //Notification::send(User::all(), new NotifyBudgetUpdated(Auth::user(), $this->orcamento));
-        $this->unsetCollection();
-        //$this->render();
+        $this->mount();
+ 
     }
 
     public function render()
