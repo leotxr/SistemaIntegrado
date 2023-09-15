@@ -11,14 +11,17 @@
                 </x-slot>
                 <x-slot name="body">
                     @foreach($users as $user)
+                    @if($user->relBudgets->count() > 0)
                     <x-table.row>
                         <x-table.cell>{{$user->name}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 3)->count()}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 2)->count()}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 1)->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 3)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 2)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 1)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
                         <x-table.cell>{{$user->relBudgets->count()}}</x-table.cell>
                     </x-table.row>
+                    @endif
                     @endforeach
+
                 </x-slot>
             </x-table>
         </div>
@@ -32,6 +35,7 @@
         var options = {
       series: @json($values),
       chart: {
+        id: 'top_users',
         width: 380,
         type: "pie"
       },
@@ -51,8 +55,23 @@
       ]
     }
 
-var chart = new ApexCharts(document.querySelector("#top_users"), options);
+var chartUsers = new ApexCharts(document.querySelector("#top_users"), options);
 
-chart.render();
+chartUsers.render();
+
+
+Livewire.on('refreshChart', (chartData) => {
+    chartUsers.updateOptions([{
+        series: chartData.seriesData,
+        labels: chartData.labelData,
+        id: 'top_users'
+        
+    }]);
+
+    console.log(chartData.seriesData);
+    console.log(chartData.labelData);
+})
+
+
     </script>
 </div>

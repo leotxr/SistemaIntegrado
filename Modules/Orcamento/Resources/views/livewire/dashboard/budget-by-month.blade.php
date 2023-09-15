@@ -39,6 +39,7 @@ categories: @json($days)
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 
 chart.render();
+
     </script>
 
 </div>

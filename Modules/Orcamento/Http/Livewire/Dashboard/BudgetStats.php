@@ -7,15 +7,19 @@ use Modules\Orcamento\Entities\Budget;
 
 class BudgetStats extends Component
 {
-    public $count_budgets;
+    public $submonth = 1;
 
-    public function mount()
+    protected $listeners = [ 'change-submonth' => 'changesubmonth'];
+
+    public function changesubmonth($submonth)
     {
-        $this->count_budgets = Budget::whereMonth('created_at', date('m'))->get();
+        $this->submonth = $submonth;
+        $this->render();
     }
-    
+
     public function render()
     {
-        return view('orcamento::livewire.dashboard.budget-stats');
+        
+        return view('orcamento::livewire.dashboard.budget-stats', ['count_budgets' => Budget::whereBetween('budget_date', [today()->subMonths($this->submonth), today()->subMonths(0)])->get()]);
     }
 }
