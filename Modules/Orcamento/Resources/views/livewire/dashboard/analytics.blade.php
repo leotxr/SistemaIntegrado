@@ -1,7 +1,7 @@
 <div>
-    <form wire:submit.prevent='generate'>
         <div class="grid grid-cols-2 gap-2 sm:grid-cols-6">
-            <div class="col-span-1 sm:col-span-2">
+            <div class="col-span-1 sm:col-span-3">
+                {{--
             <x-input-label for="date" value="{{ __('Período') }}" />
             <x-select id="date" name="date" wire:model.defer='submonth' class="block w-full mt-1 input">
                 <x-slot name="option">
@@ -19,12 +19,15 @@
             @error('submonth')
             <span class="error">{{ $message }}</span>
             @enderror
+            --}}
+
+            <span class="flex text-xl text-gray-700 font-regular"> Mostrando resultados dos últrimos 30 dias 
+                <x-icon name="refresh" 
+                class="w-6 h-6 text-gray-500 cursor-pointer hover:rotate-90" 
+                wire:click='generate'> 
+                    </x-icon></span>
         </div>
-        <div class="col-span-1 mt-4 sm:col-span-2">
-            <x-primary-button type="submit">Gerar</x-primary-button>
         </div>
-        </div>
-    </form>
 
     <div class="w-full p-2">
         @livewire('orcamento::dashboard.budget-stats')
