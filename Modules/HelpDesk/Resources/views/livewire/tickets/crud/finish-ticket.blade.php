@@ -3,7 +3,7 @@
 
     <form wire:submit.prevent='finish'>
         @csrf
-        <x-modal.dialog wire:model.defer='modalFinish'>
+        <x-modal.dialog wire:model.defer='modalFinish' maxWidth="5xl">
 
             <x-slot name='title'>
                 <x-title>Finalizar Chamado #{{$finishing->id}} - {{$finishing->title}}</x-title>
@@ -11,7 +11,7 @@
             <x-slot name='content'>
                 <div>
                     <div class="mt-2 bg-white" wire:ignore>
-                        <div class="h-64" x-data x-ref="quillEditor" x-init="
+                        <div class="h-64 text-gray-900 bg-white dark:bg-gray-900 dark:text-white" x-data x-ref="quillEditor" x-init="
                         quill = new Quill($refs.quillEditor, {
                             theme: 'snow'});
                         quill.on('text-change', function () {
