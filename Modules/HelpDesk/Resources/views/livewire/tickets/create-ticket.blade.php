@@ -79,8 +79,8 @@
                 <div class="m-4">
                     <x-input-label for="ticket_description" :value="__('Mensagem')" class="text-lg font-bold" />
                     <div>
-                        <div class="mt-2 bg-white" wire:ignore>
-                            <div class="h-64" x-data x-ref="quillEditor" x-init="
+                        <div class="mt-2 text-gray-900 bg-white dark:bg-gray-100 dark:text-white" wire:ignore>
+                            <div class="h-64 text-gray-900 bg-white dark:bg-gray-900 dark:text-white" x-data x-ref="quillEditor" x-init="
                             quill = new Quill($refs.quillEditor, {theme: 'snow'});
                             quill.on('text-change', function () {
                               $dispatch('input', quill.root.innerHTML);
