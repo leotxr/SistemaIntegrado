@@ -9,7 +9,7 @@
                         <x-application-logo class="block w-auto mr-2 text-gray-800 fill-current h-9 dark:text-gray-200">
                         </x-application-logo>
                         <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">
-                            Orçamentos</span>
+                            Agenda</span>
                     </a>
                 </div>
 
@@ -43,8 +43,7 @@
                                 :active="request()->routeIs('orcamento.dashboard')">
                                 {{ __('Dashboard') }}
                             </x-dropdown-link>
-                            <x-dropdown-link style="cursor: pointer" data-drawer-target="drawer-navigation"
-                                data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+                            <x-dropdown-link :href="route('orcamento.reports')" :active="request()->routeIs('orcamento.reports')">
                                 {{ __('Relatórios') }}
                             </x-dropdown-link>
                             @endcan
@@ -182,20 +181,3 @@
         </div>
     </div>
 </nav>
-
-<x-drawer>
-    <x-slot name="drawer_title">
-        Orçamento
-    </x-slot>
-    <x-slot name="button_menu">
-        <div class="pb-5 text-xl">
-            <x-side-link :href="route('orcamento.reports')" :active="request()->routeIs('orcamento.reports')"
-                class="w-full">
-                <x-icon name="presentation-chart-bar"
-                    class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span class="ml-3">Relatórios</span>
-            </x-side-link>
-        </div>
-
-    </x-slot>
-</x-drawer>
