@@ -4,7 +4,7 @@
         @php
         $status = $editing->find($editing->id)->TicketStatus;
         @endphp
-        <x-modal.form wire:model.defer='modalEdit'>
+        <x-modal.form wire:model.defer='modalEdit' maxWidth="5xl">
             <x-slot name='title'>
                 <x-title>Editar Chamado: #{{$editing->id}} - {{$editing->title}}</x-title>
                 <div class='justify-items-end'>

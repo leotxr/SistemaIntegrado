@@ -3,7 +3,7 @@
     @php
     $status = $showing->find($showing->id)->TicketStatus;
     @endphp
-    <x-modal.form wire:model.defer='modalTicket'>
+    <x-modal.form wire:model.defer='modalTicket' maxWidth="5xl">
         <x-slot name='title'>
             <x-title>Detalhes do Chamado: #{{$showing->id}} - {{$showing->title}}</x-title>
             <div class='justify-items-end'>
@@ -177,6 +177,9 @@
                 </div>
             </div>
 
+            <x-secondary-button class="mx-2 " x-on:click="$dispatch('close')">
+                Fechar
+            </x-secondary-button>
             @if($showing->status_id === 1)
             <x-primary-button class="mx-2 bg-blue-800" wire:click='callStart({{$showing->id}})'>Atender
             </x-primary-button>
