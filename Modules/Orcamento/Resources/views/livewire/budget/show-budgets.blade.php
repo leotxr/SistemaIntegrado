@@ -1,5 +1,8 @@
 <div>
-    <div>
+    <div class="p-6">
+        @include('orcamento::livewire.budget.budget-tiles')
+    </div>
+    <div class="p-6 bg-white dark:bg-gray-800">
         <div class="grid justify-end text-end">
             <div>
                 <x-primary-button wire:click="openModalBudget">
@@ -21,6 +24,7 @@
             <x-slot name="content">
                 <div class="max-w-full">
                     <div class="grid content-center grid-cols-1 gap-2 sm:grid-cols-6 ">
+                        {{--
                         <div class="col-span-1 sm:col-span-1 ">
                             <label for="initial_date"
                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Data
@@ -32,6 +36,14 @@
                             <label for="final_date"
                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Data Final</label>
                             <input type="date" wire:model='final_date' id="final_date" class="border-gray-300 input">
+                        </div>
+                        --}}
+                       
+                        <div class="col-span-1 sm:col-span-3 ">
+                            <label for="search_patient"
+                                class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar Paciente</label>
+                            <x-text-input type="text" wire:model='search' id="search_patient" name="search_patient"
+                                class="block w-full mt-1 uppercase input"></x-text-input>
                         </div>
                         <div class="col-span-1 sm:col-span-3 sm:mt-4 ">
                             <h3 class="font-semibold text-gray-900 dark:text-white">Status</h3>
@@ -51,18 +63,12 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="col-span-1 sm:col-span-3 ">
-                            <label for="search_patient"
-                                class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar Paciente</label>
-                            <x-text-input type="text" wire:model='search' id="search_patient" name="search_patient"
-                                class="block w-full mt-1 uppercase input"></x-text-input>
-                        </div>
                     </div>
                 </div>
             </x-slot>
         </x-accordion>
         <div class="mt-4">
-            <p>Mostrando orçamentos realizados entre {{date('d/m/Y', strtotime($initial_date))}} e {{date('d/m/Y',
+            <p>Mostrando solicitações realizadas entre {{date('d/m/Y', strtotime($initial_date))}} e {{date('d/m/Y',
                 strtotime($final_date))}}</p>
             {{$orcamentos->links()}}
             <x-table>

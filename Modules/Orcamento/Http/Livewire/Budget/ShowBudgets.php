@@ -8,6 +8,7 @@ use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetStatus;
 use App\Events\BudgetCreated;
 use App\Events\TicketUpdated;
+use Modules\Orcamento\Entities\BudgetType;
 
 class ShowBudgets extends Component
 {
@@ -18,6 +19,7 @@ class ShowBudgets extends Component
     public $initial_date;
     public $final_date;
     public $selectedStatus = [1];
+    public $selectedType = 1;
     public $search = '';
 
     protected $listeners = [
@@ -28,7 +30,7 @@ class ShowBudgets extends Component
 
     public function mount()
     {
-        $this->initial_date = today()->subDays(4)->format('Y-m-d');
+        $this->initial_date = today()->subDays(30)->format('Y-m-d');
         $this->final_date = today()->format('Y-m-d');
     }
 
@@ -50,12 +52,20 @@ class ShowBudgets extends Component
         $this->render();
     }
 
+    public function selectType($type_id)
+    {
+        $this->selectedType = $type_id;
+    }
 
     public function render()
     {
-        return view('orcamento::livewire.budget.show-budgets', ['orcamentos' => Budget::search('patient_name', $this->search)->whereIn('budget_status_id', $this->selectedStatus)
-        ->whereBetween('budget_date', [$this->initial_date, $this->final_date])
-        ->paginate(10),
-        'statuses' => BudgetStatus::all()]);
+        return view('orcamento::livewire.budget.show-budgets', [
+            'orcamentos' => Budget::search('patient_name', $this->search)->whereIn('budget_status_id', $this->selectedStatus)
+                ->whereBetween('budget_date', [$this->initial_date, $this->final_date])
+                ->where('budget_type_id', $this->selectedType)
+                ->paginate(10),
+            'statuses' => BudgetStatus::all(),
+            'types' => BudgetType::all()
+        ]);
     }
 }
