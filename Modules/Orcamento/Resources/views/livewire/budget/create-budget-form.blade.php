@@ -48,7 +48,25 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-span-6 sm:col-span-3" x-data>
+                    <div class="col-span-6 sm:col-span-2" x-data>
+                        <x-input-label for="type" value="{{ __('Tipo') }}" />
+                        <x-select id="type" name="type" wire:model='budget_type_id' class="block w-full mt-1 input">
+                            <x-slot name="option">
+                                <option selected disabled>
+                                    Selecione
+                                </option>
+                                @foreach($types as $type)
+                                <x-select.option value="{{$type->id}}">
+                                    {{$type->name}}
+                                </x-select.option>
+                                @endforeach
+                            </x-slot>
+                        </x-select>
+                        @error('budget_type_id')
+                        <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-span-6 sm:col-span-2" x-data>
                         <x-input-label for="status" value="{{ __('Status') }}" />
                         <x-select id="status" name="status" wire:model='budget_status_id'
                             class="block w-full mt-1 input">
@@ -67,6 +85,7 @@
                         <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="col-span-6 sm:col-span-3">
                         <x-input-label for="search_exam" value="{{ __('Pesquisar') }}" />
                         <x-text-input name="search_exam" id="search_exam" type="text" wire:model='search'
@@ -142,14 +161,22 @@
                 </div>
             </div>
             <div
-                class="flex items-center justify-end px-4 py-3 space-x-2 shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
-                <div class="justify-start mr-10">
-                    <button type="button" wire:click="$set('modalObservation', true)">
-                        <x-icon name="bell" solid class="w-6 h-6 text-yellow-300" />
-                    </button>
+                class="grid max-w-full grid-cols-2 px-4 py-3 space-x-2 shadow justify-items-stretch bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
+                <div class="justify-self-start ">
+                    <x-secondary-button type="button" class="flex text-yellow-300"
+                        wire:click="$set('modalObservation', true)">
+                        <span class="relative flex">
+                            <span
+                                class="absolute inline-flex w-full h-full bg-yellow-400 rounded-full opacity-75 animate-ping"></span><span
+                                class="relative ">
+                                <x-icon name="bell" class="w-4 h-4 " />
+                            </span>
+                        </span>
+                        <span class="text-gray-900">Observações</span>
+                    </x-secondary-button>
                 </div>
 
-                <div class="flex justify-end space-x-2">
+                <div class="space-x-2 justify-self-end">
                     <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
                     <x-primary-button type="submit">Salvar</x-primary-button>
                 </div>
@@ -157,101 +184,6 @@
 
         </form>
     </div>
-    <x-modal wire:model.defer='modalExams'>
-        <div class="px-4 py-5 bg-white shadow sm:p-6">
-            <div>
-                <x-table>
-                    <x-slot name="head">
-                        <x-table.heading>
-                            Exame
-                        </x-table.heading>
-                        <x-table.heading>
-                            Valor
-                        </x-table.heading>
-                        <x-table.heading>
-                            Convênio
-                        </x-table.heading>
-                        <x-table.heading>
-                            Ação
-                        </x-table.heading>
-                    </x-slot>
-                    <x-slot name="body">
 
-                        @if($selectedExams)
-                        @foreach($selectedExams as $key => $value)
-                        <x-table.row class="hover:bg-gray-100">
-                            <x-table.cell>
-                                {{$value['exam_name']}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                R$ {{$value['exam_value']}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                @php
-                                $convenio = \Modules\Orcamento\Entities\BudgetPlan::find($value['plan_id']);
-                                @endphp
-                                {{$convenio->name}}
-                            </x-table.cell>
-                            <x-table.cell>
-                                <button type="button"
-                                    class="flex text-red-800 border border-red-800 rounded-lg hover:bg-red-800 hover:text-white"
-                                    wire:click="deselectExam({{$key}})">
-                                    <span>
-                                        <x-icon name="minus" class="w-8 h-8 " solid></x-icon>
-                                    </span>
-                                </button>
-                            </x-table.cell>
-                        </x-table.row>
-                        @endforeach
-                        @endif
-
-
-                    </x-slot>
-                </x-table>
-            </div>
-            <div
-                class="flex items-center justify-end px-4 py-3 space-x-2 text-right shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
-                <x-danger-button wire:click='unsetCollection'>Remover todos</x-danger-button>
-                <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
-            </div>
-        </div>
-    </x-modal>
-    <x-modal wire:model.defer='modalObservation'>
-        <div>
-            <x-title>Observação do orçamento</x-title>
-        </div>
-        <div class="pt-2">
-            <div class="grid grid-cols-6 gap-6">
-                <div class="col-span-6">
-                    <x-input-label for="observation" value="{{ __('Observação') }}" />
-                    <x-text-area name="observation" id="observation" type="text" wire:model='orcamento.observation'
-                        placeholder="Escreva uma breve observação" class="block w-full mt-1"></x-text-area>
-                    @error('orcamento.observation')
-                    <span class="error">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div
-            class="flex items-center justify-end px-4 py-3 space-x-2 shadow bg-gray-50 sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
-
-            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
-
-        </div>
-    </x-modal>
-
-    <x-modal wire:model.defer='modalAlert' maxWidth='sm'>
-        <div class="px-4 py-3">
-            <x-title class="text-xl font-bold ">Atenção</x-title>
-            <div>
-                <p><span class="text-center text-gray-500 text-md">{{$convenio->description}}</span></p>
-            </div>
-        </div>
-        <div class="flex items-center justify-center px-4 py-3 space-x-2 sm:px-6">
-
-            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
-
-        </div>
-    </x-modal>
-
+    @include('orcamento::util.modals-budget')
 </div>

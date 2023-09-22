@@ -5,6 +5,7 @@ namespace Modules\Orcamento\Http\Livewire\Budget;
 use Livewire\Component;
 use Modules\Orcamento\Entities\Budget;
 use Modules\Orcamento\Entities\BudgetStatus;
+use Modules\Orcamento\Entities\BudgetType;
 use App\Events\BudgetCreated;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,8 @@ class BudgetDetails extends Component
         'orcamento.patient_name' => 'required',
         'orcamento.patient_born_date' => 'required',
         'orcamento.patient_phone' => 'required',
-        'orcamento.observation' => 'max:220'
+        'orcamento.observation' => 'max:220',
+        'orcamento.budget_type_id' => 'required'
         
         
     ];
@@ -54,6 +56,6 @@ class BudgetDetails extends Component
 
     public function render()
     {
-        return view('orcamento::livewire.budget.budget-details', ['statuses' => BudgetStatus::all()]);
+        return view('orcamento::livewire.budget.budget-details', ['statuses' => BudgetStatus::all(), 'types' => BudgetType::all()]);
     }
 }

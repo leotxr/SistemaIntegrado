@@ -38,6 +38,12 @@ return new class extends Migration
             ->on('users')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->unsignedBigInteger('budget_type_id');
+            $table->foreign('budget_type_id')
+            ->references('id')
+            ->on('budget_types')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->text('observation')->nullable();
             $table->date('budget_date');
             $table->timestamps();

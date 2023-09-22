@@ -3,7 +3,7 @@
         <div class="grid justify-end text-end">
             <div>
                 <x-primary-button wire:click="openModalBudget">
-                    <x-icon name="plus" class="w-4 h-4 text-white" /> Novo Orçamento
+                    <x-icon name="plus" class="w-4 h-4 text-white" /> Nova Solicitação
                 </x-primary-button>
             </div>
         </div>

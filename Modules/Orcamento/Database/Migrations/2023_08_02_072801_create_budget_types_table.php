@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fits', function (Blueprint $table) {
-            $table->id();
+        Schema::create('budget_types', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('color')->nullable();
+
 
             $table->timestamps();
         });
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fits');
+        Schema::dropIfExists('budget_types');
     }
 };

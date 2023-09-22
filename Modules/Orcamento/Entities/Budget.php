@@ -17,7 +17,8 @@ class Budget extends Model
         'discount',
         'total_value',
         'budget_status_id',
-        'user_id'
+        'user_id',
+        'budget_type_id'
     ];
 
     public function relExams()
@@ -28,6 +29,11 @@ class Budget extends Model
     public function relStatus()
     {
         return $this->belongsTo(BudgetStatus::class, 'budget_status_id', 'id');
+    }
+
+    public function relBudgetType()
+    {
+        return $this->belongsTo(BudgetType::class, 'budget_type_id', 'id');
     }
 
     public function User()
