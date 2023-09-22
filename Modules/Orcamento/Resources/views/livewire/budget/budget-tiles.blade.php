@@ -6,7 +6,7 @@
                 {{$type->name}}
             </span>
             <span class="text-4xl font-bold text-white">
-                {{\Modules\Orcamento\Entities\Budget::where('budget_type_id', $type->id)->count()}}
+                {{\Modules\Orcamento\Entities\Budget::where('budget_type_id', $type->id)->whereBetween('budget_date', [$initial_date, $final_date])->count()}}
             </span>
             <span class="text-xs font-light text-gray-50">
                 Últimos 30 dias
