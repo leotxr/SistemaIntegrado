@@ -2,7 +2,7 @@
     <div class="grid gap-3 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1">
         <div class="grid gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @foreach($priorities as $priority)
-            <a class="cursor-pointer active:scale-95" wire:click="$emit('ticketCreated')">
+            <a class="col-span-1 cursor-pointer active:scale-95" wire:click="$emit('ticketCreated')">
                 <div
                     class="flex items-center justify-center px-4 py-4 text-center transition-transform duration-200 bg-white shadow-md card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="p-2 text-blue-600 ">
@@ -38,7 +38,7 @@
                 @foreach($statuses as $status)
 
                 <div wire:click='selectStatus({{$status->id}})'
-                    class="flex items-center justify-center px-4 py-2 text-center transition-transform duration-200 bg-white shadow-md cursor-pointer card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
+                    class="flex items-center justify-center col-span-1 px-4 py-2 text-center transition-transform duration-200 bg-white shadow-md cursor-pointer card lg:transform hover:scale-95 hover:shadow-lg dark:bg-gray-800">
                     <div class="text-xs font-bold text-gray-800 dark:text-gray-50">{{$status->description}}</div>
                     <div class="p-2 text-blue-600 ">
 
