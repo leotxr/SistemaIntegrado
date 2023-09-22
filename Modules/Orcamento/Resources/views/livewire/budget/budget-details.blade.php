@@ -14,7 +14,7 @@
                     <div class="col-span-6 sm:col-span-2" x-data>
                         <x-input-label for="born_date" value="{{ __('Data de Nascimento') }}" />
                         <x-text-input name="born_date" id="born_date" type="date" class="block w-full mt-1 input"
-                            wire:model.defer='orcamento.patient_born_date' readonly />
+                            wire:model.defer='orcamento.patient_born_date' />
                         @error('orcamento.patient_born_date')
                         <span class="error">{{ $message }}</span>
                         @enderror

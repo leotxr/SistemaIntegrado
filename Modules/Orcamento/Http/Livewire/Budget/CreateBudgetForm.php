@@ -37,7 +37,7 @@ class CreateBudgetForm extends Component
         'budget_type_id' => 'required',
         'plan' => 'required',
         'orcamento.patient_name' => 'required',
-        'orcamento.patient_born_date' => 'required',
+        'orcamento.patient_born_date' => 'max:10',
         'orcamento.patient_phone' => 'required',
         'orcamento.observation' => 'max:220',
         'budget_status_id' => 'required'
