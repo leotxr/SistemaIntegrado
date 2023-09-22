@@ -166,11 +166,9 @@
                     <x-secondary-button type="button" class="flex text-yellow-300"
                         wire:click="$set('modalObservation', true)">
                         <span class="relative flex">
-                            <span
-                                class="absolute inline-flex w-full h-full bg-yellow-400 rounded-full opacity-75 animate-ping"></span><span
-                                class="relative ">
-                                <x-icon name="bell" class="w-4 h-4 " />
-                            </span>
+
+                            <x-icon name="bell" class="w-4 h-4 " />
+
                         </span>
                         <span class="text-gray-900">Observações</span>
                     </x-secondary-button>
