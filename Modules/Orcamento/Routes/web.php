@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/relatorio', '\Modules\Orcamento\Http\Livewire\Reports\Index@__invoke')->name('orcamento.reports');
 
         Route::prefix('relatorio')->group(function () {
-            Route::get('/solicitacoes-alteradas', '\Modules\Orcamento\Http\Livewire\Reports\ChangedBudgets@__invoke')->name('orcamento.changed-budgets');
+            Route::get('/solicitacoes-alteradas', function(){
+                return view('orcamento::reports.changed-budgets');
+            })->name('orcamento.changed-budgets');
         });
     });
 
