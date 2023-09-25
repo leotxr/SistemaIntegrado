@@ -19,7 +19,7 @@
                         d="M4 10.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm3-4C7 5.672 6.552 5 6 5s-1 .672-1 1.5S5.448 8 6 8s1-.672 1-1.5zm4 0c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5S9.448 8 10 8s1-.672 1-1.5z" />
                 </svg>
                 <span class="text-2xl font-bold">{{$queue->where('STATUSID',
-                    0)->where('ATRASO', '>', '600' )->where('ATRASO', '<', '1200')->count()}}</span>
+                    0)->where('ATRASO', '>', '600' )->where('ATRASO', '<', '1200' )->count()}}</span>
             </div>
             <div class="text-center text-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="currentColor"
@@ -50,6 +50,11 @@
                 </x-slot>
                 <x-slot name="body">
                     @foreach($filas as $fila)
+                    @if($queue->where('FILAID',
+                    $fila['id'])->where('STATUSID',
+                    0)->count() > 0 || $queue->where('FILAID',
+                    $fila['id'])->where('STATUSID',
+                    2)->count() > 0)
 
                     <x-table.row class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <x-table.cell scope="row"
@@ -68,6 +73,7 @@
                             $fila['id'])->where('STATUSID',
                             2)->count()}}</x-table.cell>
                     </x-table.row>
+                    @endif
                     @endforeach
                     <x-table.row class="font-extrabold text-black">
                         <x-table.cell> Total</x-table.cell>
