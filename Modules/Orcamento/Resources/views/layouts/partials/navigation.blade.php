@@ -38,7 +38,7 @@
                                 :active="request()->routeIs('orcamento.index')">
                                 {{ __('Orçamentos') }}
                             </x-dropdown-link>
-                            @can(['editar autorizacao', 'excluir autorizacao'])
+                            @can(['gerar relatorio orcamento'])
                             <x-dropdown-link :href="route('orcamento.dashboard')"
                                 :active="request()->routeIs('orcamento.dashboard')">
                                 {{ __('Dashboard') }}
