@@ -18,6 +18,7 @@ class Budget extends Model
         'total_value',
         'budget_status_id',
         'user_id',
+        'last_user_id',
         'budget_type_id'
     ];
 
@@ -34,6 +35,11 @@ class Budget extends Model
     public function relBudgetType()
     {
         return $this->belongsTo(BudgetType::class, 'budget_type_id', 'id');
+    }
+
+    public function lastUser()
+    {
+        return $this->belongsTo(User::class, 'last_user_id', 'id');
     }
 
     public function User()

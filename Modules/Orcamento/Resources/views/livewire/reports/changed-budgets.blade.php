@@ -30,10 +30,7 @@
                         </div>
                         
                         <div class="col-span-1 sm:col-span-3">
-                            <div>
-                                <label for="excel"
-                                    class="text-sm font-light text-gray-900 label dark:text-gray-50">Gerar
-                                    relatório</label>
+                            <div class="sm:mt-10">
                                 <x-secondary-button id="excel" type="button" wire:click='export' >
                                     <x-icon name="document" class="w-6 h-6"></x-icon>
                                     Exportar
