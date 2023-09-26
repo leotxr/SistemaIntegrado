@@ -90,7 +90,7 @@
                         <x-icon name="squares"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="ml-3">Painel</span>
+                        <span class="ml-3" x-show="expanded">Painel</span>
                     </x-side-link>
                 </li>
                 <li>
@@ -99,8 +99,10 @@
                         <x-icon name="bell"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Notificações</span>
-                        @livewire('helpdesk::components.notification-dot')
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Notificações
+                            @livewire('helpdesk::components.notification-dot')
+                        </span>
+                        
                     </x-side-link>
                 </li>
                 <li x-data="{chamados:false}">
@@ -109,7 +111,7 @@
                         <x-icon name="collection"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Chamados</span>
                     </x-side-link>
                     <div x-show="chamados" x-transition>
                         <x-side-link class="w-full" :href="route('helpdesk.tickets.create')"
@@ -135,7 +137,7 @@
                         <x-icon name="cog"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Configurações</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Configurações</span>
                     </x-side-link>
                     <div x-show="open" x-transition>
                         <x-side-link class="w-full" :href="route('helpdesk.settings.category')"
@@ -162,7 +164,7 @@
                         <x-icon name="document-report"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Relatórios</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Relatórios</span>
                     </x-side-link>
                     <div x-show="open" x-transition>
                         <x-side-link class="w-full" href="{{route('helpdesk.reports')}}"
@@ -183,7 +185,7 @@
                         <x-icon name="book-open"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Base de Conhecimento</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Base de Conhecimento</span>
                     </x-side-link>
 
                 </li>
