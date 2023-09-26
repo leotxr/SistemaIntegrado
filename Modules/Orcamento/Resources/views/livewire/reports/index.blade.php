@@ -14,7 +14,8 @@
                 <ul class="max-w-md space-y-2 list-inside divide-y divide-y-reverse" x-data="{
         items: [
             {id: 1, label: 'Solicitações alteradas', desc: 'Exibe solicitações que tiveram status alterado por algum atendente.', link: 'relatorio/solicitacoes-alteradas'},
-            {id: 2, label: 'Solicitações por período', desc: 'Exibe todas as solicitações em um período.', link: 'relatorio'}
+            {id: 2, label: 'Solicitações por período', desc: 'Exibe todas as solicitações em um período.', link: 'relatorio'},
+            {id: 3, label: 'Totalizador Solicitações', desc: 'Exibe o total de solicitações de um determinado status', link: 'relatorio/totalizador-solicitacoes'}
         ]
     }">
                     <template x-for="item in items" :key="item.id">
