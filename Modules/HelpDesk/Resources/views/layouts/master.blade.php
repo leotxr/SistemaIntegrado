@@ -11,12 +11,12 @@
     @include('helpdesk::layouts.partials.alerts')
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('helpdesk::layouts.partials.navigation')
-        <header class="pt-14 sm:ml-64">
+        <header class="pt-14 sm:ml-14">
             <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 @yield('header')
             </div>
         </header>
-        <main class="px-6 sm:ml-64">
+        <main class="px-6 sm:ml-14">
             @yield('content')
         </main>
     </div>

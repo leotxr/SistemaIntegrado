@@ -78,114 +78,116 @@
     </div>
 </nav>
 
-<aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul class="space-y-2 font-medium">
-            <li>
-                <x-side-link :href="route('helpdesk.dashboard')" :active="request()->routeIs('helpdesk.dashboard')"
-                    :active="Request::is('helpdesk', 'helpdesk/painel')" class="w-full">
-                    <x-icon name="squares"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="ml-3">Painel</span>
-                </x-side-link>
-            </li>
-            <li>
-                <x-side-link :href="route('helpdesk.notifications')"
-                    :active="request()->routeIs('helpdesk.notifications')" class="w-full">
-                    <x-icon name="bell"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Notificações</span>
-                    @livewire('helpdesk::components.notification-dot')
-                </x-side-link>
-            </li>
-            <li x-data="{chamados:false}">
-                <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#"
-                    :active="Request::is('helpdesk/painel/chamados', 'helpdesk/painel/chamados/*')">
-                    <x-icon name="collection"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
-                </x-side-link>
-                <div x-show="chamados" x-transition>
-                    <x-side-link class="w-full" :href="route('helpdesk.tickets.create')"
-                        :active="request()->routeIs('helpdesk.tickets.create')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Novo</span>
+<aside x-data="{expanded: false}">
+    <div id="logo-sidebar"
+        class="fixed top-0 left-0 z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        aria-label="Sidebar" :class="expanded ? 'sm:w-64' : 'sm:w-14'" x-transition>
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800" @mouseover="expanded = true" @mouseleave="expanded = false">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <x-side-link :href="route('helpdesk.dashboard')" :active="request()->routeIs('helpdesk.dashboard')"
+                        :active="Request::is('helpdesk', 'helpdesk/painel')" class="w-full">
+                        <x-icon name="squares"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
+                        <span class="ml-3">Painel</span>
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.tickets')"
-                        :active="request()->routeIs('helpdesk.tickets')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Encerrados</span>
+                </li>
+                <li>
+                    <x-side-link :href="route('helpdesk.notifications')"
+                        :active="request()->routeIs('helpdesk.notifications')" class="w-full">
+                        <x-icon name="bell"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Notificações</span>
+                        @livewire('helpdesk::components.notification-dot')
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
-                    :active="request()->routeIs('helpdesk.settings.priorities')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
-                    </x-side-link>
-                    <x-side-link class="w-full">
+                </li>
+                <li x-data="{chamados:false}">
+                    <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#"
+                        :active="Request::is('helpdesk/painel/chamados', 'helpdesk/painel/chamados/*')">
+                        <x-icon name="collection"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
                         <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
                     </x-side-link>
-                </div>
-            </li>
-            <li x-data="{open:false}">
-                <x-side-link class="w-full" x-on:click="open = ! open" href="#"
-                    :active="Request::is('helpdesk/painel/configuracoes/*')">
-                    <x-icon name="cog"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Configurações</span>
-                </x-side-link>
-                <div x-show="open" x-transition>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.category')"
-                        :active="request()->routeIs('helpdesk.settings.category')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
+                    <div x-show="chamados" x-transition>
+                        <x-side-link class="w-full" :href="route('helpdesk.tickets.create')"
+                            :active="request()->routeIs('helpdesk.tickets.create')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Novo</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.tickets')"
+                            :active="request()->routeIs('helpdesk.tickets')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Encerrados</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
+                            :active="request()->routeIs('helpdesk.settings.priorities')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
+                        </x-side-link>
+                        <x-side-link class="w-full">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
+                        </x-side-link>
+                    </div>
+                </li>
+                <li x-data="{open:false}">
+                    <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                        :active="Request::is('helpdesk/painel/configuracoes/*')">
+                        <x-icon name="cog"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Configurações</span>
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
-                        :active="request()->routeIs('helpdesk.settings.sub-category')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Sub-Categorias</span>
+                    <div x-show="open" x-transition>
+                        <x-side-link class="w-full" :href="route('helpdesk.settings.category')"
+                            :active="request()->routeIs('helpdesk.settings.category')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Categorias</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.settings.sub-category')"
+                            :active="request()->routeIs('helpdesk.settings.sub-category')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Sub-Categorias</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
+                            :active="request()->routeIs('helpdesk.settings.priorities')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.settings.statuses')"
+                            :active="request()->routeIs('helpdesk.settings.statuses')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Status</span>
+                        </x-side-link>
+                    </div>
+                </li>
+                <li x-data="{open:false}">
+                    <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                        :active="Request::is('helpdesk/painel/relatorios', 'helpdesk/painel/relatorios/*')">
+                        <x-icon name="document-report"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Relatórios</span>
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
-                    :active="request()->routeIs('helpdesk.settings.priorities')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
+                    <div x-show="open" x-transition>
+                        <x-side-link class="w-full" href="{{route('helpdesk.reports')}}"
+                            :active="request()->routeIs('helpdesk.reports')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
+                        </x-side-link>
+                        <x-side-link class="w-full" :href="route('helpdesk.reports.ticket-by-date')"
+                            :active="request()->routeIs('helpdesk.reports.ticket-by-date')">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Período</span>
+                        </x-side-link>
+                        <x-side-link class="w-full">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Categoria</span>
+                        </x-side-link>
+                    </div>
+                </li>
+                <li>
+                    <x-side-link class="w-full" href="#">
+                        <x-icon name="book-open"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                        </x-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Base de Conhecimento</span>
                     </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.settings.statuses')"
-                    :active="request()->routeIs('helpdesk.settings.statuses')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Status</span>
-                    </x-side-link>
-                </div>
-            </li>
-            <li x-data="{open:false}">
-                <x-side-link class="w-full" x-on:click="open = ! open" href="#"
-                    :active="Request::is('helpdesk/painel/relatorios', 'helpdesk/painel/relatorios/*')">
-                    <x-icon name="document-report"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Relatórios</span>
-                </x-side-link>
-                <div x-show="open" x-transition>
-                    <x-side-link class="w-full" href="{{route('helpdesk.reports')}}"
-                        :active="request()->routeIs('helpdesk.reports')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
-                    </x-side-link>
-                    <x-side-link class="w-full" :href="route('helpdesk.reports.ticket-by-date')"
-                        :active="request()->routeIs('helpdesk.reports.ticket-by-date')">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Período</span>
-                    </x-side-link>
-                    <x-side-link class="w-full">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Categoria</span>
-                    </x-side-link>
-                </div>
-            </li>
-            <li>
-                <x-side-link class="w-full" href="#">
-                    <x-icon name="book-open"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
-                    </x-icon>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Base de Conhecimento</span>
-                </x-side-link>
 
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </aside>
