@@ -82,7 +82,8 @@
     <div id="logo-sidebar"
         class="fixed top-0 left-0 z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar" :class="expanded ? 'sm:w-64' : 'sm:w-14'" x-transition>
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800" @mouseover="expanded = true" @mouseleave="expanded = false">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800" @mouseover="expanded = true"
+            @mouseleave="expanded = false">
             <ul class="space-y-2 font-medium">
                 <li>
                     <x-side-link :href="route('helpdesk.dashboard')" :active="request()->routeIs('helpdesk.dashboard')"
@@ -96,13 +97,13 @@
                 <li>
                     <x-side-link :href="route('helpdesk.notifications')"
                         :active="request()->routeIs('helpdesk.notifications')" class="w-full">
-                        <x-icon name="bell"
+                        <x-icon name="bell" :class="{'text-blue-400': {{auth()->user()->unreadNotifications}}}"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
                         <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Notificações
                             @livewire('helpdesk::components.notification-dot')
                         </span>
-                        
+
                     </x-side-link>
                 </li>
                 <li x-data="{chamados:false}">
@@ -113,23 +114,19 @@
                         </x-icon>
                         <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Chamados</span>
                     </x-side-link>
-                    <div x-show="chamados" x-transition>
-                        <x-side-link class="w-full" :href="route('helpdesk.tickets.create')"
-                            :active="request()->routeIs('helpdesk.tickets.create')">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Novo</span>
-                        </x-side-link>
-                        <x-side-link class="w-full" :href="route('helpdesk.tickets')"
-                            :active="request()->routeIs('helpdesk.tickets')">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Encerrados</span>
-                        </x-side-link>
-                        <x-side-link class="w-full" :href="route('helpdesk.settings.priorities')"
-                            :active="request()->routeIs('helpdesk.settings.priorities')">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Prioridades</span>
-                        </x-side-link>
-                        <x-side-link class="w-full">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados</span>
-                        </x-side-link>
-                    </div>
+                    <ul x-show="chamados" x-transition x-data="{items:[
+                            {id: 1, label: 'Novo', link: '{{route("helpdesk.tickets.create")}}', active: 'helpdesk.tickets.create' },
+                            {id: 2, label: 'Encerrados', link: '{{route("helpdesk.tickets")}}', active: 'helpdesk.tickets' },
+                            {id: 3, label: 'Prioridades', link: '{{route("helpdesk.settings.priorities")}}', active: 'helpdesk.settings.priorities' },
+                            ]}">
+                        <template x-for="item in items" :key="item.id">
+                            <li>
+                                <x-side-link class="w-full" ::href="item.link" ::active="request()->routeIs(item.active)">
+                                    <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
+                                </x-side-link>
+                            </li>
+                        </template>
+                    </ul>
                 </li>
                 <li x-data="{open:false}">
                     <x-side-link class="w-full" x-on:click="open = ! open" href="#"
