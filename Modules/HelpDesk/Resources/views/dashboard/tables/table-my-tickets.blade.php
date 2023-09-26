@@ -1,5 +1,5 @@
 @isset($my_tickets)
-<div class="py-2 mx-auto space-y-2 max-w-7xl">
+<div class="max-w-full py-2 mx-auto space-y-2">
     <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
         @php 
         $status = \Modules\HelpDesk\Entities\TicketStatus::find($activeStatus);
