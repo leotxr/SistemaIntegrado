@@ -50,11 +50,13 @@
                             </div>
                         </div>
                     </div>
+                    {{--
                     @foreach($users as $user)
                     @php
-                    $user->budgets_count > 0 ? var_dump($user->budgets_count) : '';
+                    var_dump($user->budgets->whereBetween('budget_date', [$initial_date, $final_date])->count());
                     @endphp
                     @endforeach
+                    --}}
                 </div>
             </x-slot>
 
@@ -65,7 +67,7 @@
         @include('orcamento::reports.tables.table-totalizer-budgets')
     </div>
 
-    {{--MODAL--}}
+    {{--MODAL
     <x-modal.dialog wire:model.defer="modalFilters">
         <x-slot name="title">
             Filtros de pesquisa
@@ -91,6 +93,7 @@
                     @endif
                     @endforeach
                 </div>
+                
                 <div class="p-4 border-2">
                     <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Selecionar Status</h3>
                     @foreach($statuses as $status)
@@ -108,6 +111,7 @@
                     </ul>
                     @endforeach
                 </div>
+                
             </div>
 
         </x-slot>
@@ -116,4 +120,5 @@
         </x-slot>
 
     </x-modal.dialog>
+    --}}
 </div>
