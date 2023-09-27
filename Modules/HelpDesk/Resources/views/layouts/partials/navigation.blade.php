@@ -106,15 +106,15 @@
 
                     </x-side-link>
                 </li>
-                <li x-data="{chamados:false}">
-                    <x-side-link class="w-full" x-on:click="chamados = ! chamados" href="#"
+                <li x-data="{open:false}">
+                    <x-side-link class="w-full" x-on:click="open = ! open" href="#"
                         :active="Request::is('helpdesk/painel/chamados', 'helpdesk/painel/chamados/*')">
                         <x-icon name="collection"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
                         <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Chamados</span>
                     </x-side-link>
-                    <ul x-show="chamados" x-transition x-data="{items:[
+                    <ul x-show="open" x-transition x-data="{items:[
                             {id: 1, label: 'Novo', link: '{{route("helpdesk.tickets.create")}}', active: 'helpdesk.tickets.create' },
                             {id: 2, label: 'Encerrados', link: '{{route("helpdesk.tickets")}}', active: 'helpdesk.tickets' },
                             {id: 3, label: 'Prioridades', link: '{{route("helpdesk.settings.priorities")}}', active: 'helpdesk.settings.priorities' },
