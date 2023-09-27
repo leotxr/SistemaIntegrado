@@ -23,7 +23,7 @@ class TopUsers extends Component
         $this->users = User::permission('criar orcamento')->get();
 
         foreach ($this->users as $user) {
-            if ($user->relBudgets->count() > 0) {
+            if ($user->budgets->count() > 0) {
                 $this->values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subMonths($this->submonth), today()->subMonths(0)])->count();
                 $this->user_names[] = $user->name;
             }
@@ -35,7 +35,7 @@ class TopUsers extends Component
         $this->submonth = $submonth;
 
         foreach ($this->users as $user) {
-            if ($user->relBudgets->count() > 0) {
+            if ($user->budgets->count() > 0) {
                 $values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subMonths($this->submonth), today()->subMonths(0)])->count();
                 $user_names[] = $user->name;
             }

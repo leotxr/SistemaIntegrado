@@ -34,7 +34,9 @@ class ChangedBudgets extends Component
     {
         $range = [
             'initial_date' => $this->initial_date,
-            'final_date' => $this->final_date
+            'final_date' => $this->final_date,
+            'selected_users' => $this->selectedUsers,
+            'selected_statuses' => $this->selectedStatuses
         ];
         return Excel::download(new BudgetsExport($range), 'solicitacoes-alteradas' . $this->initial_date . '-' . $this->final_date . '.xlsx');
     }

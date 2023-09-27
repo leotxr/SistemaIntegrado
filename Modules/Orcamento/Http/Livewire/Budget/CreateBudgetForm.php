@@ -123,7 +123,7 @@ class CreateBudgetForm extends Component
         return view('orcamento::livewire.budget.create-budget-form', [
             'plans' => BudgetPlan::where('active', 1)->get(),
             'exams' => $this->exams,
-            'statuses' => BudgetStatus::all(),
+            'statuses' => BudgetStatus::orderBy('id', 'DESC')->get(),
             'types' => BudgetType::all()
         ]);
     }

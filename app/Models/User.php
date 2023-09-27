@@ -78,7 +78,7 @@ class User extends Authenticatable
         return $this->hasMany(MissedTime::class, 'user_id');
     }
 
-    public function relBudgets()
+    public function budgets()
     {
         return $this->hasMany(Budget::class, 'user_id');
     }

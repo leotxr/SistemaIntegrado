@@ -13,11 +13,15 @@ class BudgetsExport implements FromView
 
     public $start;
     public $end;
+    public $users;
+    public $statuses;
 
     public function __construct($range)
     {
         $this->start = $range['initial_date'];
         $this->end = $range['final_date'];
+        $this->users = $range['selected_users'];
+        $this->statuses = $range['selected_statuses'];
     }
 
 
@@ -30,6 +34,8 @@ class BudgetsExport implements FromView
             'orcamento::reports.tables.table-changed-budgets',
             ['orcamentos' => Budget::whereColumn('updated_at', '>', 'created_at')
                 ->whereBetween('budget_date', [$this->start, $this->end])
+                ->whereIn('last_user_id', $this->users)
+                ->whereIn('budget_status_id', $this->statuses)
                 ->get()]
         );
     }

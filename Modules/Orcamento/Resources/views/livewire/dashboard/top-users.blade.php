@@ -11,13 +11,13 @@
                 </x-slot>
                 <x-slot name="body">
                     @foreach($users as $user)
-                    @if($user->relBudgets->count() > 0)
+                    @if($user->budgets->count() > 0)
                     <x-table.row>
                         <x-table.cell>{{$user->name}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 3)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 2)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->where('budget_status_id', 1)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
-                        <x-table.cell>{{$user->relBudgets->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->budgets->where('budget_status_id', 3)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->budgets->where('budget_status_id', 2)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->budgets->where('budget_status_id', 1)->whereBetween('budget_date', [today()->subMonths($submonth), today()->subMonths(0)])->count()}}</x-table.cell>
+                        <x-table.cell>{{$user->budgets->count()}}</x-table.cell>
                     </x-table.row>
                     @endif
                     @endforeach
