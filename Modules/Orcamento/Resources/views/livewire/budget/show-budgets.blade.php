@@ -38,7 +38,7 @@
                             <input type="date" wire:model='final_date' id="final_date" class="border-gray-300 input">
                         </div>
 
-                        <div class="col-span-1 sm:col-span-3">
+                        <div class="col-span-1 sm:col-span-4">
                             <h3 class="py-1 font-semibold text-gray-900 dark:text-white">Status</h3>
                             <ul
                                 class="items-center w-full my-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
