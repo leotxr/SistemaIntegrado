@@ -120,8 +120,8 @@
                             {id: 3, label: 'Prioridades', link: '{{route("helpdesk.settings.priorities")}}', active: 'helpdesk.settings.priorities' },
                             ]}">
                         <template x-for="item in items" :key="item.id">
-                            <li>
-                                <x-side-link class="w-full" ::href="item.link" ::active="request()->routeIs(item.active)">
+                            <li x-show="expanded">
+                                <x-side-link class="w-full" ::href="item.link" >
                                     <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
                                 </x-side-link>
                             </li>
