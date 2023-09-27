@@ -23,7 +23,7 @@ class TotalizerBudgets extends Component
             'statuses' => BudgetStatus::all(),
             'orcamentos' => Budget::whereBetween('budget_date', [$this->initial_date, $this->final_date])
                 ->get(),
-            'users' => User::permission('criar orcamento')->get(),
+            'users' => User::permission('criar orcamento')->orderBy('name', 'ASC')->get(),
         ]);
     }
 }
