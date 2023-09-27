@@ -30,11 +30,16 @@
         </x-table.row>
         @endif
         @endforeach
-        <x-table.row class="cursor-pointer hover:bg-gray-100">
+        <x-table.row class="text-gray-800 cursor-pointer hover:bg-gray-100 dark:text-gray-50">
             <x-table.cell class="font-bold">
                 Total Geral
             </x-table.cell>
-            <x-table.cell>
+            @foreach($statuses as $status)
+            <x-table.cell class="font-bold">
+                {{$orcamentos->where('budget_status_id', $status->id)->count()}}
+            </x-table.cell>
+            @endforeach
+            <x-table.cell class="font-bold">
                 {{$orcamentos->count()}}
             </x-table.cell>
         </x-table.row>
