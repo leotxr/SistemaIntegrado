@@ -30,5 +30,13 @@
         </x-table.row>
         @endif
         @endforeach
+        <x-table.row class="cursor-pointer hover:bg-gray-100">
+            <x-table.cell class="font-bold">
+                Total Geral
+            </x-table.cell>
+            <x-table.cell>
+                {{$orcamentos->count()}}
+            </x-table.cell>
+        </x-table.row>
     </x-slot>
 </x-table>
