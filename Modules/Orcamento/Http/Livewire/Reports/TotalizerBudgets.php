@@ -34,6 +34,7 @@ class TotalizerBudgets extends Component
         return view('orcamento::livewire.reports.totalizer-budgets', [
             'statuses' => BudgetStatus::all(),
             'orcamentos' => Budget::whereBetween('budget_date', [$this->initial_date, $this->final_date])
+                ->whereColumn('updated_at', '=', 'created_at')
                 ->get(),
             'users' => User::permission('criar orcamento')->orderBy('name', 'ASC')->get(),
         ]);
