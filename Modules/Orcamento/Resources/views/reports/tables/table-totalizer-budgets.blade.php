@@ -21,7 +21,7 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell>
-                {{$user->budgets->where('budget_status_id', $status->id)->whereBetween('budget_date', [$initial_date, $final_date])->whereColumn('created_at', '=', 'updated_at')->count()}}
+                {{$user->budgets->where('budget_status_id', $status->id)->whereColumn('created_at', '=', 'updated_at')->whereBetween('budget_date', [$initial_date, $final_date])->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell>
