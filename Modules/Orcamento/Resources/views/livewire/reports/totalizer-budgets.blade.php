@@ -63,7 +63,7 @@
         </x-accordion>
     </div>
     <div class="mt-4">
-      
+
         @include('orcamento::reports.tables.table-totalizer-budgets')
     </div>
 
