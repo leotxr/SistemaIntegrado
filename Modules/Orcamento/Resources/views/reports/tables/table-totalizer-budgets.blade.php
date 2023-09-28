@@ -14,6 +14,9 @@
     </x-slot>
     <x-slot name="body">
         @foreach($users as $user)
+        @php
+        var_dump($user->budgets->where('budgets.updated_at', '=', 'budgets.created_at')->count())
+        @endphp
         @if($user->budgets->count() > 0)
         <x-table.row class="cursor-pointer hover:bg-gray-100">
             <x-table.cell>
@@ -21,11 +24,11 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell>
-                {{$user->budgets->where('budget_status_id', $status->id)->whereBetween('budget_date', [$initial_date, $final_date])->where('created_at', '=', 'updated_at')->count()}}
+                {{$user->budgets->where('budgets.updated_at', '=', 'budgets.created_at')->where('budget_status_id', $status->id)->whereBetween('budget_date', [$initial_date, $final_date])->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell>
-                {{$user->budgets->whereBetween('budget_date', [$initial_date, $final_date])->where('created_at', '=', 'updated_at')->count()}}
+                {{$user->budgets->where('budgets.updated_at', '=', 'budgets.created_at')->whereBetween('budget_date', [$initial_date, $final_date])->count()}}
             </x-table.cell>
         </x-table.row>
         @endif
@@ -36,11 +39,11 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell class="font-bold">
-                {{$orcamentos->where('budget_status_id', $status->id)->where('created_at', '=', 'updated_at')->count()}}
+                {{$orcamentos->where('updated_at', '=', 'created_at')->where('budget_status_id', $status->id)->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell class="font-bold">
-                {{$orcamentos->where('created_at', '=', 'updated_at')->count()}}
+                {{$orcamentos->where('updated_at', '=', 'created_at')->count()}}
             </x-table.cell>
         </x-table.row>
     </x-slot>
