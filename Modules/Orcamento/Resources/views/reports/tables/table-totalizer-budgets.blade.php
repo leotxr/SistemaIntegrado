@@ -15,7 +15,7 @@
     <x-slot name="body">
         @foreach($users as $user)
         @php
-        var_dump($user->budgets->where('budgets.updated_at', '=', 'budgets.created_at')->count())
+        var_dump($user->budgets->where('budgets.updated_at', '!=', 'budgets.created_at')->count())
         @endphp
         @if($user->budgets->count() > 0)
         <x-table.row class="cursor-pointer hover:bg-gray-100">
