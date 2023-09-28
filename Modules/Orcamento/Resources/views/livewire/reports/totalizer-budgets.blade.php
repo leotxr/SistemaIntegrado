@@ -63,7 +63,9 @@
         </x-accordion>
     </div>
     <div class="mt-4">
-
+        @php
+        var_dump($users->where('created_at', '!=', 'updated_at'))
+        @endphp
         @include('orcamento::reports.tables.table-totalizer-budgets')
     </div>
 
