@@ -79,6 +79,7 @@ class CreateBudgetForm extends Component
         $this->orcamento->total_value = $this->total;
         $this->orcamento->budget_date = date('Y-m-d');
         $this->orcamento->budget_status_id = $this->budget_status_id ?? 1;
+        $this->orcamento->initial_status_id = $this->orcamento->budget_status_id;
         $this->orcamento->budget_type_id = $this->budget_type_id;
         $this->orcamento->save();
 
