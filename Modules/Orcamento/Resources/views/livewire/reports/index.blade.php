@@ -15,7 +15,7 @@
         items: [
             {id: 1, label: 'Solicitações alteradas', desc: 'Exibe solicitações que tiveram status alterado por algum atendente.', link: 'relatorio/solicitacoes-alteradas'},
             {id: 2, label: 'Solicitações por período', desc: 'Exibe todas as solicitações em um período.', link: 'relatorio'},
-            {id: 3, label: 'Totalizador Solicitações', desc: 'Exibe o total de solicitações de um determinado status', link: 'relatorio/totalizador-solicitacoes'}
+            {id: 3, label: 'Totalizador Solicitações criadas por Status', desc: 'Exibe o total de solicitações criadas por status', link: 'relatorio/totalizador-solicitacoes-criadas'}
         ]
     }">
                     <template x-for="item in items" :key="item.id">

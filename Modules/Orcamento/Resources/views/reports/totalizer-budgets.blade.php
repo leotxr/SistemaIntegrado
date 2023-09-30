@@ -2,7 +2,7 @@
 @section('header')
 
 <h2 class="space-x-2 text-xl leading-tight text-gray-800 divide-x-2 dark:text-gray-200 divide">
-    <span class="font-light"><a href="{{route('orcamento.reports')}}"> Relatórios </a></span> <span class="px-2 font-bold">Totalizador de Solicitações</span>
+    <span class="font-light"><a href="{{route('orcamento.reports')}}"> Relatórios </a></span> <span class="px-2 font-bold">Totalizador Solicitações criadas por Status</span>
 </h2>
 
 @endsection

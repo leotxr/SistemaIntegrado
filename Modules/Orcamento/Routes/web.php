@@ -32,7 +32,7 @@ Route::get('/relatorio', '\Modules\Orcamento\Http\Livewire\Reports\Index@__invok
             Route::get('/solicitacoes-alteradas', function(){
                 return view('orcamento::reports.changed-budgets');
             })->name('orcamento.changed-budgets');
-            Route::get('/totalizador-solicitacoes', function(){
+            Route::get('/totalizador-solicitacoes-criadas', function(){
                 return view('orcamento::reports.totalizer-budgets');
             })->name('orcamento.totalizer-budgets');
         });

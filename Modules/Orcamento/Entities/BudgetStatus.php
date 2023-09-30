@@ -11,7 +11,9 @@ class BudgetStatus extends Model
 
     protected $fillable = [
         'name', 
-        'description'
+        'description',
+        'color',
+        'type_id'
     ];
 
     public function statusBudget()

@@ -6,50 +6,58 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Modules\Orcamento\Entities\Budget;
+use Modules\Orcamento\Entities\BudgetStatus;
 
 class TopUsers extends Component
 {
     public $users;
     public $values = [];
     public $user_names = [];
-    public $submonth = 1;
+    public $submonth;
 
     protected $listeners = [
-        'change-submonth' => 'fetchData'
+        'refreshChildren' => 'refreshUserCount'
     ];
 
-    public function mount()
-    {
-        $this->users = User::permission('criar orcamento')->get();
-
-        foreach ($this->users as $user) {
-            if ($user->budgets->count() > 0) {
-                $this->values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subMonths($this->submonth), today()->subMonths(0)])->count();
-                $this->user_names[] = $user->name;
-            }
-        }
-    }
-
-    public function fetchData($submonth)
+    public function refreshUserCount($submonth)
     {
         $this->submonth = $submonth;
 
         foreach ($this->users as $user) {
             if ($user->budgets->count() > 0) {
-                $values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subMonths($this->submonth), today()->subMonths(0)])->count();
+                $values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subDays($this->submonth), today()->subDays(0)])->count();
                 $user_names[] = $user->name;
             }
         }
-        $this->values = array_replace($this->values, $values);
-        $this->user_names = array_replace($this->user_names, $user_names);
-        $this->emit('refreshChart', ['seriesData' => $this->values, 'labelData' => $this->user_names]);
+        $values = array_replace($this->values, $values);
+        $user_names = array_replace($this->user_names, $user_names);
+        $this->emit('refreshUserChart', ['seriesUserData' => $values]);
     }
+
+    public function mount($submonth)
+    {
+        $this->submonth = $submonth;
+        $this->users = User::permission('criar orcamento')->get();
+
+        foreach ($this->users as $user) {
+            if ($user->budgets->count() > 0) {
+                $this->values[] = Budget::whereBelongsTo($user, 'User')->whereBetween('budget_date', [today()->subDays($this->submonth), today()->subDays(0)])->count();
+                $this->user_names[] = $user->name;
+            }
+        }
+    }
+
+    
 
 
     public function render()
     {
        
         
-        return view('orcamento::livewire.dashboard.top-users');
+        return view('orcamento::livewire.dashboard.top-users', 
+        ['statuses' => BudgetStatus::where('type_id', 1)->get(),
+        'orcamentos' => Budget::whereBetween('budget_date', [today()->subDays($this->submonth), today()->subDays(0)])
+        ->whereIn('initial_status_id', [1, 2, 3])
+            ->get()]);
     }
 }

@@ -16,10 +16,12 @@ class Budget extends Model
         'patient_phone',
         'discount',
         'total_value',
-        'budget_status_id',
+        'initial_status_id',
         'user_id',
+        'budget_status_id',
         'last_user_id',
-        'budget_type_id'
+        'budget_type_id',
+        'budget_date'
     ];
 
     public function relExams()
@@ -30,6 +32,11 @@ class Budget extends Model
     public function relStatus()
     {
         return $this->belongsTo(BudgetStatus::class, 'budget_status_id', 'id');
+    }
+
+    public function initialStatus()
+    {
+        return $this->belongsTo(BudgetStatus::class, 'initial_status_id', 'id');
     }
 
     public function relBudgetType()

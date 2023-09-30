@@ -21,7 +21,7 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell>
-                {{$orcamentos->where('user_id', $user->id)->where('budget_status_id', $status->id)->count()}}
+                {{$orcamentos->where('initial_status_id', $status->id)->where('user_id', $user->id)->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell>
@@ -36,7 +36,7 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell class="font-bold">
-                {{$orcamentos->where('budget_status_id', $status->id)->count()}}
+                {{$orcamentos->where('initial_status_id', $status->id)->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell class="font-bold">

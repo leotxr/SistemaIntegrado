@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('patient_phone')->nullable();
             $table->float('discount')->nullable();
             $table->float('total_value')->nullable();
-            $table->unsignedBigInteger('budget_status_id')->default(1);
-            $table->foreign('budget_status_id')
+            $table->unsignedBigInteger('initial_status_id')->default(1);
+            $table->foreign('initial_status_id')
             ->references('id')
             ->on('budget_statuses')
             ->onDelete('cascade')
@@ -30,6 +30,12 @@ return new class extends Migration
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->unsignedBigInteger('budget_status_id')->default(1);
+            $table->foreign('budget_status_id')
+            ->references('id')
+            ->on('budget_statuses')
             ->onDelete('cascade')
             ->onUpdate('cascade');
             $table->unsignedBigInteger('last_user_id');
