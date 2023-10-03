@@ -69,7 +69,7 @@
                     @endphp
                     <x-table.row>
                         <x-table.cell>
-                            @if($aguardando->ATRASO < 200) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
+                            @if($aguardando->ATRASO < 900) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
                                 </x-icon>
                                 @else
                                 <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
