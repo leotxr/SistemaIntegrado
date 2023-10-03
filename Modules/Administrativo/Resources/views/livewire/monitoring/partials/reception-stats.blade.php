@@ -27,7 +27,7 @@
                         <span class="text-4xl font-bold text-gray-700 dark:text-gray-50">{{$waiting->whereIn('TIPOFILA', ['A', 'P'])->count()}}</span>
                     </div>
                     <div>
-                        <span class="text-gray-500 text-md font-regular dark:text-gray-200">Agendamento</span>
+                        <span class="text-gray-500 text-md font-regular dark:text-gray-200">Atendimento</span>
                     </div>
                 </div>
                 <div>
@@ -56,7 +56,7 @@
                         <span class="text-4xl font-bold text-gray-700 dark:text-gray-50">{{$served->whereIn('TIPOFILA', ['A', 'P'])->count()}}</span>
                     </div>
                     <div>
-                        <span class="text-gray-500 text-md font-regular dark:text-gray-200">Agendamento</span>
+                        <span class="text-gray-500 text-md font-regular dark:text-gray-200">Atendimento</span>
                     </div>
                 </div>
                 <div>
