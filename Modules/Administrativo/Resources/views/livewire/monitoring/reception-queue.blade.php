@@ -1,4 +1,4 @@
-<div wire:poll.30000ms='refreshMe'>
+<div wire:poll.5000ms='refreshMe'>
     {{date('H:i:sa')}}
     {{strtotime(date('H:i:sa'))}}
     <div
