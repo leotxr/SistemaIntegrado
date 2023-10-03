@@ -1,4 +1,6 @@
-<div wire:poll.60000ms='refreshMe'>
+<div wire:poll.5000ms='refreshMe'>
+    {{date('H:i:sa')}}
+    {{strtotime(date('H:i:sa'))}}
     <div
         class="grid w-full grid-cols-2 gap-1 px-2 py-4 bg-white divide-x-2 shadow-sm dark:bg-gray-800 sm:grid-cols-10 divide-solid">
         <div class="col-span-2 text-center sm:col-span-2">
