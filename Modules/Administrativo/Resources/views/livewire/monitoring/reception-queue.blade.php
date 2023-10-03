@@ -3,7 +3,7 @@
     <div>
         @include('administrativo::livewire.monitoring.partials.reception-stats')
     </div>
-    
+
     <div class="grid grid-cols-1 gap-1 px-2 py-2 sm:grid-cols-10">
         <div class="col-span-1 overflow-auto bg-white h-96 sm:col-span-5 dark:bg-gray-800">
             <x-table>
@@ -21,7 +21,8 @@
                     @endphp
                     <x-table.row>
                         <x-table.cell>
-                            @if($aguardando->ATRASO < 900) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
+                            @if($aguardando->ATRASO < 900) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500"
+                                solid>
                                 </x-icon>
                                 @else
                                 <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
@@ -61,11 +62,14 @@
                     @endphp
                     <x-table.row>
                         <x-table.cell>
-                            @if($espera < 900) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
+                            @if($espera < 600) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
                                 </x-icon>
-                                @else
-                                <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
-                                @endif
+                                @elseif($espera > 600 && $espera < 900) <x-icon name="emoji-neutral"
+                                    class="w-10 h-10 text-yellow-400" solid>
+                                    </x-icon>
+                                    @else
+                                    <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
+                                    @endif
                         </x-table.cell>
                         <x-table.cell>
                             {{$atendido->SENHA}}
