@@ -23,5 +23,5 @@ Route::prefix('administrativo')->group(function () {
         return view('administrativo::monitoramento.reception');
     })->name('adm.reception');
     
-    Route::resource('administrativo', AdministrativoController::class);
+    Route::get('/', [AdministrativoController::class, 'index'])->name('administativo.index');
 });

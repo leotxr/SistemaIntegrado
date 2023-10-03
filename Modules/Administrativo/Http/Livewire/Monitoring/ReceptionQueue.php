@@ -30,6 +30,8 @@ class ReceptionQueue extends Component
         $this->queue = $this->getWaitQueue($this->today)->get();
         $this->served = $this->getWaitQueue($this->today)->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')->get();
         $this->waiting = $this->getWaitQueue($this->today)->where('TOTEM_FILAS_ESPERA.ATENDIDO', 'F')->get();
+
+        //dd($this->queue, $this->served, $this->waiting);
     }
 
 
