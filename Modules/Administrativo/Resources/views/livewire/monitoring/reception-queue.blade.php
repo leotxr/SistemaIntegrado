@@ -15,7 +15,7 @@
                     <x-table.heading>Espera</x-table.heading>
                 </x-slot>
                 <x-slot name="body">
-                    @foreach($waiting->sortByAsc('HORACHEGADA') as $aguardando)
+                    @foreach($waiting->sortBy('HORACHEGADA') as $aguardando)
                     @php
                     //$espera = strtotime(now('H:i:s')) - $aguardando->HORACHEGADA;
                     @endphp
