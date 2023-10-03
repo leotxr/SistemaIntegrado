@@ -1,4 +1,4 @@
-<div wire:poll.60000ms='refreshMe'>
+<div wire:poll.5000ms='refreshMe'>
     {{date('H:i:sa')}}
     <div>
         @include('administrativo::livewire.monitoring.partials.reception-stats')
@@ -15,7 +15,7 @@
                     <x-table.heading>Espera</x-table.heading>
                 </x-slot>
                 <x-slot name="body">
-                    @foreach($waiting->sortByDesc('HORACHEGADA') as $aguardando)
+                    @foreach($waiting->sortByAsc('HORACHEGADA') as $aguardando)
                     @php
                     //$espera = strtotime(now('H:i:s')) - $aguardando->HORACHEGADA;
                     @endphp
