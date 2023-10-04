@@ -65,7 +65,7 @@ class ShowBudgets extends Component
                 ->whereBetween('budget_date', [$this->initial_date, $this->final_date])
                 ->where('budget_type_id', $this->selectedType)
                 ->paginate(10),
-            'statuses' => BudgetStatus::orderBy('id', 'DESC')->get(),
+            'statuses' => BudgetStatus::whereNot('type_id', 0)->orderBy('id', 'DESC')->get(),
             'types' => BudgetType::all()
         ]);
     }
