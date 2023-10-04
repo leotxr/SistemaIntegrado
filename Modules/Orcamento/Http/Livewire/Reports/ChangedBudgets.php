@@ -18,7 +18,7 @@ class ChangedBudgets extends Component
     public $search = '';
     public $modalFilters = false;
     public $selectedUsers = [];
-    public $selectedStatuses = [];
+    public $selectedStatuses = [2,3,4,5];
 
 
 
@@ -46,9 +46,10 @@ class ChangedBudgets extends Component
         return view('orcamento::livewire.reports.changed-budgets', ['statuses' => BudgetStatus::all(), 
             'orcamentos' => Budget::search('patient_name', $this->search)
             ->whereColumn('updated_at', '>', 'created_at')
-            ->whereBetween('updated_at', [$this->initial_date, $this->final_date])
+            ->whereBetween('updated_at', [$this->initial_date . ' 00:00:00', $this->final_date . ' 23:59:59'])
             ->whereIn('last_user_id', $this->selectedUsers)
             ->whereIn('budget_status_id', $this->selectedStatuses)
+            ->where('initial_status_id', 1)
             ->paginate(10),
             'users' => User::permission('criar orcamento')->get(),
             'statuses' => BudgetStatus::all()]);
