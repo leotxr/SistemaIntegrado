@@ -103,8 +103,8 @@ class CreateBudgetForm extends Component
         
         //$selectplan = BudgetPlan::find($this->plan['id']);
 
-        //if(isset($this->convenio) && $this->convenio->show_values === 0)
-        //$this->modalAlert = true;
+        if(isset($this->convenio) && $this->convenio->show_values === 0)
+        $this->modalAlert = true;
 
 
         if(isset($this->plan))

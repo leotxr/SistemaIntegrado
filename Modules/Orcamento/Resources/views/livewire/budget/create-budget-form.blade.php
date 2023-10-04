@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Total') }}" />
-                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$total}}</span>
+                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$convenio && $convenio->show_values != 0 ? $total : ''}}</span>
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Quantidade') }}" />
@@ -140,10 +140,10 @@
                                     {{$exam->DESCRICAO}}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$exam->PLANODESCRICAO}}
+                                    {{$convenio->show_values != 0 ? $exam->PLANODESCRICAO : 'Outros'}}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$exam->QUANTCH}}
+                                    {{$convenio->show_values != 0 ? $exam->QUANTCH : ''}}
                                 </x-table.cell>
                                 <x-table.cell>
                                     <button type="button"
