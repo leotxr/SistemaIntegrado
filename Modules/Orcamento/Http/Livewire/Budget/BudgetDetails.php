@@ -56,6 +56,6 @@ class BudgetDetails extends Component
 
     public function render()
     {
-        return view('orcamento::livewire.budget.budget-details', ['statuses' => BudgetStatus::whereIn('type_id', [2, 3])->get(), 'types' => BudgetType::all()]);
+        return view('orcamento::livewire.budget.budget-details', ['statuses' => BudgetStatus::whereIn('type_id', [2, 3])->orderBy('id', 'DESC')->get(), 'types' => BudgetType::all()]);
     }
 }
