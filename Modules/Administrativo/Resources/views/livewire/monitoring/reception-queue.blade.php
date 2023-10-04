@@ -6,7 +6,7 @@
     <div class="grid grid-cols-1 gap-1 px-2 py-2 sm:grid-cols-10">
         <div class="col-span-1 sm:col-span-5 dark:bg-gray-800">
             <div>
-                <span class="p-2 text-xl font-bold text-gray-800 dark:text-gray-50">
+                <span class="p-2 text-xl font-bold text-center text-gray-800 dark:text-gray-50">
                     Pacientes aguardando atendimento
                 </span>
             </div>
