@@ -14,7 +14,7 @@
                 @yield('header')
             </div>
         </header>
-        <main class="p-8">
+        <main class="p-4">
             @yield('content')
         </main>
     </div>
