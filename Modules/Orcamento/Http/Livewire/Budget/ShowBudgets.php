@@ -15,6 +15,7 @@ class ShowBudgets extends Component
     use WithPagination;
     public $modalBudget = false;
     public $modalDetails = false;
+    public $modalFilters = false;
     public Budget $showing;
     public $initial_date;
     public $final_date;
