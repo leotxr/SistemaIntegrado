@@ -11,7 +11,10 @@
     <div class="max-w-full px-12 justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
-                <a href="{{url('/administrativo/monitoramento')}}">Painel de monitoramento</a>
+                <a href="{{url('/administrativo/monitoramento')}}">Painel de monitoramento Livros</a>
+            </div>
+            <div>
+                <a href="{{url('/administrativo/recepcao/fila-de-espera')}}">Fila de Espera Recepção</a>
             </div>
         </div>
     </div>
