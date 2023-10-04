@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="col-span-1 sm:col-span-5 dark:bg-gray-800">
-            <div>
+            <div class="text-center">
                 <span class="p-2 text-xl font-bold text-gray-800 dark:text-gray-50">
                     Pacientes atendidos
                 </span>
