@@ -1,4 +1,7 @@
 <div>
+    {{now = now()}}
+    {{gmdate = gmdate()}}
+    {{date = date()}}
     <div class=" row">
         @livewire('helpdesk::dashboard.ticket-tabs')
     </div>
