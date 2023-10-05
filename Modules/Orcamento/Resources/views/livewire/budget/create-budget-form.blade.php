@@ -96,7 +96,7 @@
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Total') }}" />
-                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$convenio && $convenio->show_values != 0 ? $total : ''}}</span>
+                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$total}}</span>
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Quantidade') }}" />
@@ -140,10 +140,22 @@
                                     {{$exam->DESCRICAO}}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$convenio->show_values != 0 ? $exam->PLANODESCRICAO : 'Outros'}}
+                                    {{$convenio->active != 0 ? $exam->PLANODESCRICAO : 'Outros'}}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$convenio->show_values != 0 ? $exam->QUANTCH : ''}}
+                                    @if($convenio->active != 0)
+                                    <div x-data="{show: false}">
+                                        <div x-show="!show">
+                                            <a class="cursor-pointer"
+                                                x-on:click="[$wire.set('modalAlert', 'true'), show = ! show]">
+                                                <x-icon name="eye-off" class="w-6 h-6"></x-icon>
+                                            </a>
+                                        </div>
+                                        <div x-show.important="show" x-on:click="show = ! show" class="cursor-pointer">
+                                            {{$exam->QUANTCH}}
+                                        </div>
+                                    </div>
+                                    @endif
                                 </x-table.cell>
                                 <x-table.cell>
                                     <button type="button"

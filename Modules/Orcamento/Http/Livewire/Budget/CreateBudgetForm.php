@@ -54,9 +54,10 @@ class CreateBudgetForm extends Component
     }
 
 
-    public function selectExam($descricao, $valor, $convenio)
+    public function selectExam($descricao, $valor, BudgetPlan $convenio)
     {
-        $cartExam = new BudgetCart(['id' => $this->count + 1, 'exam_name' => $descricao, 'exam_value' => $valor, 'plan_id' => $convenio]);
+        //$convenio->active === 0 
+        $cartExam = new BudgetCart(['id' => $this->count + 1, 'exam_name' => $descricao, 'exam_value' => $convenio->active != 0 ? $valor : 0.0, 'plan_id' => $convenio->id]);
 
         $this->selectedExams->push($cartExam);
         $this->total = $this->selectedExams->sum('exam_value');
@@ -103,8 +104,8 @@ class CreateBudgetForm extends Component
         
         //$selectplan = BudgetPlan::find($this->plan['id']);
 
-        if(isset($this->convenio) && $this->convenio->show_values === 0)
-        $this->modalAlert = true;
+       // if(isset($this->convenio) && $this->convenio->show_values === 0)
+        //$this->modalAlert = true;
 
 
         if(isset($this->plan))
@@ -122,7 +123,7 @@ class CreateBudgetForm extends Component
         }
 
         return view('orcamento::livewire.budget.create-budget-form', [
-            'plans' => BudgetPlan::where('active', 1)->get(),
+            'plans' => BudgetPlan::get(),
             'exams' => $this->exams,
             'statuses' => BudgetStatus::whereIn('type_id', [1, 2])->orderBy('id', 'DESC')->get(),
             'types' => BudgetType::all()

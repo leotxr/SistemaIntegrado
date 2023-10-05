@@ -74,9 +74,6 @@
                         Telefone
                     </x-table.heading>
                     <x-table.heading>
-                        Valor
-                    </x-table.heading>
-                    <x-table.heading>
                         Status
                     </x-table.heading>
                 </x-slot>
@@ -95,9 +92,6 @@
                         </x-table.cell>
                         <x-table.cell>
                             {{$orcamento->patient_phone}}
-                        </x-table.cell>
-                        <x-table.cell>
-                            R$ {{$orcamento->total_value}}
                         </x-table.cell>
                         <x-table.cell>
                             <span
