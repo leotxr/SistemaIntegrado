@@ -3,6 +3,7 @@
         now - {{now()}}
         gmdate - {{gmdate('d/m/Y H:i:s')}}
         date - {{date('d/m/Y H:i:s')}}
+        timezone - {{date_default_timezone_get()}}
     </div>
     <div class=" row">
         @livewire('helpdesk::dashboard.ticket-tabs')
