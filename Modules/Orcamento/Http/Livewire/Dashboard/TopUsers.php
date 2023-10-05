@@ -55,7 +55,7 @@ class TopUsers extends Component
        
         
         return view('orcamento::livewire.dashboard.top-users', 
-        ['statuses' => BudgetStatus::where('type_id', 1)->get(),
+        ['statuses' => BudgetStatus::whereIn('type_id', [1, 2])->get(),
         'orcamentos' => Budget::whereBetween('budget_date', [today()->subDays($this->submonth), today()->subDays(0)])
         ->whereIn('initial_status_id', [1, 2, 3])
             ->get()]);
