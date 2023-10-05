@@ -152,7 +152,7 @@
                                             </a>
                                         </div>
                                         <div x-show.important="show" x-on:click="show = ! show" class="cursor-pointer">
-                                            {{$convenio->active != 0 ? $exam->QUANTCH ? ''}}
+                                            {{$convenio->active != 0 ? $exam->QUANTCH : ''}}
                                         </div>
                                     </div>
                                     @else
