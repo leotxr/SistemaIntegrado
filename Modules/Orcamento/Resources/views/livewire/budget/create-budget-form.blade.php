@@ -143,7 +143,7 @@
                                     {{$convenio->active != 0 ? $exam->PLANODESCRICAO : 'Outros'}}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    @if($convenio->active != 0)
+                                    @if($convenio->show_values === 0)
                                     <div x-data="{show: false}">
                                         <div x-show="!show">
                                             <a class="cursor-pointer"
@@ -155,6 +155,8 @@
                                             {{$exam->QUANTCH}}
                                         </div>
                                     </div>
+                                    @else
+                                    {{$exam->QUANTCH}}
                                     @endif
                                 </x-table.cell>
                                 <x-table.cell>
