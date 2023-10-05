@@ -1,7 +1,9 @@
 <div>
-    {{now = now()}}
-    {{gmdate = gmdate()}}
-    {{date = date()}}
+    <div class="flex ">
+        now - {{now()}}
+        gmdate - {{gmdate('d/m/Y H:i:s')}}
+        date - {{date('d/m/Y H:i:s')}}
+    </div>
     <div class=" row">
         @livewire('helpdesk::dashboard.ticket-tabs')
     </div>
