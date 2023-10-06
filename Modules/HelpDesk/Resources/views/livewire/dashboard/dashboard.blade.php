@@ -1,10 +1,4 @@
 <div>
-    <div class="flex ">
-        now - {{now()}}
-        gmdate - {{gmdate('d/m/Y H:i:s')}}
-        date - {{date('d/m/Y H:i:s')}}
-        timezone - {{config('app.timezone')}}
-    </div>
     <div class=" row">
         @livewire('helpdesk::dashboard.ticket-tabs')
     </div>

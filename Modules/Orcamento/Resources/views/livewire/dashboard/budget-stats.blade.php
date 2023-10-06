@@ -22,20 +22,29 @@
         @endforeach
     </div>
     <div class="grid w-full grid-cols-2 gap-1 px-2 py-2 sm:grid-cols-8">
-        <div class="grid grid-cols-2 col-span-2 gap-1 sm:col-span-5 sm:grid-cols-6">
-            @foreach($statuses as $status)
-            <div class="grid content-center col-span-1 py-4 text-center bg-white shadow-sm h-36 sm:col-span-2 dark:bg-gray-800">
-                <div>
-                    <span
-                        class="text-4xl font-bold text-gray-700 dark:text-gray-50">{{$budgets->where('budget_status_id',
-                        $status->id)->count()}}</span>
-                </div>
-                <div>
-                    <span class="text-gray-500 text-md font-regular dark:text-gray-200">{{$status->name}}</span>
-                </div>
-
-            </div>
-            @endforeach
+        <div class="grid col-span-2 bg-white sm:col-span-5 dark:bg-gray-800">
+            <x-table>
+                <x-slot name="head">
+                    <x-table.heading>
+                        Tipo
+                    </x-table.heading>
+                    @foreach($statuses->whereNotIn('type_id', [0]) as $status)
+                    <x-table.heading>
+                        {{$status->name}}
+                    </x-table.heading>
+                    @endforeach
+                </x-slot>
+                <x-slot name="body">
+                    @foreach($types as $type)
+                    <x-table.row>
+                        <x-table.cell>{{$type->name}}</x-table.cell>
+                        @foreach($statuses->whereNotIn('type_id', [0]) as $status)
+                        <x-table.cell>{{$budgets->where('budget_type_id', $type->id)->where('budget_status_id', $status->id)->count()}}</x-table.cell>
+                        @endforeach
+                    </x-table.row>
+                    @endforeach
+                </x-slot>
+            </x-table>
         </div>
         <div class="grid content-center col-span-2 bg-white sm:col-span-3 dark:bg-gray-800" wire:ignore>
             <div id="chartStats">
