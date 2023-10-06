@@ -36,8 +36,8 @@
                         <x-slot name="body">
                             @foreach($devices as $device)
                             <x-table.row>
-                                <x-table.cell>{{$device['ip']}}</x-table.cell>
-                                <x-table.cell>{{$device['mac']}}</x-table.cell>
+                                <x-table.cell>{{$device['Address']}}</x-table.cell>
+                                <x-table.cell>{{$device['HWaddress']}}</x-table.cell>
                             </x-table.row>
                             @endforeach
                         </x-slot>
