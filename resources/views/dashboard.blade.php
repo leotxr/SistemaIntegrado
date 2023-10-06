@@ -12,11 +12,39 @@
                     {{ __("You're logged in!") }}
 
                     @php
-                    $IP = $_SERVER['REMOTE_ADDR']; 
+                    $arp=`arp -a`;
+                    $lines=explode("\n", $arp);
+                    $devices = array();
+                    foreach($lines as $line){
+                    $cols=preg_split('/\s+/', trim($line));
+                    if(isset($cols[2]) && $cols[2]=='dynamic'){
+                    $temp = array();
+                    $temp['ip'] = $cols[0];
+                    $temp['mac'] = $cols[1];
+                    $devices[] = $temp;
+                    }
+                    }
 
-                    // Displaying the address
-                    echo "Client's IP address is: $IP"; 
+                    print_r($arp);
                     @endphp
+
+                    <x-table>
+                        <x-slot name="head">
+                            <x-table.heading>IP</x-table.heading>
+                            <x-table.heading>MAC</x-table.heading>
+                        </x-slot>
+                        <x-slot name="body">
+                            @foreach($devices as $device)
+                            <x-table.row>
+                                <x-table.cell>{{$device['ip']}}</x-table.cell>
+                                <x-table.cell>{{$device['mac']}}</x-table.cell>
+                            </x-table.row>
+                            @endforeach
+                        </x-slot>
+                    </x-table>
+
+                
+
                 </div>
             </div>
         </div>
