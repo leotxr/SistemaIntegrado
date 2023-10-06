@@ -12,15 +12,15 @@
                     {{ __("You're logged in!") }}
 
                     @php
-                    $arp=`arp -a`;
+                    $arp=`arp -e`;
                     $lines=explode("\n", $arp);
                     $devices = array();
                     foreach($lines as $line){
                     $cols=preg_split('/\s+/', trim($line));
                     if(isset($cols[2]) && $cols[2]=='dynamic'){
                     $temp = array();
-                    $temp['ip'] = $cols[0];
-                    $temp['mac'] = $cols[1];
+                    $temp['Address'] = $cols[0];
+                    $temp['HWaddress'] = $cols[1];
                     $devices[] = $temp;
                     }
                     }
