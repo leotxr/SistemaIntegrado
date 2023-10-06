@@ -35,6 +35,9 @@ Route::get('/relatorio', '\Modules\Orcamento\Http\Livewire\Reports\Index@__invok
             Route::get('/totalizador-solicitacoes-criadas', function(){
                 return view('orcamento::reports.totalizer-budgets');
             })->name('orcamento.totalizer-budgets');
+            Route::get('/solicitacoes-criadas-x-alteradas', function(){
+                return view('orcamento::reports.created-changed-budgets');
+            })->name('orcamento.totalizer-budgets');
         });
     });
 

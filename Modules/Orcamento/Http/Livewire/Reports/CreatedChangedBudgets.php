@@ -13,7 +13,11 @@ class CreatedChangedBudgets extends Component
     use WithPagination;
     
     public $created_at;
-    public $updated_ad;
+    public $updated_at;
+    public $search = '';
+    public $modalFilters = false;
+    public $selectedUsers = [];
+    public $selectedStatuses = [2,3,4,5];
 
 
 

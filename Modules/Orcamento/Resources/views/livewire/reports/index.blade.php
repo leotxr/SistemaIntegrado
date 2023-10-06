@@ -15,7 +15,8 @@
         items: [
             {id: 1, label: 'Solicitações alteradas', desc: 'Exibe solicitações que tiveram status alterado por algum atendente.', link: 'relatorio/solicitacoes-alteradas'},
             {id: 2, label: 'Solicitações por período', desc: 'Exibe todas as solicitações em um período.', link: 'relatorio'},
-            {id: 3, label: 'Totalizador Solicitações criadas por Status', desc: 'Exibe o total de solicitações criadas por status', link: 'relatorio/totalizador-solicitacoes-criadas'}
+            {id: 3, label: 'Totalizador Solicitações criadas por Status', desc: 'Exibe o total de solicitações criadas por status', link: 'relatorio/totalizador-solicitacoes-criadas'},
+            {id: 4, label: 'Orçamentos por Data de Criação x Edição', desc: 'Exibe os orçamentos realizados em uma determinada data combinados com a data de atualização.', link: 'relatorio/solicitacoes-criadas-x-alteradas'}
         ]
     }">
                     <template x-for="item in items" :key="item.id">
