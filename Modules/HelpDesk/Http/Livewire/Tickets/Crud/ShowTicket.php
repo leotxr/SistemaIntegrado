@@ -67,13 +67,13 @@ class ShowTicket extends Component
         $this->modalTicket = true;
         $this->showing = $ticket;
 
-        if (isset($this->showing->ticket_close))
-        {
+        if (isset($this->showing->ticket_close)) {
             $diff_atendimento = abs(strtotime($this->showing->ticket_close) - strtotime($this->showing->ticket_start));
             isset($this->showing->total_pause) ? $this->total = abs($diff_atendimento - $this->showing->total_pause) : $this->total = $diff_atendimento;
+            $this->total = $this->secToTime($this->total);
         }
 
-        $this->total = $this->secToTime($this->total);
+
 
         /*
         if (isset($this->showing->ticket_close)) {
