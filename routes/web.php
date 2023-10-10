@@ -47,7 +47,14 @@ Route::middleware('auth')->group(function () {
         Route::patch('/userSetRole/{id}', [UserController::class, 'setUserRole'])->name('setUserRole');
         Route::patch('/users/update_group/{id}', [UserController::class, 'setUserGroup'])->name('user.group_update');
 
+        Route::get('/configuracoes', function () {
+            return view('settings.index');
+        });
         Route::get('/configuracoes/cargos-e-permissoes', SettingsController::class)->name('settings.roles-and-permissions');
+        Route::get('/configuracoes/grupos-de-usuarios', function () {
+            return view('settings.user-groups');
+        })->name('settings.user-groups');
+
         Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
         Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
         Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');

@@ -12,4 +12,10 @@ class UserGroup extends Model
         'description',
     ];
     use HasFactory;
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
