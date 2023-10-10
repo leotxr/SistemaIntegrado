@@ -57,7 +57,7 @@ class FinishTicket extends Component
             $tot = abs($pausa - $total_at);
 
             $this->finishing->total_ticket = $tot;
-        } else $this->finishing->total_ticket = abs($this->finishing->ticket_close - $this->finishing->ticket_start);
+        } else $this->finishing->total_ticket = abs(strtotime($this->finishing->ticket_close) - strtotime($this->finishing->ticket_start));
 
 
         $this->finishing->save();
