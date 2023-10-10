@@ -13,8 +13,8 @@ trait TicketActions
 
     public function secToTime($seconds)
     {
-
-        if($seconds >= 86400) $days = floor($seconds / 86400);
+        
+        $days = floor($seconds / 86400);
         $hours = floor($seconds / 3600);
         $mins = floor($seconds / 60 % 60);
         $secs = floor($seconds % 60);
