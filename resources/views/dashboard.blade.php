@@ -12,38 +12,15 @@
                     {{ __("You're logged in!") }}
 
                     @php
-                    $arp=`arp -e`;
-                    $lines=explode("\n", $arp);
-                    $devices = array();
-                    foreach($lines as $line){
-                    $cols=preg_split('/\s+/', trim($line));
-                    if(isset($cols[2]) && $cols[2]=='dynamic'){
-                    $temp = array();
-                    $temp['Address'] = $cols[0];
-                    $temp['HWaddress'] = $cols[1];
-                    $devices[] = $temp;
-                    }
-                    }
+                    $data_inicio = new DateTime("2023-10-09 09:00:45");
+                    $data_fim = new DateTime(now()->format('Y-m-d H:i:s'));
 
-                    print_r($arp);
+                    // Resgata diferença entre as datas
+                    $dateInterval = $data_inicio->diff($data_fim);
+                    echo $dateInterval->format('%d %H:%I:%S');
                     @endphp
 
-                    <x-table>
-                        <x-slot name="head">
-                            <x-table.heading>IP</x-table.heading>
-                            <x-table.heading>MAC</x-table.heading>
-                        </x-slot>
-                        <x-slot name="body">
-                            @foreach($devices as $device)
-                            <x-table.row>
-                                <x-table.cell>{{$device['Address']}}</x-table.cell>
-                                <x-table.cell>{{$device['HWaddress']}}</x-table.cell>
-                            </x-table.row>
-                            @endforeach
-                        </x-slot>
-                    </x-table>
 
-                
 
                 </div>
             </div>

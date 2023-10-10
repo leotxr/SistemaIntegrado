@@ -72,7 +72,7 @@
             class="p-4 text-gray-900 bg-white rounded-lg shadow-md lg:col-span-2 md:col-span-1 sm:col-span-1 bg-opacity-80 dark:bg-gray-800 dark:text-gray-50">
             <x-title class="text-xl font-bold text-gray-900 dark:text-gray-50">Assunto: <span
                     class="text-gray-500 dark:text-white">{{$ticket->title}}</span></x-title>
-            <div class="max-w-full p-4">
+            <div class="max-w-full p-4 overflow-auto max-h-96">
                 <ol class="relative p-4 bg-white border-l border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                     @isset($messages)
                     @foreach($messages as $message)
@@ -207,7 +207,7 @@
                 </div>
                 <div class="flex flex-col pb-3">
                     <dt class="mb-1 text-gray-500 md:text-md dark:text-gray-400">Tempo total</dt>
-                    <dd class="font-semibold text-md">@isset($ticket->total_ticket){{$ticket->total_ticket}}@endisset
+                    <dd class="font-semibold text-md">@isset($ticket->total_ticket){{$total_ticket}}@endisset
                     </dd>
                 </div>
                 <div class="flex flex-col pb-3">

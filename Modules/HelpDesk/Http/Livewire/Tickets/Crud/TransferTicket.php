@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 use App\Events\TicketUpdated;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class TransferTicket extends Component
 {
+    use TicketActions;
 
     public $users;
     public $user;
@@ -41,7 +43,7 @@ class TransferTicket extends Component
 
         $novo = User::find($this->transfering->user_id);
         $this->message = "Chamado transferido para o usuário $novo->name.";
-        $this->sendMessage($this->transfering, $this->message);
+        $this->saveMessage($this->transfering, $this->message);
         $pause = TicketPause::create([
             'start_pause' => now(),
             'ticket_id' => $this->transfering->id,
@@ -59,19 +61,6 @@ class TransferTicket extends Component
         $this->modalTransfer = false;
 
         TicketUpdated::dispatch();
-    }
-
-    
-    public function sendMessage(Ticket $ticket, $message)
-    {
-        $editing_ticket = $ticket;
-        $ticket_message = new TicketMessage();
-        $ticket_message->message = $message;
-        $ticket_message->user_id = Auth::user()->id;
-        $ticket_message->ticket_id = $editing_ticket->id;
-        $ticket_message->read = 0;
-        $ticket_message->save();
-        $this->message = '';
     }
 
 

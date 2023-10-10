@@ -6,9 +6,13 @@ use Livewire\Component;
 use Modules\HelpDesk\Entities\Ticket;
 use DateTime;
 use App\Events\TicketUpdated;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class ShowTicket extends Component
 {
+
+    use TicketActions;
+
     public Ticket $showing;
     public Ticket $editing;
     public $modalTicket = false;
@@ -52,26 +56,41 @@ class ShowTicket extends Component
         $this->emit('TicketDelete', $ticket->id);
     }
 
+    public function sendMessage(Ticket $ticket)
+    {
+        $this->saveMessage($ticket, $this->message);
+    }
+
 
     public function show(Ticket $ticket)
     {
         $this->modalTicket = true;
         $this->showing = $ticket;
 
+        if (isset($this->showing->ticket_close))
+        {
+            $diff_atendimento = abs(strtotime($this->showing->ticket_close) - strtotime($this->showing->ticket_start));
+            isset($this->showing->total_pause) ? $this->total = abs($diff_atendimento - $this->showing->total_pause) : $this->total = $diff_atendimento;
+        }
+
+        $this->total = $this->secToTime($this->total);
+
+        /*
         if (isset($this->showing->ticket_close)) {
             $inicio_atendimento = new DateTime($this->showing->ticket_start);
             $fim_atendimento = new DateTime($this->showing->ticket_close);
             $diff_atendimento = $inicio_atendimento->diff($fim_atendimento);
             $tempo_atendimento = $diff_atendimento->format("%H:%I:%S");
 
-            $tempo_pausa = new DateTime($this->showing->total_pause);
-            $atendimento = new DateTime($tempo_atendimento);
+            $tempo_pausa = date('H:i:s', $this->showing->total_pause);
+            $atendimento = date('H:i:s', $tempo_atendimento);
             $diff_pause = $atendimento->diff($tempo_pausa);
             $tempo_total = $diff_pause->format("%H:%I:%S");
 
 
             isset($this->showing->total_pause) ? $this->total = $tempo_total : $this->total = $tempo_atendimento;
         }
+        */
     }
 
 

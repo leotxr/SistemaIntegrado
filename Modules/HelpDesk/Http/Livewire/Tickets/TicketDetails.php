@@ -8,14 +8,18 @@ use Modules\HelpDesk\Entities\TicketCategory;
 use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Http\Livewire\Dashboard\TicketTabs;
 use Modules\HelpDesk\Http\Livewire\Tickets\AllTickets;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class TicketDetails extends Component
 {
+
+    use TicketActions;
 
     public $categories;
     public $subcategories;
     public Ticket $ticket;
     public Ticket $editing;
+    public $total_ticket;
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
     public $modalReopen = true;
     public $modalEdit = false;
@@ -25,6 +29,12 @@ class TicketDetails extends Component
     [
         'echo:dashboard,TicketUpdated' => '$refresh',
     ];
+
+    public function mount(Ticket $ticket)
+    {
+        $this->ticket = $ticket;
+        $this->total_ticket = $this->secToTime($ticket->total_ticket);
+    }
 
     public function callStart(Ticket $ticket)
     {

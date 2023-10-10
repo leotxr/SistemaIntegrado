@@ -12,9 +12,11 @@ use DateTime;
 use Modules\HelpDesk\Notifications\NotifyTicketFinished;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class FinishTicket extends Component
 {
+    use TicketActions;
 
     public $modalFinish = false;
     public $modalTicket;
@@ -47,25 +49,19 @@ class FinishTicket extends Component
     public function finish()
     {
         //$this->validate();
-        $this->finishing->ticket_close = $this->ticket_close;
+        $this->finishing->ticket_close = now();
         $this->finishing->status_id = 2;
         if ($this->finishing->total_pause) {
-            $total_at = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
+            $total_at = abs(strtotime($this->finishing->ticket_close) - strtotime($this->finishing->ticket_start));
             $pausa = $this->finishing->total_pause;
-            $tot = $this->absInterval($pausa, $total_at);
-            
-            
+            $tot = abs($pausa - $total_at);
 
             $this->finishing->total_ticket = $tot;
-        } else $this->finishing->total_ticket = $this->absInterval($this->finishing->ticket_close, $this->finishing->ticket_start);
-        $this->finishing->save();
+        } else $this->finishing->total_ticket = abs($this->finishing->ticket_close - $this->finishing->ticket_start);
 
-        $ticket_message = new TicketMessage();
-        $ticket_message->message = $this->message;
-        $ticket_message->user_id = Auth::user()->id;
-        $ticket_message->ticket_id = $this->finishing->id;
-        $ticket_message->read = 0;
-        $ticket_message->save();
+
+        $this->finishing->save();
+        $this->saveMessage($this->finishing, $this->message);
 
         $this->modalFinish = false;
         $this->message = '';
@@ -75,36 +71,10 @@ class FinishTicket extends Component
         );
 
         TicketUpdated::dispatch();
-        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
+        //Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
     }
 
-    public function absInterval($date1, $date2)
-    {
-        /*
-        $inicio = new DateTime($date1);
-        $fim = new DateTime($date2);
-        $diff = $inicio->diff($fim);
-        $tempo = $diff->format("%H:%I:%S");
-        */
-        unset($tempo);
-        $start = strtotime($date1);
-        $end = strtotime($date2);
-        $seconds = abs($end - $start);
-        $hours = floor($seconds / 3600);
-        $mins = floor($seconds / 60 % 60);
-        $secs = floor($seconds % 60);
-        $tempo = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
-        return $tempo;
-    }
 
-    public function calcInterval($date1, $date2)
-    {
-        $inicio = new DateTime($date1);
-        $fim = new DateTime($date2);
-        $diff = $inicio->diff($fim);
-        $tempo = $diff->format("%H:%I:%S");
-        return $tempo;
-    }
     public function render()
     {
         return view('helpdesk::livewire.tickets.crud.finish-ticket');
