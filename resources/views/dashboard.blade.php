@@ -12,17 +12,6 @@
                     {{ __("You're logged in!") }}
                     {{now()}}
 
-                    @php
-                    $data_inicio = new DateTime("2023-10-09 09:00:45");
-                    $data_fim = new DateTime(now()->format('Y-m-d H:i:s'));
-
-                    // Resgata diferença entre as datas
-                    $dateInterval = $data_inicio->diff($data_fim);
-                    echo $dateInterval->format('%d %H:%I:%S');
-                    @endphp
-
-
-
                 </div>
             </div>
         </div>
