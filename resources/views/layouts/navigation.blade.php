@@ -52,7 +52,7 @@
                     </div>
                     @endcan
                     @can('ver configuracoes')
-                    <x-nav-link :href="route('settings.create')" :active="request()->routeIs('settings.create')">
+                    <x-nav-link :href="route('settings.roles-and-permissions')" :active="request()->routeIs('settings.roles-and-permissions')">
                         {{ __('Configurações') }}
                     </x-nav-link>
                     @endcan

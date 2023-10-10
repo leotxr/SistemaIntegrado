@@ -19,6 +19,6 @@ class SettingsController extends Controller
         $permissions = Permission::all();
         $roles = Role::all();
 
-        return view('settings.create', compact('permissions', 'roles'));
+        return view('settings.roles-and-permissions', compact('permissions', 'roles'));
     }
 }
