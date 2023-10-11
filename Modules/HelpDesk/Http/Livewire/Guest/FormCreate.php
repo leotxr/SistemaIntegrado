@@ -82,8 +82,8 @@ class FormCreate extends Component
         };
         $this->saving->save();
 
-        //TicketCreated::dispatch(Auth::user(), $this->saving);
-        //Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
+        TicketCreated::dispatch(Auth::user(), $this->saving);
+        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
 
         return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
     }
