@@ -58,7 +58,7 @@
   fill: {
     type: "gradient",
     gradient: {
-      shadeIntensity: 1,
+      shadeIntensity: 0.5,
       opacityFrom: 0.7,
       opacityTo: 0.9,
     }
