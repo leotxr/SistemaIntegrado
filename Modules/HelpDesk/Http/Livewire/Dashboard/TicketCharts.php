@@ -13,80 +13,73 @@ use Livewire\WithPagination;
 
 class TicketCharts extends Component
 {
-    use WithPagination;
-
-    public $firstRun = true;
-    public $showDataLabels = false;
-    public $modalChart = false;
-    public $tickets;
-
+    public $days_format;
+    public $groups_names;
+    public $days_values = [];
+    public $groups_values = [];
 
     protected $listeners = [
-        'onPointClick' => 'handleOnPointClick',
-        'onColumnClick' => 'handleOnColumnClick',
-        'echo:dashboard,TicketCreated' => 'render'
+        'echo:dashboard,TicketCreated' => 'refreshMe',
+        'echo:dashboard,TicketUpdated' => 'refreshMe',
     ];
 
-    public function handleOnPointClick($point)
+    public function getData()
     {
-        $date = $point['title'];
-        $date = str_replace('/', '-', $date);
-        $this->tickets = Ticket::whereDate('created_at', date('Y-m-d', strtotime($date)))->get();
-        $this->modalChart = true;
+        $groups = UserGroup::whereNotNull('description')->get();
+        $days = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
+        $this->days_format = [today()->subDays(4)->format('d/m/Y'), today()->subDays(3)->format('d/m/Y'), today()->subDays(2)->format('d/m/Y'), today()->subDays(1)->format('d/m/Y'), today()->subDays(0)->format('d/m/Y')];
+
+
+        foreach ($days as $day) {
+            $this->days_values[] = Ticket::whereDate('created_at', $day)->count();
+        }
+
+        foreach ($groups as $group) {
+            $this->groups_names[] = $group->name;
+            $this->groups_values[] = Ticket::join('users', 'users.id', '=', 'tickets.requester_id')
+                ->join('user_groups', 'user_groups.id', '=', 'users.user_group_id')
+                ->where('user_groups.id', $group->id)
+                ->whereMonth('tickets.created_at', date('m'))
+                ->count();
+        }
     }
 
-    public function handleOnColumnClick($column)
+    public function mount()
     {
-        dd($column);
+       $this->getData();
     }
 
-    public function emitTeste()
+    public function refreshMe()
     {
-         
-        $this->emitTo('helpdesk::dashboard.ticket-tabs', 'ticketCreated');
+        $groups = UserGroup::whereNotNull('description')->get();
+        $days = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
+        $this->days_format = [today()->subDays(4)->format('d/m/Y'), today()->subDays(3)->format('d/m/Y'), today()->subDays(2)->format('d/m/Y'), today()->subDays(1)->format('d/m/Y'), today()->subDays(0)->format('d/m/Y')];
+
+
+        foreach ($days as $day) {
+            $days_values[] = Ticket::whereDate('created_at', $day)->count();
+        }
+
+        foreach ($groups as $group) {
+            $groups_names[] = $group->name;
+            $groups_values[] = Ticket::join('users', 'users.id', '=', 'tickets.requester_id')
+                ->join('user_groups', 'user_groups.id', '=', 'users.user_group_id')
+                ->where('user_groups.id', $group->id)
+                ->whereMonth('tickets.created_at', date('m'))
+                ->count();
+        }
+
+        $days_values = array_replace($this->days_values, $days_values);
+        $groups_values = array_replace($this->groups_values, $groups_values);
+        $this->emit('refreshChart', ['seriesDaysData' => $days_values]);
+        $this->emit('refreshChart', ['seriesGroupsData' => $groups_values]);
+
+        
     }
+
 
     public function render()
     {
-        $groups = UserGroup::whereNotNull('description')->get();
-
-        $dias_atras = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
-
-        $TicketsDia = LivewireCharts::areaChartModel()
-            ->setAnimated($this->firstRun)
-            ->setLegendVisibility(true)
-            ->setColors('#0080ff')
-            ->setDataLabelsEnabled($this->showDataLabels)
-            ->setXAxisVisible(true)
-            ->withDataLabels()
-            ->setYAxisVisible(true)
-            ->withOnPointClickEvent('onPointClick');
-
-        $TicketsSetor = LivewireCharts::ColumnChartModel()
-        ->setAnimated($this->firstRun)
-        ->setLegendVisibility(false)
-        ->withDataLabels(true)
-        ->setColors(['#0080ff', '#288bed', '#8abef2', '#1863f0', '#78a3f5']);
-
-        foreach ($dias_atras as $dia) {
-            $ChartDias = $TicketsDia->addPoint($dia->format('d/m/Y'), Ticket::whereDate('created_at', $dia)->count(), '#808080');
-        }
-
-        foreach($groups as $grupo)
-        {
-            $ChartSetores = $TicketsSetor
-            ->addColumn($grupo->name, Ticket::join('users', 'users.id', '=', 'tickets.requester_id')
-            ->join('user_groups', 'user_groups.id', '=', 'users.user_group_id')
-            ->where('user_groups.id', $grupo->id)
-            ->whereMonth('tickets.created_at', date('m'))
-            ->count(), 
-            '#b0aeae');
-        }
-
-        
-
-        return view('helpdesk::livewire.dashboard.ticket-charts')
-        ->with(['TicketsPorDia' => $ChartDias,
-        'TicketsPorSetor' => $ChartSetores]);
+        return view('helpdesk::livewire.dashboard.ticket-charts');
     }
 }
