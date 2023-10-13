@@ -22,6 +22,7 @@
 
     </div>
 
+    {{--
     <x-modal.dialog wire:model.defer='modalChart'>
         <x-slot name='title'>
             <x-title> Chamados Abertos </x-title>
@@ -36,7 +37,7 @@
 
         </x-slot>
     </x-modal.dialog>
-
+    --}}
 
     <script>
         //CHART AREA TICKETS POR DIA
