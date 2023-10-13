@@ -1,10 +1,10 @@
-<div wire:poll.300000ms>
+<div>
     <div class="grid gap-3 py-2 mx-auto space-y-2 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1">
         <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800 ">
             <x-title>Chamados abertos por dia</x-title>
             <span class="text-xs font-light text-gray-500">Exibe o total de chamados abertos dos nos ultimos 5
                 dias</span>
-            <div class="h-48">
+            <div class="h-48" wire:ignore>
                 <div id="chartDays">
 
                 </div>
@@ -14,7 +14,7 @@
             <x-title>Chamados abertos por setor</x-title>
             <span class="text-xs font-light text-gray-500">Exibe o total de chamados abertos por setor no mês
                 atual</span>
-            <div class="h-48">
+            <div class="h-48" wire:ignore>
                 <div id="chartGroups">
                 </div>
             </div>
