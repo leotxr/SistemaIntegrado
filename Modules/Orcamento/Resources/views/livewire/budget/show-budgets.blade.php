@@ -74,6 +74,9 @@
                         Telefone
                     </x-table.heading>
                     <x-table.heading>
+                        Criado Por
+                    </x-table.heading>
+                    <x-table.heading>
                         Status
                     </x-table.heading>
                 </x-slot>
@@ -81,6 +84,7 @@
                     @foreach($orcamentos as $orcamento)
                     @php
                     $status_orcamento = $orcamento->find($orcamento->id)->relStatus;
+                    $user = $orcamento->find($orcamento->id)->User;
                     @endphp
                     <x-table.row class="cursor-pointer hover:bg-gray-100"
                         wire:click='openModalDetails({{$orcamento->id}})'>
@@ -92,6 +96,9 @@
                         </x-table.cell>
                         <x-table.cell>
                             {{$orcamento->patient_phone}}
+                        </x-table.cell>
+                        <x-table.cell>
+                            {{$user->name}}
                         </x-table.cell>
                         <x-table.cell>
                             <span
