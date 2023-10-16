@@ -47,7 +47,7 @@
     type: "area"
   },
   dataLabels: {
-    enabled: false
+    enabled: true
   },
   series: [
     {
