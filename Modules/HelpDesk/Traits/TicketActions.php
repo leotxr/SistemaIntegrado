@@ -11,9 +11,21 @@ use Illuminate\Support\Facades\Auth;
 trait TicketActions
 {
 
+    public function outOfService(Ticket $ticket, $time)
+    {
+
+        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00')) {
+            return true;
+        } elseif ($time > date('Y-m-d 11:00:00') && $time < date('Y-m-d 12:42:00')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function secToTime($seconds)
     {
-        
+
         $days = floor($seconds / 86400);
         $hours = floor($seconds / 3600);
         $mins = floor($seconds / 60 % 60);
@@ -47,8 +59,8 @@ trait TicketActions
         ]);
 
         if ($pause) {
-            $this->pausing->status_id = 3;
-            $this->pausing->save();
+            $ticket->status_id = 3;
+            $ticket->save();
             $this->dispatchBrowserEvent(
                 'notify',
                 ['type' => 'info', 'message' => 'Chamado Pausado']
@@ -69,7 +81,7 @@ trait TicketActions
             $ticket->status_id = 4;
             $message = 'Atendimento retomado.';
             $this->saveMessage($ticket, $message);
-            if ($ticket === NULL)  $ticket->ticket_start = now();
+            if ($ticket->ticket_start === NULL)  $ticket->ticket_start = now();
             $ticket->save();
         }
 
@@ -79,7 +91,7 @@ trait TicketActions
             ->get();
 
         foreach ($pauses as $p) {
-            
+
             $array_pauses[] = abs(strtotime($p->start_pause) - strtotime($p->end_pause));
         }
         $sum = array_sum($array_pauses);
@@ -89,5 +101,4 @@ trait TicketActions
         if ($ticket->save()) return true;
         else return false;
     }
-
 }

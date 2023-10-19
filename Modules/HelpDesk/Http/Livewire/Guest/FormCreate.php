@@ -17,10 +17,12 @@ use Modules\HelpDesk\Notifications\NotifyTicketCreated;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Modules\HelpDesk\Entities\TicketMessage;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class FormCreate extends Component
 {
     use WithFileUploads;
+    use TicketActions;
 
     public $ticket_files = [];
     public $hidden = false;
@@ -43,18 +45,15 @@ class FormCreate extends Component
         $this->saving = new Ticket();
     }
 
-    public function checkTime(Ticket $saving, $time)
+    public function checkTime(Ticket $ticket, $time)
     {
-        $ticket = $saving;
-        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00')) {
+
+        if ($this->outOfService($ticket, $time)) {
             $ticket->status_id = 3;
-            $this->saving->save();
-            TicketPause::create([
-                'start_pause' => now(),
-                'ticket_id' => $this->saving->id,
-                'user_id' => Auth::user()->id,
-                'ticket_message_id' => NULL
-            ]);
+            $ticket->save();
+            $message = "Chamado aberto fora do horário de atendimento.";
+            $generated_message = $this->saveMessage($ticket, $message);
+            $this->createPause($ticket, $generated_message);
         } else {
             $ticket->status_id = 1;
             $ticket->save();
