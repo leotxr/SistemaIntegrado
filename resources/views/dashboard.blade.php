@@ -12,6 +12,35 @@
                     {{ __("You're logged in!") }}
                     {{now()}}
 
+                    <div>
+                        @php
+                        $output = null;
+                        $result = null;
+                        $printers = ["192.168.254.244", "192.168.254.245", "192.168.254.243", "192.168.254.22",
+                        "192.168.254.21", "192.168.254.162"];
+                        @endphp
+                        @foreach($printers as $printer)
+                        @php
+                        exec("ping -n 1 -w 1 " . $printer, $output, $result);
+                        @endphp
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="col-span-2">
+                                {{$printer}}
+                            </div>
+                            <div class="col-span-1">
+                                {{$result == 0 ? 'Online' : 'Offline'}}
+                            </div>
+                        </div>
+                        
+                        @endforeach
+                        @php
+                        exec("explorer", $output, $result);
+                        @endphp
+                        
+
+
+
+                    </div>
                 </div>
             </div>
         </div>
