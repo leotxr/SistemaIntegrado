@@ -17,6 +17,7 @@ class TicketCharts extends Component
     public $groups_names;
     public $days_values = [];
     public $groups_values = [];
+    public $days = [];
 
     protected $listeners = [
         'echo:dashboard,TicketCreated' => 'refreshMe',
@@ -26,11 +27,17 @@ class TicketCharts extends Component
     public function getData()
     {
         $groups = UserGroup::whereNotNull('description')->get();
-        $days = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
-        $this->days_format = [today()->subDays(4)->format('d/m/Y'), today()->subDays(3)->format('d/m/Y'), today()->subDays(2)->format('d/m/Y'), today()->subDays(1)->format('d/m/Y'), today()->subDays(0)->format('d/m/Y')];
+        for($i = 4; $i > -1; $i--)
+        {
+            $this->days[] =  today()->subDays($i);
+            $this->days_format[] = today()->subDays($i)->format('d/m');
+        }
+        //$days = [today()->subDays(4), today()->subDays(3), today()->subDays(2), today()->subDays(1), today()->subDays(0)];
+
+        //$this->days_format = [today()->subDays(4)->format('d/m/Y'), today()->subDays(3)->format('d/m/Y'), today()->subDays(2)->format('d/m/Y'), today()->subDays(1)->format('d/m/Y'), today()->subDays(0)->format('d/m/Y')];
 
 
-        foreach ($days as $day) {
+        foreach ($this->days as $day) {
             $this->days_values[] = Ticket::whereDate('created_at', $day)->count();
         }
 
