@@ -21,7 +21,7 @@
                         @endphp
                         @foreach($printers as $printer)
                         @php
-                        exec("ping -n 1 -w 1 " . $printer, $output, $result);
+                        exec("ping -c 1 -W 1 " . $printer, $output, $result);
                         @endphp
                         <div class="grid grid-cols-4 gap-2">
                             <div class="col-span-2">
