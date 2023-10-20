@@ -82,6 +82,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Budget::class, 'user_id');
     }
+
+    public function changedBudgets()
+    {
+        return $this->hasMany(Budget::class, 'last_user_id');
+    }
     
     
 }

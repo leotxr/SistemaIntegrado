@@ -14,7 +14,7 @@
                 <ul class="max-w-md space-y-2 list-inside divide-y divide-y-reverse" x-data="{
         items: [
             {id: 1, label: 'Solicitações alteradas', desc: 'Exibe solicitações que tiveram status alterado por algum atendente.', link: 'relatorio/solicitacoes-alteradas'},
-            {id: 2, label: 'Solicitações por período', desc: 'Exibe todas as solicitações em um período.', link: 'relatorio'},
+            {id: 2, label: 'Totalizador Solicitações alteradas por Status', desc: 'Exibe o total de solicitações que foram alteradas por um usuário.', link: 'relatorio/totalizador-solicitacoes-alteradas'},
             {id: 3, label: 'Totalizador Solicitações criadas por Status', desc: 'Exibe o total de solicitações criadas por status', link: 'relatorio/totalizador-solicitacoes-criadas'},
             {id: 4, label: 'Orçamentos por Data de Criação x Edição', desc: 'Exibe os orçamentos realizados em uma determinada data combinados com a data de atualização.', link: 'relatorio/solicitacoes-criadas-x-alteradas'}
         ]
