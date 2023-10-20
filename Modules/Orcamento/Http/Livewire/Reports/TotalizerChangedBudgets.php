@@ -32,7 +32,7 @@ class TotalizerChangedBudgets extends Component
     {
         return view('orcamento::livewire.reports.totalizer-changed-budgets', [
             'statuses' => BudgetStatus::whereIn('id', [2, 3, 4, 5])->get(),
-            'orcamentos' => Budget::whereBetween('updated_at', [$this->initial_date . "00:00:00", $this->final_date . "23:59:59"])
+            'orcamentos' => Budget::whereBetween('updated_at', [$this->initial_date . " 00:00:00", $this->final_date . " 23:59:59"])
             ->whereIn('budget_status_id', [2, 3, 4, 5])
                 ->get(),
             'users' => User::permission('criar orcamento')->orderBy('name', 'ASC')->get(),

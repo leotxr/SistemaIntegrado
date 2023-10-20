@@ -16,7 +16,7 @@
         @foreach($users as $user)
         @if($user->changedBudgets->count() > 0)
         <x-table.row class="cursor-pointer hover:bg-gray-100">
-            {{$user->changedBudgets->count()}}
+            {{$orcamentos->count()}}
             <x-table.cell>
                 {{$user->name}}
             </x-table.cell>
