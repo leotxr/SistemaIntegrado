@@ -16,16 +16,17 @@
         @foreach($users as $user)
         @if($user->changedBudgets->count() > 0)
         <x-table.row class="cursor-pointer hover:bg-gray-100">
+            {{$user->changedBudgets->count()}}
             <x-table.cell>
                 {{$user->name}}
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell>
-                {{$orcamentos->where('initial_status_id', $status->id)->where('user_id', $user->id)->count()}}
+                {{$orcamentos->where('budget_status_id', $status->id)->where('last_user_id', $user->id)->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell>
-                {{$orcamentos->where('user_id', $user->id)->count()}}
+                {{$orcamentos->where('last_user_id', $user->id)->count()}}
             </x-table.cell>
         </x-table.row>
         @endif
@@ -36,7 +37,7 @@
             </x-table.cell>
             @foreach($statuses as $status)
             <x-table.cell class="font-bold">
-                {{$orcamentos->where('initial_status_id', $status->id)->count()}}
+                {{$orcamentos->where('budget_status_id', $status->id)->count()}}
             </x-table.cell>
             @endforeach
             <x-table.cell class="font-bold">
