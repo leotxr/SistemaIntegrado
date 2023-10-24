@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Total') }}" />
-                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$orcamento->show_values != 0 ? $orcamento->total_value : ''}} </span>
+                        <span id="total" class="text-xl font-bold text-gray-600">R$ {{$orcamento->total_value ?? ''}} </span>
                     </div>
                     <div class="col-span-6 sm:col-span-1">
                         <x-input-label value="{{ __('Quantidade') }}" />
