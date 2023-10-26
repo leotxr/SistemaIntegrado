@@ -6,6 +6,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Policies\PermissionController;
 use App\Http\Controllers\Policies\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Device;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ Route::get('/teste', function () {
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $devices = Device::all();
+    return view('dashboard', compact('devices'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -58,6 +60,11 @@ Route::middleware('auth')->group(function () {
         Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
         Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
         Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');
+
+        Route::get('/dispositivos', function(){
+            $devices = Device::all();
+            return view('devices.index', compact('devices'));
+        })->name('devices.devices');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

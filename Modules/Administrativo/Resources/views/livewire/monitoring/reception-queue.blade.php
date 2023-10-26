@@ -107,4 +107,9 @@
             Última atualização: {{now()->format('d/m/Y H:i:s')}}
         </span>
     </div>
+    <div class="w-full text-end">
+        <a type="button" href="/administrativo" class="text-end">
+            <x-icon name="logout" class="w-6 h-6 text-gray-500 hover:text-gray-800"/>
+        </a>
+    </div>
 </div>

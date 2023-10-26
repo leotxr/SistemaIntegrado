@@ -103,7 +103,8 @@
                         </x-icon>
                         <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Usuários</span>
                     </x-side-link>
-                    <ul x-show="open" x-transition x-data="{items:[
+                    <ul x-show="open" x-transition
+                        x-data="{items:[
                             {id: 1, label: 'Todos', link: '{{url('/users')}}', active: 'helpdesk.tickets.create' }, 
                         {id: 2, label: 'Novo Usuário' , link: '{{url('/users/create')}}' , active: 'helpdesk.tickets' } ]}">
                         <template x-for="item in items" :key="item.id">
@@ -140,25 +141,22 @@
 
                 <li x-data="{open:false}">
                     <x-side-link class="w-full" x-on:click="open = ! open" href="#"
-                        :active="Request::is('helpdesk/painel/relatorios', 'helpdesk/painel/relatorios/*')">
-                        <x-icon name="document-report"
+                        :active="Request::is('dispositivos', 'dispositivos/*')">
+                        <x-icon name="desktop-computer"
                             class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                         </x-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Relatórios</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Dispositivos</span>
                     </x-side-link>
-                    <div x-show="open" x-transition>
-                        <x-side-link class="w-full" href="{{route('helpdesk.reports')}}"
-                            :active="request()->routeIs('helpdesk.reports')">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
-                        </x-side-link>
-                        <x-side-link class="w-full" :href="route('helpdesk.reports.ticket-by-date')"
-                            :active="request()->routeIs('helpdesk.reports.ticket-by-date')">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Período</span>
-                        </x-side-link>
-                        <x-side-link class="w-full">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Categoria</span>
-                        </x-side-link>
-                    </div>
+                    <ul x-show="open" x-transition x-data="{items:[
+                        {id: 1, label: 'Todos', link: '{{route('devices.devices')}}', active: 'devices.devices' },]}">
+                        <template x-for="item in items" :key="item.id">
+                            <li x-show="expanded">
+                                <x-side-link class="w-full" ::href="item.link" ::active="item.active">
+                                    <span class="flex-1 ml-3 font-light whitespace-nowrap" x-text="item.label"></span>
+                                </x-side-link>
+                            </li>
+                        </template>
+                    </ul>
                 </li>
                 <li>
                     <x-side-link class="w-full" href="#">
