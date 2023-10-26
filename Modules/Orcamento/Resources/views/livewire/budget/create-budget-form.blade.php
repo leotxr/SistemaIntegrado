@@ -23,8 +23,8 @@
                     <div class="col-span-6 sm:col-span-2" x-data>
                         <x-input-label for="phone_number" value="{{ __('Telefone de Contato') }}" />
                         <x-text-input name="phone_number" id="phone_number" type="text"
-                            x-mask:dynamic="$input.startsWith('9', 4) ? '(99)99999-9999' : '(99)9999-9999'"
-                            placeholder="(32)99999-9999" class="block w-full mt-1 input"
+                            x-mask="(99)999999999"
+                            placeholder="(32)999999999" class="block w-full mt-1 input"
                             wire:model.defer='orcamento.patient_phone' />
                         @error('orcamento.patient_phone')
                         <span class="error">{{ $message }}</span>
