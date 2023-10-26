@@ -11,21 +11,6 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                     {{now()}}
-
-                    <div>
-
-                        @php
-
-                        $output = NULL;
-                        $result = NULL;
-
-                        $a = exec("ping 192.168.254.21", $output, $result);
-                        
-                        print_r($output);
-                        
-                        @endphp
-
-                    </div>
                 </div>
             </div>
 
