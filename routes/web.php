@@ -29,8 +29,7 @@ Route::get('/teste', function () {
 
 
 Route::get('/dashboard', function () {
-    $devices = Device::all();
-    return view('dashboard', compact('devices'));
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
