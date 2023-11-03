@@ -70,8 +70,8 @@ class FinishTicket extends Component
             ['type' => 'success', 'message' => 'Chamado finalizado com sucesso!']
         );
 
-        // TicketUpdated::dispatch();
-        // Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
+        TicketUpdated::dispatch();
+        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
     }
 
 
