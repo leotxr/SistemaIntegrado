@@ -38,18 +38,18 @@ class FinishTicket extends Component
     ];
 
 
-
     public function openFinishTicket(Ticket $ticket)
     {
         $this->modalFinish = true;
         $this->finishing = $ticket;
-        $this->ticket_close = now();
+        //$this->ticket_close = now();
     }
 
     public function finish()
     {
+        dd($this->ticket_close);
         //$this->validate();
-        $this->finishing->ticket_close = now();
+        $this->finishing->ticket_close = $this->ticket_close;
         $this->finishing->status_id = 2;
         if ($this->finishing->total_pause) {
             $total_at = abs(strtotime($this->finishing->ticket_close) - strtotime($this->finishing->ticket_start));
@@ -70,8 +70,8 @@ class FinishTicket extends Component
             ['type' => 'success', 'message' => 'Chamado finalizado com sucesso!']
         );
 
-        TicketUpdated::dispatch();
-        Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
+        // TicketUpdated::dispatch();
+        // Notification::send(User::find($this->finishing->requester_id), new NotifyTicketFinished(User::find($this->finishing->requester_id), $this->finishing));
     }
 
 
