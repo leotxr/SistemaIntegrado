@@ -42,12 +42,12 @@ class FinishTicket extends Component
     {
         $this->modalFinish = true;
         $this->finishing = $ticket;
-        //$this->ticket_close = now();
+        $this->ticket_close = now();
     }
 
     public function finish()
     {
-        dd($this->ticket_close);
+        //dd($this->ticket_close);
         //$this->validate();
         $this->finishing->ticket_close = $this->ticket_close;
         $this->finishing->status_id = 2;
