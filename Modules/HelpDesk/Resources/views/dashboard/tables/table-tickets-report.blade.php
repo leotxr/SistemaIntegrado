@@ -75,7 +75,10 @@
                             {{$atendente->name ?? "Sem atendente"}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$this->secToTime($ticket->total_ticket) ?? "Em atendimento"}}
+                            @php
+                            $total = $this->secToTime($ticket->total_ticket);
+                            @endphp
+                            {{ $total ?? "Em atendimento"}}
                         </x-table.cell>
                     </x-table.row>
                     @endforeach

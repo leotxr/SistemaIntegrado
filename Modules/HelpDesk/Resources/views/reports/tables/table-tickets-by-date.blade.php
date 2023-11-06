@@ -44,6 +44,8 @@
                     $atendente = $ticket->find($ticket->id)->TicketUser;
                     $prioridade = $categoria->find($categoria->id)->relPriority;
                     $setor = $solicitante->find($solicitante->id)->relUserGroup;
+                    $func = new \Modules\HelpDesk\Http\Livewire\Reports\Tickets\TicketByDate();
+                    $total = $func->secToTime($ticket->total_ticket);
                     @endphp
                     <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600" >
                         <x-table.cell>
@@ -74,7 +76,7 @@
                             {{$atendente->name ?? "Sem atendente"}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$this->secToTime($ticket->total_ticket) ?? "Em atendimento"}}
+                            {{ $total ?? "Em atendimento"}}
                         </x-table.cell>
                     </x-table.row>
                     @endforeach
