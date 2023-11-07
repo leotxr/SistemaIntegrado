@@ -75,7 +75,7 @@
                             <x-table.cell>
                                 @if($espera < 600) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
                                     </x-icon>
-                                    @elseif($espera > 600 && $espera < 900) <x-icon name="emoji-neutral"
+                                    @elseif($espera >= 600 && $espera < 900) <x-icon name="emoji-neutral"
                                         class="w-10 h-10 text-yellow-400" solid>
                                         </x-icon>
                                         @else
