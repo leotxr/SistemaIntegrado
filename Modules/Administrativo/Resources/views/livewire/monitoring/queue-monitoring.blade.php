@@ -1,8 +1,8 @@
 <div>
     <div wire:poll>
-        <div class="grid grid-cols-1 gap-4 py-8 justify-items-center sm:grid-cols-3 content-evenly">
+        <div class="grid grid-cols-1 gap-4 py-2 justify-items-center sm:grid-cols-3 content-evenly">
             <div class="text-center text-red-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="currentColor" class="bi bi-emoji-angry"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="currentColor" class="bi bi-emoji-angry"
                      viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path
@@ -12,7 +12,7 @@
                     0)->where('ATRASO', '>', '1200')->count()}}</span>
             </div>
             <div class="text-center text-yellow-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="currentColor"
                      class="bi bi-emoji-neutral" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path
@@ -22,7 +22,7 @@
                     0)->where('ATRASO', '>', '600' )->where('ATRASO', '<', '1200' )->count()}}</span>
             </div>
             <div class="text-center text-green-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" fill="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="currentColor"
                      class="bi bi-emoji-laughing" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path
