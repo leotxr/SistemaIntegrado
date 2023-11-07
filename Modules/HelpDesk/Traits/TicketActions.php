@@ -16,7 +16,7 @@ trait TicketActions
 
         if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00')) {
             return true;
-        } elseif ($time > date('Y-m-d 11:00:00') && $time < date('Y-m-d 12:42:00')) {
+        } elseif ($time > date('Y-m-d 12:00:00') && $time < date('Y-m-d 12:42:00')) {
             return true;
         } else {
             return false;
