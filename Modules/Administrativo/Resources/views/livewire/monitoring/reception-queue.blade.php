@@ -2,7 +2,9 @@
     <div>
         @include('administrativo::livewire.monitoring.partials.reception-stats')
     </div>
-
+    <div>
+{{$served->where('ATRASO', '<', 900 )->count()}}
+    </div>
     <div class="grid grid-cols-1 gap-1 px-2 py-2 sm:grid-cols-10">
         <div class="col-span-1 sm:col-span-5 dark:bg-gray-800">
             <div class="text-center">
