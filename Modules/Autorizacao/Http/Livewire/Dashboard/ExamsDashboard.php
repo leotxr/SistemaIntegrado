@@ -9,6 +9,7 @@ use Modules\Autorizacao\Entities\Protocol;
 use Modules\Autorizacao\Entities\ExamStatus;
 use Modules\Autorizacao\Entities\Photo;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ExamsDashboard extends Component
 {
@@ -58,7 +59,7 @@ class ExamsDashboard extends Component
     {
         $status = ExamStatus::find($status_id);
         $this->activeStatus = $status->id;
-        //$this->selectedStatus = 
+        //$this->selectedStatus =
     }
 
     public function openEdit($protocol)
@@ -66,7 +67,7 @@ class ExamsDashboard extends Component
         $this->modalExam = true;
         $this->editing = Exam::where('protocol_id', $protocol)->get();
         $this->editing_protocol = Protocol::find($protocol);
-        
+
         //$this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
 
     }
@@ -86,7 +87,7 @@ class ExamsDashboard extends Component
             if($delete_path)
             $photo->delete();
         }
-        
+
         if ($delete_exam)
             $protocol->delete();
 
@@ -102,21 +103,23 @@ class ExamsDashboard extends Component
     public function save()
     {
         //$this->validate();
-        
+
         foreach ($this->editing as $exam) {
+            $exam->updated_by = Auth::user()->id;
             $exam->save();
         }
 
         if($this->editing_protocol)
         {
             $saving_protocol = $this->editing_protocol;
-            $saving_protocol->save(); 
+            $saving_protocol->updated_by = Auth::user()->id;
+            $saving_protocol->save();
         }
 
 
         $this->modalExam = false;
         $this->modalObservacao = false;
-        
+
     }
 
     public function render()

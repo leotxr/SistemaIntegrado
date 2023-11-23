@@ -25,6 +25,12 @@ return new class extends Migration
             $table->string('convenio');
             $table->string('exam_obs')->nullable();
             $table->string('exam_cod')->nullable();
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('updated_by')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
