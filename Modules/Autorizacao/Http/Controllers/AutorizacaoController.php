@@ -54,19 +54,20 @@ class AutorizacaoController extends Controller
         $request->validate([
             'paciente_name' => 'max:191',
         ]);
-        
+
         $protocol = Protocol::create([
             'paciente_id' => $request->pacienteid ?? NULL,
             'paciente_name' => $request->name ?? NULL,
             'observacao' => $request->observation ?? NULL,
             'recebido' => 0,
             'created_by' => Auth::user()->name,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'updated_by' => Auth::user()->id
         ]);
-        
-        
 
-        
+
+
+
         if ($protocol) {
             for ($i = 0; $i < count($request->exam); $i++) {
 
@@ -83,13 +84,14 @@ class AutorizacaoController extends Controller
                 $exam->protocol_id = $protocol->id;
                 $exam->convenio = $request->exam_conv[$i] ?? NULL;
                 $exam->exam_cod = $request->exam_cod[$i] ?? NULL;
+                $exam->updated_by = Auth::user()->id;
 
                 $exam->save();
             }
 
             if ($request->hasFile('photo')) {
                 foreach ($request->file('photo') as $photofile) {
-  
+
                     $path = $photofile->store("storage/fotos_pedidos/$protocol->id", ['disk' => 'my_files']);
                     Photo::create([
                         'url' => $path,
@@ -105,7 +107,7 @@ class AutorizacaoController extends Controller
             AutorizationCreated::dispatch();
              return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
         }
-           
+
         else
             return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
     }
