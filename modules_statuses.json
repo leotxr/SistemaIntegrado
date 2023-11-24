@@ -4,5 +4,5 @@
     "Triagem": true,
     "Administrativo": true,
     "HelpDesk": true,
-    "Orcamento": true
+    "Orcamento": false
 }
