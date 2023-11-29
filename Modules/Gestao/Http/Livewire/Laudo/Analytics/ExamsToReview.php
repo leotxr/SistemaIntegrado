@@ -16,7 +16,7 @@ class ExamsToReview extends Component
     public $setores;
 
     protected $listeners = [
-        'refreshAnalytics' => 'refreshMe'
+        'refreshChildren' => 'refreshMe'
     ];
 
     public function refreshMe($start_date, $end_date)
