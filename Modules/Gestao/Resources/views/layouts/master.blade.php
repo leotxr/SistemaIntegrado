@@ -10,10 +10,13 @@
     {{-- Laravel Vite - CSS File --}}
     {{ module_vite('build-gestao', 'Resources/assets/css/app.css') }}
 
+
     <livewire:styles/>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <livewire:scripts/>
+    {{-- Laravel Vite - JS File --}}
+    {{ module_vite('build-gestao', 'Resources/assets/js/app.js') }}
 
 </head>
 
@@ -35,7 +38,6 @@
     @yield('content')
 </main>
 
-{{-- Laravel Vite - JS File --}}
-{{ module_vite('build-gestao', 'Resources/assets/js/app.js') }}
+
 </body>
 </html>
