@@ -1,5 +1,5 @@
 <div
-    class="fixed top-0 left-0 bottom-0 right-0 bg-gray-800 opacity-50 z-index-999 overflow-hidden block w-screen h-screen grid content-center">
+    class="fixed top-0 left-0 bottom-0 right-0 bg-gray-800 bg-opacity-50 z-index-999 overflow-hidden block w-screen h-screen grid content-center">
     <div class="text-center">
         <div role="status">
             <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
