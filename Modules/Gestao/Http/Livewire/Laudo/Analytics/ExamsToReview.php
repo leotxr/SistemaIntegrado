@@ -21,8 +21,8 @@ class ExamsToReview extends Component
 
     public function refreshMe($start_date, $end_date)
     {
-        $this->start_date = date('Y-m-d');
-        $this->end_date = date('Y-m-d');
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->db = $this->getLaudosRevisao($this->start_date, $this->end_date)->whereNotNull('MEDICO');
         $this->medicos = $this->db->groupBy('MEDICO')->keys();
         $this->setores = $this->db->groupBy('NOMESETOR')->keys();
@@ -30,8 +30,8 @@ class ExamsToReview extends Component
 
     public function mount($start_date, $end_date)
     {
-        $this->start_date = date('Y-m-d');
-        $this->end_date = date('Y-m-d');
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->db = $this->getLaudosRevisao($this->start_date, $this->end_date)->whereNotNull('MEDICO');
         $this->medicos = $this->db->groupBy('MEDICO')->keys();
         $this->setores = $this->db->groupBy('NOMESETOR')->keys();
