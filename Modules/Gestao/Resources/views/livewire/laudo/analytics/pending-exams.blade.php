@@ -1,5 +1,5 @@
 <div x-data="{isOpen: false}">
-    <div wire:loading.delay wire:target="refreshChildren">
+    <div wire:loading wire:target="refreshChildren">
         @livewire('gestao::utils.loading-screen')
     </div>
     <div x-show="isOpen"
