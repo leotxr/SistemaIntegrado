@@ -26,12 +26,12 @@ class TestQuery extends Component
     public function mount()
     {
 
-        $this->start_date = date('Y-m-d');
+        $this->start_date = '2023-11-22';
         $this->end_date = date('Y-m-d');
-        $this->db = $this->getLaudosStatus($this->start_date, $this->end_date)->where('DIGITADO', 'F')->whereNull('DITADO');
+        $this->db = $this->getLaudosRevisao($this->start_date, $this->end_date)->whereNotNull('MEDICO');
         $this->medicos = $this->db->groupBy('MEDICO')->keys();
         $this->setores = $this->db->groupBy('NOMESETOR')->keys();
-
+        //dd($this->db);
         //dd($this->setores);
         //dd($this->db->where("MEDICOID", 1187)->where('SETOR', 1)->count());
     }

@@ -1,5 +1,5 @@
 <div x-data="{isOpen: false}">
-    <div wire:loading wire:target="refreshChildren">
+    <div wire:loading.delay wire:target="refreshChildren">
         @livewire('gestao::utils.loading-screen')
     </div>
     <div x-show="isOpen"
@@ -39,7 +39,10 @@
     <div>
         @livewire('gestao::laudo.analytics.exams-without-report', ['start_date' => $start_date, 'end_date' => $end_date])
     </div>
-    <div class="mt-4 mb-16">
+    <div class="mt-4">
         @livewire('gestao::laudo.analytics.exams-without-signature', ['start_date' => $start_date, 'end_date' => $end_date])
+    </div>
+    <div class="mt-4 mb-16">
+        @livewire('gestao::laudo.analytics.exams-to-review', ['start_date' => $start_date, 'end_date' => $end_date])
     </div>
 </div>
