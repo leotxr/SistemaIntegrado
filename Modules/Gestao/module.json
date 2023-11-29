@@ -1,0 +1,11 @@
+{
+    "name": "Gestao",
+    "alias": "gestao",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Gestao\\Providers\\GestaoServiceProvider"
+    ],
+    "files": []
+}
