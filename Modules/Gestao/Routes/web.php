@@ -20,6 +20,9 @@ Route::prefix('gestao')->group(function() {
     Route::prefix('laudo')->group(function(){
         Route::get('indicadores/exames-pendentes', function(){
             return view('gestao::laudo.analytics.pending-exams');
-        })->name('gestao.exams-without-report');
+        })->name('gestao.pending-exams');
+        Route::get('indicadores', function(){
+           return view('gestao::laudo.analytics.index');
+        })->name('gestao.laudo.analytics.index');
     });
 });
