@@ -5,7 +5,7 @@
             <span class="text-sm font-light text-gray-500 dark:text-gray-200 text-start">Mostrando resultados de {{date('d/m/Y', strtotime($start_date))}} à {{date('d/m/Y', strtotime($end_date))}}</span>
         </x-slot>
         <x-slot name="content">
-            <x-table>
+            <x-table class="overflow-x-auto">
                 <x-slot name="head">
                     <x-table.heading>MÉDICO</x-table.heading>
                     @foreach($setores as $setor)
