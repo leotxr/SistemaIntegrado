@@ -5,6 +5,7 @@ namespace Modules\Autorizacao\Traits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Modules\Autorizacao\Entities\ProtocolInUse;
+use App\Models\User;
 
 trait ProtocolTraits
 {
@@ -45,6 +46,7 @@ trait ProtocolTraits
 
     public function getUser($protocol_id){
         $user = ProtocolInUse::where('protocol_id', $protocol_id)->first();
+        $user = User::find($user['user_id']);
 
         if($user)
             return $user;

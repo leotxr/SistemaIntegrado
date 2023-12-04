@@ -26,9 +26,15 @@
 </html>
 
 <script>
-    $(window).on("load", function() {
-        $(".loader-wrapper").fadeOut("slow");
+
+    window.addEventListener('protocol-in-use', event => {
+        toastr[event.detail.type](event.detail.message ?? 'Este protocolo está sendo utilizado pelo usuário ' + event.detail.user,
+            event.detail.title ?? ''), toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
     });
+
     setTimeout(function() {
         $('.alert').fadeOut('slow');
     }, 5000);

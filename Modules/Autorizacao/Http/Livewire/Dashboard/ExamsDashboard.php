@@ -78,8 +78,8 @@ class ExamsDashboard extends Component
         {
            $user = $this->getUser($this->editing_protocol->id);
             $this->dispatchBrowserEvent(
-                'notifyAut',
-                ['type' => 'error', 'message' => "O protocolo está sendo utilizado por: "]
+                'protocol-in-use',
+                ['type' => 'error', 'user' => $user->name]
             );
         }
 
