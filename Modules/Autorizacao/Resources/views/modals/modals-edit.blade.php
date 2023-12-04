@@ -129,10 +129,10 @@
             </div>
             <x-danger-button wire:click='confirmDelete({{$protocol->id}})' class="mx-4">Excluir
             </x-danger-button>
-            <x-secondary-button x-on:click="$dispatch('close')" class="mx-4">Fechar</x-secondary-button>
+            <x-secondary-button wire:click="close" class="mx-4">Fechar</x-secondary-button>
             <x-primary-button wire:click='save' class="mx-4">Salvar</x-primary-button>
             @else
-            <x-secondary-button x-on:click="$dispatch('close')" class="mx-4">Fechar</x-secondary-button>
+            <x-secondary-button wire:click="close" class="mx-4">Fechar</x-secondary-button>
             <x-primary-button wire:click='save' disabled='{{$isDisabled}}' class="mx-4">Salvar</x-primary-button>
             @endcan
 

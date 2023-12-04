@@ -8,7 +8,7 @@
         </div>
     </div>
     {{$selectedStatus->links()}}
-    <x-table>
+    <x-table class="overflow-hidden max-w-full">
         <x-slot name="head">
             <x-table.heading sortable wire:click="sortBy('exams.exam_date')"
                 :direction="$sortField === 'exams.exam_date' ? $sortDirection : null">Data</x-table.heading>
@@ -21,9 +21,11 @@
             <x-table.heading sortable wire:click="sortBy('exams.convenio')"
                 :direction="$sortField === 'exams.convenio' ? $sortDirection : null">Convênio</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('protocols.user_id')"
-                :direction="$sortField === 'protocols.user_id' ? $sortDirection : null">Usuário</x-table.heading>
-            <x-table.heading>Verificado</x-table.heading>
+                :direction="$sortField === 'protocols.user_id' ? $sortDirection : null">Solicitante</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.updated_by')"
+                             :direction="$sortField === 'protocols.updated_by' ? $sortDirection : null">Último Usuário</x-table.heading>
             <x-table.heading>Status</x-table.heading>
+            <x-table.heading>Verificado</x-table.heading>
             <x-table.heading>Ações</x-table.heading>
 
         </x-slot>
@@ -41,6 +43,7 @@
                 <x-table.cell>{{ $protocols->name ?? '?' }}</x-table.cell>
                 <x-table.cell>{{ $protocols->convenio ?? '?' }}</x-table.cell>
                 <x-table.cell>{{ $protocols->created_by ?? '?' }}</x-table.cell>
+                <x-table.cell>{{ $protocols->updated_by ?? '?' }}</x-table.cell>
                 <x-table.cell class="text-center">
                     @if($protocols->recebido == 1)
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green" class="w-6 h-6">
@@ -55,8 +58,6 @@
                             clip-rule="evenodd" />
                     </svg>
                     @endif
-
-
                 </x-table.cell>
                 <x-table.cell class="text-gray-800 font-bold">{{ $exam_status->name ?? '?' }}
                 </x-table.cell>

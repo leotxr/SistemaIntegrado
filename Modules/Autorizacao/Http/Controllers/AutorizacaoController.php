@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Autorizacao\Entities\Exam;
 use Modules\Autorizacao\Entities\Photo;
 use Modules\Autorizacao\Entities\Protocol;
+use Modules\Autorizacao\Traits\ProtocolTraits;
 use PhpParser\Node\Stmt\Else_;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -18,6 +19,7 @@ use Spatie\Permission\Models\Permission;
 
 class AutorizacaoController extends Controller
 {
+    use ProtocolTraits;
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -27,7 +29,10 @@ class AutorizacaoController extends Controller
         $user = Auth::user();
 
         if($user->can('editar autorizacao'))
-        return view('autorizacao::dashboard');
+        {
+            $this->endByUser(Auth::user()->id);
+            return view('autorizacao::dashboard');
+        }
         else
         return view('autorizacao::create');
     }

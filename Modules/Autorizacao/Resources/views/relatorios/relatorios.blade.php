@@ -7,7 +7,7 @@
 @endsection
 
 <div class="m-4 shadow-sm">
-    <div class="max-w-full px-12 justify-items-center">
+    <div class="max-w-full px-4 justify-items-center">
         <div class="overflow-hidden shadow-sm sm:rounded-lg">
             <div>
                 @livewire('autorizacao::dashboard.my-requests')

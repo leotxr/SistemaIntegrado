@@ -10,10 +10,12 @@ use Modules\Autorizacao\Entities\ExamStatus;
 use Modules\Autorizacao\Entities\Photo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Modules\Autorizacao\Traits\ProtocolTraits;
 
 class ExamsDashboard extends Component
 {
     use WithPagination;
+    use ProtocolTraits;
     //public $selectedStatus = [];
     public $activeStatus = 6;
     public $modalExam = false;
@@ -64,9 +66,24 @@ class ExamsDashboard extends Component
 
     public function openEdit($protocol)
     {
-        $this->modalExam = true;
+
         $this->editing = Exam::where('protocol_id', $protocol)->get();
         $this->editing_protocol = Protocol::find($protocol);
+        if($this->checkProtocol($this->editing_protocol->id) === false)
+        {
+            $this->modalExam = true;
+            $this->inProcessing($this->editing_protocol->id);
+        }
+        else
+        {
+           $user = $this->getUser($this->editing_protocol->id);
+            $this->dispatchBrowserEvent(
+                'notifyAut',
+                ['type' => 'error', 'message' => "O protocolo está sendo utilizado por: "]
+            );
+        }
+
+
 
         //$this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
 
@@ -119,7 +136,16 @@ class ExamsDashboard extends Component
 
         $this->modalExam = false;
         $this->modalObservacao = false;
+        $this->endByProcotol($this->editing_protocol->id);
 
+    }
+
+    public function close()
+    {
+
+        $this->modalExam = false;
+        $this->modalObservacao = false;
+        $this->endByProcotol($this->editing_protocol->id);
     }
 
     public function render()
