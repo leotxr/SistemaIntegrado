@@ -28,7 +28,7 @@ class Exam extends Model
     {
         return $this->belongsTo(Protocol::class, 'protocol_id', 'id');
     }
-    public function examStatus()
+    public function status()
     {
         return $this->belongsTo(ExamStatus::class, 'exam_status_id', 'id');
     }

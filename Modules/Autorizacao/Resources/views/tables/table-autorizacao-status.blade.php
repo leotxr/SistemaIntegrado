@@ -29,7 +29,7 @@
         <x-slot name="body">
             @foreach ($selectedStatus as $protocols)
             @php
-            $exam_status = $protocols->find($protocols->exam_status_id)->relExamStatus;
+            //$exam_status = $protocols->find($protocols->exam_status_id)->status;
             @endphp
             <x-table.row>
                 <x-table.cell>{{
@@ -55,10 +55,10 @@
 
 
                 </x-table.cell>
-                <x-table.cell class="text-{{$colors[$exam_status->id]}}-800 font-bold">{{ $exam_status->name ?? '?' }}
+                <x-table.cell class="text-{{-- $colors[$exam_status->id] --}}-800 font-bold">{{-- $exam_status->name ?? '?' --}}
                 </x-table.cell>
                 <x-table.cell>
-                    
+
                         <button wire:click='openEdit({{$protocols->protocol_id}})' class="text-blue-800 font-bold inline-flex"
                             type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -68,7 +68,7 @@
                             </svg>
                             Editar
                         </button>
-                    
+
                 </x-table.cell>
             </x-table.row>
             @endforeach
