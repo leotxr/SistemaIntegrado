@@ -5,6 +5,7 @@ namespace Modules\Autorizacao\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class Protocol extends Model
 {
@@ -12,7 +13,7 @@ class Protocol extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'paciente_name', 
+        'paciente_name',
         'paciente_id',
         'observacao',
         'recebido',
@@ -20,23 +21,25 @@ class Protocol extends Model
         'updated_by',
         'user_id'
     ];
-    public function relPhotos()
+    public function Photos()
     {
         return $this->hasMany(Photo::class);
     }
-    public function relExams()
+    public function exams()
     {
         return $this->hasMany(Exam::class);
     }
-    public function relExamStatus()
-    {
-        return $this->hasOne('Modules\Autorizacao\Entities\ExamStatus', 'id');
-    }
-    public function relUserProtocol()
+
+    public function requester()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    
+
+    public function updater()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
     protected static function newFactory()
     {
         return \Modules\Autorizacao\Database\factories\ProtocolFactory::new();

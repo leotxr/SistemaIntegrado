@@ -183,7 +183,7 @@
             </x-nav-link>
         </div>
         <div class="pb-5 text-xl">
-            <x-nav-link :href="route('autorizacao.reports')" :active="request()->routeIs('autorizacao.reports')"
+            <x-nav-link :href="route('autorizacao.exam-report')" :active="request()->routeIs('autorizacao.exam-report')"
                 class="w-full">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                     class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">

@@ -44,7 +44,7 @@ class MyRequests extends Component
     public function mount()
     {
         $this->statuses = ExamStatus::all();
-        $this->users = User::permission('criar autorizacao')->get();
+        $this->users = User::whereIn('user_group_id', [2,3,4,5])->get();
 
         foreach ($this->statuses as $status) {
             $this->activeStatus[] = $status->id;
@@ -74,7 +74,7 @@ class MyRequests extends Component
         $this->modalExam = true;
         $this->editing = Exam::where('protocol_id', $protocol)->get();
         $this->editing_protocol = Protocol::find($protocol);
-        
+
         $this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
 
     }
@@ -94,7 +94,7 @@ class MyRequests extends Component
             if($delete_path)
             $photo->delete();
         }
-        
+
         if ($delete_exam)
             $protocol->delete();
 
@@ -110,7 +110,7 @@ class MyRequests extends Component
     public function save()
     {
         //$this->validate();
-        
+
         foreach ($this->editing as $exam) {
             $exam->save();
         }
@@ -118,12 +118,12 @@ class MyRequests extends Component
         if($this->editing_protocol)
         {
             $saving_protocol = $this->editing_protocol;
-            $saving_protocol->save(); 
+            $saving_protocol->save();
         }
 
 
         $this->modalExam = false;
-        
+
     }
 
     public function render()
@@ -133,7 +133,7 @@ class MyRequests extends Component
             return view('autorizacao::livewire.dashboard.my-requests', ['selectedStatus' => Protocol::search($this->sortField, $this->search)->join('exams', 'exams.protocol_id', '=', 'protocols.id')
             ->orderBy($this->sortField, $this->sortDirection)
             ->whereIn('protocols.user_id', $this->selectedUsers)
-            ->whereBetween('exams.created_at', [$this->initial_date, $this->final_date])
+            ->whereBetween('exams.created_at', [$this->initial_date . ' 00:00:00', $this->final_date . ' 23:59:59'])
             ->whereIn('exams.exam_status_id', $this->activeStatus)
             ->paginate(10)]);
         }else
@@ -141,7 +141,7 @@ class MyRequests extends Component
         return view('autorizacao::livewire.dashboard.my-requests', ['selectedStatus' => Protocol::search($this->sortField, $this->search)->join('exams', 'exams.protocol_id', '=', 'protocols.id')
             ->orderBy($this->sortField, $this->sortDirection)
             ->where('protocols.user_id', Auth::user()->id)
-            ->whereBetween('exams.created_at', [$this->initial_date, $this->final_date])
+            ->whereBetween('exams.created_at', [$this->initial_date . ' 00:00:00', $this->final_date . ' 23:59:59'])
             ->whereIn('exams.exam_status_id', $this->activeStatus)
             ->paginate(10)]);
         }

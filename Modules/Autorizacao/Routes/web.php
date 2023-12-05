@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
         Route::post('salvar-solicitacao', [AutorizacaoController::class, 'store'])->name('autorizacao.store');
         Route::get('minhas-solicitacoes', [AutorizacaoController::class, 'myProtocols'])->name('autorizacao.myprotocols');
         Route::get('relatorios', [AutorizacaoController::class, 'reports'])->name('autorizacao.reports');
+        Route::get('relatorio', function(){
+           return view('autorizacao::relatorios.exam-report');
+        })->name('autorizacao.exam-report');
         Route::get('/', [AutorizacaoController::class, 'index'])->name('autorizacao.index');
     });
 });
