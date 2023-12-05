@@ -5,7 +5,6 @@ namespace Modules\Autorizacao\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
 
 class Protocol extends Model
 {
@@ -21,23 +20,21 @@ class Protocol extends Model
         'updated_by',
         'user_id'
     ];
-    public function Photos()
+    public function relPhotos()
     {
         return $this->hasMany(Photo::class);
     }
-    public function exams()
+    public function relExams()
     {
         return $this->hasMany(Exam::class);
     }
-
-    public function requester()
+    public function relExamStatus()
+    {
+        return $this->hasOne('Modules\Autorizacao\Entities\ExamStatus', 'id');
+    }
+    public function relUserProtocol()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 
     protected static function newFactory()

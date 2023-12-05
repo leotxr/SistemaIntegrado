@@ -29,7 +29,7 @@
         <x-slot name="body">
             @foreach ($selectedStatus as $protocols)
             @php
-            //$exam_status = $protocols->find($protocols->exam_status_id)->status;
+            $exam_status = $protocols->find($protocols->exam_status_id)->relExamStatus;
             @endphp
             <x-table.row>
                 <x-table.cell>{{
@@ -55,7 +55,7 @@
 
 
                 </x-table.cell>
-                <x-table.cell class="text-{{-- $colors[$exam_status->id] --}}-800 font-bold">{{-- $exam_status->name ?? '?' --}}
+                <x-table.cell class="text-{{$colors[$exam_status->id]}}-800 font-bold">{{ $exam_status->name ?? '?' }}
                 </x-table.cell>
                 <x-table.cell>
 
