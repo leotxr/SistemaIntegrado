@@ -37,6 +37,21 @@ class Protocol extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
+    public function requester()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
     protected static function newFactory()
     {
         return \Modules\Autorizacao\Database\factories\ProtocolFactory::new();

@@ -32,6 +32,19 @@ class Exam extends Model
         return $this->hasOne('Modules\Autorizacao\Entities\ExamStatus', 'id');
     }
 
+    public function protocol()
+    {
+        return $this->belongsTo(Protocol::class, 'protocol_id', 'id');
+    }
+    public function examStatus()
+    {
+        return $this->belongsTo(ExamStatus::class, 'exam_status_id', 'id');
+    }
+    public function userUpdateExam()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
     protected static function newFactory()
     {
         return \Modules\Autorizacao\Database\factories\ExamFactory::new();
