@@ -127,12 +127,12 @@
                             <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Relatórios</span>
                         </x-side-link>
                         <ul x-show="open" x-transition x-data="{items:[
-                            {id: 1, label: 'Laudo', link: '{{route("gestao.pending-exams")}}', active: 'helpdesk.pending-exams' },
+                            {id: 1, label: 'Laudo', link: '{{route("gestao.laudo.reports.index")}}', active: '{{request()->routeIs("gestao.laudo.reports.index")}}' },
 
                             ]}">
                             <template x-for="item in items" :key="item.id">
                                 <li x-show="expanded">
-                                    <x-side-link class="w-full" ::href="item.link">
+                                    <x-side-link class="w-full" ::href="item.link" ::active="item.active" >
                                         <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
                                     </x-side-link>
                                 </li>

@@ -4,7 +4,8 @@ namespace Modules\Gestao\Traits;
 
 use Illuminate\Support\Facades\DB;
 
-trait LaudoQueries {
+trait LaudoQueries
+{
 
     public function queryBase()
     {
@@ -18,6 +19,7 @@ trait LaudoQueries {
             ->leftJoin('SETORES', 'SETORES.SETORID', '=', 'FATURA.SETORID');
 
     }
+
     public function getLaudosStatus($date1, $date2)
     {
         return $this->queryBase()
@@ -41,6 +43,41 @@ trait LaudoQueries {
             ->where('FATURA.LAUDOASSOK', 'T')
             ->select(DB::raw("SETORES.DESCRICAO AS NOMESETOR, FATURA.FATURAID AS EXAME, FATURA.SETORID AS SETOR, FATVOICE.ARQUIVO AS DITADO, FATURA.LAUDOREAOK AS DIGITADO, FATURA.LAUDOASSOK AS ASSINADO, MEDICOS.NOME AS MEDICO, MEDICOS.MEDICOID"))
             ->orderBy('MEDICOID')
+            ->get();
+    }
+
+    public function withoutReport($date1, $date2)
+    {
+        return $this->queryBase()
+            ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
+            ->leftJoin('PACIENTE', function ($join_paciente) {
+                $join_paciente->on('PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
+                    ->on('PACIENTE.UNIDADEID', '=', 'PACIENTE.UNIDADEID');
+            })
+            ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
+            ->where('FATURA.UNIDADEID', 1)
+            ->whereBetween('FATURA.DATA', ["$date1", "$date2"])
+            ->select(DB::raw("FATURA.DATA AS DATA_EXAME, FATURA.ENTREGADATA AS DATA_ENTREGA, FATURA.PACIENTEID AS PACIENTEID, PACIENTE.NOME AS PACIENTENOME, PROCEDIMENTOS.DESCRICAO AS EXAME, MEDICOS.NOME AS MEDICO, SETORES.DESCRICAO AS SETOR, FATVOICE.ARQUIVO AS DITADO, FATURA.LAUDOREAOK AS DIGITADO, FATURA.LAUDOASSOK AS ASSINADO"))
+            ->get();
+    }
+
+    public function getDoctors()
+    {
+        return DB::connection('sqlserver')
+            ->table('MEDICOS')
+            ->where('SUSPENSO', 'F')
+            ->where('TIPO', 'A')
+            ->where('CRM', '<>', '000001')
+            ->select(DB::raw('MEDICOID, CRM, NOME'))
+            ->get();
+    }
+
+    public function getSectors()
+    {
+        return DB::connection('sqlserver')
+            ->table('SETORES')
+            ->whereNotIn('SETORID', [8, 12, 6, 11, 15])
+            ->select('SETORID', 'DESCRICAO')
             ->get();
     }
 }

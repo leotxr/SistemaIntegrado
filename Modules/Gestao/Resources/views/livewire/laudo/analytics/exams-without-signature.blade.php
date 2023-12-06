@@ -1,11 +1,16 @@
 <div class="" x-data="{open: true}" :class="{'bg-gray-100': !open}">
-    <x-accordion>
+    <x-accordion actions>
         <x-slot name="title">
             <x-title class="text-4xl">Exames sem Assinar</x-title>
             <span class="text-sm font-light text-gray-500 dark:text-gray-200 text-start">Mostrando resultados de {{date('d/m/Y', strtotime($start_date))}} à {{date('d/m/Y', strtotime($end_date))}}</span>
+            <x-slot name="actions">
+                <a type="button" class="cursor-pointer" title="Ir para o relatório" >
+                    <x-icon name="document-report" class="w-5 h-5 text-gray-500 dark:text-gray-200"></x-icon>
+                </a>
+            </x-slot>
         </x-slot>
         <x-slot name="content">
-            <x-table>
+            <x-table class="overflow-x-auto">
                 <x-slot name="head">
                     <x-table.heading>MÉDICO</x-table.heading>
                     @foreach($setores as $setor)

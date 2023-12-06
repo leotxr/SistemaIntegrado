@@ -18,11 +18,28 @@ Route::prefix('gestao')->group(function() {
     })->name('gestao.test-query');
 
     Route::prefix('laudo')->group(function(){
-        Route::get('indicadores/exames-pendentes', function(){
-            return view('gestao::laudo.analytics.pending-exams');
-        })->name('gestao.pending-exams');
-        Route::get('indicadores', function(){
-           return view('gestao::laudo.analytics.index');
-        })->name('gestao.laudo.analytics.index');
+        Route::prefix('indicadores')->group(function(){
+
+            Route::get('/', function(){
+                return view('gestao::laudo.analytics.index');
+            })->name('gestao.laudo.analytics.index');
+
+            Route::get('exames-pendentes', function(){
+                return view('gestao::laudo.analytics.pending-exams');
+            })->name('gestao.pending-exams');
+        });
+
+        Route::prefix('relatorios')->group(function(){
+
+            Route::get('/', function(){
+                return view('gestao::laudo.reports.index');
+            })->name('gestao.laudo.reports.index');
+
+            Route::get('exames-sem-laudar', function(){
+                return view('gestao::laudo.reports.exams-without-report');
+            })->name('gestao.laudo.reports.exams-without-report');
+
+        });
+
     });
 });
