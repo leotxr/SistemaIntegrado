@@ -4,17 +4,20 @@ namespace Modules\Gestao\Http\Livewire\Laudo\Reports;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Modules\Gestao\Traits\LaudoQueries;
 use App\Models\User;
 
 class ExamsWithoutReport extends Component
 {
     use LaudoQueries;
+    use WithPagination;
 
     public $medicos;
     public $setores;
     public $selection;
-    public $db = [];
+
+    public $searching = [];
     public $medicos_selecionados = [];
     public $setores_selecionados = [];
     public $modal_medicos = false;
@@ -31,13 +34,8 @@ class ExamsWithoutReport extends Component
 
     public function search()
     {
-        $query = $this->withoutReport($this->start_date, $this->end_date)
-            ->whereIn('MEDICO', $this->medicos_selecionados)
-            ->whereIn('SETOR', $this->setores_selecionados)
-            ->where('DIGITADO', 'F')
-            ->whereNull('DITADO');
-
-        $this->db = json_decode(json_encode($query), true);
+        $this->render();
+        //$this->searching = $query;
     }
 
     public function remove($arr_ref, $name)
@@ -56,13 +54,8 @@ class ExamsWithoutReport extends Component
 
     }
 
-    public function add()
-    {
-
-    }
-
     public function render()
     {
-        return view('gestao::livewire.laudo.reports.exams-without-report');
+        return view('gestao::livewire.laudo.reports.exams-without-report', ['db' => $this->withoutReport($this->start_date, $this->end_date, $this->medicos_selecionados, $this->setores_selecionados, 20)]);
     }
 }

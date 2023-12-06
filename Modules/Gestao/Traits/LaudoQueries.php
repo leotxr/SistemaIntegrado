@@ -46,7 +46,7 @@ trait LaudoQueries
             ->get();
     }
 
-    public function withoutReport($date1, $date2)
+    public function withoutReport($date1, $date2, $medicos_selecionados, $setores_selecionados, $perpage)
     {
         return $this->queryBase()
             ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
@@ -57,8 +57,12 @@ trait LaudoQueries
             ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
             ->where('FATURA.UNIDADEID', 1)
             ->whereBetween('FATURA.DATA', ["$date1", "$date2"])
+            ->whereIn('MEDICOS.NOME', $medicos_selecionados)
+            ->whereIn('SETORES.DESCRICAO', $setores_selecionados)
+            ->where('FATURA.LAUDOREAOK', 'F')
+            ->whereNull('FATVOICE.ARQUIVO')
             ->select(DB::raw("FATURA.DATA AS DATA_EXAME, FATURA.ENTREGADATA AS DATA_ENTREGA, FATURA.PACIENTEID AS PACIENTEID, PACIENTE.NOME AS PACIENTENOME, PROCEDIMENTOS.DESCRICAO AS EXAME, MEDICOS.NOME AS MEDICO, SETORES.DESCRICAO AS SETOR, FATVOICE.ARQUIVO AS DITADO, FATURA.LAUDOREAOK AS DIGITADO, FATURA.LAUDOASSOK AS ASSINADO"))
-            ->get();
+            ->paginate($perpage);
     }
 
     public function getDoctors()
