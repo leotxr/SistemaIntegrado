@@ -85,22 +85,25 @@
                 @foreach($db as $exame)
                     <x-table.row>
                         <x-table.cell>
-                            {{date('d/m/Y', strtotime($exame['DATA_EXAME']))}}
+                            {{date('d/m/Y', strtotime($exame->DATA_EXAME))}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{date('d/m/Y', strtotime($exame['DATA_ENTREGA']))}}
+                            {{date('d/m/Y', strtotime($exame->DATA_ENTREGA))}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$exame['PACIENTEID']}}
+                            {{$exame->PACIENTEID}}
                         </x-table.cell>
-                        <x-table.cell>{{$exame['PACIENTENOME']}}</x-table.cell>
-                        <x-table.cell>{{$exame['EXAME']}}</x-table.cell>
-                        <x-table.cell>{{$exame['MEDICO']}}</x-table.cell>
-                        <x-table.cell>{{$exame['SETOR']}}</x-table.cell>
+                        <x-table.cell>{{$exame->PACIENTENOME}}</x-table.cell>
+                        <x-table.cell>{{$exame->EXAME}}</x-table.cell>
+                        <x-table.cell>{{$exame->MEDICO}}</x-table.cell>
+                        <x-table.cell>{{$exame->SETOR}}</x-table.cell>
                     </x-table.row>
                 @endforeach
             </x-slot>
         </x-table>
+        <div class="pt-b">
+            {{$db->links()}}
+        </div>
     </div>
 
     <x-gestao::modal wire:model.defer="modal_medicos" maxWidth="2xl">
