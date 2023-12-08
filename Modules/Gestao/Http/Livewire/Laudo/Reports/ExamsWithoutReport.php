@@ -16,14 +16,13 @@ class ExamsWithoutReport extends Component
     public $medicos;
     public $setores;
     public $selection;
-
-    public $searching = [];
     public $medicos_selecionados = [];
     public $setores_selecionados = [];
     public $modal_medicos = false;
     public $modal_setores = false;
     public $start_date;
     public $end_date;
+
 
     public function mount()
     {
@@ -56,6 +55,9 @@ class ExamsWithoutReport extends Component
 
     public function render()
     {
-        return view('gestao::livewire.laudo.reports.exams-without-report', ['db' => $this->withoutReport($this->start_date, $this->end_date, $this->medicos_selecionados, $this->setores_selecionados, 20)]);
+        return view('gestao::livewire.laudo.reports.exams-without-report',
+            ['db' => $this->withoutReport($this->start_date, $this->end_date, $this->medicos_selecionados, $this->setores_selecionados)
+                ->orderBy('HORA_EXAME')
+                ->paginate(20)]);
     }
 }

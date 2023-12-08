@@ -6,8 +6,10 @@
         </a>
         <x-slot name="page">
             <div x-data="{pages: [
-        {id: 1, label: 'Laudo'}]}">
-                <template x-for="page in pages" :key="page.id">
+        {id: 1, label: 'Laudo'},
+        {id: 2, label: 'Indicadores'},
+        {id: 3, label: 'Exames Pendentes'}]}">
+                <template x-for="page in pages" :key="page.id" class="inline-flex">
                     <x-breadcrumb.page>
                         <a x-text="page.label"></a>
                     </x-breadcrumb.page>

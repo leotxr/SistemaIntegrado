@@ -21,7 +21,7 @@
 </head>
 
 <body class="font-sans antialiased" x-data="{expanded: false}">
-<div class="fixed bottom-0 end-0 z-90 flex justify-between w-full p-2 border-b bg-red-500">
+<div class="fixed bottom-0 end-0 z-90 flex justify-between w-full border-b bg-red-500">
     <div class="flex items-center mx-auto">
     <span>
         Este módulo está em fase de desenvolvimento, alguns processos podem não funcionar corretamente.

@@ -3,7 +3,7 @@
         @livewire('gestao::utils.loading-screen')
     </div>
     <div x-show="isOpen"
-         class="z-50 h-screen fixed transform transition duration-300 shadow-md p-4 right-0 top-0 bg-white dark:bg-gray-800 shadow-md sm:w-64 overflow-hidden">
+         class="z-50 h-screen fixed transform transition duration-300 shadow-md p-4 right-0 top-0 bg-white dark:bg-gray-800 sm:w-64 overflow-hidden">
         <div class="grid justify-start pb-4">
             <a class="cursor-pointer ring-offset-1 p-2" x-on:click="isOpen = false">
                 <x-icon name="x" class="w-5 h-5 text-gray-500 dark:text-gray-100"></x-icon>

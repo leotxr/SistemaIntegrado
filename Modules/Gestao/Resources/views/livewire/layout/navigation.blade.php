@@ -85,26 +85,26 @@
         <div id="logo-sidebar"
              class="fixed top-0 left-0 z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
              aria-label="Sidebar" :class="expanded ? 'sm:w-64' : 'sm:w-14'" x-transition>
-            <div class="h-full px-2 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-                <ul class="space-y-2 font-medium">
+            <div class="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 grid justify-items-center w-full">
+                <ul class="space-y-2 font-medium w-full">
                     <li>
-                        <x-side-link :href="route('gestao.index')"
+                        <x-gestao::side-link :href="route('gestao.index')"
                                      :active="request()->routeIs('gestao.index')"
                                      class="w-full">
                             <x-icon name="home"
-                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                             </x-icon>
                             <span class="ml-3" x-show="expanded">Painel</span>
-                        </x-side-link>
+                        </x-gestao::side-link>
                     </li>
 
                     <li x-data="{open:false}" @click="expanded = true">
-                        <x-side-link class="w-full" x-on:click="open = ! open" href="#">
+                        <x-gestao::side-link class="w-full" x-on:click="open = ! open" href="#"  :active="Request::is('gestao/laudo/indicadores/*')">
                             <x-icon name="presentation-chart-line"
-                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                             </x-icon>
                             <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Indicadores</span>
-                        </x-side-link>
+                        </x-gestao::side-link>
                         <ul x-show="open" x-transition x-data="{items:[
                             {id: 1, label: 'Laudo', link: '{{route("gestao.laudo.analytics.index")}}', active: 'gestao.laudo.analytics.index' },
                             {id: 2, label: 'Recepção', link: '{{route("gestao.pending-exams")}}', active: 'helpdesk.pending-exams' },
@@ -112,40 +112,40 @@
                             ]}">
                             <template x-for="item in items" :key="item.id">
                                 <li x-show="expanded">
-                                    <x-side-link class="w-full" ::href="item.link">
+                                    <x-gestao::side-link class="w-full" ::href="item.link">
                                         <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
-                                    </x-side-link>
+                                    </x-gestao::side-link>
                                 </li>
                             </template>
                         </ul>
                     </li>
                     <li x-data="{open:false}" @click="expanded = true">
-                        <x-side-link class="w-full" x-on:click="open = ! open" href="#">
+                        <x-gestao::side-link class="w-full" x-on:click="open = ! open" href="#" :active="Request::is('gestao/laudo/relatorios/*')">
                             <x-icon name="document-report"
-                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                             </x-icon>
                             <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Relatórios</span>
-                        </x-side-link>
+                        </x-gestao::side-link>
                         <ul x-show="open" x-transition x-data="{items:[
                             {id: 1, label: 'Laudo', link: '{{route("gestao.laudo.reports.index")}}', active: '{{request()->routeIs("gestao.laudo.reports.index")}}' },
 
                             ]}">
                             <template x-for="item in items" :key="item.id">
                                 <li x-show="expanded">
-                                    <x-side-link class="w-full" ::href="item.link" ::active="item.active" >
+                                    <x-gestao::side-link class="w-full" ::href="item.link" ::active="item.active" >
                                         <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
-                                    </x-side-link>
+                                    </x-gestao::side-link>
                                 </li>
                             </template>
                         </ul>
                     </li>
                     <li>
-                        <x-side-link class="w-full" :href="route('gestao.test-query')" :active="request()->routeIs('gestao.test-query')">
+                        <x-gestao::side-link class="w-full" :href="route('gestao.test-query')" :active="request()->routeIs('gestao.test-query')">
                             <x-icon name="book-open"
-                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                             </x-icon>
                             <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Base de Conhecimento</span>
-                        </x-side-link>
+                        </x-gestao::side-link>
 
                     </li>
                 </ul>

@@ -74,6 +74,7 @@
         <x-table>
             <x-slot name="head">
                 <x-table.heading>Data Exame</x-table.heading>
+                <x-table.heading>Hora Exame</x-table.heading>
                 <x-table.heading>Data Entrega</x-table.heading>
                 <x-table.heading>Código</x-table.heading>
                 <x-table.heading>Nome</x-table.heading>
@@ -86,6 +87,9 @@
                     <x-table.row>
                         <x-table.cell>
                             {{date('d/m/Y', strtotime($exame->DATA_EXAME))}}
+                        </x-table.cell>
+                        <x-table.cell>
+                            {{gmdate('H:i:s', $exame->HORA_EXAME)}}
                         </x-table.cell>
                         <x-table.cell>
                             {{date('d/m/Y', strtotime($exame->DATA_ENTREGA))}}
@@ -101,8 +105,8 @@
                 @endforeach
             </x-slot>
         </x-table>
-        <div class="pt-b">
-            {{$db->links()}}
+        <div class="pt-4">
+                {{$db->links()}}
         </div>
     </div>
 
