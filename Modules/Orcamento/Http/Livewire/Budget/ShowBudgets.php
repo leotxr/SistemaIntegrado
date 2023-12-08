@@ -20,7 +20,7 @@ class ShowBudgets extends Component
     public $initial_date;
     public $final_date;
     public $selectedStatus = [1];
-    public $selectedType = 1;
+    public $selectedType = 3;
     public $search = '';
 
     protected $listeners = [
@@ -31,7 +31,7 @@ class ShowBudgets extends Component
 
     public function mount()
     {
-        $this->initial_date = today()->subDays(30)->format('Y-m-d');
+        $this->initial_date = today()->subDays(2)->format('Y-m-d');
         $this->final_date = today()->format('Y-m-d');
     }
 
