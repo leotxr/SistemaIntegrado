@@ -40,8 +40,7 @@
         <x-slot name="body">
             @foreach ($selectedStatus as $protocols)
                 @php
-                    //$last_user = $protocols->find($protocols->user_id)->relUserProtocol;
-                    $exam_status = $protocols->find($protocols->exam_status_id)->ExamStatus;
+                    $exam_status = $protocols->find($protocols->exam_status_id)->relExamStatus;
                 @endphp
                 <x-table.row>
                     <x-table.cell>{{
@@ -51,7 +50,6 @@
                     <x-table.cell>{{ $protocols->name ?? '?' }}</x-table.cell>
                     <x-table.cell>{{ $protocols->convenio ?? '?' }}</x-table.cell>
                     <x-table.cell>{{ $protocols->created_by ?? '?' }}</x-table.cell>
-                    <x-table.cell>{{-- $last_user->name ?? '?' --}}</x-table.cell>
                     <x-table.cell class="text-center">
                         @if($protocols->recebido == 1)
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green" class="w-6 h-6">
@@ -66,6 +64,8 @@
                                       clip-rule="evenodd"/>
                             </svg>
                         @endif
+
+
                     </x-table.cell>
                     <x-table.cell class="text-gray-800 font-bold">{{ $exam_status->name ?? '?' }}
                     </x-table.cell>

@@ -15,7 +15,10 @@ class ExamReport extends Component
 {
     use WithPagination;
     public $db;
-    public $protocols = [];
+    public $search = '';
+    public $sortField = 'paciente_name';
+    public $sortDirection = 'desc';
+    //public $protocols = [];
     public $initial_date;
     public $end_date;
     public $users;
@@ -39,8 +42,23 @@ class ExamReport extends Component
 
     public function search()
     {
-        $this->protocols = Protocol::whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
-            ->whereIn('user_id', $this->selectedUsers)->get();
+        /*
+        $this->protocols = Protocol::search($this->sortField, $this->search)->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
+            ->whereIn('user_id', $this->selectedUsers)
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
+        */
+        $this->render();
+    }
+
+    public function sortBy($field)
+    {
+
+        $this->sortDirection = $this->sortField === $field
+            ? $this->sortDirection = $this->sortDirection === 'desc' ? 'asc' : 'desc'
+            : 'desc';
+
+        $this->sortField = $field;
     }
 
     public function export()
@@ -56,6 +74,9 @@ class ExamReport extends Component
 
     public function render()
     {
-        return view('autorizacao::livewire.reports.exam-report');
+        return view('autorizacao::livewire.reports.exam-report', ['protocols' => Protocol::search($this->sortField, $this->search)->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
+            ->whereIn('user_id', $this->selectedUsers)
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(20)]);
     }
 }

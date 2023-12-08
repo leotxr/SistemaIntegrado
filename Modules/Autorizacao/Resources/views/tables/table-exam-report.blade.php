@@ -1,13 +1,32 @@
 <div>
+    <div>
+        <div class="mt-4">
+            <x-text-input type="text" wire:model='search' placeholder="Buscar solicitações...">
+            </x-text-input>
+            <x-input-error class="mt-2" :messages="$errors->get('exam.exam')"/>
+        </div>
+    </div>
     <x-table>
         <x-slot name="head">
-            <x-table.heading>Data</x-table.heading>
-            <x-table.heading>Código</x-table.heading>
-            <x-table.heading>Paciente</x-table.heading>
-            <x-table.heading>Exame</x-table.heading>
-            <x-table.heading>Convênio</x-table.heading>
-            <x-table.heading>Solicitante</x-table.heading>
-            <x-table.heading>Último usuário</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.created_at')"
+                             :direction="$sortField === 'protocols.created_at' ? $sortDirection : null">Data
+            </x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.id')"
+                             :direction="$sortField === 'protocols.id' ? $sortDirection : null">Código
+            </x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.paciente_name')"
+                             :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Paciente
+            </x-table.heading>
+            <x-table.heading>Exame
+            </x-table.heading>
+            <x-table.heading>Convênio
+            </x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.created_by')"
+                             :direction="$sortField === 'protocols.created_by' ? $sortDirection : null">Solicitante
+            </x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('protocols.updated_by')"
+                             :direction="$sortField === 'protocols.updated_by' ? $sortDirection : null">Último Usuário
+            </x-table.heading>
             <x-table.heading>Status</x-table.heading>
         </x-slot>
         <x-slot name="body">

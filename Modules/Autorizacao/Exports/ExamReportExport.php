@@ -31,7 +31,7 @@ class ExamReportExport implements FromView
     public function view(): View
     {
         return view(
-            'autorizacao::tables.table-exam-report',
+            'autorizacao::tables.table-exam-export',
             ['protocols' => Protocol::whereBetween('protocols.created_at', [$this->start . ' 00:00:00', $this->end . ' 23:59:59'])
                 ->whereIn('user_id', $this->users)->get(), 'activeStatus' => $this->activeStatus]
         );
