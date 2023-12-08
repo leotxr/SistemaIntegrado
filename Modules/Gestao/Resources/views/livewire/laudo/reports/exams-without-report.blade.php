@@ -10,6 +10,16 @@
                     <span class="text-gray-100 dark:text-gray-500">Filtrar datas</span>
                 </x-slot>
                 <x-slot name="content">
+                    <div class="inline-flex space-x-2">
+                        <div class="inline-flex space-x-2">
+                            <x-text-input type="radio" class="rounded-full" name="date_by" id="date_by_exam" wire:model="date_by" value="FATURA.DATA"/>
+                            <x-input-label for="date_by_exam">Data do exame</x-input-label>
+                        </div>
+                        <div class="inline-flex space-x-2">
+                            <x-text-input type="radio" class="rounded-full" name="date_by" id="date_by_delivery" wire:model="date_by" value="FATURA.ENTREGADATA"/>
+                            <x-input-label for="date_by_delivery">Data de entrega</x-input-label>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div class="col-span-2 sm:col-span-2 mt-4">
                             <x-input-label for="start_date">Data inicial</x-input-label>
