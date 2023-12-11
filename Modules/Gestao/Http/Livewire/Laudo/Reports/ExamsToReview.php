@@ -54,6 +54,11 @@ class ExamsToReview extends Component
 
     }
 
+    public function search()
+    {
+        $this->render();
+    }
+
     public function render()
     {
 

@@ -68,6 +68,8 @@ class ExamsWithoutReport extends Component
 
         return view('gestao::livewire.laudo.reports.exams-without-report',
             ['db' => $this->queryReports($this->medicos_selecionados, $this->setores_selecionados)
+                ->where('FATURA.LAUDOREAOK', 'F')
+                ->whereNull('FATVOICE.ARQUIVO')
                 ->whereBetween("$this->date_by", ["$this->start_date", "$this->end_date"])
                 ->orderBy('HORA_EXAME')
                 ->paginate(20)]);
