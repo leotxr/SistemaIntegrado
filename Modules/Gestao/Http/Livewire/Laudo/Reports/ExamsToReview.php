@@ -58,7 +58,7 @@ class ExamsToReview extends Component
     {
 
         return view('gestao::livewire.laudo.reports.exams-to-review',
-            ['db' => $this->queryReports($this->medicos_selecionados, $this->setores_selecionados)
+            ['db' => $this->queryReportsRevisor($this->medicos_selecionados, $this->setores_selecionados)
                 ->whereNotNull('FATVOICE.ARQUIVO')
                 ->whereNull('FATURA.LAUDOREV')
                 ->where('FATURA.LAUDOREAOK', 'T')
