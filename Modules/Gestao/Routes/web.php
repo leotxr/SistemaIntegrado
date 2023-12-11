@@ -36,8 +36,16 @@ Route::prefix('gestao')->group(function() {
             })->name('gestao.laudo.reports.index');
 
             Route::get('exames-sem-laudar', function(){
-                return view('gestao::laudo.reports.exams-without-report');
+                return view('gestao::laudo.reports.pending-exams');
             })->name('gestao.laudo.reports.exams-without-report');
+
+            Route::get('exames-sem-assinar', function(){
+                return view('gestao::laudo.reports.pending-exams');
+            })->name('gestao.laudo.reports.exams-without-signature');
+
+            Route::get('exames-pendentes-de-revisao', function(){
+                return view('gestao::laudo.reports.pending-exams');
+            })->name('gestao.laudo.reports.exams-to-review');
 
         });
 

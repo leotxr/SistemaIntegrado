@@ -2,13 +2,11 @@
 
 namespace Modules\Gestao\Http\Livewire\Laudo\Reports;
 
-use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Gestao\Traits\LaudoQueries;
-use App\Models\User;
 
-class ExamsWithoutReport extends Component
+class ExamsWithoutSignature extends Component
 {
     use LaudoQueries;
     use WithPagination;
@@ -25,7 +23,6 @@ class ExamsWithoutReport extends Component
     public $start_date;
     public $end_date;
 
-
     public function mount()
     {
         $this->medicos = json_decode(json_encode($this->getDoctors()), true);
@@ -33,15 +30,9 @@ class ExamsWithoutReport extends Component
 
     }
 
-    public function search()
-    {
-        $this->render();
-        //$this->searching = $query;
-    }
-
     public function selectAll()
     {
-        if($this->selectAll)
+        if ($this->selectAll)
             $this->medicos_selecionados = $this->medicos;
         else
             $this->medicos_selecionados = [];
@@ -63,13 +54,19 @@ class ExamsWithoutReport extends Component
 
     }
 
+    public function search()
+    {
+        $this->render();
+        //$this->searching = $query;
+    }
+
     public function render()
     {
 
-        return view('gestao::livewire.laudo.reports.exams-without-report',
-            ['db' => $this->queryReportsRevisor($this->medicos_selecionados, $this->setores_selecionados)
-                ->where('FATURA.LAUDOREAOK', 'F')
-                ->whereNull('FATVOICE.ARQUIVO')
+        return view('gestao::livewire.laudo.reports.exams-without-signature',
+            ['db' => $this->queryReports($this->medicos_selecionados, $this->setores_selecionados)
+                ->where('FATURA.LAUDOREAOK', 'T')
+                ->where('FATURA.LAUDOASSOK', 'F')
                 ->whereBetween("$this->date_by", ["$this->start_date", "$this->end_date"])
                 ->orderBy('HORA_EXAME')
                 ->paginate(20)]);

@@ -43,7 +43,7 @@
             </x-slot>
         </x-table>
         <div class="py-4">
-                {{$db->links()}}
+            {{$db->links()}}
         </div>
     </div>
 
