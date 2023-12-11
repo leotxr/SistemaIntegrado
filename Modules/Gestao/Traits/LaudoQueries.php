@@ -64,7 +64,7 @@ trait LaudoQueries
     public function queryReportsRevisor($medicos_selecionados, $setores_selecionados)
     {
         return $this->queryBase()
-            ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID2')
+            ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREA2ID')
             ->leftJoin('PACIENTE', function ($join_paciente) {
                 $join_paciente->on('PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
                     ->on('PACIENTE.UNIDADEID', '=', 'PACIENTE.UNIDADEID');
