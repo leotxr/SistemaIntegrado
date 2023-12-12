@@ -5,6 +5,9 @@ namespace Modules\Gestao\Http\Livewire\Laudo\Reports;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Autorizacao\Exports\ExamReportExport;
+use Modules\Gestao\Exports\Laudo\ExamsExport;
 use Modules\Gestao\Traits\LaudoQueries;
 use App\Models\User;
 
@@ -45,6 +48,19 @@ class ExamsWithoutReport extends Component
             $this->medicos_selecionados = $this->medicos;
         else
             $this->medicos_selecionados = [];
+    }
+
+    public function export()
+    {
+        $range = [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'date_by' => $this->date_by,
+            'medicos_selecionados' => $this->medicos_selecionados,
+            'setores_selecionados' => $this->setores_selecionados,
+            'query_type' => 1
+        ];
+        return Excel::download(new ExamsExport($range), 'exams-sem-laudar' . $this->start_date . '-' . $this->end_date . '.xlsx');
     }
 
     public function remove($arr_ref, $name)

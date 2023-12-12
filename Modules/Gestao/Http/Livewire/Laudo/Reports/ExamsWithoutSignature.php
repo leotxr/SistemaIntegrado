@@ -4,6 +4,8 @@ namespace Modules\Gestao\Http\Livewire\Laudo\Reports;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Gestao\Exports\Laudo\ExamsExport;
 use Modules\Gestao\Traits\LaudoQueries;
 
 class ExamsWithoutSignature extends Component
@@ -58,6 +60,19 @@ class ExamsWithoutSignature extends Component
     {
         $this->render();
         //$this->searching = $query;
+    }
+
+    public function export()
+    {
+        $range = [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'date_by' => $this->date_by,
+            'medicos_selecionados' => $this->medicos_selecionados,
+            'setores_selecionados' => $this->setores_selecionados,
+            'query_type' => 2
+        ];
+        return Excel::download(new ExamsExport($range), 'exams-sem-assinar' . $this->start_date . '-' . $this->end_date . '.xlsx');
     }
 
     public function render()

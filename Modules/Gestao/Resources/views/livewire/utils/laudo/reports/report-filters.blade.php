@@ -148,7 +148,7 @@
     <div class="fixed bottom-4 right-4 ">
 
         <button
-            wire:click="exportXls"
+            wire:click="export"
             class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-2 rounded-full shadow-lg hover:scale-115 transition transform duration-75">
             <x-icon name="table" class="h-6 w-6 text-white"></x-icon>
         </button>

@@ -4,6 +4,8 @@ namespace Modules\Gestao\Http\Livewire\Laudo\Reports;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Gestao\Exports\Laudo\ExamsExport;
 use Modules\Gestao\Traits\LaudoQueries;
 
 class ExamsToReview extends Component
@@ -57,6 +59,19 @@ class ExamsToReview extends Component
     public function search()
     {
         $this->render();
+    }
+
+    public function export()
+    {
+        $range = [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'date_by' => $this->date_by,
+            'medicos_selecionados' => $this->medicos_selecionados,
+            'setores_selecionados' => $this->setores_selecionados,
+            'query_type' => 3
+        ];
+        return Excel::download(new ExamsExport($range), 'exams-sem-revisar' . $this->start_date . '-' . $this->end_date . '.xlsx');
     }
 
     public function render()
