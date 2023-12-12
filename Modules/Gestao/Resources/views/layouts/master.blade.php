@@ -29,7 +29,7 @@
     </div>
 </div>
 @livewire('gestao::layout.navigation')
-<header class="pt-14 sm:ml-14">
+<header class="pt-14" :class="expanded ? 'sm:ml-64' : 'sm:ml-14'">
     <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         @yield('header')
     </div>
