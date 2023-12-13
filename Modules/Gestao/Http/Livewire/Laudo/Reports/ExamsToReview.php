@@ -34,9 +34,9 @@ class ExamsToReview extends Component
 
     public function selectAll()
     {
-        if ($this->selectAll)
-            $this->medicos_selecionados = $this->medicos;
-        else
+        if ($this->selectAll) {
+            $this->medicos_selecionados = array_column($this->medicos, 'NOME');
+        } else
             $this->medicos_selecionados = [];
     }
 
@@ -55,6 +55,7 @@ class ExamsToReview extends Component
         }
 
     }
+
 
     public function search()
     {
