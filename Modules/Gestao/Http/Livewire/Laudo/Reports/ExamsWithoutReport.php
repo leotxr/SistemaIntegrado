@@ -19,7 +19,8 @@ class ExamsWithoutReport extends Component
     public $medicos;
     public $setores;
     public $selection;
-    public $selectAll = false;
+    public $selectAllDoctors = false;
+    public $selectAllSectors = false;
     public $date_by = 'FATURA.DATA';
     public $medicos_selecionados = [];
     public $setores_selecionados = [];
@@ -42,14 +43,23 @@ class ExamsWithoutReport extends Component
         //$this->searching = $query;
     }
 
-    public function selectAll()
+    public function updatedselectAllDoctors($value)
     {
-        if ($this->selectAll) {
+        if ($value) {
             $this->medicos_selecionados = array_column($this->medicos, 'NOME');
         } else
             $this->medicos_selecionados = [];
 
     }
+
+    public function updatedselectAllSectors($value)
+    {
+        if ($value) {
+            $this->setores_selecionados = array_column($this->setores, 'DESCRICAO');
+        } else
+            $this->setores_selecionados = [];
+    }
+
 
     public function export()
     {

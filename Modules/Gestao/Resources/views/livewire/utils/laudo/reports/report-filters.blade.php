@@ -83,10 +83,11 @@
                 <div class="w-full">
                     <x-title>Selecione os médicos:</x-title>
                     <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                        <li class="w-full">
                             <div class="flex items-center ps-3">
-
-                                <x-text-input type="checkbox" wire:click="selectAll" wire:model="selectAll" class="w-4 h-4"></x-text-input>
+                                <x-text-input type="checkbox" id="select_doctors" name="select_doctors" wire:model="selectAllDoctors" class="w-4 h-4"></x-text-input>
+                                <x-input-label for="select_doctors"
+                                               class="py-3 ms-2">Selecionar todos</x-input-label>
                             </div>
                         </li>
                         @foreach($medicos as $medico)
@@ -122,6 +123,13 @@
                 <div class="w-full">
                     <x-title>Selecione os setores:</x-title>
                     <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <li class="w-full">
+                            <div class="flex items-center ps-3">
+                                <x-text-input type="checkbox" id="select_sectors" name="select_sectors" wire:model="selectAllSectors" class="w-4 h-4"></x-text-input>
+                                <x-input-label for="select_sectors"
+                                               class="py-3 ms-2">Selecionar todos</x-input-label>
+                            </div>
+                        </li>
                         @foreach($setores as $setor)
                             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                 <div class="flex items-center ps-3">
