@@ -44,7 +44,7 @@
                     <x-slot name="content">
                         @isset($medicos_selecionados)
                             <div
-                                class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2">
+                                class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2 overflow-x-auto">
                                 <x-primary-button class="bg-blue-600" wire:click="$set('modal_medicos', 'true')">
                                     <x-icon name="filter" class="w-3 h-3" solid></x-icon>
                                     Médicos

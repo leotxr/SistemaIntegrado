@@ -3,6 +3,7 @@
 namespace Modules\Gestao\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 trait LaudoQueries
 {
@@ -48,6 +49,7 @@ trait LaudoQueries
 
     public function queryReports($medicos_selecionados, $setores_selecionados)
     {
+
         return $this->queryBase()
             ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
             ->leftJoin('PACIENTE', function ($join_paciente) {
@@ -71,6 +73,20 @@ trait LaudoQueries
             ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
             ->where('FATURA.UNIDADEID', 1)
             ->whereIn('MEDICOS.NOME', $medicos_selecionados)
+            ->whereIn('SETORES.DESCRICAO', $setores_selecionados)
+            ->select(DB::raw("FATURA.DATA AS DATA_EXAME, FATURA.HORA AS HORA_EXAME, FATURA.ENTREGADATA AS DATA_ENTREGA, FATURA.PACIENTEID AS PACIENTEID, PACIENTE.NOME AS PACIENTENOME, PROCEDIMENTOS.DESCRICAO AS EXAME, MEDICOS.NOME AS MEDICO, SETORES.DESCRICAO AS SETOR, FATVOICE.ARQUIVO AS DITADO, FATURA.LAUDOREAOK AS DIGITADO, FATURA.LAUDOASSOK AS ASSINADO"));
+    }
+
+    public function queryWithoutDoctor($setores_selecionados)
+    {
+
+        return $this->queryBase()
+            ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
+            ->leftJoin('PACIENTE', function ($join_paciente) {
+                $join_paciente->on('PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
+                    ->on('PACIENTE.UNIDADEID', '=', 'PACIENTE.UNIDADEID');
+            })
+            ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
             ->whereIn('SETORES.DESCRICAO', $setores_selecionados)
             ->select(DB::raw("FATURA.DATA AS DATA_EXAME, FATURA.HORA AS HORA_EXAME, FATURA.ENTREGADATA AS DATA_ENTREGA, FATURA.PACIENTEID AS PACIENTEID, PACIENTE.NOME AS PACIENTENOME, PROCEDIMENTOS.DESCRICAO AS EXAME, MEDICOS.NOME AS MEDICO, SETORES.DESCRICAO AS SETOR, FATVOICE.ARQUIVO AS DITADO, FATURA.LAUDOREAOK AS DIGITADO, FATURA.LAUDOASSOK AS ASSINADO"));
     }

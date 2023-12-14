@@ -10,10 +10,15 @@
         $current_page = 'Exames sem Assinar';
     }
     elseif(Route::is('gestao.laudo.reports.exams-to-review'))
-{
-    $livewire = 'gestao::laudo.reports.exams-to-review';
-        $current_page = 'Exames pendentes de Revisão ';
-}
+    {
+        $livewire = 'gestao::laudo.reports.exams-to-review';
+        $current_page = 'Exames pendentes de Revisão';
+    }
+        elseif(Route::is('gestao.laudo.reports.exams-without-doctor'))
+    {
+        $livewire = 'gestao::laudo.reports.exams-without-doctor';
+        $current_page = 'Exames sem médico vinculado';
+    }
 
 @endphp
 @extends('gestao::layouts.master')
@@ -34,7 +39,7 @@
         <div class="max-w-full px-12 justify-items-center">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div>
-                  @livewire($livewire)
+                    @livewire($livewire)
                 </div>
             </div>
         </div>

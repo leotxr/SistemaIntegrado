@@ -22,9 +22,11 @@
                             {id: 1, label: 'Exames sem Laudar', url:'{{route('gestao.laudo.reports.exams-without-report')}}'},
                             {id: 2, label: 'Exames sem Assinar', url:'{{route('gestao.laudo.reports.exams-without-signature')}}'},
                             {id: 3, label: 'Exames pendentes de Revisão', url:'{{route('gestao.laudo.reports.exams-to-review')}}'},
+                            {id: 4, label: 'Exames sem médico vinculado', url:'{{route('gestao.laudo.reports.exams-without-doctor')}}'},
                             ]}">
                                 <template x-for="item in items" :key="item.id">
                                     <x-ordered-list.item>
+                                        <span x-text="item.id" class="font-bold"></span>
                                         <a x-text="item.label" :href="item.url" class="hover:text-blue-800"></a>
                                     </x-ordered-list.item>
                                 </template>

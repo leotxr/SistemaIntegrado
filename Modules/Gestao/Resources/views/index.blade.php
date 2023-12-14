@@ -13,7 +13,15 @@
         <div class="max-w-full px-12 justify-items-center">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div>
-teste
+                    @php
+                    $a = 'Teste A';
+                    $b = 'a';
+                    $c = 'b';
+
+
+                    echo $$$c;
+                    @endphp
+
                 </div>
             </div>
         </div>

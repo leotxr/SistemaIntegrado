@@ -47,6 +47,10 @@ Route::prefix('gestao')->group(function() {
                 return view('gestao::laudo.reports.pending-exams');
             })->name('gestao.laudo.reports.exams-to-review');
 
+            Route::get('exames-sem-medico-vinculado', function(){
+                return view('gestao::laudo.reports.pending-exams');
+            })->name('gestao.laudo.reports.exams-without-doctor');
+
         });
 
     });
