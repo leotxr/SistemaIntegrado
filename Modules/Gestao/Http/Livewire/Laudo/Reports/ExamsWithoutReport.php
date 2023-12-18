@@ -98,6 +98,7 @@ class ExamsWithoutReport extends Component
                 ->where('FATURA.LAUDOREAOK', 'F')
                 ->whereNull('FATVOICE.ARQUIVO')
                 ->whereBetween("$this->date_by", ["$this->start_date", "$this->end_date"])
+                ->orderBy('DATA_EXAME')
                 ->orderBy('HORA_EXAME')
                 ->paginate(20)]);
     }

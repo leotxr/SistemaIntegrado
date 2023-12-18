@@ -94,6 +94,7 @@ class ExamsToReview extends Component
                 ->where('FATURA.LAUDOREAOK', 'T')
                 ->where('FATURA.LAUDOASSOK', 'T')
                 ->whereBetween("$this->date_by", ["$this->start_date", "$this->end_date"])
+                ->orderBy('DATA_EXAME')
                 ->orderBy('HORA_EXAME')
                 ->paginate(20)]);
     }
