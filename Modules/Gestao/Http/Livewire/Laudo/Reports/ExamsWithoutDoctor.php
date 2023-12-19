@@ -14,6 +14,7 @@ class ExamsWithoutDoctor extends Component
     public $medicos;
     public $setores;
     public $selection;
+    public $by_doctor = 'FATURA.MEDREAID';
     public $selectAllSectors = false;
     public $date_by = 'FATURA.DATA';
     public $setores_selecionados = [];
@@ -22,10 +23,9 @@ class ExamsWithoutDoctor extends Component
     public $end_date;
 
 
-
     public function mount()
     {
-        $this->setores = json_decode(json_encode($this->getSectors()), true);
+
 
     }
 
@@ -64,10 +64,14 @@ class ExamsWithoutDoctor extends Component
 
     public function render()
     {
+        if ($this->by_doctor === 'FATURA.MEDREAID')
+            $this->setores = json_decode(json_encode($this->getSectors()), true);
+        else
+            $this->setores = json_decode(json_encode($this->getSectors()->whereIn('SETORID', [2, 4, 9])), true);
+
         return view('gestao::livewire.laudo.reports.exams-without-doctor',
             ['db' => $this->queryWithoutDoctor($this->setores_selecionados)
-                ->where('FATURA.LAUDOREAOK', 'F')
-                ->whereNull('FATVOICE.ARQUIVO')
+                ->whereNull($this->by_doctor)
                 ->whereBetween("$this->date_by", ["$this->start_date", "$this->end_date"])
                 ->orderBy('DATA_EXAME')
                 ->orderBy('HORA_EXAME')

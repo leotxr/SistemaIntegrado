@@ -42,6 +42,23 @@
                         <span class="text-gray-100 dark:text-gray-500">Filtros adicionais</span>
                     </x-slot>
                     <x-slot name="content">
+                        @isset($by_doctor)
+                            <div class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2">
+                                <div class="inline-flex space-x-2">
+                                    <div class="inline-flex space-x-2">
+                                        <x-text-input type="radio" class="rounded-full" name="by_doctor" id="by_doctor_ass"
+                                                      wire:model="by_doctor" value="FATURA.MEDREAID"/>
+                                        <x-input-label for="by_doctor_ass">Exames sem Assinante</x-input-label>
+                                    </div>
+                                    <div class="inline-flex space-x-2">
+                                        <x-text-input type="radio" class="rounded-full" name="by_doctor"
+                                                      id="by_doctor_rev"
+                                                      wire:model="by_doctor" value="FATURA.MEDREA2ID"/>
+                                        <x-input-label for="by_doctor_rev">Exames sem Revisor</x-input-label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endisset
                         @isset($medicos_selecionados)
                             <div
                                 class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2 overflow-x-auto">
@@ -85,20 +102,22 @@
                     <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         <li class="w-full">
                             <div class="flex items-center ps-3">
-                                <x-text-input type="checkbox" id="select_doctors" name="select_doctors" wire:model="selectAllDoctors" class="w-4 h-4"></x-text-input>
+                                <x-text-input type="checkbox" id="select_doctors" name="select_doctors"
+                                              wire:model="selectAllDoctors" class="w-4 h-4"></x-text-input>
                                 <x-input-label for="select_doctors"
-                                               class="py-3 ms-2">Selecionar todos</x-input-label>
+                                               class="py-3 ms-2">Selecionar todos
+                                </x-input-label>
                             </div>
                         </li>
                         @foreach($medicos as $medico)
                             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                 <div class="flex items-center ps-3">
                                     <x-text-input id="medicos-{{$medico['MEDICOID']}}" type="checkbox"
-                                           value="{{$medico['NOME']}}"
-                                           wire:model.defer="medicos_selecionados" name="medicos[]"
-                                           class="w-4 h-4" />
+                                                  value="{{$medico['NOME']}}"
+                                                  wire:model.defer="medicos_selecionados" name="medicos[]"
+                                                  class="w-4 h-4"/>
                                     <x-input-label for="medicos-{{$medico['MEDICOID']}}"
-                                           class="py-3 ms-2">{{$medico['NOME']}}</x-input-label>
+                                                   class="py-3 ms-2">{{$medico['NOME']}}</x-input-label>
                                 </div>
                             </li>
                         @endforeach
@@ -125,9 +144,11 @@
                     <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         <li class="w-full">
                             <div class="flex items-center ps-3">
-                                <x-text-input type="checkbox" id="select_sectors" name="select_sectors" wire:model="selectAllSectors" class="w-4 h-4"></x-text-input>
+                                <x-text-input type="checkbox" id="select_sectors" name="select_sectors"
+                                              wire:model="selectAllSectors" class="w-4 h-4"></x-text-input>
                                 <x-input-label for="select_sectors"
-                                               class="py-3 ms-2">Selecionar todos</x-input-label>
+                                               class="py-3 ms-2">Selecionar todos
+                                </x-input-label>
                             </div>
                         </li>
                         @foreach($setores as $setor)
