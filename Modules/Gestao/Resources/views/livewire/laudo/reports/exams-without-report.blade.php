@@ -13,6 +13,7 @@
                 <x-table.heading>Data Exame</x-table.heading>
                 <x-table.heading>Hora Exame</x-table.heading>
                 <x-table.heading>Data Entrega</x-table.heading>
+                <x-table.heading>Entrega p/ Laudo</x-table.heading>
                 <x-table.heading>Código</x-table.heading>
                 <x-table.heading>Nome</x-table.heading>
                 <x-table.heading>Exame</x-table.heading>
@@ -21,7 +22,7 @@
             </x-slot>
             <x-slot name="body">
                 @foreach($db as $exame)
-                    <x-table.row>
+                    <x-table.row class="text-xs">
                         <x-table.cell>
                             {{date('d/m/Y', strtotime($exame->DATA_EXAME))}}
                         </x-table.cell>
@@ -30,6 +31,9 @@
                         </x-table.cell>
                         <x-table.cell>
                             {{date('d/m/Y', strtotime($exame->DATA_ENTREGA))}}
+                        </x-table.cell>
+                        <x-table.cell>
+                            {{date('d/m/Y', strtotime($exame->DATA_ENTREGA . '+1 day'))}}
                         </x-table.cell>
                         <x-table.cell>
                             {{$exame->PACIENTEID}}
