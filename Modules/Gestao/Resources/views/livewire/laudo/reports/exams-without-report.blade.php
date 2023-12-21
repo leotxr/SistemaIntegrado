@@ -33,7 +33,7 @@
                             {{date('d/m/Y', strtotime($exame->DATA_ENTREGA))}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{date('d/m/Y', strtotime($exame->DATA_ENTREGA . '+1 day'))}}
+                            {{date('d/m/Y', strtotime($exame->DATA_EXAME . '+1 day'))}}
                         </x-table.cell>
                         <x-table.cell>
                             {{$exame->PACIENTEID}}

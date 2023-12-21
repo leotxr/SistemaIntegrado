@@ -27,7 +27,7 @@
                     </x-table.cell>
                     @if($sum_days)
                         <x-table.cell>
-                            {{date('d/m/Y', strtotime($exame->DATA_ENTREGA . "+$sum_days days"))}}
+                            {{date('d/m/Y', strtotime($exame->DATA_EXAME . "+$sum_days days"))}}
                         </x-table.cell>
                     @endif
                     <x-table.cell>
