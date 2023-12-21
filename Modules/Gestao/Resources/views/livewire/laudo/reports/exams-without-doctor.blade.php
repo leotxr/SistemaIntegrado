@@ -19,7 +19,7 @@
             </x-slot>
             <x-slot name="body">
                 @forelse($db as $exame)
-                    <x-table.row>
+                    <x-table.row class="text-xs">
                         <x-table.cell>
                             {{date('d/m/Y', strtotime($exame->DATA_EXAME))}}
                         </x-table.cell>

@@ -19,6 +19,7 @@ class ExamsExport implements FromView
     public $setores;
     public $date_by;
     public $query;
+    public $sum_days;
 
     public function __construct($range)
     {
@@ -36,14 +37,17 @@ class ExamsExport implements FromView
      */
     public function view(): View
     {
+
         switch ($this->query) {
             case 1:
                 $db = $this->queryReports($this->medicos, $this->setores)
                     ->where('FATURA.LAUDOREAOK', 'F')
                     ->whereNull('FATVOICE.ARQUIVO')
                     ->whereBetween("$this->date_by", ["$this->start", "$this->end"])
+                    ->orderBy('DATA_EXAME')
                     ->orderBy('HORA_EXAME')
                     ->get();
+                $this->sum_days = 1;
                 break;
 
             case 2:
@@ -51,6 +55,7 @@ class ExamsExport implements FromView
                     ->where('FATURA.LAUDOREAOK', 'T')
                     ->where('FATURA.LAUDOASSOK', 'F')
                     ->whereBetween("$this->date_by", ["$this->start", "$this->end"])
+                    ->orderBy('DATA_EXAME')
                     ->orderBy('HORA_EXAME')
                     ->get();
                 break;
@@ -62,12 +67,15 @@ class ExamsExport implements FromView
                     ->where('FATURA.LAUDOREAOK', 'T')
                     ->where('FATURA.LAUDOASSOK', 'T')
                     ->whereBetween("$this->date_by", ["$this->start", "$this->end"])
-                    ->orderBy('HORA_EXAME');
+                    ->orderBy('DATA_EXAME')
+                    ->orderBy('HORA_EXAME')
+                    ->get();
+                $this->sum_days = 2;
                 break;
         }
         return view(
             'gestao::livewire.utils.laudo.tables.table-exams-export',
-            ['db' => $db]
+            ['db' => $db, 'sum_days' => $this->sum_days]
         );
     }
 }

@@ -4,6 +4,9 @@
             <x-table.heading>Data Exame</x-table.heading>
             <x-table.heading>Hora Exame</x-table.heading>
             <x-table.heading>Data Entrega</x-table.heading>
+            @isset($sum_days)
+            <x-table.heading>Entrega p/ Laudo</x-table.heading>
+            @endisset
             <x-table.heading>Código</x-table.heading>
             <x-table.heading>Nome</x-table.heading>
             <x-table.heading>Exame</x-table.heading>
@@ -22,6 +25,11 @@
                     <x-table.cell>
                         {{date('d/m/Y', strtotime($exame->DATA_ENTREGA))}}
                     </x-table.cell>
+                    @if($sum_days)
+                        <x-table.cell>
+                            {{date('d/m/Y', strtotime($exame->DATA_ENTREGA . "+$sum_days days"))}}
+                        </x-table.cell>
+                    @endif
                     <x-table.cell>
                         {{$exame->PACIENTEID}}
                     </x-table.cell>
