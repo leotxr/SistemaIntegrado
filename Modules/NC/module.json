@@ -1,0 +1,11 @@
+{
+    "name": "NC",
+    "alias": "nao-conformidades",
+    "description": "Não Conformidades",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\NC\\Providers\\NCServiceProvider"
+    ],
+    "files": []
+}

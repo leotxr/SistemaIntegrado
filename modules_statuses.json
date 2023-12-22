@@ -5,5 +5,7 @@
     "Administrativo": true,
     "HelpDesk": true,
     "Orcamento": true,
-    "Gestao": true
+    "Gestao": true,
+    "NaoConformidades": true,
+    "NC": true
 }
