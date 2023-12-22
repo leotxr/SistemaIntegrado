@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 
-.animate-bar{
+.animate-bar {
     top: 0;
     left: 0;
     box-sizing: border-box;
     overflow: hidden;
     animation: animloader 1.0s linear infinite;
-    
+
 }
 
 

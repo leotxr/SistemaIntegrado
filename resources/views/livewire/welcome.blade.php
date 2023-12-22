@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html data-theme="winter">
 
 <head>

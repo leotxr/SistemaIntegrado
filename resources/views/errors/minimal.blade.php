@@ -15,8 +15,8 @@
                 </div>
             </div>
             <div class="my-4 text-center">
-                <a href="{{url('/')}}">
-                    <x-secondary-button>Voltar à tela inicial</x-secondary-button>
+                <a x-on:click="history.back()">
+                    <x-secondary-button>Voltar à pagina anterior</x-secondary-button>
                 </a>
             </div>
         </div>

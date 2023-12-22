@@ -1,126 +1,37 @@
-<head>
-    @livewireStyles
-</head>
+<x-app-layout>
+    <div class="text-center grid place-content-center py-20">
+        <h1 class="pb-6 text-2xl font-bold dark:text-white text-gray-700">Olá {{ auth()->user()->name }}</h1>
+        <ul class="text-white grid grid-cols-2 sm:grid-cols-6 gap-4" x-data="{ colors: [
+                    { id: 1, label: 'Autorização', link: '{{route('autorizacao.index')}}', image: '{{ URL::asset('storage/icons/autorizacao.png') }}' },
+                    @can('editar chamado')
+                    { id: 2, label: 'Chamados', link: '{{route('helpdesk.index')}}', image: '{{ URL::asset('storage/icons/ti.png') }}' },
+                    @else
+                    { id: 2, label: 'Chamados', link: '{{route('helpdesk.guest.index')}}', image: '{{ URL::asset('storage/icons/ti.png') }}' },
+                    @endcan
+                    { id: 3, label: 'Administrativo', link: '{{route('administrativo.index')}}', image: '{{ URL::asset('storage/icons/requisicao.png') }}' },
+                    @can('criar triagem')
+                    { id: 4, label: 'Triagem', link: '{{route('triagem.index')}}', image: '{{ URL::asset('storage/icons/triagem.png') }}' },
+                    @endcan
+                    @can('criar orcamento')
+                    { id: 5, label: 'Encaixes', link: '{{route('orcamento.index')}}', image: '{{ URL::asset('storage/icons/encaixes.png') }}' },
+                    @endcan
+                    { id: 6, label: 'Não Conformidades', link: '{{route('nc.index')}}', image: '{{ URL::asset('storage/icons/check.png') }}' },
+                    { id: 7, label: 'Gestão', link: '{{route('gestao.index')}}', image: '{{ URL::asset('storage/icons/requisicao.png') }}' },
+                    @can('ver configuracoes')
+                    { id: 8, label: 'Sistema', link: '{{route('dashboard')}}', image: '{{ URL::asset('storage/icons/seguranca.png') }}' },
+                    @endcan
+                       ]}">
+            <template x-for="color in colors" :key="color.id">
 
-<body>
-    @livewireScripts
-    <livewire:welcome />
-    <div class="min-h-screen hero">
-        <div class="text-center hero-content">
-            <div class="max-w-2xl">
-                <h1 class="pb-6 text-2xl font-bold text-white">Olá {{ auth()->user()->name }}</h1>
-                <div class="grid grid-cols-1 gap-8 sm:grid-cols-4 ">
-
-                    <div class="col-span-1 sm:col-span-2">
-                        @can('criar autorizacao')
-                        <a href="{{ url('autorizacao') }}">
-                            <button
-                                class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="w-20 h-20 m-2">
-
-                                Autorizações
-
-
-                            </button>
-                        </a>
-                        @endcan
+                    <div class="sm:col-span-2 col-span-2">
+                        <a type="button" class="cursor-pointer inline-flex place-items-center w-full dark:border rounded-lg dark:bg-gray-800 dark:border-gray-700 p-2 dark:hover:bg-gray-700 dark:hover:ring-2 dark:hover:ring-inset dark:hover:ring-blue-800 dark:hover:shadow-sm hover:ring-2 hover:ring-inset hover:ring-blue-300 transition transform duration-300"
+                           :href="color.link">
+                            <img :src="color.image" class="w-8 h-8 m-2">
+                            <span class="font-regular text-xl text-gray-800 dark:text-white" x-text="color.label"></span></a>
                     </div>
 
-                    <div class="col-span-1 sm:col-span-2">
-                        @cannot('editar chamados')
-                        <a href="{{route('helpdesk.guest.index')}}">
-                            @endcannot
-                            @can('editar chamados')
-                            <a href="{{route('helpdesk.dashboard')}}">
-                                @endcan
-                                <button
-                                    class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                    <img src="{{ URL::asset('storage/icons/ti.png') }}" class="w-20 h-20 m-2">
-
-                                    Chamados
-
-
-                                </button>
-                            </a>
-                    </div>
-
-                    <div class="col-span-1 sm:col-span-2">
-                        <a href="{{route('administativo.index')}}">
-                            <button
-                                class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                <img src="{{ URL::asset('storage/icons/requisicao.png') }}" class="w-20 h-20 m-2">
-
-                                Administrativo
-
-
-                            </button>
-                        </a>
-                    </div>
-                    <div class="col-span-1 sm:col-span-2">
-                        @can('ver triagem')
-                        <a href="{{ url('triagem') }}">
-                            <button
-                                class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                <img src="{{ URL::asset('storage/icons/triagem.png') }}" class="w-20 h-20 m-2">
-
-                                Triagem
-
-
-                            </button>
-                        </a>
-                        @endcan
-                    </div>
-                    <div class="col-span-1 sm:col-span-2">
-                        @can('ver configuracoes')
-                        <a href="{{ url('dashboard') }}">
-                            <button
-                                class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                <img src="{{ URL::asset('storage/icons/seguranca.png') }}" class="w-20 h-20 m-2">
-
-                                Configurações
-
-
-                            </button>
-                        </a>
-                        @endcan
-                    </div>
-
-                    <div class="col-span-1 sm:col-span-2">
-                        @if (auth()->user()->can('criar orcamento'))
-                        <a href="{{ url('orcamento') }}">
-                            <button
-                                class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass">
-
-                                <img src="{{ URL::asset('storage/icons/autorizacao.png') }}" class="w-20 h-20 m-2">
-
-                                Orçamentos
-
-
-                            </button>
-                        </a>
-                        @endif
-                    </div>
-
-                </div>
-                <div class="pt-4">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <button href="route('logout')"
-                            class="w-full h-auto p-2 text-xl font-bold text-white rounded-md shadow-md btn glass"
-                            onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+            </template>
+        </ul>
     </div>
 
-</body>
+</x-app-layout>
