@@ -59,12 +59,42 @@ Route::middleware('auth')->group(function () {
         Route::post('role/store', [RoleController::class, 'store'])->name('role.store');
         Route::post('permission/store', [PermissionController::class, 'store'])->name('permission.store');
         Route::post('role/set-permissions', [RoleController::class, 'set_permission'])->name('role.has.permission.store');
-        
-        Route::get('/dispositivos', function(){
-            $devices = Device::all();
-            return view('devices.index', compact('devices'));
-        })->name('devices.devices');
-        
+
+
+        Route::prefix('dispositivos')->group(function () {
+
+            Route::get('/', function(){
+                $devices = Device::all();
+                return view('devices.index', compact('devices'));
+            })->name('devices.devices');
+
+            Route::get('novo', function(){
+                return view('devices.create');
+            })->name('devices.create');
+
+            Route::get('/impressoras', function(){
+                $printers = Device::where('device_type_id', 1)->get();
+                return view('devices.printers.index', compact('printers'));
+            })->name('devices.printers');
+
+            Route::get('configuracoes/snmp/novo', function(){
+                return view('devices.settings.snmp-settings');
+            })->name('devices.settings.snmp.create');
+        });
+
+        Route::prefix('suprimentos')->group(function(){
+            Route::get('novo', function(){
+                return view('supplies.create');
+            })->name('supplies.create');
+            Route::get('/', function(){
+                return view('supplies.index');
+            })->name('supplies.index');
+        });
+
+
+
+
+
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
