@@ -14,6 +14,7 @@ class Create extends Component
 {
     public NonConformity $nc;
     public $search_user = '';
+    public $userSelected;
     public $open = false;
 
     protected $rules = [
@@ -55,6 +56,13 @@ class Create extends Component
             );
             $this->emitUp('refreshParent');
         }
+    }
+
+    public function updatedNC()
+    {
+            $this->userSelected = User::find($this->nc->target_user_id);
+            $this->search_user = '';
+
     }
 
     public function render()
