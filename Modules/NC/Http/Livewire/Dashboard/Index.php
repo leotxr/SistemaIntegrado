@@ -16,7 +16,6 @@ class Index extends Component
 
     public $start_date;
     public $end_date;
-    public $sectors = [];
     public $tab = 'created_by_me';
     public $logged_roles = [];
     public $users_has_roles = [];
@@ -30,16 +29,14 @@ class Index extends Component
     {
         $this->start_date = now()->subDays(30);
         $this->end_date = date('Y-m-d');
-        $this->sectors = UserGroup::pluck('id');
         $this->logged_roles = Auth::user()->roles->whereNotIn('name', ['coordenador', 'gerente']);
         $this->users_has_roles = User::role($this->logged_roles)->pluck('id');
     }
 
-    public function refreshMe($start_date, $end_date, $selected_sectors)
+    public function refreshMe($start_date, $end_date)
     {
         $this->start_date = $start_date;
         $this->end_date = $end_date;
-        $this->sectors = $selected_sectors;
 
         $this->render();
     }

@@ -28,19 +28,21 @@
                     <x-text-input type="date" name="date_2" id="date_2" wire:model.defer="end_date"
                                   class="w-full rounded-none"></x-text-input>
                 </div>
+                {{--
                 <div class="sm:col-span-4 col-span-2 mt-4">
                     <x-input-label for="date_2">Setores</x-input-label>
                     <x-secondary-button
                         wire:click="$set('modal_filters', 'true')">{{count($selected_sectors) . ' Setores selecionados'}} </x-secondary-button>
                 </div>
+                --}}
             </div>
             <div class="grid justify-end p-4 bottom-0">
-                <x-primary-button type="submit" class="rounded-none">Filtrar</x-primary-button>
+                <x-primary-button type="submit" class="rounded-none" wire:loading.attr="disabled">Filtrar</x-primary-button>
             </div>
         </form>
     </div>
 
-    {{-- MODAL SETORES --}}
+    {{-- MODAL SETORES
     <x-nc::modal wire:model.defer="modal_filters">
         <x-slot:title>
             Setores
@@ -77,4 +79,5 @@
             <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
         </x-slot:footer>
     </x-nc::modal>
+    --}}
 </div>

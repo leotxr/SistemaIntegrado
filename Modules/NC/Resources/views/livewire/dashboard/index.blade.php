@@ -1,4 +1,5 @@
 <div x-data="{openFilter: false}">
+
     @livewire('nc::utils.dashboard-filter')
     <div class="w-full flex justify-end px-2">
         <x-primary-button class="bg-blue-600" wire:click="$emit('openModalCreate')">+ Nova Não Conformidade
@@ -33,6 +34,9 @@
             </x-nc::tab>
 
             <div>
+                <div wire:loading>
+                    @livewire('nc::utils.loading-screen')
+                </div>
                 {!! $ncs->links() !!}
                 <div>
                     @include('nc::user.utils.dashboard-table')

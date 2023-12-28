@@ -15,7 +15,7 @@ class DashboardFilter extends Component
 
     public function refreshChildren()
     {
-        $this->emitUp('refreshChildren', $this->start_date, $this->end_date, $this->selected_sectors);
+        $this->emitUp('refreshChildren', $this->start_date, $this->end_date);
     }
 
     public function render()
