@@ -16,7 +16,13 @@
                     </a>
                 </x-table.cell>
                 <x-table.cell class="border-r w-1/2 max-h-16">{{$nc->description}}</x-table.cell>
-                <x-table.cell class="">{{$nc->targetUser->name}} {{$nc->targetUser->lastname}}</x-table.cell>
+                <x-table.cell class="">
+                    @if($nc->targetUsers->count() > 1)
+                        {{$nc->targetUsers->first()->name}} e mais {{$nc->targetUsers->count() - 1}}
+                    @else
+                        {{$nc->targetUsers->first()->name}}
+                    @endif
+                </x-table.cell>
                 <x-table.cell class="">{{date('d/m/Y', strtotime($nc->n_c_date))}}</x-table.cell>
                 <x-table.cell class="">{{$nc->sourceUser->name}}</x-table.cell>
                 <x-table.cell

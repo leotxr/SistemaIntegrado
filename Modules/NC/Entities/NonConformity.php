@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\NC\Database\factories\NonConformityFactory;
 use App\Models\User;
 use App\Models\UserGroup;
+use Illuminate\Support\Facades\Auth;
 
 class NonConformity extends Model
 {
@@ -19,16 +20,20 @@ class NonConformity extends Model
     protected $fillable = [
         'description',
         'source_user_id',
-        'target_user_id',
         'n_c_status_id',
         'n_c_classification_id',
         'n_c_sector_id',
         'n_c_date'
     ];
 
-    public function targetUser()
+    public function targetUsers()
     {
-        return $this->belongsTo(User::class, 'target_user_id', 'id');
+        return $this->belongsToMany(User::class, 'non_conformity_user_sector', 'non_conformity_id', 'user_id');
+    }
+
+    public function targetSectors()
+    {
+        return $this->belongsToMany(UserGroup::class, 'non_conformity_user_sector', 'non_conformity_id', 'user_group_id');
     }
 
     public function sourceUser()
@@ -41,10 +46,7 @@ class NonConformity extends Model
         return $this->belongsTo(NCClassification::class, 'n_c_classification_id', 'id');
     }
 
-    public function envolvedSector()
-    {
-        return $this->belongsTo(UserGroup::class, 'n_c_sector_id', 'id');
-    }
+
 
     protected static function newFactory(): NonConformityFactory
     {

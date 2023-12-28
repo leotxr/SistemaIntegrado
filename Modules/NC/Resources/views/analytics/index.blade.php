@@ -4,7 +4,7 @@
         <div class="max-w-full px-12 ">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="max-w-full">
-                   @livewire('nc::dashboard.index')
+                    @livewire('nc::analytics.index')
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::get('indicadores', function () {
-            return view('nc::index');
+            return view('nc::analytics.index');
         })->name('nc.analytics');
     });
 

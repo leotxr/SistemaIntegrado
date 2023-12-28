@@ -34,8 +34,10 @@
                     <div class="col-span-2 sm:col-span-2 mt-4">
                         <div class="max-w-sm">
                             <x-input-label for="search_user">Responsável pela Não Conformidade</x-input-label>
-                            @if(isset($nc->target_user_id))
-                                <span>{{$nc->targetUser->name}} {{$nc->targetUser->lastname}}</span>
+                            @if(isset($nc->targetUsers))
+                                @foreach($nc->targetusers as $user)
+                                    <span>{{$user->name}} {{$user->lastname}}.</span>
+                                @endforeach
                             @else
                                 <x-text-input type="text" wire:model="search_user" id="search_user" class="w-full"
                                               placeholder="Pesquisar"></x-text-input>
@@ -63,9 +65,11 @@
                     </div>
                     <div class="col-span-2 sm:col-span-1 mt-4">
                         <x-input-label for="search_user">Setor envolvido</x-input-label>
-                        @isset($nc->n_c_sector_id)
-                            <span>{{$nc->envolvedSector->name}}</span>
-                        @endisset
+                        @if(isset($nc->targetUsers))
+                            @foreach($nc->targetusers as $user)
+                                <span>{{$user->reluserGroup->name}}.</span>
+                            @endforeach
+                        @endif
                     </div>
                     <div class="col-span-2 sm:col-span-1 mt-4">
                         <x-input-label for="search_user">Identificado por</x-input-label>

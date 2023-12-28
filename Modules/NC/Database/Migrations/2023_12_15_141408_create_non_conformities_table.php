@@ -22,13 +22,6 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unsignedBigInteger('target_user_id');
-            $table->foreign('target_user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->unsignedBigInteger('n_c_status_id');
             $table->foreign('n_c_status_id')
                 ->references('id')
@@ -43,13 +36,14 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
+            /*
             $table->unsignedBigInteger('n_c_sector_id');
             $table->foreign('n_c_sector_id')
                 ->references('id')
                 ->on('user_groups')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
+*/
             $table->date('n_c_date');
 
             $table->softDeletes();

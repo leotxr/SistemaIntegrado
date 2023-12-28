@@ -16,6 +16,7 @@ class Dashboard extends Component
 
     public $start_date;
     public $end_date;
+    public $sectors = [];
 
     protected $listeners = [
         'refreshChildren' => 'refreshMe',
@@ -26,12 +27,14 @@ class Dashboard extends Component
     {
         $this->start_date = now()->subDays(30);
         $this->end_date = date('Y-m-d');
+        $this->sectors = UserGroup::pluck('id');
     }
 
-    public function refreshMe($start_date, $end_date)
+    public function refreshMe($start_date, $end_date, $selected_sectors)
     {
         $this->start_date = $start_date;
         $this->end_date = $end_date;
+        $this->sectors = $selected_sectors;
 
         $this->render();
     }
@@ -45,7 +48,7 @@ class Dashboard extends Component
     public function render()
     {
         if (auth()->user()->can('editar ncs') || auth()->user()->can('excluir ncs'))
-            return view('nc::livewire.user.dashboard', ['ncs' => NonConformity::whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]);
+            return view('nc::livewire.user.dashboard', ['ncs' => NonConformity::whereHas('targetSectors', function($q){$q->whereIn('user_group_id', $this->sectors);})->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]);
         else
             return view('nc::livewire.user.dashboard', ['ncs' => NonConformity::whereBetween('n_c_date', [$this->start_date, $this->end_date])->where('source_user_id', Auth::user()->id)->orderBy('created_at')->paginate(10)]);
     }

@@ -13,21 +13,22 @@
                 </div>
                 <div class="col-span-2 sm:col-span-3">
                     <div class="max-w-sm">
-                        <x-input-label for="search_user">Responsável pela Não Conformidade</x-input-label>
-                        @unless($nc->target_user_id)
+                        <x-input-label for="search_user">Responsáveis pela Não Conformidade</x-input-label>
                         <x-text-input type="text" wire:model="search_user" id="search_user" class="w-full"
                                       placeholder="Pesquisar"></x-text-input>
-                        @else
-                            <x-nc::badge action="$set('nc.target_user_id', '')">{{$userSelected->name}} {{$userSelected->lastname}}</x-nc::badge>
-                        @endunless
+                        <div class="mt-2">
+                        @foreach($selectedUsers as $selected_user)
+                            <x-nc::badge action="removeUser({{$selected_user}})">{{App\Models\User::find($selected_user)->name}}</x-nc::badge>
+                        @endforeach
+                        </div>
                         @if(strlen($search_user) > 2)
                             <div class="bg-white shadow-md p-2 w-full rounded-md z-10 relative">
                                 <ul>
                                     @foreach($target_users as $target)
                                         <li class="space-x-2 p-2 border-b hover:bg-gray-100">
                                             <x-input-label for="target_user_{{$target->id}}">
-                                                <x-text-input type="radio" name="target_user"
-                                                              wire:model="nc.target_user_id"
+                                                <x-text-input type="checkbox" name="target_users[]"
+                                                              wire:model="selectedUsers"
                                                               id="target_user_{{$target->id}}"
                                                               value="{{$target->id}}"/>
                                                 {{$target->name}} {{$target->lastname}}</x-input-label>
@@ -50,7 +51,8 @@
 
                 <div class="col-span-2 sm:col-span-2 mt-4">
                     <x-input-label for="classification">Classificação</x-input-label>
-                    <x-select class="w-full" name="classification" id="classification" wire:model="nc.n_c_classification_id">
+                    <x-select class="w-full" name="classification" id="classification"
+                              wire:model="nc.n_c_classification_id">
                         <x-slot name="option">
                             @foreach($classifications as $classification)
                                 <x-select.option
