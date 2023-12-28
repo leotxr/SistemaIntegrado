@@ -32,23 +32,17 @@
                     </x-nc::tab.button>
                 @endcan
             </x-nc::tab>
-
-            <div>
-                <div wire:loading.delay.longest>
-                    @livewire('nc::utils.loading-screen')
-                </div>
-                {!! $ncs->links() !!}
-                <div>
-                    @include('nc::user.utils.dashboard-table')
-                </div>
-            </div>
-
         </div>
-
-
+        <div>
+            <div wire:loading.delay.longest>
+                @livewire('nc::utils.loading-screen')
+            </div>
+            {!! $ncs->links() !!}
+            <div class="w-full responsive">
+                @include('nc::user.utils.dashboard-table')
+            </div>
+        </div>
     </div>
-    @livewire('nc::forms.create'){{-- Form modal create --}}
-    @livewire('nc::forms.edit')
 
     <div class="fixed bottom-4 right-4 ">
         <button
@@ -62,4 +56,7 @@
             <x-icon name="plus" class="h-8 w-8 text-white"></x-icon>
         </button>
     </div>
+
+    @livewire('nc::forms.create'){{-- Form modal create --}}
+    @livewire('nc::forms.edit')
 </div>
