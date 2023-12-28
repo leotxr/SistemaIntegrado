@@ -5,10 +5,13 @@ namespace Modules\NC\Http\Livewire\Dashboard;
 use App\Models\UserGroup;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Gestao\Exports\Laudo\ExamsExport;
 use Modules\NC\Entities\NCClassification;
 use Modules\NC\Entities\NonConformity;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Modules\NC\Exports\Dashboard\NonConformityExport;
 
 class Index extends Component
 {
@@ -43,7 +46,13 @@ class Index extends Component
 
     public function export()
     {
-
+        $range = [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'type' => $this->tab,
+            'users' => $this->users_has_roles
+        ];
+        return Excel::download(new NonConformityExport($range), 'nao-conformidades-' . $this->start_date . '-' . $this->end_date . '.xlsx');
     }
 
 
