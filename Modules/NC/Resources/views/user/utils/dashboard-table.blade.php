@@ -9,13 +9,13 @@
     </x-slot>
     <x-slot name="body">
         @foreach($ncs as $nc)
-            <x-table.row class="text-center hover:bg-gray-50">
+            <x-table.row class="text-center hover:bg-gray-50 dark:hover:bg-gray-800">
                 <x-table.cell>
                     <a type="button" class="cursor-pointer" wire:click="$emit('openModalEdit', {{$nc->id}})">
                         <x-icon name="pencil-alt" class="w-5 h-5"></x-icon>
                     </a>
                 </x-table.cell>
-                <x-table.cell class="border-r w-1/2 max-h-16">{{$nc->description}}</x-table.cell>
+                <x-table.cell class="border-r dark:border-gray-700 w-1/2 max-h-16">{{$nc->description}}</x-table.cell>
                 <x-table.cell class="">
                     @if($nc->targetUsers->count() > 1)
                         {{$nc->targetUsers->first()->name}} e mais {{$nc->targetUsers->count() - 1}}
