@@ -22,10 +22,10 @@
                         @endforeach
                         </div>
                         @if(strlen($search_user) > 2)
-                            <div class="bg-white shadow-md p-2 w-full rounded-md z-10 relative">
+                            <div class="bg-white dark:bg-gray-800 shadow-md p-2 w-full rounded-md z-10 relative">
                                 <ul>
                                     @foreach($target_users as $target)
-                                        <li class="space-x-2 p-2 border-b hover:bg-gray-100">
+                                        <li class="space-x-2 p-2 border-b dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-100">
                                             <x-input-label for="target_user_{{$target->id}}">
                                                 <x-text-input type="checkbox" name="target_users[]"
                                                               wire:model="selectedUsers"
