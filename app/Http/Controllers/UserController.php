@@ -148,10 +148,23 @@ class UserController extends Controller
     public function setUserRole(Request $request, $id)
     {
         $user = User::find($id);
-        $user->syncRoles("$request->role");
+        $user->assignRole("$request->role");
 
         if ($user->save())
             return back()->with('status', 'permission-updated');
+        else
+            return back()->with('error', 'Erro ao salvar');
+    }
+
+    public function removeUserRole(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->removeRole("$request->role");
+
+        if ($user->save())
+            return back()->with('status', 'permission-updated');
+        else
+            return back()->with('error', 'Erro ao salvar');
     }
 
     public function setUserGroup(Request $request, $id)
