@@ -54,6 +54,8 @@
                     <x-select class="w-full" name="classification" id="classification"
                               wire:model="nc.n_c_classification_id">
                         <x-slot name="option">
+                            <x-select.option
+                                value="1">Selecione</x-select.option>
                             @foreach($classifications as $classification)
                                 <x-select.option
                                     value="{{$classification->id}}">{{$classification->name}}</x-select.option>
