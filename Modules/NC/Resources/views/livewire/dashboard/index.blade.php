@@ -34,7 +34,7 @@
             </x-nc::tab>
 
             <div>
-                <div wire:loading>
+                <div wire:loading.delay.longest>
                     @livewire('nc::utils.loading-screen')
                 </div>
                 {!! $ncs->links() !!}
