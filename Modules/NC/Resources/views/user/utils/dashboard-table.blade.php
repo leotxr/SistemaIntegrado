@@ -24,7 +24,7 @@
                     @endif
                 </x-table.cell>
                 <x-table.cell class="">{{date('d/m/Y', strtotime($nc->n_c_date))}}</x-table.cell>
-                <x-table.cell class="">{{$nc->sourceUser->name}}</x-table.cell>
+                <x-table.cell class="">{{$nc->sourceUser->relUserGroup->name}}</x-table.cell>
                 <x-table.cell
                     class="">{{$nc->classification->name}} {{$nc->classification->lastname}}</x-table.cell>
             </x-table.row>
