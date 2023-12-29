@@ -17,9 +17,10 @@
                         <x-text-input type="text" wire:model="search_user" id="search_user" class="w-full"
                                       placeholder="Pesquisar"></x-text-input>
                         <div class="mt-2">
-                        @foreach($selectedUsers as $selected_user)
-                            <x-nc::badge action="removeUser({{$selected_user}})">{{App\Models\User::find($selected_user)->name}}</x-nc::badge>
-                        @endforeach
+                            @foreach($selectedUsers as $selected_user)
+                                <x-nc::badge
+                                    action="removeUser({{$selected_user}})">{{App\Models\User::find($selected_user)->name}}</x-nc::badge>
+                            @endforeach
                         </div>
                         @if(strlen($search_user) > 2)
                             <div class="bg-white dark:bg-gray-800 shadow-md p-2 w-full rounded-md z-10 relative">
@@ -55,7 +56,8 @@
                               wire:model="nc.n_c_classification_id">
                         <x-slot name="option">
                             <x-select.option
-                                value="1">Selecione</x-select.option>
+                                value="1">Selecione
+                            </x-select.option>
                             @foreach($classifications as $classification)
                                 <x-select.option
                                     value="{{$classification->id}}">{{$classification->name}}</x-select.option>
@@ -71,8 +73,6 @@
                 <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
                 <x-primary-button type="submit">Salvar</x-primary-button>
             </div>
-
         </x-slot:footer>
-
     </x-nc::modal>
 </form>
