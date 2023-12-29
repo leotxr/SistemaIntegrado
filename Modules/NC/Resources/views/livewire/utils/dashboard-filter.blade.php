@@ -28,47 +28,50 @@
                     <x-text-input type="date" name="date_2" id="date_2" wire:model.defer="end_date"
                                   class="w-full rounded-none"></x-text-input>
                 </div>
-                {{--
-                <div class="sm:col-span-4 col-span-2 mt-4">
-                    <x-input-label for="date_2">Setores</x-input-label>
-                    <x-secondary-button
-                        wire:click="$set('modal_filters', 'true')">{{count($selected_sectors) . ' Setores selecionados'}} </x-secondary-button>
-                </div>
-                --}}
+
+                @can(['editar ncs'])
+                    <div class="sm:col-span-4 col-span-2 mt-4">
+                        <x-input-label for="date_2">Usuários</x-input-label>
+                        <x-secondary-button
+                            wire:click="$set('modal_filters', 'true')">{{count($selected_users) . ' Usuários selecionados'}} </x-secondary-button>
+                    </div>
+                @endcan
+
             </div>
             <div class="grid justify-end p-4 bottom-0">
-                <x-primary-button type="submit" class="rounded-none" wire:loading.attr="disabled">Filtrar</x-primary-button>
+                <x-primary-button type="submit" class="rounded-none" wire:loading.attr="disabled">Filtrar
+                </x-primary-button>
             </div>
         </form>
     </div>
 
-    {{-- MODAL SETORES
+    {{-- MODAL SETORES --}}
     <x-nc::modal wire:model.defer="modal_filters">
         <x-slot:title>
-            Setores
+            Usuários
         </x-slot:title>
         <x-slot:content>
             <div class="w-full">
-                <x-title>Selecione os setores:</x-title>
+                <x-title>Selecione os usuários:</x-title>
                 <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li class="w-full">
                         <div class="flex items-center ps-3">
                             <x-text-input type="checkbox" id="select_all" name="select_all"
-                                          wire:model="selectAllSectors" class="w-4 h-4"></x-text-input>
+                                          wire:model="selectAllUsers" class="w-4 h-4"></x-text-input>
                             <x-input-label for="select_all"
                                            class="py-3 ms-2">Selecionar todos
                             </x-input-label>
                         </div>
                     </li>
-                    @foreach($sectors as $sector)
+                    @foreach($users as $user)
                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                             <div class="flex items-center ps-3">
-                                <input id="setores-{{$sector->id}}" type="checkbox"
-                                       value="{{$sector->id}}"
-                                       wire:model="selected_sectors" name="setores[]"
+                                <input id="users-{{$user->id}}" type="checkbox"
+                                       value="{{$user->id}}"
+                                       wire:model="selected_users" name="users[]"
                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="setores-{{$sector->id}}"
-                                       class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$sector->name}}</label>
+                                <label for="users-{{$user->id}}"
+                                       class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name . ' ' . $user->lastname}}</label>
                             </div>
                         </li>
                     @endforeach
@@ -79,5 +82,5 @@
             <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
         </x-slot:footer>
     </x-nc::modal>
-    --}}
+
 </div>

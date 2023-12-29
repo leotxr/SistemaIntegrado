@@ -30,16 +30,17 @@ class Index extends Component
 
     public function mount()
     {
-        $this->start_date = now()->subDays(30);
-        $this->end_date = date('Y-m-d');
+        $this->start_date = date('Y-m-01 00:00:00');
+        $this->end_date = date('Y-m-t 23:59:59');
         $this->logged_roles = Auth::user()->roles->whereNotIn('name', ['coordenador', 'gerente']);
         $this->users_has_roles = User::role($this->logged_roles)->pluck('id');
     }
 
-    public function refreshMe($start_date, $end_date)
+    public function refreshMe($start_date, $end_date, $selected_users)
     {
         $this->start_date = $start_date;
         $this->end_date = $end_date;
+        $this->users_has_roles = $selected_users;
 
         $this->render();
     }
