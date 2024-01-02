@@ -21,7 +21,8 @@ class Create extends Component
     protected $rules = [
         'nc.n_c_date' => 'required',
         'nc.n_c_classification_id' => 'required',
-        'nc.description' => 'required'
+        'nc.description' => 'required',
+        'selectedUsers' => 'required'
     ];
 
     protected $listeners = [
@@ -30,8 +31,11 @@ class Create extends Component
 
     public function openModalCreate()
     {
+        $this->resetExcept('nc');
+        $this->nc = new NonConformity();
         $this->open = true;
     }
+
 
     public function mount()
     {
