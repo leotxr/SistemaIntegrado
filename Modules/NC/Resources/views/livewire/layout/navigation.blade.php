@@ -73,9 +73,9 @@
 
     <aside @keydown.escape.window="expanded = false">
         <div id="logo-sidebar"
-             class="fixed top-0 left-0 z-40 h-screen pt-20 bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-blue-800 dark:border-blue-700 transition transform duration-300"
+             class="fixed top-0 left-0 z-40 h-screen pt-20 bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 transition transform duration-300"
               :class="expanded ? 'sm:w-64 w-64 block transition transform duration-300' : 'sm:w-14 hidden sm:block '" >
-            <div class="h-full pb-4 overflow-y-auto bg-white dark:bg-blue-800 grid justify-items-center w-full">
+            <div class="h-full pb-4 overflow-y-auto grid justify-items-center w-full">
                 <ul class="space-y-2 font-medium w-full">
                     <li>
                         <x-nc::side-link :href="route('nc.index')"
