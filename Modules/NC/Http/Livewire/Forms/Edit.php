@@ -15,6 +15,7 @@ class Edit extends Component
     public NonConformity $nc;
     public $search_user = '';
     public $open = false;
+    public $modalDelete = false;
 
     protected $listeners = [
         'openModalEdit' => 'edit'
@@ -58,6 +59,25 @@ class Edit extends Component
                 ['type' => 'success', 'message' => 'Não Conformidade alterada com sucesso!']
             );
             $this->emitUp('refreshParent');
+        }
+    }
+
+    public function delete()
+    {
+        $deleting = NonConformity::find($this->nc->id);
+        if ($deleting->delete()) {
+            $this->modalDelete = false;
+            $this->open = false;
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'success', 'message' => 'Não Conformidade excluída com sucesso!']
+            );
+            $this->emitUp('refreshParent');
+        } else {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Ocorreu um erro ao excluir a Não Conformidade.']
+            );
         }
     }
 

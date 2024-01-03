@@ -16,6 +16,8 @@
                         <x-input-label for="search_user">Responsáveis pela Não Conformidade</x-input-label>
                         <x-text-input type="text" wire:model="search_user" id="search_user" class="w-full"
                                       placeholder="Pesquisar"></x-text-input>
+                        <x-input-error class="mt-2"
+                                       :messages="$errors->get('selectedUsers')"/>
                         <div class="mt-2">
                             @foreach($selectedUsers as $selected_user)
                                 <x-nc::badge
@@ -33,8 +35,6 @@
                                                               id="target_user_{{$target->id}}"
                                                               value="{{$target->id}}"/>
                                                 {{$target->name}} {{$target->lastname}}</x-input-label>
-                                            <x-input-error class="mt-2"
-                                                           :messages="$errors->get('nc.target_user_id')"/>
                                         </li>
                                     @endforeach
                                 </ul>

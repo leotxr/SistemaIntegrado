@@ -89,6 +89,10 @@
                                     class="w-6 h-6 text-gray-500 hover:rotate-90 transition transform duration-300 content-center"></x-icon>
                         </a>
                     @endcan
+                    @can('excluir ncs')
+                        <x-danger-button type="button" wire:click="$set('modalDelete', 'true')">Excluir
+                        </x-danger-button>
+                    @endcan
                     <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
                     <x-primary-button type="submit">Salvar</x-primary-button>
                 </div>
@@ -98,6 +102,21 @@
         </x-nc::modal>
     </form>
 
+    <form wire:submit.prevent="delete">
+        <x-modal.confirmation wire:model.defer="modalDelete">
+            <x-slot:dialog>
+                <div class="mb-2">
+                    <x-title>Tem certeza que deseja excluir esta Não Conformidade?</x-title>
+                </div>
+            </x-slot:dialog>
+            <x-slot:buttons>
+                <div class="space-x-2">
+                    <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
+                    <x-danger-button type="submit">Excluir</x-danger-button>
+                </div>
+            </x-slot:buttons>
+        </x-modal.confirmation>
+    </form>
 
     @livewire('nc::forms.show-history')
 
