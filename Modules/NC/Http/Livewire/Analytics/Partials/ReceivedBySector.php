@@ -28,7 +28,7 @@ class ReceivedBySector extends Component
         foreach ($this->groups as $group) {
             if ($group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0) {
                 $this->group_count[] = $group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count();
-                $this->group_names[] = substr($group->name, 0, 5);
+                $this->group_names[] = $group->name;
             }
         }
 
@@ -41,7 +41,7 @@ class ReceivedBySector extends Component
         foreach ($this->groups as $group) {
             if ($group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0) {
                 $group_count[] = $group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count();
-                $group_names[] = substr($group->name, 0, 5);
+                $group_names[] = $group->name;
             }
         }
 

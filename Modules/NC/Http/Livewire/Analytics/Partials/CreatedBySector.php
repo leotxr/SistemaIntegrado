@@ -35,7 +35,7 @@ class CreatedBySector extends Component
                 ->count();
             if ($count > 0) {
                 $this->group_count[] = $count;
-                $this->group_names[] = substr($group->name, 0, 5);
+                $this->group_names[] = $group->name;
             }
         }
     }
@@ -57,7 +57,7 @@ class CreatedBySector extends Component
                 ->count();
             if ($count > 0) {
                 $group_count[] = $count;
-                $group_names[] = substr($group->name, 0, 5);
+                $group_names[] = $group->name;
             }
         }
         $group_count = array_replace($this->group_count, $group_count);
