@@ -20,7 +20,7 @@
                     @if($nc->targetUsers->count() > 1)
                         {{$nc->targetUsers->first()->name}} e mais {{$nc->targetUsers->count() - 1}}
                     @else
-                        {{$nc->targetUsers->first()->name}}
+                        {{$nc->targetUsers->first()->name ?? 'Sem usuário'}}
                     @endif
                 </x-table.cell>
                 <x-table.cell class="">{{date('d/m/Y', strtotime($nc->n_c_date))}}</x-table.cell>
