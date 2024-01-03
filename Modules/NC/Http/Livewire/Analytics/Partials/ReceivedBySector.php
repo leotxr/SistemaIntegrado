@@ -10,18 +10,44 @@ class ReceivedBySector extends Component
     public $groups;
     public $group_count = [];
     public $group_names = [];
+    public $start_date;
+    public $end_date;
 
-    public function mount()
+
+    protected $listeners = [
+        'echo:nc-analytics,NonConformityCreated' => 'refreshMe',
+        'refreshChildren' => 'refreshMe'
+    ];
+
+    public function mount($start_date, $end_date)
     {
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->groups = UserGroup::all();
 
         foreach ($this->groups as $group) {
-            if ($group->groupNonConformities->count() > 0) {
-                $this->group_count[] = $group->groupNonConformities->count();
+            if ($group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0) {
+                $this->group_count[] = $group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count();
                 $this->group_names[] = substr($group->name, 0, 5);
             }
         }
 
+    }
+
+    public function refreshMe()
+    {
+        $this->groups = UserGroup::all();
+
+        foreach ($this->groups as $group) {
+            if ($group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0) {
+                $group_count[] = $group->groupNonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count();
+                $group_names[] = substr($group->name, 0, 5);
+            }
+        }
+
+        $group_count = array_replace($this->group_count, $group_count);
+        $group_names = array_replace($this->group_names, $group_names);
+        $this->emit('refreshChartRBS', ['groupCountReceived' => $group_count, 'groupNamesReceived' => $group_names]);
     }
 
     public function render()

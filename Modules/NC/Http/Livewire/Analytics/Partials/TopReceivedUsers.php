@@ -9,19 +9,38 @@ use App\Models\User;
 class TopReceivedUsers extends Component
 {
     public $users;
-    public Collection $user_count;
+    public $user_count;
+    public $start_date;
+    public $end_date;
 
-    public function mount()
+    protected $listeners = [
+        'echo:nc-analytics,NonConformityCreated' => 'refreshMe',
+        'refreshChildren' => 'refreshMe'
+    ];
+
+    public function getData($start_date, $end_date)
     {
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->users = User::all();
-        $this->user_count = collect();
+        $user_count = collect();
 
         foreach ($this->users as $user) {
             if ($user->nonConformities->count() > 0) {
-                $this->user_count[] = collect(['name' => $user->name, 'value' => $user->nonConformities->count()]);
+                $user_count[] = collect(['name' => $user->name, 'value' => $user->nonConformities->count()]);
             }
         }
+        return $user_count;
+    }
 
+    public function mount($start_date, $end_date)
+    {
+        $this->user_count = $this->getData($start_date, $end_date);
+    }
+
+    public function refreshMe()
+    {
+        $this->user_count = $this->getData($this->start_date, $this->end_date);
     }
 
     public function render()

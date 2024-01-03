@@ -64,5 +64,17 @@
         var chartCBS = new ApexCharts(document.querySelector("#chartCBS"), optionsCBS);
 
         chartCBS.render();
+
+        Livewire.on('refreshChartCBS', (chartCBSData) => {
+            chartCBS.updateOptions({
+                series: [{
+                    data: chartCBSData.groupCountCreated,
+                }],
+                xaxis:{
+                    categories: chartCBSData.groupNamesCreated
+                }
+            });
+
+        })
     </script>
 </div>

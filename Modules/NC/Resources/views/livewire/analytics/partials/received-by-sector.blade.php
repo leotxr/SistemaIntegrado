@@ -65,5 +65,16 @@
         var chartRBS = new ApexCharts(document.querySelector("#chartRBS"), optionsRBS);
 
         chartRBS.render();
+
+        Livewire.on('refreshChartRBS', (chartRBSData) => {
+            chartRBS.updateOptions({
+                series: [{
+                    data: chartRBSData.groupCountReceived,
+                }],
+                xaxis:{
+                    categories: chartRBSData.groupNamesReceived
+                }
+            });
+        })
     </script>
 </div>

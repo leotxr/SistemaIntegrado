@@ -2,13 +2,12 @@
 
 namespace Modules\NC\Http\Livewire\Forms;
 
+use App\Events\NonConformityCreated;
 use App\Models\User;
 use App\Models\UserGroup;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Modules\NC\Entities\NCClassification;
-use Modules\NC\Entities\NCEnvolvedUser;
-use Modules\NC\Entities\NCHistory;
 use Modules\NC\Entities\NonConformity;
 
 class Create extends Component
@@ -64,6 +63,7 @@ class Create extends Component
                 ['type' => 'success', 'message' => 'Não Conformidade criada com sucesso!']
             );
             $this->emitUp('refreshParent');
+            NonConformityCreated::dispatch();
         }
     }
 

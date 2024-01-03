@@ -9,20 +9,40 @@ use Livewire\Component;
 class TopCreatedUsers extends Component
 {
     public $users;
-    public Collection $user_count;
+    public $user_count;
+    public $start_date;
+    public $end_date;
 
-    public function mount()
+    protected $listeners = [
+        'echo:nc-analytics,NonConformityCreated' => 'refreshMe',
+        'refreshChildren' => 'refreshMe'
+    ];
+
+    public function getData($start_date, $end_date)
     {
+        $user_count = collect();
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->users = User::all();
-        $this->user_count = collect();
 
         foreach ($this->users as $user) {
-            if($user->sourceUser->count() > 0)
+            if($user->sourceUser->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0)
             {
-                $this->user_count[] = collect(['name' => $user->name, 'value' => $user->sourceUser->count()]);;
+                $user_count[] = collect(['name' => $user->name, 'value' => $user->sourceUser->count()]);
             }
         }
 
+        return $user_count;
+    }
+    public function mount($start_date, $end_date)
+    {
+        $this->user_count = $this->getData($start_date, $end_date);
+        //dd($this->user_count);
+    }
+
+    public function refreshMe()
+    {
+        $this->user_count = $this->getData($this->start_date, $this->end_date);
     }
 
     public function render()
