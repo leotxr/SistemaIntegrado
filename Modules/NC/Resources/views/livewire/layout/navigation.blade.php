@@ -4,9 +4,9 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
                     <button
-                            x-on:click="expanded = !expanded"
-                            type="button"
-                            class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:block hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        x-on:click="expanded = !expanded"
+                        type="button"
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:block hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@
     <aside @keydown.escape.window="expanded = false">
         <div id="logo-sidebar"
              class="fixed top-0 left-0 z-40 h-screen pt-20 bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 transition transform duration-300"
-              :class="expanded ? 'sm:w-64 w-64 block transition transform duration-300' : 'sm:w-14 hidden sm:block '" >
+             :class="expanded ? 'sm:w-64 w-64 block transition transform duration-300' : 'sm:w-14 hidden sm:block '">
             <div class="h-full pb-4 overflow-y-auto grid justify-items-center w-full">
                 <ul class="space-y-2 font-medium w-full">
                     <li>
@@ -87,16 +87,18 @@
                             <span class="ml-3" x-show="expanded">Inicio</span>
                         </x-nc::side-link>
                     </li>
-                    <li>
-                        <x-nc::side-link :href="route('nc.analytics')"
-                                         :active="request()->routeIs('nc.analytics')"
-                                         class="w-full">
-                            <x-icon name="presentation-chart-line"
-                                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
-                            </x-icon>
-                            <span class="ml-3" x-show="expanded">Indicadores</span>
-                        </x-nc::side-link>
-                    </li>
+                    @can('excluir ncs')
+                        <li>
+                            <x-nc::side-link :href="route('nc.analytics')"
+                                             :active="request()->routeIs('nc.analytics')"
+                                             class="w-full">
+                                <x-icon name="presentation-chart-line"
+                                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
+                                </x-icon>
+                                <span class="ml-3" x-show="expanded">Indicadores</span>
+                            </x-nc::side-link>
+                        </li>
+                    @endcan
                     {{--
                                         <li x-data="{open:false}" @click="expanded = true">
                                             <x-nc::side-link class="w-full" x-on:click="open = ! open" href="#"
