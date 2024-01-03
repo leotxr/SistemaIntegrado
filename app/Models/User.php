@@ -96,5 +96,10 @@ class User extends Authenticatable
         return $this->belongsToMany(NonConformity::class, 'non_conformity_user_sector', 'user_id', 'non_conformity_id');
     }
 
+    public function sourceUser()
+    {
+        return $this->hasMany(NonConformity::class, 'source_user_id', 'id');
+    }
+
 
 }
