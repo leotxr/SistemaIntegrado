@@ -27,7 +27,7 @@ class TopReceivedUsers extends Component
 
         foreach ($this->users as $user) {
             if ($user->nonConformities->count() > 0) {
-                $user_count[] = collect(['name' => $user->name, 'value' => $user->nonConformities->count()]);
+                $user_count[] = collect(['name' => $user->name . ' ' . $user->lastname, 'value' => $user->nonConformities->count()]);
             }
         }
         return $user_count;
