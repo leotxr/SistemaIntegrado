@@ -31,7 +31,7 @@ class CreateBudgetForm extends Component
     public $modalExams = false;
     public $modalObservation = false;
     public $modalAlert = false;
-    public $budget_type_id = 1;
+    public $budget_type_id = 2;
 
     protected $rules = [
         'budget_type_id' => 'required',
@@ -50,13 +50,13 @@ class CreateBudgetForm extends Component
         $this->total = 0.0;
         $this->count = 0;
         $this->search = '';
-    
+
     }
 
 
     public function selectExam($descricao, $valor, BudgetPlan $convenio)
     {
-        //$convenio->active === 0 
+        //$convenio->active === 0
         $cartExam = new BudgetCart(['id' => $this->count + 1, 'exam_name' => $descricao, 'exam_value' => $convenio->active != 0 ? $valor : 0.0, 'plan_id' => $convenio->id]);
 
         $this->selectedExams->push($cartExam);
@@ -96,12 +96,12 @@ class CreateBudgetForm extends Component
         $this->emitUp('close-modal');
         BudgetCreated::dispatch();
         $this->mount();
- 
+
     }
 
     public function render()
     {
-        
+
         //$selectplan = BudgetPlan::find($this->plan['id']);
 
        // if(isset($this->convenio) && $this->convenio->show_values === 0)
@@ -126,7 +126,7 @@ class CreateBudgetForm extends Component
             'plans' => BudgetPlan::get(),
             'exams' => $this->exams,
             'statuses' => BudgetStatus::whereIn('type_id', [1, 2])->orderBy('id', 'DESC')->get(),
-            'types' => BudgetType::all()
+            'types' => BudgetType::whereNotIn('id', [1])->get()
         ]);
     }
 }

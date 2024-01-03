@@ -66,7 +66,7 @@ class ShowBudgets extends Component
                 ->where('budget_type_id', $this->selectedType)
                 ->paginate(10),
             'statuses' => BudgetStatus::whereNot('type_id', 0)->orderBy('id', 'DESC')->get(),
-            'types' => BudgetType::all()
+            'types' => BudgetType::whereNotIn('id', [1])->get()
         ]);
     }
 }
