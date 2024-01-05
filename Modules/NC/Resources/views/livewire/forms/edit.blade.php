@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-span-2 sm:col-span-4 mt-4">
                         <x-input-label for="nc_description">Descrição</x-input-label>
-                        <x-text-area name="nc_description" id="nc_description" wire:model.defer="nc.description"
+                        <x-text-area name="nc_description" id="nc_description" wire:model="nc.description"
                                      rows="5"></x-text-area>
                         <x-input-error class="mt-2" :messages="$errors->get('nc.description')"/>
                     </div>
@@ -94,7 +94,9 @@
                         </x-danger-button>
                     @endcan
                     <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
-                    <x-primary-button type="submit">Salvar</x-primary-button>
+                    @if($nc && $nc->isDirty())
+                        <x-primary-button type="submit">Salvar</x-primary-button>
+                    @endif
                 </div>
 
             </x-slot:footer>
