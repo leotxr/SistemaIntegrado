@@ -46,7 +46,7 @@
                     <x-text-input type="text" name='exam' disabled='{{$isDisabled}}' value="{{$exam->name}}" id='exam'
                         wire:model='editing.{{$index}}.name' class="block w-full input">
                     </x-text-input>
-                    <x-input-error class="mt-2" :messages="$errors->get('exam.exam')" />
+                    <x-input-error class="mt-2" :messages="$errors->get('exam.name')" />
                 </div>
 
 

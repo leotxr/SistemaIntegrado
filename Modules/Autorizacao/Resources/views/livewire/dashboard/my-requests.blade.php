@@ -63,6 +63,7 @@
         <div class="py-2 w-full">
             <div >
                 @include('autorizacao::tables.table-my-requests')
+                @livewire('autorizacao::requests.edit-request')
             </div>
         </div>
 

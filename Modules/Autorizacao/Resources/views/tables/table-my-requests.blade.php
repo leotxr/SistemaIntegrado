@@ -8,16 +8,13 @@
         </div>
     </div>
     {{$selectedStatus->links()}}
-    <x-table class="overflow-hidden max-w-full">
+    <x-table>
         <x-slot name="head">
             <x-table.heading sortable wire:click="sortBy('exams.exam_date')"
                              :direction="$sortField === 'exams.exam_date' ? $sortDirection : null">Data
             </x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('protocols.paciente_id')"
-                             :direction="$sortField === 'protocols.paciente_id' ? $sortDirection : null">Código
-            </x-table.heading>
             <x-table.heading sortable wire:click="sortBy('protocols.paciente_name')"
-                             :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Paciente
+                             :direction="$sortField === 'protocols.paciente_name' ? $sortDirection : null">Nome
             </x-table.heading>
             <x-table.heading sortable wire:click="sortBy('exams.name')"
                              :direction="$sortField === 'exams.name' ? $sortDirection : null">Exame
@@ -26,10 +23,7 @@
                              :direction="$sortField === 'exams.convenio' ? $sortDirection : null">Convênio
             </x-table.heading>
             <x-table.heading sortable wire:click="sortBy('protocols.user_id')"
-                             :direction="$sortField === 'protocols.user_id' ? $sortDirection : null">Solicitante
-            </x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('protocols.updated_by')"
-                             :direction="$sortField === 'protocols.updated_by' ? $sortDirection : null">Último Usuário
+                             :direction="$sortField === 'protocols.user_id' ? $sortDirection : null">Usuário
             </x-table.heading>
             <x-table.heading>Verificado</x-table.heading>
             <x-table.heading>Status</x-table.heading>
@@ -38,47 +32,35 @@
         </x-slot>
 
         <x-slot name="body">
-            @foreach ($selectedStatus as $protocols)
+            @foreach ($selectedStatus as $exam)
                 @php
-                    $exam_status = $protocols->find($protocols->exam_status_id)->relExamStatus;
+                    $exam_status = $exam->find($exam->exam_status_id)->relExamStatus;
                 @endphp
                 <x-table.row>
                     <x-table.cell>{{
-                    $protocols->exam_date }}</x-table.cell>
-                    <x-table.cell>{{ $protocols->paciente_id ?? '?' }}</x-table.cell>
-                    <x-table.cell>{{ $protocols->paciente_name ?? '?' }}</x-table.cell>
-                    <x-table.cell>{{ $protocols->name ?? '?' }}</x-table.cell>
-                    <x-table.cell>{{ $protocols->convenio ?? '?' }}</x-table.cell>
-                    <x-table.cell>{{ $protocols->created_by ?? '?' }}</x-table.cell>
+                    date('d/m/Y', strtotime($exam->exam_date)) }}</x-table.cell>
+                    <x-table.cell>{{ $exam->paciente_name ?? '?' }}</x-table.cell>
+                    <x-table.cell>{{ $exam->name ?? '?' }}</x-table.cell>
+                    <x-table.cell>{{ $exam->convenio ?? '?' }}</x-table.cell>
+                    <x-table.cell>{{ $exam->requester->name ?? '?' }} {{substr($exam->requester->lastname, 0, 15) ?? '?'}}</x-table.cell>
                     <x-table.cell class="text-center">
-                        @if($protocols->recebido == 1)
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green" class="w-6 h-6">
-                                <path fill-rule="evenodd"
-                                      d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        @else
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" class="w-6 h-6">
-                                <path fill-rule="evenodd"
-                                      d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        @endif
-
-
+                        <x-icon name="check-circle" class="w-6 h-6" :fill="$exam->recebido == 1 ? 'green' : 'gray'"
+                                solid></x-icon>
                     </x-table.cell>
-                    <x-table.cell class="text-gray-800 font-bold">{{ $exam_status->name ?? '?' }}
-                    </x-table.cell>
+                    <x-table.cell>{{ $exam_status->name ?? '?' }}</x-table.cell>
                     <x-table.cell>
-                        <button wire:click='openEdit({{$protocols->protocol_id}})' class="text-blue-800 font-bold"
-                                type="submit">Ver
+
+                        <button wire:click="$emit('editRequest', {{$exam->protocol_id}})"
+                                class="text-blue-800 font-bold inline-flex"
+                                type="submit">
+                            <x-icon name="pencil-alt" class="w-6 h-6"></x-icon>
+                            Editar
                         </button>
+
                     </x-table.cell>
                 </x-table.row>
             @endforeach
         </x-slot>
     </x-table>
     {{$selectedStatus->links()}}
-
-    @include('autorizacao::modals.modals-edit')
 </div>

@@ -18,17 +18,10 @@ class ExamsDashboard extends Component
     use ProtocolTraits;
     //public $selectedStatus = [];
     public $activeStatus = 6;
-    public $modalExam = false;
-    public $editing;
-    public $editing_protocol;
-    public $exam_status;
-    public $modalDelete = false;
-    public $modalUpdate = false;
     public $sortField = 'exams.exam_date';
     public $sortDirection = 'asc';
     public $search = '';
     public $isDisabled;
-    public $modalObservacao = false;
 
     protected $rules = [
         'editing.*.exam_status_id' => 'required',
@@ -42,6 +35,7 @@ class ExamsDashboard extends Component
 
     protected $listeners = [
         'echo:autorization-dashboard,AutorizationCreated' => '$refresh',
+        'refreshParent' => '$refresh'
     ];
 
 
@@ -56,96 +50,11 @@ class ExamsDashboard extends Component
     }
 
 
-
     public function selectStatus($status_id)
     {
         $status = ExamStatus::find($status_id);
         $this->activeStatus = $status->id;
         //$this->selectedStatus =
-    }
-
-    public function openEdit($protocol)
-    {
-
-        $this->editing = Exam::where('protocol_id', $protocol)->get();
-        $this->editing_protocol = Protocol::find($protocol);
-        if($this->checkProtocol($this->editing_protocol->id) === false)
-        {
-            $this->modalExam = true;
-            $this->inProcessing($this->editing_protocol->id);
-        }
-        else
-        {
-           $user = $this->getUser($this->editing_protocol->id);
-            $this->dispatchBrowserEvent(
-                'protocol-in-use',
-                ['type' => 'error', 'user' => $user->name]
-            );
-        }
-
-
-
-        //$this->editing_protocol->recebido == 1 ? $this->isDisabled = true : $this->isDisabled = false;
-
-    }
-
-    public function confirmDelete(Protocol $protocol)
-    {
-        $this->modalDelete = true;
-    }
-
-    public function delete(Protocol $protocol)
-    {
-        $delete_exam = Exam::where('protocol_id', $protocol->id)->delete();
-        $photos = Photo::where('protocol_id', $protocol->id)->get();
-        foreach($photos as $photo)
-        {
-            $delete_path = Storage::deleteDirectory(public_path($photo->url));
-            if($delete_path)
-            $photo->delete();
-        }
-
-        if ($delete_exam)
-            $protocol->delete();
-
-        return redirect()->route('autorizacao.index');
-    }
-
-    public function showObservacao(Protocol $protocol)
-    {
-        $this->modalObservacao = true;
-        $this->editing_protocol = $protocol;
-    }
-
-    public function save()
-    {
-        //$this->validate();
-
-        foreach ($this->editing as $exam) {
-            $exam->updated_by = Auth::user()->id;
-            $exam->save();
-        }
-
-        if($this->editing_protocol)
-        {
-            $saving_protocol = $this->editing_protocol;
-            $saving_protocol->updated_by = Auth::user()->id;
-            $saving_protocol->save();
-        }
-
-
-        $this->modalExam = false;
-        $this->modalObservacao = false;
-        $this->endByProcotol($this->editing_protocol->id);
-
-    }
-
-    public function close()
-    {
-
-        $this->modalExam = false;
-        $this->modalObservacao = false;
-        $this->endByProcotol($this->editing_protocol->id);
     }
 
     public function render()

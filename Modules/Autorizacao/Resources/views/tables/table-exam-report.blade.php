@@ -28,6 +28,7 @@
                              :direction="$sortField === 'protocols.updated_by' ? $sortDirection : null">Último Usuário
             </x-table.heading>
             <x-table.heading>Status</x-table.heading>
+            <x-table.heading>Ações</x-table.heading>
         </x-slot>
         <x-slot name="body">
             @foreach($protocols as $protocol)
@@ -46,6 +47,14 @@
                         <x-table.cell>{{$requester->name}}</x-table.cell>
                         <x-table.cell>{{$last_user->name}}</x-table.cell>
                         <x-table.cell>{{$exam->examStatus->name}}</x-table.cell>
+                        <x-table.cell>
+                            <button wire:click="$emit('editRequest', {{$exam->protocol_id}})"
+                                    class="text-blue-800 font-bold inline-flex"
+                                    type="submit">
+                                <x-icon name="pencil-alt" class="w-6 h-6"></x-icon>
+                                Editar
+                            </button>
+                        </x-table.cell>
                     </x-table.row>
                 @endforeach
             @endforeach
