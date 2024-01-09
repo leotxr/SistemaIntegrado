@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 <div class="m-4 shadow-sm">
-    <div class="max-w-full px-12">
+    <div class="max-w-full px-4">
             @livewire('triagem::dashboard.monitoring')
         </div>
     </div>

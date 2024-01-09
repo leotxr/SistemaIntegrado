@@ -16,7 +16,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
                         </svg>
-                        <h1>Filtros<h1>
+                        <h1>Filtros</h1>
                     </div>
                 </x-slot>
                 <x-slot name="content">
@@ -52,12 +52,16 @@
                                     class="label text-gray-900 dark:text-gray-50 font-light text-sm">Gerar
                                     relatório</label>
                                 <x-primary-button id="submit" type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                    </svg>
-                                    <span>Buscar<span>
+                                    <x-icon name="search" class="w-6 h-6"></x-icon>
+                                    <span>Buscar</span>
+                                </x-primary-button>
+                            </div>
+                            <div>
+                                <label for="export"
+                                       class="label text-gray-900 dark:text-gray-50 font-light text-sm">Exportar para Excel</label>
+                                <x-primary-button id="export" wire:click="export" class="bg-green-800 hover:bg-green-600">
+                                    <x-icon name="table" class="w-6 h-6"></x-icon>
+                                    <span>Exportar</span>
                                 </x-primary-button>
                             </div>
                         </div>
@@ -73,28 +77,31 @@
 
 
     <div class="bg-white overflow-x-auto shadow-sm border-2 w-full mt-2">
-        <table class="table table-compact">
+        <x-table>
             <!-- head -->
-            <thead>
-                <tr>
-                    <th>Hora Exame</th>
-                    <th>Entrada Exame</th>
-                    <th>Saída Exame</th>
-                    <th>Nome</th>
-                    <th>Procedimento</th>
-                    <th>Status</th>
 
-                </tr>
-            </thead>
+                <x-slot:head>
+                    <x-table.heading>Hora Exame</x-table.heading>
+                    <x-table.heading>Aguardando</x-table.heading>
+                    <x-table.heading>Inicio Triagem</x-table.heading>
+                    <x-table.heading>Fim Triagem</x-table.heading>
+                    <x-table.heading>Entrada Exame</x-table.heading>
+                    <x-table.heading>Saída Exame</x-table.heading>
+                    <x-table.heading>Nome</x-table.heading>
+                    <x-table.heading>Procedimento</x-table.heading>
+                    <x-table.heading>Status</x-table.heading>
+
+                </x-slot:head>
+
             {{$pacientes->links()}}
-            <tbody>
+            <x-slot:body>
 
                 @foreach ($pacientes as $paciente)
 
                 @php
 
                 $a = $triagens->where('patient_id', $paciente->PACIENTEID)->value('patient_id');
-
+                $sigma_term = $triagens->where('patient_id', $paciente->PACIENTEID)->first();
                 //echo $a;
                 if ($a == $paciente->PACIENTEID) {
                 $status = 'REALIZADO';
@@ -106,13 +113,18 @@
 
                 @endphp
 
-                <tr>
-                    <th class="{{ $color }}">{{ $paciente->HORA }}</th>
-                    <td class="{{ $color }}">{{ $paciente->ENTRADA }}</td>
-                    <td class="{{ $color }}">{{ $paciente->SAIDA }}</td>
-                    <td class="{{ $color }}">{{ $paciente->PACIENTE }}</td>
-                    <td class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</td>
-                    <td class="{{ $color }}">
+                <x-table.row>
+                    <x-table.cell class="{{ $color }}">{{ $paciente->HORA }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ gmdate('H:i:s', $paciente->CHEGOU) }}</x-table.cell>
+                    <x-table.cell>
+                        {{isset($sigma_term['start_hour']) ? $sigma_term['start_hour'] : 'Não iniciada'}}</x-table.cell>
+                    <x-table.cell>
+                        {{isset($sigma_term['final_hour']) ? $sigma_term['final_hour'] : 'Não finalizada'}}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ $paciente->ENTRADA }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ $paciente->SAIDA }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ $paciente->PACIENTE }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">
                         @isset($a)
                         <button type="button" wire:click='showTriagem({{$a}})'>
                             Mais
@@ -121,8 +133,8 @@
                         @empty($a)
                         <strong>{{ $status }}</strong>
                         @endempty
-                    </td>
-                </tr>
+                    </x-table.cell>
+                </x-table.row>
 
                 @endforeach
 
@@ -142,8 +154,8 @@
                     </div>
                 </div>
 
-            </tbody>
-        </table>
+            </x-slot:body>
+        </x-table>
     </div>
 
     @isset($showing)
@@ -155,7 +167,7 @@
             </div>
         </x-slot>
         <x-slot name="content">
-            
+
                 <div class="flex flex-col pb-3">
                     <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Paciente</dt>
                     <dd class="text-md font-semibold">{{$showing->patient_name}}</dd>
