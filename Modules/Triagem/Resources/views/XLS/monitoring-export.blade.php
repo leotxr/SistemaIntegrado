@@ -43,7 +43,7 @@
                 <x-table.cell class="{{ $color }}">{{ $paciente->ENTRADA }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $paciente->SAIDA }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $paciente->PACIENTE }}</x-table.cell>
-                <x-table.cell class="{{ $color }}">{{ $sigma_term->relUserTerm->name }}</x-table.cell>
+                <x-table.cell class="{{ $color }}">{{ $sigma_term->relUserTerm->name ?? 'Não finalizada' }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">
                     <strong>{{ $status }}</strong>
