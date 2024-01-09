@@ -23,11 +23,13 @@ $maxWidth = [
         x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0">
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        {{--
         <div class="relative grid justify-end p-8 text-end">
             <button type="button" x-on:click="$dispatch('close')">
                 <x-icon name="x" class="w-8 h-8 text-white"></x-icon>
             </button>
         </div>
+        --}}
     </div>
 
     <div x-show="show"
