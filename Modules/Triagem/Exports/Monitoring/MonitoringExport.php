@@ -33,6 +33,6 @@ class MonitoringExport implements FromView
     {
 
         return view('triagem::XLS.monitoring-export', ['pacientes' =>
-            $this->getMonitoringData($this->sectors, $this->date)->paginate(10), 'triagens' => Term::whereDate('exam_date', $this->date)->get(),]);
+            $this->getMonitoringData($this->sectors, $this->date)->get(), 'triagens' => Term::whereDate('exam_date', $this->date)->get(),]);
     }
 }

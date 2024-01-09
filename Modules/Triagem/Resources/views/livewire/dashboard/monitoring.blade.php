@@ -77,6 +77,7 @@
 
 
     <div class="bg-white overflow-x-auto shadow-sm border-2 w-full mt-2">
+        {{$pacientes->links()}}
         <x-table>
             <!-- head -->
 
@@ -93,7 +94,7 @@
 
                 </x-slot:head>
 
-            {{$pacientes->links()}}
+
             <x-slot:body>
 
                 @foreach ($pacientes as $paciente)
