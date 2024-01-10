@@ -116,7 +116,7 @@
 
                 <x-table.row>
                     <x-table.cell class="{{ $color }}">{{ $paciente->HORA }}</x-table.cell>
-                    <x-table.cell class="{{ $color }}">{{ gmdate('H:i:s', $paciente->CHEGOU) }}</x-table.cell>
+                    <x-table.cell class="{{ $color }}">{{ gmdate('H:i:s', $paciente->CHEGOU + 120) }}</x-table.cell>
                     <x-table.cell>
                         {{isset($sigma_term['start_hour']) ? $sigma_term['start_hour'] : 'Não iniciada'}}</x-table.cell>
                     <x-table.cell>
