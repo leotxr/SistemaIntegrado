@@ -60,14 +60,14 @@ class Index extends Component
     public function render()
     {
         return match ($this->tab) {
-            'created_by_me' => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::where('source_user_id', Auth::user()->id)->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]),
+            'created_by_me' => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::where('source_user_id', Auth::user()->id)->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
             'created_by_group' => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereHas('sourceUser', function ($q) {
                 $q->whereIn('users.id', $this->users_has_roles);
-            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]),
+            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
             'group_nc' => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereHas('targetUsers', function ($q) {
                 $q->whereIn('users.id', $this->users_has_roles);
-            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]),
-            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at')->paginate(10)]),
+            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
+            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
         };
 
     }
