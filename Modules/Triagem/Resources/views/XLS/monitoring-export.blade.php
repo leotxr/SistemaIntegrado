@@ -2,6 +2,7 @@
     <!-- head -->
 
     <x-slot:head>
+        <x-table.heading>Data</x-table.heading>
         <x-table.heading>Hora Exame</x-table.heading>
         <x-table.heading>Aguardando</x-table.heading>
         <x-table.heading>Inicio Triagem</x-table.heading>
@@ -34,6 +35,7 @@
             @endphp
 
             <x-table.row>
+                <x-table.cell class="{{ $color }}">{{ date('d/m/Y', strtotime($paciente->DATA)) }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $paciente->HORA }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ gmdate('H:i:s', $paciente->CHEGOU + 120) }}</x-table.cell>
                 <x-table.cell>
