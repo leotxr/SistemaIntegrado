@@ -110,11 +110,23 @@ class AutorizacaoController extends Controller
         if ($protocol)
         {
             AutorizationCreated::dispatch();
-             return redirect()->back()->with('success', 'Solicitação salva com sucesso!');
+            $notification = array(
+                'message' => 'Solicitação salva com sucesso!',
+                'alert-type' => 'success'
+            );
+
+             return redirect()->back()->with($notification);
         }
 
         else
-            return redirect()->back()->withErrors(['msg' => 'Ocorreu um erro ao salvar a solicitação.']);
+        {
+            $notification = array(
+                'message' => 'Ocorreu um erro ao salvar a solicitação.',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
 
 

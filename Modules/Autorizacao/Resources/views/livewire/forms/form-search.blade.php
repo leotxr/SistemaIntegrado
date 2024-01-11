@@ -201,7 +201,7 @@
                         </div>
                     </div>
                     <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
-                        <x-primary-button type="submit" class="mt-2">Enviar</x-primary-button>
+                        <x-primary-button type="submit" class="mt-2" >Enviar</x-primary-button>
                     </div>
                 </form>
             </div>

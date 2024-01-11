@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class FormSearch extends Component
 {
     use WithFileUploads;
-    
+
     public $dadosSolicitacao = false;
     public $protocol;
     //public $show_data_protocol;
@@ -24,7 +24,7 @@ class FormSearch extends Component
             'inputs' => collect([['email' => '']]),
         ]);
     }
-    
+
     public function addInput()
     {
         $this->inputs->push(['exam' => '']);
@@ -72,6 +72,12 @@ class FormSearch extends Component
             return view('autorizacao::livewire.forms.form-search', ['show_data_protocol' => $protocolos, 'show_data_patient' => $pacientes]);
         }
         else
-            return redirect()->to('autorizacao/nova-solicitacao')->with('info', 'Protocolo não encontrado');
+        {
+            $notification = array(
+                'message' => 'Protocolo não encontrado',
+                'alert-type' => 'error'
+            );
+            return redirect()->to('autorizacao/nova-solicitacao')->with($notification);
+        }
     }
 }
