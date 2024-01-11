@@ -58,7 +58,7 @@
                                 x-bind:style="`width:${progress}%`"></div>
                         </div>
 
-                        <div class="m-2">
+                        <div class="m-2" x-show="!isUploading">
                             <x-primary-button type="submit" x-show="isUploaded">Salvar</x-primary-button>
                         </div>
                     </form>

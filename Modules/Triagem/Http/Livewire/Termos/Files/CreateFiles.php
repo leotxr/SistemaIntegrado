@@ -14,7 +14,7 @@ class CreateFiles extends Component
     use WithFileUploads;
     public Term $triagem;
     public $photo;
-    public $type;
+    public $type = 1;
     public $showing;
     public $showing_url;
     public $showModal = false;
@@ -40,7 +40,7 @@ class CreateFiles extends Component
         $setor = Sector::find($this->triagem->sector_id);
 
         $path = $this->photo->storePublicly("storage/termos/$triagem->patient_name/$setor->name/$hoje/arquivo-$triagem->patient_name", ['disk' => 'my_files']);
-        
+
         $upload = TermFile::updateOrInsert([
             'url' => $path,
             'term_id' => $this->triagem->id,
@@ -53,7 +53,7 @@ class CreateFiles extends Component
             session()->flash('message', 'Arquivo importado com sucesso!');
             $this->render();
         }
-        
+
 
     }
 
