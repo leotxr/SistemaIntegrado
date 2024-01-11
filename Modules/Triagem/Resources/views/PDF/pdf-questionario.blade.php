@@ -11,13 +11,13 @@
           border-collapse: collapse;
           width: 100%;
         }
-        
+
         td, th {
           border: 1px solid #dddddd;
           text-align: left;
           padding: 8px;
         }
-        
+
         tr:nth-child(even) {
           background-color: #dddddd;
         }
@@ -32,7 +32,7 @@
     <h2 class="font-bold text-center" style="text-align: center;">{{$title}}</h2>
     <p>Nome do paciente: {{ $term->patient_name }}</p>
     <p>Data de nascimento: {{ date('d/m/Y', strtotime($term->patient_age)) }}</p>
-    
+
 <div>
     <table>
         <thead>
@@ -52,17 +52,17 @@
             @foreach($collection as $questionario)
             <tr>
                 <th>
-                    {{$questionario['pergunta']}}
+                    {{$questionario['question']}}
                 </th>
-                
+
                 <td>
-                    {{$questionario['resposta']}}
+                    {{$questionario['answer']}}
                 </td>
 
                 <td>
-                    {{$questionario['observacao']}}
+                    {{$questionario['observation']}}
                 </td>
-               
+
             </tr>
             @endforeach
         </tbody>
@@ -72,7 +72,7 @@
     <h4>Observação da Triagem</h4>
     <p>{{$term->observation}} </p>
 </div>
-    
+
 </div>
 
 

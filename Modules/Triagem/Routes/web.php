@@ -30,13 +30,16 @@ Route::get('teste-sig', function () {
 Route::middleware('auth')->group(function () {
 
 
-    
+
         Route::prefix('triagem')->group(function () {
             Route::get('painel', [TriagemController::class, 'dashboard'])->name('triagem.dashboard');
             Route::get('relatorios', [ReportController::class, 'index'])->name('triagem.reports');
+            Route::get('relatorios/x-clinic-sigma', function(){
+                return view('triagem::painel.relatorios.relatorio-x-clinic-sigma');
+            });
             Route::get('monitoramento', [MonitoringController::class, 'index'])->name('triagem.monitoring');
         });
-   
+
 
 
     Route::prefix('triagem')->group(function () {
@@ -48,7 +51,17 @@ Route::middleware('auth')->group(function () {
         Route::get('setor/ressonancia/fila', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
         Route::get('setor/tomografia/fila', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
 
-        Route::get('setor/{setor_id}/pac/{paciente_id}/create', [TermController::class, 'createTriagem'])->name('create.triagem');
+        Route::get('nova-triagem/{setor_id}/{paciente_id}', function($setor_id, $paciente_id){
+
+            if ($setor_id == 9)
+                return view('triagem::ressonancia.create', compact('setor_id', 'paciente_id'));
+            elseif($setor_id == 4)
+                return view('triagem::tomografia.create', compact('setor_id', 'paciente_id'));
+            else
+                return redirect()->back();
+        })->name('create.triagem');
+
+        //Route::get('setor/{setor_id}/pac/{paciente_id}/create', [TermController::class, 'createTriagem'])->name('create.triagem');
 
         Route::post('ressonancia', [TermController::class, 'storeRessonancia'])->name('store.ressonancia');
         Route::post('tomografia', [TermController::class, 'storeTomografia'])->name('store.tomografia');

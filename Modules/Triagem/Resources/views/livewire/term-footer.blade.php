@@ -3,7 +3,7 @@
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         {{--OBSERVACOES --}}
         <div class="col-span-full">
-            @livewire('triagem::text-area', ['label' => "Observação", 'description' => "Observações da triagem"])
+
         </div>
         <div class="flex">
             {{-- INPUTS COM DATAURL DA ASSINATURA E PRINT DA TELA --}}

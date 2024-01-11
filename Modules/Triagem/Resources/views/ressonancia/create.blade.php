@@ -1,5 +1,7 @@
 @extends('triagem::layouts.master')
 @section('content')
+    @livewire('triagem::questionario.r-m-questionnaire', ['patient_id' => $paciente_id, 'sector_id' => $setor_id])
+    {{--
     <div class="mb-24 border border-dashed">
         <form method="POST" action="{{ route('store.ressonancia') }}">
             @csrf
@@ -11,19 +13,12 @@
                     </div>
 
                     <div class="p-5 col-12">
-                        <livewire:triagem::questionario-r-m />
+                        <livewire:triagem::questionario-r-m/>
                     </div>
                 </div>
-
-                <div class="p-5 col-12">
-                    @livewire('triagem::term-footer', ['data_exame' => "$paciente->DATA", 'title' => 'Observação da Triagem', 'description' => '', 'img' => ''])
-                </div>
-    
             </div>
-
-            @livewire('triagem::bottom-navigation', ['submit_title' => 'Salvar Questionario'])
+            @include('triagem::livewire.bottom-navigation')
         </form>
     </div>
-    
-   
+--}}
 @endsection

@@ -1,52 +1,53 @@
 <div>
 
-    <div class="relative overflow-x-auto border border-dashed sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Questionario
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Sim
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Não
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Observação
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="overflow-x-auto border border-dashed sm:rounded-lg">
+        <x-table>
+            <x-slot:head>
+                <x-table.heading scope="col" class="px-6 py-3">
+                    Questionário
+                </x-table.heading>
+                <x-table.heading scope="col" class="px-6 py-3">
+                    Sim
+                </x-table.heading>
+                <x-table.heading scope="col" class="px-6 py-3">
+                    Não
+                </x-table.heading>
+                <x-table.heading scope="col" class="px-6 py-3">
+                    Observação
+                </x-table.heading>
+            </x-slot:head>
+
+            <x-slot:body>
                 @php
-                $i = 0;
+                    $i = 0;
                 @endphp
                 @foreach ($perguntas as $pergunta)
-                {{$i++}}
-                <tr>
-                    <th scope="row" name="pergunta"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-pre-line dark:text-white">
-                        <input type="pergunta" name="pergunta[{{$i}}]" class="w-full input" readonly value="{{ $pergunta->description }}"/>
-                        
-                    </th>
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Sim"/>
-                    </th>
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Não" checked />
-                    </th>
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <input type="text" name="observacao[{{$i}}]"
-                            class="w-full mt-2 input input-bordered" value="" />
-                    </th>
-                </tr>
+                    {{$i++}}
+                    <x-table.row>
+                        <x-table.cell scope="row" name="pergunta">
+                            <input type="pergunta" name="pergunta[{{$i}}]" class="w-full input" readonly
+                                   value="{{ $pergunta->description }}"/>
+                        </x-table.cell>
+                        <x-table.cell scope="row">
+                            <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Sim"/>
+                        </x-table.cell>
+                        <x-table.cell scope="row">
+                            <input type="radio" name="radio[{{$i}}]" class="mx-2 radio" value="Não" checked/>
+                        </x-table.cell>
+                        <x-table.cell scope="row">
+                            <input type="text" name="observacao[{{$i}}]"
+                                   class="w-full mt-2 input input-bordered" value=""/>
+                        </x-table.cell>
+                    </x-table.row>
                 @endforeach
-            </tbody>
-        </table>
+            </x-slot:body>
+        </x-table>
+        <div class="p-5 col-12">
+            <div>
+                <h2 class="text-xl font-extrabold dark:text-white p-2">Observação da Triagem</h2>
+                <x-text-area></x-text-area>
+            </div>
+        </div>
     </div>
 
 </div>

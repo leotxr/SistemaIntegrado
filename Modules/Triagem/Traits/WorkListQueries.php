@@ -6,6 +6,20 @@ use Illuminate\Support\Facades\DB;
 
 trait WorkListQueries
 {
+
+    public function getPatient($patient_id, $sector_id)
+    {
+        return DB::connection('sqlserver')
+            ->table('FATURA')
+            ->where('PACIENTE.PACIENTEID', '=', $patient_id)
+            ->where('FATURA.SETORID', $sector_id)
+            ->where('DATA', date('Y-m-d'))
+            ->join('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
+            ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
+            ->select('PACIENTE.PACIENTEID', 'FATURA.DATA', 'PACIENTE.NOME', 'PACIENTE.DATANASC', 'PROCEDIMENTOS.DESCRICAO')
+            ->first();
+    }
+
     public function getMonitoringData($sector_id, $date)
     {
         return DB::connection('sqlserver')

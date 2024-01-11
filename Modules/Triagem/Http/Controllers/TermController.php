@@ -33,6 +33,8 @@ class TermController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
+
+/* SEM USO
     public function createTriagem(Request $request, $setor_id, $paciente_id)
     {
         $hoje = date('Y-m-d');

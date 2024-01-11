@@ -15,6 +15,8 @@ class TableQueue extends Component
         $this->pacientes = $pacientes;
         $this->triagens = $triagens;
         $this->setor = $setor;
+
+
     }
     public function render()
     {
