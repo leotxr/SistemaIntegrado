@@ -64,8 +64,8 @@ class RMQuestionnaire extends Component
 
 
         $pdf = PDF::loadView('triagem::PDF.pdf-questionario', ['collection' => $this->questions, 'title' => "Questionário para realização de Ressonancia Magnetica", 'term' => $this->saving]);
-        $save = Storage::disk('my_files')->put("storage/termos/$this->saving->patient_name/$setor->name/$today/questionario-$this->saving->patient_name.pdf", $pdf->output());
-        $path = "storage/termos/$this->saving->patient_name/$setor->name/$today/questionario-$this->saving->patient_name.pdf";
+        $save = Storage::disk('my_files')->put("storage/termos/" . $this->saving->patient_name . "/" . $setor->name . "/" . $today . "/questionario-" . $this->saving->patient_name . ".pdf", $pdf->output());
+        $path = "storage/termos/" . $this->saving->patient_name . "/" . $setor->name . "/" . $today . "/questionario-" . $this->saving->patient_name . ".pdf";
 
 
         if($save)
