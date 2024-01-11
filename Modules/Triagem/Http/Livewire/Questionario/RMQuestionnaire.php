@@ -46,7 +46,7 @@ class RMQuestionnaire extends Component
     public function save()
     {
 
-        $today = date('Y-m-d');
+        $today = date('d-m-Y');
         $query= $this->getPatient($this->patient_id, $this->sector_id);
         $setor = Sector::where('xclinic_id', $this->sector_id)->first();
         $this->saving = Term::create([
@@ -56,7 +56,7 @@ class RMQuestionnaire extends Component
             'patient_age' => date('Y-m-d', strtotime($query->DATANASC)) ?? NULL,
             'proced' => $query->DESCRICAO ?? NULL,
             'start_hour' => date('H:i:s', strtotime(now())),
-            'exam_date' => $today,
+            'exam_date' => date('Y-m-d'),
             'sector_id' => $setor->id,
             'finished' => 0,
             'observation' => $this->observation
