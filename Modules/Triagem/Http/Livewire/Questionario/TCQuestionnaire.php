@@ -10,6 +10,7 @@ use Modules\Triagem\Entities\Term;
 use Illuminate\Support\Facades\Auth;
 use Modules\Triagem\Entities\Sector;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Modules\Triagem\Entities\TermFile;
 use Modules\Triagem\Traits\WorkListQueries;
 
 class TCQuestionnaire extends Component
@@ -67,6 +68,13 @@ class TCQuestionnaire extends Component
         $save = Storage::disk('my_files')->put("storage/termos/" . $this->saving->patient_name . "/" . $setor->name . "/" . $today . "/questionario-" . $this->saving->patient_name . ".pdf", $pdf->output());
         $path = "storage/termos/" . $this->saving->patient_name . "/" . $setor->name . "/" . $today . "/questionario-" . $this->saving->patient_name . ".pdf";
 
+        if ($path) {
+            TermFile::updateOrInsert([
+                'url' => $path,
+                'term_id' => $this->saving->id,
+                'file_type_id' => 6
+            ]);
+        } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if($save)
         return redirect()->to('/triagem/setor/tomografia');
