@@ -25,13 +25,13 @@
             <x-table>
                 <x-slot:head>
                     <x-table.heading>
-                        Verde
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-green-600" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        Amarelo
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-yellow-400" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        Vermelho
+                        <span class="grid justify-items-center"><x-icon name="emoji-sad" class="w-8 h-8 text-red-600" solid></x-icon></span>
                     </x-table.heading>
                 </x-slot:head>
                 <x-slot:body>
@@ -53,13 +53,13 @@
                         Recepcionista
                     </x-table.heading>
                     <x-table.heading>
-                        Verde
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-green-600" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        Amarelo
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-yellow-400" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        Vermelho
+                        <span class="grid justify-items-center"><x-icon name="emoji-sad" class="w-8 h-8 text-red-600" solid></x-icon></span>
                     </x-table.heading>
                 </x-slot:head>
                 <x-slot:body>
