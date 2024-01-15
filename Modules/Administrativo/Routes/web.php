@@ -15,13 +15,24 @@
 use Modules\Administrativo\Http\Controllers\AdministrativoController;
 use Modules\Administrativo\Http\Livewire\Monitoring\QueueMonitoring;
 
-Route::prefix('administrativo')->group(function () {
-    Route::get('/monitoramento', function(){
-        return view('administrativo::monitoramento.index');
-    })->name('adm.monitoring');
-    Route::get('/recepcao/fila-de-espera', function(){
-        return view('administrativo::monitoramento.reception');
-    })->name('adm.reception');
+Route::middleware('auth')->group(function () {
+    Route::prefix('administrativo')->group(function () {
 
-    Route::get('/', [AdministrativoController::class, 'index'])->name('administrativo.index');
+        Route::get('/monitoramento', function () {
+            return view('administrativo::monitoramento.index');
+        })->name('adm.monitoring');
+        Route::prefix('recepcao')->group(function(){
+            Route::get('/fila-de-espera', function () {
+                return view('administrativo::monitoramento.reception.index');
+            })->name('adm.reception');
+            Route::get('/fila-de-espera/relatorio', function(){
+                return view('administrativo::monitoramento.reception.report');
+            })->name('adm.reception.report');
+        });
+
+
+
+        Route::get('/', [AdministrativoController::class, 'index'])->name('administrativo.index');
+    });
+
 });

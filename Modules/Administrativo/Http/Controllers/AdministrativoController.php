@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Modules\Administrativo\Traits\ReceptionTrait;
 
 class AdministrativoController extends Controller
 {
+    use ReceptionTrait;
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -17,6 +19,14 @@ class AdministrativoController extends Controller
     public function index()
     {
         return view('administrativo::dashboard');
+    }
+
+    public function getData($data1, $data2)
+    {
+        $query = $this->getWaitQueue($data1, $data2)->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')->selectRaw('USUARIOS.NOME AS USUARIO, USUARIOS.USERID AS USERID')->get();
+
+        return view('administrativo::monitoramento.reception.report', compact('query'));
+
     }
 
     /**
