@@ -25,13 +25,13 @@
             <x-table>
                 <x-slot:head>
                     <x-table.heading>
-                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-green-600" solid></x-icon></span>
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-12 h-12 text-green-600" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-8 h-8 text-yellow-400" solid></x-icon></span>
+                        <span class="grid justify-items-center"><x-icon name="emoji-happy" class="w-12 h-12 text-yellow-400" solid></x-icon></span>
                     </x-table.heading>
                     <x-table.heading>
-                        <span class="grid justify-items-center"><x-icon name="emoji-sad" class="w-8 h-8 text-red-600" solid></x-icon></span>
+                        <span class="grid justify-items-center"><x-icon name="emoji-sad" class="w-12 h-12 text-red-600" solid></x-icon></span>
                     </x-table.heading>
                 </x-slot:head>
                 <x-slot:body>
@@ -46,6 +46,7 @@
                 </x-slot:body>
             </x-table>
         </div>
+        {{--
         <div>
             <x-table>
                 <x-slot:head>
@@ -79,6 +80,7 @@
                 </x-slot:body>
             </x-table>
         </div>
+        --}}
         <div>
             <div class="mt-4">
                 <x-select wire:model="limit">

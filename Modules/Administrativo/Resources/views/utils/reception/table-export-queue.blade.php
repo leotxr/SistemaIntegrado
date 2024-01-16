@@ -24,6 +24,7 @@
             </x-slot:body>
         </x-table>
     </div>
+    {{--
     <div>
         <x-table>
             <x-slot:head>
@@ -57,6 +58,7 @@
             </x-slot:body>
         </x-table>
     </div>
+    --}}
     <div>
         <x-table>
             <x-slot:head>

@@ -53,9 +53,10 @@ class ReportReceptionQueue extends Component
         return view('administrativo::livewire.monitoring.reception.report-reception-queue',
             ['query' => $this->search()->offset(0)->limit($this->limit)->get(),
                 'total_count' => $this->search()->get(),
-                'users' => DB::connection('sqlserver')
-                    ->table('USUARIOS')
-                    ->whereIn('USUARIOS.GRUPOID', [45, 53])
-                    ->selectRaw('USUARIOS.NOME AS USUARIO_NOME, USUARIOS.USERID AS USUARIO_ID, USUARIOS.GRUPOID AS USUARIO_GRUPOID')->get()]);
+                //'users' => DB::connection('sqlserver')
+                //->table('USUARIOS')
+                // ->whereIn('USUARIOS.GRUPOID', [45, 53])
+                // ->selectRaw('USUARIOS.NOME AS USUARIO_NOME, USUARIOS.USERID AS USUARIO_ID, USUARIOS.GRUPOID AS USUARIO_GRUPOID')->get()
+            ]);
     }
 }
