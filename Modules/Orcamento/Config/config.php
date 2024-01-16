@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Orcamento'
+    'name' => 'Encaixes e Desistências'
 ];

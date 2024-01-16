@@ -9,7 +9,7 @@
                         <x-application-logo class="block w-auto mr-2 text-gray-800 fill-current h-9 dark:text-gray-200">
                         </x-application-logo>
                         <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">
-                            Agenda</span>
+                            {{Config::get('orcamento.name')}}</span>
                     </a>
                 </div>
 
@@ -52,7 +52,7 @@
                     </x-dropdown>
                 </div>
 
-                
+
             </div>
 
             <!-- Settings Dropdown -->
