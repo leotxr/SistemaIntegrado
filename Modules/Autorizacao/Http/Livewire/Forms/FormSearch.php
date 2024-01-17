@@ -87,7 +87,8 @@ class FormSearch extends Component
             $this->protocol->paciente_name = $patient->NOMEPAC;
 
             foreach ($exams as $exam) {
-                $this->exams[] = new Exam(['name' => $exam->NOME_PROCEDIMENTO, 'exam_date' => $exam->DATA, 'protocol_id' => $this->protocol->id, 'convenio' => $exam->CONVDESC, 'exam_cod' => $exam->CODIGO, 'updated_by' => Auth::user()->id]);
+                $exam->CONVENIOID == 4 ? $cod = $exam->CODIGO : $cod = $exam->CODTUSS;
+                $this->exams[] = new Exam(['name' => $exam->NOME_PROCEDIMENTO, 'exam_date' => $exam->DATA, 'protocol_id' => $this->protocol->id, 'convenio' => $exam->CONVDESC, 'exam_cod' => $cod, 'updated_by' => Auth::user()->id]);
 
             }
 
