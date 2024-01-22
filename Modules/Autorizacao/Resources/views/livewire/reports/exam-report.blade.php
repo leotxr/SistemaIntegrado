@@ -95,7 +95,7 @@
                 </div>
                 @can('excluir autorizacao')
                     <div class="border-2 p-4 col-span-1 sm:col-span-2">
-                        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Usuários Solicitantes</h3>
+                        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Usuário Solicitante</h3>
                         @foreach($users as $user)
                             @if($user->createProtocol->count() > 0)
                                 <ul
@@ -115,7 +115,7 @@
                         @endforeach
                     </div>
                     <div class="border-2 p-4 col-span-1 sm:col-span-2">
-                        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Autorizadores</h3>
+                        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Último Usuário</h3>
                         @foreach($users as $user)
                             @if($user->updateProtocol->count() > 0)
                                 <ul

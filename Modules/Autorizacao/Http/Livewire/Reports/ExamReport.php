@@ -39,7 +39,7 @@ class ExamReport extends Component
 
         foreach ($this->users as $user) {
             if($user->createProtocol->count() > 0) $this->selectedUsers[] = $user->id;
-            if($user->updateProtocol->count() > 0) $this->selectedUpdaters[] = $user->id;
+            if($user->can('editar autorizacao') && $user->updateProtocol->count() > 0) $this->selectedUpdaters[] = $user->id;
         }
     }
 
