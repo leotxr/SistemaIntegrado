@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasMany(Protocol::class, 'updated_by');
     }
 
+    public function createProtocol()
+    {
+        return $this->hasMany(Protocol::class, 'user_id');
+    }
+
     public function updateExam()
     {
         return $this->hasMany(Exam::class, 'updated_by');
