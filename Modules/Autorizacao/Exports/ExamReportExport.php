@@ -15,12 +15,14 @@ class ExamReportExport implements FromView
     public $end;
     public $users;
     public $statuses;
+    public $updaters;
 
     public function __construct($range)
     {
         $this->start = $range['initial_date'];
         $this->end = $range['end_date'];
         $this->users = $range['selected_users'];
+        $this->updaters = $range['selected_updaters'];
         $this->activeStatus = $range['selected_statuses'];
     }
 
@@ -33,7 +35,9 @@ class ExamReportExport implements FromView
         return view(
             'autorizacao::tables.table-exam-export',
             ['protocols' => Protocol::whereBetween('protocols.created_at', [$this->start . ' 00:00:00', $this->end . ' 23:59:59'])
-                ->whereIn('user_id', $this->users)->get(), 'activeStatus' => $this->activeStatus]
+                ->whereIn('user_id', $this->users)
+                ->whereIn('updated_by', $this->updaters)
+                ->get(), 'activeStatus' => $this->activeStatus]
         );
     }
 }

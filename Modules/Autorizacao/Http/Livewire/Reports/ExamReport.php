@@ -70,6 +70,7 @@ class ExamReport extends Component
             'initial_date' => $this->initial_date,
             'end_date' => $this->end_date,
             'selected_users' => $this->selectedUsers,
+            'selected_updaters' => $this->selectedUpdaters,
             'selected_statuses' => $this->activeStatus
         ];
         return Excel::download(new ExamReportExport($range), 'relatorio-exames-status' . $this->initial_date . '-' . $this->end_date . '.xlsx');

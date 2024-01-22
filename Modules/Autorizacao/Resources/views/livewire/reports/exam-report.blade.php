@@ -65,6 +65,7 @@
     </div>
     <div class="mt-4">
         {{$protocols->links()}}
+        <div class="text-sm text-gray-700 dark:text-gray-100">Total de resultados: <span class="text-sm text-gray-800 dark:text-gray-50">{{$protocols->count()}}</span></div>
         @include('autorizacao::tables.table-exam-report')
         @livewire('autorizacao::requests.edit-request')
     </div>
