@@ -38,7 +38,7 @@
                 @endphp
                 <x-table.row>
                     <x-table.cell>{{
-                    date('d/m/Y', strtotime($exam->exam_date)) }}</x-table.cell>
+                    $exam->exam_date ? date('d/m/Y', strtotime($exam->exam_date)) : 'Não Agendado' }}</x-table.cell>
                     <x-table.cell>{{ $exam->paciente_name ?? '?' }}</x-table.cell>
                     <x-table.cell>{{ $exam->name ?? '?' }}</x-table.cell>
                     <x-table.cell>{{ $exam->convenio ?? '?' }}</x-table.cell>

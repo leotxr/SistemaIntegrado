@@ -89,7 +89,7 @@ trait ProtocolTraits
     {
         $saving = new Exam();
         $saving->name = $exam['name'];
-        $saving->exam_date = $exam['exam_date'];
+        $saving->exam_date = $exam['exam_date'] ?? NULL;
         $saving->protocol_id = $this->protocol->id;
         if ($saving->exam_date <= today()->addDays(1)->format('Y-m-d') || $saving->exam_date == NULL) {
             $saving->exam_status_id = 6;
