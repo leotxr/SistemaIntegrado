@@ -15,10 +15,13 @@ class Edit extends Component
     public NonConformity $nc;
     public $search_user = '';
     public $open = false;
+    public $attachedUser;
+    public $inputSearch = false;
     public $modalDelete = false;
 
     protected $listeners = [
-        'openModalEdit' => 'edit'
+        'openModalEdit' => 'edit',
+        'refreshThis' => '$refresh'
     ];
 
     protected $rules = [
@@ -27,11 +30,13 @@ class Edit extends Component
         'nc.description' => 'required'
     ];
 
+
     public function edit(NonConformity $nc)
     {
         if (auth()->user()->can('editar ncs') || auth()->user()->can('excluir ncs')) {
             $this->nc = $nc;
             $this->open = true;
+
         } else {
             $this->dispatchBrowserEvent(
                 'notify',
@@ -81,8 +86,41 @@ class Edit extends Component
         }
     }
 
+    public function removeUser($user)
+    {
+        if ($this->nc->targetUsers->count() > 1 && Auth::user()->can('excluir ncs')) {
+            $this->nc->targetUsers()->detach($user);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'success', 'message' => 'Usuário removido com sucesso!']
+            );
+            $this->emitUp('refreshParent');
+            $this->emit('refreshThis');
+        } elseif($this->nc->targetUsers->count() <= 1 && Auth::user()->can('excluir ncs')) {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'A Não conformidade deve ter ao menos um responsável.']
+            );
+        } else
+        {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Não foi possível remover o usuário.']
+            );
+        }
+    }
+
+    public function attachUser(User $user)
+    {
+        $this->nc->targetUsers()->attach($user->id, ['user_group_id' => $user->user_group_id]);
+        $this->emitUp('refreshParent');
+        $this->emit('refreshThis');
+        $this->inputSearch = false;
+    }
+
     public function render()
     {
+
         return view('nc::livewire.forms.edit', [
             'target_users' => User::search('name', $this->search_user)->get(),
             'sectors' => UserGroup::all(),

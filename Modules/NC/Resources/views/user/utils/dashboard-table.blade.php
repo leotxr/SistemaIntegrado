@@ -1,9 +1,10 @@
 <x-table class="text-center">
     <x-slot name="head">
         <x-table.heading>Ações</x-table.heading>
+        <x-table.heading>Data Criação</x-table.heading>
         <x-table.heading>Descrição</x-table.heading>
         <x-table.heading>Responsável</x-table.heading>
-        <x-table.heading>Data</x-table.heading>
+        <x-table.heading>Data Ocorrência</x-table.heading>
         <x-table.heading>Identificado por</x-table.heading>
         <x-table.heading>Classificação</x-table.heading>
     </x-slot>
@@ -15,6 +16,7 @@
                         <x-icon name="pencil-alt" class="w-5 h-5"></x-icon>
                     </a>
                 </x-table.cell>
+                <x-table.cell>{{date('d/m/y', strtotime($nc->created_at))}}</x-table.cell>
                 <x-table.cell class="border-r dark:border-gray-700 w-1/2 max-h-16">{{$nc->description}}</x-table.cell>
                 <x-table.cell class="">
                     @if($nc->targetUsers->count() > 1)

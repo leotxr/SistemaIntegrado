@@ -31,36 +31,27 @@
                                      rows="5"></x-text-area>
                         <x-input-error class="mt-2" :messages="$errors->get('nc.description')"/>
                     </div>
-                    <div class="col-span-2 sm:col-span-2 mt-4">
-                        <div class="max-w-sm">
+                    <div class="col-span-2 sm:col-span-2 mt-4" x-data="{open: @entangle('inputSearch')}">
+                        <div class="max-w-sm space-y-0.5" x-show="!open">
                             <x-input-label for="search_user">Responsável pela Não Conformidade</x-input-label>
                             @if(isset($nc->targetUsers))
                                 @foreach($nc->targetusers as $user)
-                                    <span>{{$user->name}} {{$user->lastname}}.</span>
+                                    <x-nc::badge
+                                        action="removeUser({{$user->id}})">{{$user->name}} {{$user->lastname}}</x-nc::badge>
                                 @endforeach
-                            @else
-                                <x-text-input type="text" wire:model="search_user" id="search_user" class="w-full"
-                                              placeholder="Pesquisar"></x-text-input>
                             @endif
-                            @if(strlen($search_user) > 2)
-                                <div class="bg-white shadow-md p-2 w-full rounded-md z-10 relative">
-                                    <ul>
-                                        @foreach($target_users as $target)
-                                            <li class="space-x-2 p-2 border-b hover:bg-gray-100">
-                                                <x-input-label for="target_user_{{$target->id}}">
-                                                    <x-text-input type="radio" name="target_user"
-                                                                  wire:model="nc.target_user_id"
-                                                                  id="target_user_{{$target->id}}"
-                                                                  value="{{$target->id}}"/>
-                                                    {{$target->name}} {{$target->lastname}}</x-input-label>
-                                                <x-input-error class="mt-2"
-                                                               :messages="$errors->get('nc.target_user_id')"/>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+
                         </div>
+                        @can('excluir ncs')
+                            <a type="button" class="cursor-pointer transition transform duration-300"
+                               :class="open ? 'rotate-45 text-red-300' : 'rotate-0 text-green-300'">
+                                <x-icon name="plus" class="w-6 h-6" x-on:click="open = ! open"></x-icon>
+                            </a>
+
+                            <div x-show="open">
+                                @include('nc::livewire.utils.search-target-user')
+                            </div>
+                        @endcan
                         <x-input-error class="mt-2" :messages="$errors->get('nc.n_c_target_user_id')"/>
                     </div>
                     <div class="col-span-2 sm:col-span-1 mt-4">
@@ -113,8 +104,8 @@
             </x-slot:dialog>
             <x-slot:buttons>
                 <div class="space-x-2">
-                    <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
                     <x-danger-button type="submit">Excluir</x-danger-button>
+                    <x-secondary-button x-on:click="$dispatch('close')">Cancelar</x-secondary-button>
                 </div>
             </x-slot:buttons>
         </x-modal.confirmation>
