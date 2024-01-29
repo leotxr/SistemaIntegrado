@@ -40,15 +40,15 @@ class GetFilasController extends Controller
             ->where('WORK_LIST.FILAID', '=', 31) //ressonancia
             ->where('WORK_LIST.DATA', '=', $hoje)
             ->orderBy('HORA')
-            ->select(DB::raw("WORK_LIST.DATA, 
-            RIGHT('0' + CAST(WORK_LIST.HORAAGENDA / 3600 AS VARCHAR),2) + ':' + 
-            RIGHT('0' + CAST((WORK_LIST.HORAAGENDA / 60) % 60 AS VARCHAR),2) + ':' + 
+            ->select(DB::raw("WORK_LIST.DATA,
+            RIGHT('0' + CAST(WORK_LIST.HORAAGENDA / 3600 AS VARCHAR),2) + ':' +
+            RIGHT('0' + CAST((WORK_LIST.HORAAGENDA / 60) % 60 AS VARCHAR),2) + ':' +
             RIGHT('0' + CAST(WORK_LIST.HORAAGENDA % 60 AS VARCHAR),2) AS HORA,
-            WORK_LIST.PACIENTEID,    
-            PACIENTE.NOME PACIENTE,      
+            WORK_LIST.PACIENTEID,
+            PACIENTE.NOME PACIENTE,
             PROCEDIMENTOS.DESCRICAO PROCEDIMENTO,
             WORK_FILAS.FILANOME AS SETOR,
-            FATURA.SETORID, 
+            FATURA.SETORID,
             WORK_LIST.STATUSID"))
             ->get();
 
@@ -85,19 +85,19 @@ class GetFilasController extends Controller
             ->where('WORK_LIST.FILAID', '=', 14) //tomografia
             ->where('WORK_LIST.DATA', '=', $hoje)
             ->orderBy('HORA')
-            ->select(DB::raw("WORK_LIST.DATA, 
-            RIGHT('0' + CAST(WORK_LIST.HORAAGENDA / 3600 AS VARCHAR),2) + ':' + 
-            RIGHT('0' + CAST((WORK_LIST.HORAAGENDA / 60) % 60 AS VARCHAR),2) + ':' + 
+            ->select(DB::raw("WORK_LIST.DATA,
+            RIGHT('0' + CAST(WORK_LIST.HORAAGENDA / 3600 AS VARCHAR),2) + ':' +
+            RIGHT('0' + CAST((WORK_LIST.HORAAGENDA / 60) % 60 AS VARCHAR),2) + ':' +
             RIGHT('0' + CAST(WORK_LIST.HORAAGENDA % 60 AS VARCHAR),2) AS HORA,
-            WORK_LIST.PACIENTEID,    
-            PACIENTE.NOME PACIENTE,      
+            WORK_LIST.PACIENTEID,
+            PACIENTE.NOME PACIENTE,
             PROCEDIMENTOS.DESCRICAO PROCEDIMENTO,
             WORK_FILAS.FILANOME AS SETOR,
             FATURA.SETORID,
             WORK_LIST.STATUSID"))
             ->get();
 
-            $triagens = Term::whereDate('exam_date', $hoje_mysql)->get('patient_id');
+            $triagens = Term::whereDate('exam_date', $hoje_mysql)->get();
 
         return view('triagem::tomografia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(2)]);
     }
