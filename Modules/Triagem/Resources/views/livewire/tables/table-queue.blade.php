@@ -14,7 +14,7 @@
 
                     @php
 
-                        $a = $triagens->where('patient_id', $paciente->PACIENTEID)->value('patient_id');
+                        $a = $triagens->where('patient_id', $paciente->PACIENTEID)->where('sector_id', $setor->id)->value('patient_id');
 
                         //echo $a;
                         if ($a == $paciente->PACIENTEID) {
