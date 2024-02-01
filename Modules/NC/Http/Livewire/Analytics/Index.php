@@ -13,9 +13,17 @@ class Index extends Component
 
     public $start_date;
     public $end_date;
+
     public function refreshChildren()
     {
-        $this->emit('refreshChildren', $this->start_date, $this->end_date);
+        if ($this->start_date > $this->end_date) {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'A data inicial não pode ser maior que a data final.']
+            );
+        } else {
+            $this->emit('refreshChildren', $this->start_date, $this->end_date);
+        }
     }
 
     public function mount()
