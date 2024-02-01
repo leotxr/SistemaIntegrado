@@ -27,7 +27,7 @@ class TopReceivedUsers extends Component
 
         foreach ($this->users as $user) {
             if ($user->nonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0) {
-                $user_count[] = collect(['name' => $user->name . ' ' . $user->lastname, 'value' => $user->nonConformities->count()]);
+                $user_count[] = collect(['name' => $user->name . ' ' . $user->lastname, 'value' => $user->nonConformities->whereBetween('created_at', [$this->start_date, $this->end_date])->count()]);
             }
         }
         return $user_count;

@@ -28,7 +28,7 @@ class TopCreatedUsers extends Component
         foreach ($this->users as $user) {
             if($user->sourceUser->whereBetween('created_at', [$this->start_date, $this->end_date])->count() > 0)
             {
-                $user_count[] = collect(['name' => $user->name . ' ' . $user->lastname, 'value' => $user->sourceUser->count()]);
+                $user_count[] = collect(['name' => $user->name . ' ' . $user->lastname, 'value' => $user->sourceUser->whereBetween('created_at', [$this->start_date, $this->end_date])->count()]);
             }
         }
 
@@ -38,6 +38,7 @@ class TopCreatedUsers extends Component
     {
         $this->user_count = $this->getData($start_date, $end_date);
         //dd($this->user_count);
+
     }
 
     public function refreshMe($start_date, $end_date)
