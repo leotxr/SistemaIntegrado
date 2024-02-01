@@ -1,4 +1,5 @@
 <div class="">
+
     <div class="px-4 py-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <x-title>Recebidas por setor</x-title>
         <span class="text-xs font-light text-gray-500">Exibe o total de não conformidades recebidas por setor.</span>

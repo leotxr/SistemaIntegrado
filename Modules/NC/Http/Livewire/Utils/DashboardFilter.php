@@ -15,6 +15,10 @@ class DashboardFilter extends Component
     public $modal_filters = false;
     public $selectAllUsers = false;
     public $selected_users = [];
+    public $selected_target_users = [];
+
+    public $groups;
+    public $user_type;
 
     public $logged_roles = [];
 
@@ -22,10 +26,13 @@ class DashboardFilter extends Component
         'start_date' => 'required',
         'end_date' => 'required'
     ];
+
     public function mount()
     {
         $this->start_date = date('Y-m-01');
         $this->end_date = date('Y-m-t');
+
+        $this->groups = UserGroup::all();
 
         if (Auth::user()->can(['excluir ncs', 'ver historico de ncs']))
             $this->logged_roles = Role::all()->pluck('name');
@@ -35,21 +42,34 @@ class DashboardFilter extends Component
         //$this->selected_users = User::role($this->logged_roles)->pluck('id');
     }
 
+    public function openModal($key)
+    {
+        $this->user_type = $key;
+        $this->modal_filters = true;
+
+
+    }
+
     public function updatedselectAllUsers($value)
     {
-        if($value)
-            $this->selected_users = User::role($this->logged_roles)->pluck('id');
+        if ($value)
+        {
+            $this->user_type == 'created' ? $this->selected_users = User::role($this->logged_roles)->pluck('id') : $this->selected_target_users = User::role($this->logged_roles)->pluck('id');
+        }
         else
-            $this->selected_users = [];
+        {
+            $this->user_type == 'created' ? $this->selected_users = [] : $this->selected_target_users = [];
+        }
+
     }
 
     public function refreshChildren()
     {
-        $this->emitUp('refreshChildren', $this->start_date, $this->end_date, $this->selected_users);
+        $this->emitUp('refreshChildren', $this->start_date, $this->end_date, $this->selected_users, $this->selected_target_users);
     }
 
     public function render()
     {
-        return view('nc::livewire.utils.dashboard-filter', ['users' => User::role($this->logged_roles)->get()]);
+        return view('nc::livewire.utils.dashboard-filter', ['users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get(), 'target_users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get()]);
     }
 }

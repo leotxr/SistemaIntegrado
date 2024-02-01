@@ -46,9 +46,12 @@ class CreatedBySector extends Component
 
     }
 
-    public function refreshMe()
+    public function refreshMe($start_date, $end_date)
     {
-
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
+        $group_count_replace = [];
+        $group_names_replace = [];
         foreach ($this->groups as $group) {
             $count = NonConformity::join('users', 'users.id', '=', 'non_conformities.source_user_id')
                 ->join('user_groups', 'user_groups.id', '=', 'users.user_group_id')
@@ -56,12 +59,12 @@ class CreatedBySector extends Component
                 ->whereBetween('non_conformities.created_at', [$this->start_date, $this->end_date])
                 ->count();
             if ($count > 0) {
-                $group_count[] = $count;
-                $group_names[] = $group->name;
+                $group_count_replace[] = $count;
+                $group_names_replace[] = $group->name;
             }
         }
-        $group_count = array_replace($this->group_count, $group_count);
-        $group_names = array_replace($this->group_names, $group_names);
+        $group_count = array_replace($this->group_count, $group_count_replace);
+        $group_names = array_replace($this->group_names, $group_names_replace);
         $this->emit('refreshChartCBS', ['groupCountCreated' => $group_count, 'groupNamesCreated' => $group_names]);
     }
 

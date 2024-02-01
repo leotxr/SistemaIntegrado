@@ -40,8 +40,10 @@ class TopCreatedUsers extends Component
         //dd($this->user_count);
     }
 
-    public function refreshMe()
+    public function refreshMe($start_date, $end_date)
     {
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
         $this->user_count = $this->getData($this->start_date, $this->end_date);
     }
 

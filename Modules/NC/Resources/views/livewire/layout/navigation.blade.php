@@ -98,6 +98,16 @@
                                 <span class="ml-3" x-show="expanded">Indicadores</span>
                             </x-nc::side-link>
                         </li>
+                        <li>
+                            <x-nc::side-link :href="route('nc.reports')"
+                                             :active="request()->routeIs('nc.reports')"
+                                             class="w-full">
+                                <x-icon name="document-report"
+                                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
+                                </x-icon>
+                                <span class="ml-3" x-show="expanded">Relatórios</span>
+                            </x-nc::side-link>
+                        </li>
                     @endcan
                     {{--
                                         <li x-data="{open:false}" @click="expanded = true">

@@ -20,8 +20,8 @@ class Index extends Component
 
     public function mount()
     {
-        $this->start_date = date('Y-m-01 00:00:00');
-        $this->end_date = date('Y-m-t 23:59:59');
+        $this->start_date = date('Y-m-01');
+        $this->end_date = date('Y-m-t');
     }
 
     public function render()

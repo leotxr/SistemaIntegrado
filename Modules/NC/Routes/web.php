@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function () {
         Route::get('indicadores', function () {
             return view('nc::analytics.index');
         })->name('nc.analytics');
+
+        Route::get('relatorios', function () {
+            return view('nc::reports.index');
+        })->name('nc.reports');
     });
 
 });
