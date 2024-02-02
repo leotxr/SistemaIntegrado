@@ -5,6 +5,10 @@
         <x-primary-button class="bg-blue-600" wire:click="$emit('openModalCreate')">+ Nova Não Conformidade
         </x-primary-button>
     </div>
+    <div class="p-2 w-sm">
+        <x-input-label for="search_description">Pesquisar</x-input-label>
+        <x-text-input id="search_description" name="search_description" type="text" wire:model="search" placeholder="Buscar descrição" class="w-full"></x-text-input>
+    </div>
     <div>
         <span
             class="text-gray-500 text-sm">Mostrando resultados entre {{date('d/m/Y', strtotime($start_date))}} e {{date('d/m/Y', strtotime($end_date))}}</span>
