@@ -1,6 +1,14 @@
 <div>
     {{-- BOTAO DE AÇÃO DO FILTRO --}}
-    <div class="w-full flex justify-end p-2">
+    <div class="w-full flex justify-end p-2 space-x-2">
+        @if($in_use)
+            <div class="grid content-center">
+                <a class="inline-flex cursor-pointer text-gray-500 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-300"
+                   type="button" wire:click="resetFilters">
+                    <x-icon name="x" class="w-5 h-5"></x-icon>
+                    <span>Limpar Filtros</span></a>
+            </div>
+        @endif
         <x-secondary-button x-on:click="openFilter = !openFilter" class="text-gray-500 dark:text-gray-100">
             <x-icon name="filter" class="w-4 h-4 text-gray-500 dark:text-gray-100"></x-icon>
             Filtrar
@@ -31,15 +39,17 @@
 
                 @can(['editar ncs'])
                     <div class="sm:col-span-4 col-span-2 mt-4">
-                        <x-input-label for="date_2">Criadas por:</x-input-label>
+                        <x-input-label for="date_2">Selecionar usuários:</x-input-label>
                         <x-secondary-button
                             wire:click="openModal('created')">{{count($selected_users) . ' Usuários selecionados'}} </x-secondary-button>
                     </div>
-                    <div class="sm:col-span-4 col-span-2 mt-4">
-                        <x-input-label for="date_2">Recebidas por:</x-input-label>
-                        <x-secondary-button
-                            wire:click="openModal('target')">{{count($selected_target_users) . ' Usuários selecionados'}} </x-secondary-button>
-                    </div>
+                    {{--
+                        <div class="sm:col-span-4 col-span-2 mt-4">
+                            <x-input-label for="date_2">Recebidas por:</x-input-label>
+                            <x-secondary-button
+                                wire:click="openModal('target')">{{count($selected_target_users) . ' Usuários selecionados'}} </x-secondary-button>
+                        </div>
+                        --}}
                 @endcan
 
             </div>
@@ -50,94 +60,97 @@
         </form>
     </div>
 
-    {{-- MODAL USUARIOS
-    <x-nc::modal wire:model.defer="modal_filters">
-        <x-slot:title>
-            Usuários
-        </x-slot:title>
-        <x-slot:content>
-            <div class="w-full">
-                <x-title>Selecione os usuários:</x-title>
-                <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <li class="w-full">
-                        <div class="flex items-center ps-3">
-                            <x-text-input type="checkbox" id="select_all" name="select_all"
-                                          wire:model="selectAllUsers" class="w-4 h-4"></x-text-input>
-                            <x-input-label for="select_all"
-                                           class="py-3 ms-2">Selecionar todos
-                            </x-input-label>
-                        </div>
-                    </li>
-                    @foreach($users as $user)
-                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+    @cannot('excluir ncs')
+        {{-- MODAL USUARIOS --}}
+        <x-nc::modal wire:model.defer="modal_filters">
+            <x-slot:title>
+                Usuários
+            </x-slot:title>
+            <x-slot:content>
+                <div class="w-full">
+                    <x-title>Selecione os usuários:</x-title>
+                    <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <li class="w-full">
                             <div class="flex items-center ps-3">
-                                <input id="users-{{$user->id}}" type="checkbox"
-                                       value="{{$user->id}}"
-                                       wire:model="selected_users" name="users[]"
-                                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="users-{{$user->id}}"
-                                       class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name . ' ' . $user->lastname}}</label>
+                                <x-text-input type="checkbox" id="select_all" name="select_all"
+                                              wire:model="selectAllUsers" class="w-4 h-4"></x-text-input>
+                                <x-input-label for="select_all"
+                                               class="py-3 ms-2">Selecionar todos
+                                </x-input-label>
                             </div>
                         </li>
-                    @endforeach
-                </ul>
-            </div>
-        </x-slot:content>
-        <x-slot:footer>
-            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
-        </x-slot:footer>
-    </x-nc::modal>
-    --}}
+                        @foreach($users as $user)
+                            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                <div class="flex items-center ps-3">
+                                    <input id="users-{{$user->id}}" type="checkbox"
+                                           value="{{$user->id}}"
+                                           wire:model="selected_users" name="users[]"
+                                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="users-{{$user->id}}"
+                                           class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name . ' ' . $user->lastname}}</label>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </x-slot:content>
+            <x-slot:footer>
+                <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+            </x-slot:footer>
+        </x-nc::modal>
+    @endcannot
 
-    {{-- MODAL SETORES --}}
-    <x-nc::modal wire:model.defer="modal_filters">
-        <x-slot:title>
-            Usuários
-        </x-slot:title>
-        <x-slot:content>
-            <div class="w-full">
-                <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <li class="w-full">
-                        <div class="flex items-center ps-3">
-                            <x-text-input type="checkbox" id="select_all" name="select_all"
-                                          wire:model="selectAllUsers" class="w-4 h-4"></x-text-input>
-                            <x-input-label for="select_all"
-                                           class="py-3 ms-2">Selecionar todos
-                            </x-input-label>
+    @can('excluir ncs')
+        {{-- MODAL SETORES --}}
+        <x-nc::modal wire:model.defer="modal_filters">
+            <x-slot:title>
+                Usuários
+            </x-slot:title>
+            <x-slot:content>
+                <div class="w-full">
+                    <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <li class="w-full">
+                            <div class="flex items-center ps-3">
+                                <x-text-input type="checkbox" id="select_all" name="select_all"
+                                              wire:model="selectAllUsers" class="w-4 h-4"></x-text-input>
+                                <x-input-label for="select_all"
+                                               class="py-3 ms-2">Selecionar todos
+                                </x-input-label>
+                            </div>
+                        </li>
+                    </ul>
+                    @foreach($groups as $group)
+                        <div class="mt-2">
+                            <x-title>Setor {{$group->name}}:</x-title>
+                            <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                @foreach($group->users as $user)
+                                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                        <div class="flex items-center ps-3">
+                                            @if($user_type == 'created')
+                                                <input id="users-{{$user->id}}" type="checkbox"
+                                                       value="{{$user->id}}"
+                                                       wire:model="selected_users" name="users[]"
+                                                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            @else
+                                                <input id="users-{{$user->id}}" type="checkbox"
+                                                       value="{{$user->id}}"
+                                                       wire:model="selected_target_users" name="users[]"
+                                                       class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            @endif
+                                            <label for="users-{{$user->id}}"
+                                                   class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name . ' ' . $user->lastname}}</label>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </li>
-                </ul>
-                @foreach($groups as $group)
-                    <div class="mt-2">
-                        <x-title>Setor {{$group->name}}:</x-title>
-                        <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            @foreach($group->users as $user)
-                                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                                    <div class="flex items-center ps-3">
-                                        @if($user_type == 'created')
-                                            <input id="users-{{$user->id}}" type="checkbox"
-                                                   value="{{$user->id}}"
-                                                   wire:model="selected_users" name="users[]"
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        @else
-                                            <input id="users-{{$user->id}}" type="checkbox"
-                                                   value="{{$user->id}}"
-                                                   wire:model="selected_target_users" name="users[]"
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        @endif
-                                        <label for="users-{{$user->id}}"
-                                               class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name . ' ' . $user->lastname}}</label>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endforeach
-            </div>
-        </x-slot:content>
-        <x-slot:footer>
-            <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
-        </x-slot:footer>
-    </x-nc::modal>
+                    @endforeach
+                </div>
+            </x-slot:content>
+            <x-slot:footer>
+                <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
+            </x-slot:footer>
+        </x-nc::modal>
+    @endcan
 
 </div>

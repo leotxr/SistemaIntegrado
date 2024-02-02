@@ -25,7 +25,8 @@ class Index extends Component
 
     protected $listeners = [
         'refreshChildren' => 'refreshMe',
-        'refreshParent' => '$refresh'
+        'refreshParent' => '$refresh',
+        'resetChildren' => 'mount'
     ];
 
     public function mount()
@@ -38,8 +39,10 @@ class Index extends Component
 
     public function refreshMe($start_date, $end_date, $selected_users)
     {
+
         $this->start_date = $start_date;
         $this->end_date = $end_date;
+        if(count($selected_users) > 0)
         $this->users_has_roles = $selected_users;
 
         $this->render();
@@ -71,7 +74,11 @@ class Index extends Component
                 $q->whereIn('users.id', $this->users_has_roles);
             })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
 
-            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
+            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereHas('targetUsers', function ($q) {
+                $q->whereIn('users.id', $this->users_has_roles);
+            })->orWhereHas('sourceUser', function ($q) {
+                $q->whereIn('users.id', $this->users_has_roles);
+            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
         };
 
     }

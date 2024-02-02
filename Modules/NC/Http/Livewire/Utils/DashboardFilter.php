@@ -20,6 +20,8 @@ class DashboardFilter extends Component
     public $groups;
     public $user_type;
 
+    public $in_use = false;
+
     public $logged_roles = [];
 
     protected $rules = [
@@ -65,11 +67,21 @@ class DashboardFilter extends Component
 
     public function refreshChildren()
     {
+        $this->in_use = true;
         $this->emitUp('refreshChildren', $this->start_date, $this->end_date, $this->selected_users, $this->selected_target_users);
+    }
+
+    public function resetFilters()
+    {
+        $this->mount();
+        $this->emitUp('resetChildren');
+        $this->in_use = false;
     }
 
     public function render()
     {
-        return view('nc::livewire.utils.dashboard-filter', ['users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get(), 'target_users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get()]);
+        return view('nc::livewire.utils.dashboard-filter',
+            ['users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get(),
+                'target_users' => User::role($this->logged_roles)->orderBy('name', 'ASC')->get()]);
     }
 }
