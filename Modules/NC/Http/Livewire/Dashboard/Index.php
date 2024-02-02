@@ -44,8 +44,8 @@ class Index extends Component
 
         $this->start_date = $start_date;
         $this->end_date = $end_date;
-        if(count($this->selected_users) > 0)
-        $this->users_has_roles = $this->selected_users;
+        if (count($this->selected_users) > 0)
+            $this->users_has_roles = $this->selected_users;
 
         $this->render();
     }
@@ -76,11 +76,14 @@ class Index extends Component
                 $q->whereIn('users.id', $this->users_has_roles);
             })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
 
-            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::whereHas('targetUsers', function ($q) {
-                count($this->selected_users) > 0 ? $q->whereIn('users.id', $this->users_has_roles) : $q->whereNotNull('users.id');
-            })->orWhereHas('sourceUser', function ($q) {
-                count($this->selected_users) > 0 ? $q->whereIn('users.id', $this->users_has_roles) : $q->whereNotNull('users.id');
-            })->whereBetween('n_c_date', [$this->start_date, $this->end_date])->orderBy('created_at', 'desc')->paginate(10)]),
+            default => view('nc::livewire.dashboard.index', ['ncs' => NonConformity::with('targetUsers')->with('sourceUser')
+                ->whereHas('targetUsers', function ($q) {
+                    count($this->selected_users) > 0 ? $q->whereIn('users.id', $this->users_has_roles) : $q->whereNotNull('users.id');
+                    $q->whereBetween('n_c_date', [$this->start_date, $this->end_date]);
+                })->orWhereHas('sourceUser', function ($q) {
+                    count($this->selected_users) > 0 ? $q->whereIn('users.id', $this->users_has_roles) : $q->whereNotNull('users.id');
+                    $q->whereBetween('n_c_date', [$this->start_date, $this->end_date]);
+                })->orderBy('created_at', 'desc')->paginate(10)]),
         };
 
     }
