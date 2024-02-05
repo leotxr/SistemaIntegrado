@@ -5,6 +5,7 @@
             <x-table.heading>Responsável</x-table.heading>
             <x-table.heading>Data</x-table.heading>
             <x-table.heading>Identificado por</x-table.heading>
+            <x-table.heading>Setor</x-table.heading>
             <x-table.heading>Classificação</x-table.heading>
         </x-slot>
         <x-slot name="body">
@@ -18,6 +19,8 @@
                     </x-table.cell>
                     <x-table.cell class="">{{date('d/m/Y', strtotime($nc->n_c_date))}}</x-table.cell>
                     <x-table.cell class="">{{$nc->sourceUser->name}}</x-table.cell>
+                    <x-table.cell class="">{{$nc->sourceUser->reluserGroup->name}}</x-table.cell>
+
                     <x-table.cell
                         class="">{{$nc->classification->name}} {{$nc->classification->lastname}}</x-table.cell>
                 </x-table.row>
