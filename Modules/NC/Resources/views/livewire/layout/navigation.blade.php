@@ -6,7 +6,7 @@
                     <button
                         x-on:click="expanded = !expanded"
                         type="button"
-                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:block hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
@@ -71,53 +71,55 @@
         </div>
     </nav>
 
-    <aside @keydown.escape.window="expanded = false">
+    <aside x-data="{expanded: false}">
         <div id="logo-sidebar"
-             class="fixed top-0 left-0 z-40 h-screen pt-20 bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 transition transform duration-300"
-             :class="expanded ? 'sm:w-64 w-64 block transition transform duration-300' : 'sm:w-14 hidden sm:block '">
-            <div class="h-full pb-4 overflow-y-auto grid justify-items-center w-full">
+             class="fixed top-0 left-0 z-40 h-screen pt-20 transition transform duration-300 -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+             aria-label="Sidebar" x-transition>
+            <div class="h-full px-2 pb-4 overflow-y-auto bg-white dark:bg-gray-800 transition-all"
+                 @mouseover="expanded = true"
+                 @mouseleave="expanded = false" :class="expanded ? 'sm:w-64' : 'sm:w-14'">
                 <ul class="space-y-2 font-medium w-full">
                     <li>
-                        <x-nc::side-link :href="route('nc.index')"
-                                         :active="request()->routeIs('nc.index')"
-                                         class="w-full">
+                        <x-side-link :href="route('nc.index')"
+                                     :active="request()->routeIs('nc.index')"
+                                     class="w-full">
                             <x-icon name="home"
                                     class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                             </x-icon>
                             <span class="ml-3" x-show="expanded">Inicio</span>
-                        </x-nc::side-link>
+                        </x-side-link>
                     </li>
                     @can('excluir ncs')
                         <li>
-                            <x-nc::side-link :href="route('nc.analytics')"
-                                             :active="request()->routeIs('nc.analytics')"
-                                             class="w-full">
+                            <x-side-link :href="route('nc.analytics')"
+                                         :active="request()->routeIs('nc.analytics')"
+                                         class="w-full">
                                 <x-icon name="presentation-chart-line"
                                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                                 </x-icon>
                                 <span class="ml-3" x-show="expanded">Indicadores</span>
-                            </x-nc::side-link>
+                            </x-side-link>
                         </li>
                         <li>
-                            <x-nc::side-link :href="route('nc.reports')"
-                                             :active="request()->routeIs('nc.reports')"
-                                             class="w-full">
+                            <x-side-link :href="route('nc.reports')"
+                                         :active="Request::is('nc/relatorios/*') "
+                                         class="w-full">
                                 <x-icon name="document-report"
                                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                                 </x-icon>
                                 <span class="ml-3" x-show="expanded">Relatórios</span>
-                            </x-nc::side-link>
+                            </x-side-link>
                         </li>
                     @endcan
                     {{--
                                         <li x-data="{open:false}" @click="expanded = true">
-                                            <x-nc::side-link class="w-full" x-on:click="open = ! open" href="#"
+                                            <x-side-link class="w-full" x-on:click="open = ! open" href="#"
                                                                  :active="Request::is('gestao/laudo/indicadores/*')">
                                                 <x-icon name="presentation-chart-line"
                                                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white">
                                                 </x-icon>
                                                 <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Indicadores</span>
-                                            </x-nc::side-link>
+                                            </x-side-link>
                                             <ul x-show="open" x-transition x-data="{items:[
                                                 {id: 1, label: 'Laudo', link: '{{route("gestao.laudo.analytics.index")}}', active: 'gestao.laudo.analytics.index' },
                                                 {id: 2, label: 'Recepção', link: '{{route("gestao.pending-exams")}}', active: 'helpdesk.pending-exams' },
@@ -125,9 +127,9 @@
                                                 ]}">
                                                 <template x-for="item in items" :key="item.id">
                                                     <li x-show="expanded">
-                                                        <x-nc::side-link class="w-full" ::href="item.link">
+                                                        <x-side-link class="w-full" ::href="item.link">
                                                             <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
-                                                        </x-nc::side-link>
+                                                        </x-side-link>
                                                     </li>
                                                 </template>
                                             </ul>
