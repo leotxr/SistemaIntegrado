@@ -1,6 +1,6 @@
 <div>
     <div>
-        <div class="mt-4">
+        <div class="m-2">
             <x-text-input type="text" wire:model='search' placeholder="Buscar solicitações...">
             </x-text-input>
             <x-input-error class="mt-2" :messages="$errors->get('exam.exam')"/>

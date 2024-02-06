@@ -3,12 +3,12 @@
         @livewire('gestao::utils.loading-screen')
     </div>
     <div class="shadow sm:overflow-hidden sm:rounded-md ">
-        <div class="content-center px-4 py-5 space-y-6 bg-white sm:p-6">
+        <div class="content-center px-4 py-5 space-y-6 bg-white dark:bg-gray-800 sm:p-6">
             <div class="content-center gap-4">
                 <form wire:submit.prevent="search">
 
                     <div class="mt-1">
-                        <x-input-label for="protocol" class="block text-sm font-medium text-gray-700">Protocolo
+                        <x-input-label for="protocol" class="block text-sm font-medium">Protocolo
                         </x-input-label>
                         <x-text-input type="number" id="protocol" wire:model.defer='protocol_search' required
                                       class="w-full max-w-xs"/>
@@ -156,10 +156,10 @@
                          x-on:livewire-upload-error="isUploading = false"
                          x-on:livewire-upload-progress="progress = $event.detail.progress">
                         <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700">Anexar arquivos</label>
+                            <x-input-label for="photo" class="block text-sm font-medium ">Anexar arquivos</x-input-label>
                             <div
                                 class="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
-                                <input type="file" name="photo[]" id="photo" wire:model='photos'
+                                <x-text-input type="file" name="photo[]" id="photo" wire:model='photos'
                                        class="w-full max-w-xs file-input file-input-bordered" multiple/>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4 dark:bg-gray-700"
@@ -187,7 +187,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('protocol.observacao')"/>
                         </div>
                     </div>
-                    <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
+                    <div class="px-4 py-3 text-right sm:px-6">
                         <x-primary-button type="submit" class="mt-2">Enviar</x-primary-button>
                     </div>
                 </form>

@@ -114,7 +114,10 @@
 
             </x-slot>
             <x-slot name="footer">
+                <div class="space-x-2">
+                <x-secondary-button x-on:click="$dispatch('close')">Fechar</x-secondary-button>
                 <x-primary-button x-on:click="$dispatch('close')">Selecionar</x-primary-button>
+                </div>
             </x-slot>
 
         </x-modal.dialog>

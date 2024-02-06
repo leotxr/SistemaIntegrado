@@ -19,38 +19,38 @@
                     <div class="grid content-center grid-cols-1 gap-2 sm:grid-cols-6 ">
 
                         <div class="col-span-1 sm:col-span-1 ">
-                            <label for="initial_date"
-                                   class="text-sm font-light text-gray-900 label dark:text-gray-50">Data
-                                inicial</label>
-                            <input type="date" wire:model.defer='initial_date' id="initial_date"
-                                   class="border-gray-300 input" required>
+                            <x-input-label for="initial_date"
+                                   class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Data
+                                inicial</x-input-label>
+                            <x-text-input type="date" wire:model.defer='initial_date' id="initial_date"
+                                   class="border-gray-300 input" required />
                         </div>
                         <div class="col-span-1 sm:col-span-1 ">
-                            <label for="final_date"
-                                   class="text-sm font-light text-gray-900 label dark:text-gray-50">Data
-                                Final</label>
-                            <input type="date" wire:model.defer='end_date' id="final_date"
-                                   class="border-gray-300 input" required>
+                            <x-input-label for="final_date"
+                                   class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Data
+                                Final</x-input-label>
+                            <x-text-input type="date" wire:model.defer='end_date' id="final_date"
+                                   class="border-gray-300 input" required />
                         </div>
                         <div class="col-span-1 sm:col-span-1 sm:mt-1">
-                            <label for="filter"
-                                   class="text-sm font-light text-gray-900 label dark:text-gray-50">Filtros</label>
+                            <x-input-label for="filter"
+                                   class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Filtros</x-input-label>
                             <x-primary-button id="filter" wire:click="$set('modalFilters', true)">
                                 <x-icon name="filter" class="w-5 h-5 text-white"></x-icon>
                                 <span>Filtros</span>
                             </x-primary-button>
                         </div>
                         <div class="col-span-1 sm:col-span-1 sm:mt-1">
-                            <label for="filter"
-                                   class="text-sm font-light text-gray-900 label dark:text-gray-50">Buscar</label>
+                            <x-input-label for="filter"
+                                   class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Buscar</x-input-label>
                             <x-primary-button id="filter" wire:click="search">
                                 <x-icon name="search" class="w-5 h-5 text-white"></x-icon>
                                 <span>Buscar</span>
                             </x-primary-button>
                         </div>
                         <div class="col-span-1 sm:col-span-1 sm:mt-1">
-                            <label for="filter"
-                                   class="text-sm font-light text-gray-900 label dark:text-gray-50">Exportar</label>
+                            <x-input-label for="filter"
+                                   class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Exportar</x-input-label>
                             <x-secondary-button id="filter" wire:click="export">
                                 <x-icon name="table" class="w-5 h-5"></x-icon>
                                 <span>Exportar</span>
@@ -65,7 +65,6 @@
     </div>
     <div class="mt-4">
         {{$protocols->links()}}
-        <div class="text-sm text-gray-700 dark:text-gray-100">Total de resultados: <span class="text-sm text-gray-800 dark:text-gray-50">{{$protocols->count()}}</span></div>
         @include('autorizacao::tables.table-exam-report')
         @livewire('autorizacao::requests.edit-request')
     </div>
@@ -84,11 +83,11 @@
                             class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                 <div class="flex items-center pl-3">
-                                    <input wire:model.defer='activeStatus' id="status-{{$status->id}}" type="checkbox"
+                                    <x-text-input wire:model.defer='activeStatus' id="status-{{$status->id}}" type="checkbox"
                                            name="activeStatus[]" value="{{$status->id}}"
-                                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                    <label for="status-{{$status->id}}"
-                                           class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$status->name}}</label>
+                                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <x-input-label for="status-{{$status->id}}"
+                                           class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$status->name}}</x-input-label>
                                 </div>
                             </li>
                         </ul>
@@ -103,12 +102,12 @@
                                     class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                         <div class="flex items-center pl-3">
-                                            <input wire:model.defer='selectedUsers' id="user-{{$user->id}}"
+                                            <x-text-input wire:model.defer='selectedUsers' id="user-{{$user->id}}"
                                                    name="selectedUsers[]"
                                                    type="checkbox" value="{{$user->id}}"
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="user-{{$user->id}}"
-                                                   class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name}}</label>
+                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                            <x-input-label for="user-{{$user->id}}"
+                                                   class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name}}</x-input-label>
                                         </div>
                                     </li>
                                 </ul>
@@ -123,12 +122,12 @@
                                     class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                         <div class="flex items-center pl-3">
-                                            <input wire:model.defer='selectedUpdaters' id="updater-{{$user->id}}"
+                                            <x-text-input wire:model.defer='selectedUpdaters' id="updater-{{$user->id}}"
                                                    name="selectedUpdaters[]"
                                                    type="checkbox" value="{{$user->id}}"
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="updater-{{$user->id}}"
-                                                   class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name}}</label>
+                                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                            <x-input-label for="updater-{{$user->id}}"
+                                                   class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$user->name}}</x-input-label>
                                         </div>
                                     </li>
                                 </ul>

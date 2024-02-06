@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('autorizacao::layouts.partials.head')
@@ -8,18 +8,20 @@
 </head>
 
 <body class="font-sans antialiased">
-    @include('autorizacao::layouts.partials.alerts')
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('autorizacao::layouts.partials.navigation')
-        <header class="bg-white shadow dark:bg-gray-800">
-            <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                @yield('header')
-            </div>
-        </header>
-        <main>
-            @yield('content')
-        </main>
-    </div>
+@include('autorizacao::layouts.partials.alerts')
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    {{-- @include('autorizacao::layouts.partials.navigation') --}}
+    @include('layouts.navigation')
+    @include('autorizacao::layouts.partials.sidebar')
+    <header class="bg-white shadow dark:bg-gray-800">
+        <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            @yield('header')
+        </div>
+    </header>
+    <main>
+        @yield('content')
+    </main>
+</div>
 
 </body>
 
@@ -43,7 +45,7 @@
         }
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
         $('.alert').fadeOut('slow');
     }, 5000);
 
@@ -75,4 +77,11 @@
             break;
     }
     @endif
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+
 </script>
