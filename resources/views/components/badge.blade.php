@@ -1,6 +1,7 @@
 <span
     class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300">
-Default
+{{$slot}}
+    {{--
 <button type="button"
         class="inline-flex items-center p-1 ms-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300"
         aria-label="Remove">
@@ -10,4 +11,5 @@ Default
 </svg>
 <span class="sr-only">Remove badge</span>
 </button>
+--}}
 </span>

@@ -5,7 +5,7 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-left">
                     <ul x-data="{ reports: [
-    { id: 1, label: 'Totalizador de Não Conformidades por Setor', link: '' },
+    { id: 1, label: 'Não Conformidades recebidas por setor', link: '{{route('nc.reports.received-by-sector')}}' },
     { id: 2, label: 'Totalizador de Não Conformidades por Funcionário' },
     { id: 3, label: 'Yellow' },
 ]}">

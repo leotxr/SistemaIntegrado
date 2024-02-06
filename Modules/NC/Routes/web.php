@@ -29,9 +29,15 @@ Route::middleware('auth')->group(function () {
             return view('nc::analytics.index');
         })->name('nc.analytics');
 
-        Route::get('relatorios', function () {
-            return view('nc::reports.index');
-        })->name('nc.reports');
+        Route::prefix('relatorios')->group(function () {
+            Route::get('/', function(){
+                return view('nc::reports.index');
+            })->name('nc.reports');
+
+            Route::get('recebidas-por-setor', function(){
+               return view('nc::reports.received_by_sector');
+            })->name('nc.reports.received-by-sector');
+        });
     });
 
 });
