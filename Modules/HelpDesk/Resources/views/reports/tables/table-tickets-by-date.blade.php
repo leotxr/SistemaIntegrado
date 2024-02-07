@@ -34,6 +34,9 @@
                     <x-table.heading>
                         Tempo
                     </x-table.heading>
+                    <x-table.heading>
+                        Espera
+                    </x-table.heading>
                 </x-slot>
                 <x-slot name='body'>
                     @foreach($tickets as $ticket)
@@ -77,6 +80,12 @@
                         </x-table.cell>
                         <x-table.cell>
                             {{ $total ?? "Em atendimento"}}
+                        </x-table.cell>
+                        <x-table.cell>
+                            @php
+                                $wait = $this->secToTime($ticket->wait_time);
+                            @endphp
+                            {{ $wait ?? "Em atendimento"}}
                         </x-table.cell>
                     </x-table.row>
                     @endforeach
