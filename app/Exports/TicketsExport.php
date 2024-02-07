@@ -6,10 +6,12 @@ use Modules\HelpDesk\Entities\Ticket;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Modules\HelpDesk\Traits\TicketActions;
 
 class TicketsExport implements FromView
 {
     use Exportable;
+    use TicketActions;
 
     public $start;
     public $end;
@@ -26,7 +28,7 @@ class TicketsExport implements FromView
      */
     public function view(): View
     {
-        return view('helpdesk::reports.tables.table-tickets-by-date', 
+        return view('helpdesk::reports.tables.table-tickets-by-date',
         ['tickets' => Ticket::whereBetween('ticket_open', [$this->start, $this->end])->get()]);
     }
 }
