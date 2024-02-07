@@ -13,7 +13,8 @@
 
 
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900" x-data="{expanded: false}">
-@livewire('nc::layout.navigation')
+@livewire('layouts.navigation', ['name' => 'Não Conformidades'])
+@include('nc::layouts.partials.sidebar')
 <div class="min-h-screen ">
     <header class="pt-14" :class="expanded ? 'sm:ml-64' : 'sm:ml-14'">
         <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">

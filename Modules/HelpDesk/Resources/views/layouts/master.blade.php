@@ -10,7 +10,8 @@
 <body class="font-sans antialiased">
     @include('helpdesk::layouts.partials.alerts')
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('helpdesk::layouts.partials.navigation')
+        @livewire('layouts.navigation', ['name' => 'HelpDesk'])
+        @include('helpdesk::layouts.partials.sidebar')
         <header class="pt-14 sm:ml-14">
             <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 @yield('header')
@@ -40,25 +41,25 @@
         document.documentElement.classList.remove('dark')
     };
 
-    
+
  window.onload=function() {
-    
+
         Echo.channel('dashboard')
     .listen('TicketCreated', (e) => {
-        
-       
+
+
 alert("Novo chamado recebido");
 notification = new Notification(
-    "HelpDesk - Sigma Ultrimagem", 
+    "HelpDesk - Sigma Ultrimagem",
     {
         body: "Novo Chamado Recebido!",
         tag: "Acesse o Painel",
     }
 )
-        
+
     });
-    
-    
+
+
 };
-  
+
 </script>
