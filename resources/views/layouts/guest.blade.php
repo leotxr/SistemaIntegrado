@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 
 <head>
     <meta charset="utf-8">
@@ -22,11 +22,11 @@
         <div>
             <a href="/">
                 <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
-                
+
             </a>
         </div>
 
-        <div class="w-full px-6 py-4 mt-6 overflow-hidden shadow-md sm:max-w-md sm:rounded-lg ">
+        <div class="w-full px-6 py-4 mt-6 overflow-hidden shadow-md sm:max-w-md sm:rounded-lg bg-white dark:bg-gray-800">
             {{ $slot }}
         </div>
         <p class="text-xs text-gray-900 dark:text-gray-50">Ultrimagem ®️  2023 | Desenvolvido por TIC Ultrimagem Ubá</p>
@@ -34,3 +34,11 @@
 </body>
 
 </html>
+
+<script>
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>

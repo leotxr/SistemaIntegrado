@@ -53,7 +53,7 @@
                     <x-table.cell>
 
                         <button wire:click="$emit('editRequest', {{$exam->protocol_id}})"
-                                class="text-blue-800 font-bold inline-flex"
+                                class="text-blue-800 dark:text-blue-300 font-bold inline-flex"
                                 type="submit">
                             <x-icon name="pencil-alt" class="w-6 h-6"></x-icon>
                             Editar

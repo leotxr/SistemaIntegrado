@@ -8,7 +8,7 @@
 
         <!-- Username -->
         <div>
-            <x-input-label class="text-white" for="username" :value="__('Usuario')" />
+            <x-input-label for="username" :value="__('Usuario')" />
             <x-text-input id="username" class="block w-full mt-1" type="text" name="username" :value="old('username')" required
                 autofocus />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
@@ -16,7 +16,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label class="text-white" for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input id="password" class="block w-full mt-1" type="password" name="password" required
                 autocomplete="current-password" />
@@ -28,9 +28,9 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox"
-                    class="text-indigo-600 border-gray-300 rounded shadow-sm dark:bg-gray-900 dark:border-gray-700 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                    class="text-blue-600 border-gray-300 rounded shadow-sm dark:bg-gray-900 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
                     name="remember">
-                <span class="ml-2 text-sm text-white dark:text-gray-400">{{ __('Remember me') }}</span>
+                <span class="ml-2 text-sm text-gray-700 dark:text-gray-400">{{ __('Remember me') }}</span>
             </label>
         </div>
 
