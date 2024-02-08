@@ -37,7 +37,7 @@ class FormSearch extends Component
         'protocol.paciente_name' => 'required',
         'protocol.created_by' => 'required',
         'protocol.user_id' => 'required',
-        'protocol.observacao' => 'max:220',
+        'protocol.observacao' => 'max:65535',
 
         'exam.*.name' => 'required',
         'exam.*.exam_date' => 'required',
