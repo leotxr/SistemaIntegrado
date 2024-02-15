@@ -14,7 +14,7 @@ trait TicketActions
     public function outOfService(Ticket $ticket, $time)
     {
 
-        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00')) {
+        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00') || date('w') == 6 || date('w') == 0)  {
             return true;
         } elseif ($time > date('Y-m-d 12:00:00') && $time < date('Y-m-d 12:42:00')) {
             return true;

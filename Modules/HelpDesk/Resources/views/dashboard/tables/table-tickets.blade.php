@@ -24,13 +24,13 @@
                         Categoria
                     </x-table.heading>
                     <x-table.heading>
-                        Sub-Categoria
-                    </x-table.heading>
-                    <x-table.heading>
                         Prioridade
                     </x-table.heading>
                     <x-table.heading>
                         Atendente
+                    </x-table.heading>
+                    <x-table.heading>
+                        Status
                     </x-table.heading>
                 </x-slot>
                 <x-slot name='body'>
@@ -41,6 +41,7 @@
                     $subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
                     $atendente = $ticket->find($ticket->id)->TicketUser;
                     $prioridade = $categoria->find($categoria->id)->relPriority;
+                    $status = $ticket->find($ticket->id)->TicketStatus;
                     @endphp
                     <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600"
                         wire:click='callShow({{$ticket->id}})'>
@@ -60,13 +61,13 @@
                             {{$categoria->name}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$subcategoria->name}}
-                        </x-table.cell>
-                        <x-table.cell>
                             {{$prioridade->name}}
                         </x-table.cell>
                         <x-table.cell>
                             {{$atendente->name ?? "Sem atendente"}}
+                        </x-table.cell>
+                        <x-table.cell>
+                            {{$status->name}}
                         </x-table.cell>
                     </x-table.row>
                     @endforeach

@@ -1,12 +1,12 @@
 <div>
     @php
-    $solicitante = $ticket->find($ticket->id)->TicketRequester;
+    //$solicitante = $ticket->find($ticket->id)->TicketRequester;
     $atendente = $ticket->find($ticket->id)->TicketUser;
     $categoria = $ticket->find($ticket->id)->TicketCategory;
-    $subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
-    $status = $ticket->find($ticket->id)->TicketStatus;
-    $messages = $ticket->find($ticket->id)->TicketMessages;
-    $messages = $messages->sortDesc();
+    //$subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
+    //$status = $ticket->find($ticket->id)->TicketStatus;
+    //$messages = $ticket->find($ticket->id)->TicketMessages;
+    //$messages = $messages->sortDesc();
     @endphp
     <div class="flex-wrap my-2">
         <div class="text-start">
@@ -17,7 +17,7 @@
         <div class="my-1 ml-8 text-end">
             <span class="text-sm font-bold mr-2 px-2.5 py-0.5 rounded text-white"
                 style="background-color: {{$colors[$status->id]}}">
-                {{$status->name}}
+                {{$ticket->TicketStatus->name}}
             </span>
 
         </div>
@@ -74,8 +74,8 @@
                     class="text-gray-500 dark:text-white">{{$ticket->title}}</span></x-title>
             <div class="max-w-full p-4 overflow-auto max-h-96">
                 <ol class="relative p-4 bg-white border-l border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                    @isset($messages)
-                    @foreach($messages as $message)
+                    @isset($ticket->TicketMessages)
+                    @foreach($ticket->TicketMessages as $message)
                     @php
                     $user_message = $message->find($message->id)->MessageUser;
                     @endphp
@@ -111,15 +111,15 @@
                     <li class="mb-10 ml-6 bg-slate-50 dark:bg-gray-900">
                         <span
                             class="absolute flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 -left-5 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                            @if(isset($solicitante->profile_img))
+                            @if(isset($ticket->TicketRequester->profile_img))
                             <img class="w-12 h-12 rounded-full shadow-lg"
-                                src="{{URL::asset($solicitante->profile_img)}}" alt="{{$solicitante->name}}" />
+                                src="{{URL::asset($ticket->TicketRequester->profile_img)}}" alt="{{$ticket->TicketRequester->name}}" />
                             @else
                             <x-icon name="user-circle" class="w-12 h-12 text-gray-400" />
                             @endif
                         </span>
                         <div class="border border-gray-200 rounded-lg shadow-sm dark:border-gray-600 dark:bg-gray-800">
-                            <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}}
+                            <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$ticket->TicketRequester->name}}
                             </div>
                             <div class="items-center justify-between p-4 sm:flex ">
                                 <time class="mb-1 text-xs font-normal text-gray-600 sm:order-last sm:mb-0">
@@ -157,16 +157,16 @@
             <x-title class="text-xl font-bold text-gray-900 dark:text-gray-50">Solicitante</x-title>
             <div class="flex">
                 <div class="my-2 mr-2">
-                    @if($solicitante->profile_img != null)
-                    <img class="w-12 h-12 rounded-full" src="{{URL::asset($solicitante->profile_img)}}"
-                        alt="{{$solicitante->name}}">
+                    @if($ticket->TicketRequester->profile_img != null)
+                    <img class="w-12 h-12 rounded-full" src="{{URL::asset($ticket->TicketRequester->profile_img)}}"
+                        alt="{{$ticket->TicketRequester->name}}">
                     @else
                     <x-icon name="user-circle" class="w-12 h-12 text-gray-400" />
                     @endif
                 </div>
                 <div class="my-4 mr-4 text-lg font-medium text-gray-900 dark:text-gray-50">
-                    {{$solicitante->name}} {{$solicitante->lastname}}
-                    <p class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">{{$solicitante->email}}</p>
+                    {{$ticket->TicketRequester->name}} {{$ticket->TicketRequester->lastname}}
+                    <p class="mb-1 text-gray-500 md:text-sm dark:text-gray-400">{{$ticket->TicketRequester->email}}</p>
                 </div>
             </div>
         </div>
@@ -181,11 +181,11 @@
                 </div>
                 <div class="flex flex-col pb-3">
                     <dt class="mb-1 text-gray-500 md:text-md dark:text-gray-400">Categoria</dt>
-                    <dd class="font-semibold text-md">{{$categoria->name}}</dd>
+                    <dd class="font-semibold text-md">{{$ticket->TicketCategory->name}}</dd>
                 </div>
                 <div class="flex flex-col pb-3">
                     <dt class="mb-1 text-gray-500 md:text-md dark:text-gray-400">Sub-Categoria</dt>
-                    <dd class="font-semibold text-md">{{$subcategoria->name}}</dd>
+                    <dd class="font-semibold text-md">{{$ticket->TicketSubCategory->name}}</dd>
                 </div>
 
 

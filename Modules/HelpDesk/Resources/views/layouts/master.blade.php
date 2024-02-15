@@ -8,19 +8,19 @@
 </head>
 
 <body class="font-sans antialiased">
-    @include('helpdesk::layouts.partials.alerts')
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @livewire('layouts.navigation', ['name' => 'HelpDesk'])
-        @include('helpdesk::layouts.partials.sidebar')
-        <header class="pt-14 sm:ml-14">
-            <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                @yield('header')
-            </div>
-        </header>
-        <main class="px-6 sm:ml-14">
-            @yield('content')
-        </main>
-    </div>
+@include('helpdesk::layouts.partials.alerts')
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    @livewire('layouts.navigation', ['name' => 'HelpDesk'])
+    @include('helpdesk::layouts.partials.sidebar')
+    <header class="pt-14 sm:ml-14">
+        <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            @yield('header')
+        </div>
+    </header>
+    <main class="px-6 sm:ml-14">
+        @yield('content')
+    </main>
+</div>
 
 </body>
 
@@ -28,38 +28,40 @@
 
 <script>
     window.addEventListener('notify', event => {
-    toastr[event.detail.type](event.detail.message,
-    event.detail.title ?? ''), toastr.options = {
-    "closeButton": true,
-    "progressBar": true,
-    }
+        toastr[event.detail.type](event.detail.message,
+            event.detail.title ?? ''), toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
     });
 
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
     } else {
         document.documentElement.classList.remove('dark')
-    };
+    }
+    ;
 
 
- window.onload=function() {
+    window.onload = function () {
+
 
         Echo.channel('dashboard')
-    .listen('TicketCreated', (e) => {
+            .listen('TicketCreated', (e) => {
+
+                //alert("Novo chamado recebido");
+                //document.title = "Novo chamado recebido!";
+                notification = new Notification(
+                    "HelpDesk - Sigma Ultrimagem",
+                    {
+                        body: "Novo Chamado Recebido!",
+                        tag: "Acesse o Painel",
+                    }
+                )
+
+            });
 
 
-alert("Novo chamado recebido");
-notification = new Notification(
-    "HelpDesk - Sigma Ultrimagem",
-    {
-        body: "Novo Chamado Recebido!",
-        tag: "Acesse o Painel",
-    }
-)
-
-    });
-
-
-};
+    };
 
 </script>

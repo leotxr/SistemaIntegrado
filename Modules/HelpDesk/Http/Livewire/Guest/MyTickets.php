@@ -14,14 +14,15 @@ class MyTickets extends Component
 
 
    public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
+   public $tab = 'ativos';
 
    public function emitTeste()
    {
-        
+
        $this->emitTo('helpdesk::dashboard.ticket-tabs', 'ticketCreated');
    }
 
-    
+
     public function render()
     {
         return view('helpdesk::livewire.guest.my-tickets', [
