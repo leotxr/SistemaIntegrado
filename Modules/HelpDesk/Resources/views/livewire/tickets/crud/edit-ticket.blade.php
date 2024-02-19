@@ -26,7 +26,7 @@
                                     <x-slot name='option'>
                                         @foreach($requesters as $requester)
                                             <x-select.option value="{{$requester->id}}">
-                                                {{$requester->name}}
+                                                {{$requester->name . ' ' . $requester->lastname}}
                                             </x-select.option>
                                         @endforeach
                                     </x-slot>
