@@ -10,7 +10,7 @@ use Modules\HelpDesk\Entities\TicketSubCategory;
 use Modules\HelpDesk\Entities\TicketPause;
 use App\Events\TicketUpdated;
 use Illuminate\Support\Facades\Auth;
-use DateTime;
+use App\Models\User;
 use Modules\HelpDesk\Traits\TicketActions;
 
 class EditTicket extends Component
@@ -37,7 +37,8 @@ class EditTicket extends Component
         'editing.title' => 'required',
         'editing.description' => 'required',
         'editing.ticket_open' => 'required',
-        'editing.ticket_start' => 'max:255'
+        'editing.ticket_start' => 'max:255',
+        'editing.requester_id' => 'required'
     ];
 
     protected $listeners = [
@@ -144,7 +145,8 @@ class EditTicket extends Component
         }
         return view(
             'helpdesk::livewire.tickets.crud.edit-ticket',
-            ['categories' => TicketCategory::all()]
+            ['categories' => TicketCategory::all(),
+                'requesters' => User::all()]
         );
     }
 }

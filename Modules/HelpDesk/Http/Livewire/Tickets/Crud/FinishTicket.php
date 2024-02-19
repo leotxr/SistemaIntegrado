@@ -22,7 +22,7 @@ class FinishTicket extends Component
     public $modalTicket;
     public $message = '';
     public Ticket $finishing;
-    public DateTime $ticket_close;
+    public $ticket_close;
 
     protected $rules = [
         'finishing.ticket_start' => 'required',
@@ -42,7 +42,7 @@ class FinishTicket extends Component
     {
         $this->modalFinish = true;
         $this->finishing = $ticket;
-        $this->ticket_close = now();
+        $this->ticket_close = now()->format('Y-m-d H:i:s');
     }
 
     public function finish()

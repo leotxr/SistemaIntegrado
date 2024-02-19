@@ -71,68 +71,7 @@
             </div>
         </div>
     </div>
-    <div>
-
-        <div class="max-w-full p-8 m-4">
-            <x-title class="grid justify-start"> Histórico de mensagens</x-title>
-            @php
-                $messages = $ticket->find($ticket->id)->TicketMessages;
-            @endphp
-            <ol class="relative p-4 grid justify-items-stretch border-l border-gray-200 dark:border-gray-700 ">
-                <li class="justify-self-end px-4 max-w-xl mb-10">
-                    <span class="font-bold dark:text-white text-gray-900 w-full">{{$ticket->TicketRequester->name}}
-                    </span>
-                    <div class=" bg-blue-800 dark:bg-blue-600 w-full rounded-lg shadow-lg p-2">
-                        <div class="items-center justify-between">
-                            <div class="text-lg font-normal text-white">
-                                <div class="w-full ">
-                                    @php
-                                        echo $ticket->description;
-                                    @endphp
-                                </div>
-                            </div>
-                            <span class="mb-1 text-xs font-normal text-gray-300 sm:order-last sm:mb-0 w-full">
-                                {{date('d/m/Y H:i:s', strtotime($ticket->ticket_open))}}
-                            </span>
-                        </div>
-                    </div>
-                    <span class="dark:text-white text-gray-900 w-full">Chamado aberto
-                    </span>
-                </li>
-
-                @isset($messages)
-                    @foreach($messages as $message)
-                        @php
-                            $user_message = $message->find($message->id)->MessageUser;
-                        @endphp
-                        @if(auth()->user()->id === $user_message->id)
-                            <li class="justify-self-end px-4 max-w-xl mb-10">
-                        @else
-                            <li class="justify-self-start px-4 max-w-xl mb-10">
-                                @endif
-                                <span class="font-bold dark:text-white text-gray-900 w-full">{{$user_message->name}}</span>
-                                <div class=" bg-blue-600 dark:bg-blue-800 w-full rounded-lg shadow-lg p-2">
-                                    <div class="items-center justify-between">
-                                        <div class="text-lg font-normal text-white">
-                                            <div class="w-full ">
-                                                @php
-                                                    echo $message->message;
-                                                @endphp
-                                            </div>
-                                        </div>
-                                        <span
-                                            class="mb-1 text-xs font-normal text-gray-300 sm:order-last sm:mb-0 w-full">
-                                {{date('d/m/Y H:i:s', strtotime($message->created_at))}}
-                            </span>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-                        @endisset
-
-            </ol>
-
-
-        </div>
-    </div>
+<div>
+    @livewire('helpdesk::components.chat', ['ticket' => $ticket])
+</div>
 </div>

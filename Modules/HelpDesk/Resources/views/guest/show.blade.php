@@ -1,4 +1,4 @@
-@extends('helpdesk::layouts.guest')
+@extends('helpdesk::layouts.master')
 @section('header')
 
     <h2 class="text-xl font-bold leading-tight text-gray-800 dark:text-gray-200">
@@ -7,7 +7,7 @@
 
 @endsection
 @section('content')
-<div class="m-4 shadow-sm">
+<div class="shadow-sm">
     <div class="max-w-full px-12 justify-items-center">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">

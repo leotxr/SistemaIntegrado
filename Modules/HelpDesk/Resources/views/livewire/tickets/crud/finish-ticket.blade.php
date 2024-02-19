@@ -36,8 +36,8 @@
                             </div>
                             <div class="col-span-4 mt-4 sm:col-span-2">
                                 <x-input-label for="ticket_close" :value="__('Hora de Finalização')"/>
-                                <x-text-input type="datetime-local" step='1' value="{{$ticket_close}}"
-                                              class="w-full" name="ticket_close"
+                                <x-text-input type="datetime-local" step='1'
+                                              class="w-full" name="ticket_close" wire:model="ticket_close"
                                               id="ticket_close"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('ticket_close')"/>
                             </div>

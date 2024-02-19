@@ -4,7 +4,7 @@
     $atendente = $ticket->find($ticket->id)->TicketUser;
     $categoria = $ticket->find($ticket->id)->TicketCategory;
     //$subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
-    //$status = $ticket->find($ticket->id)->TicketStatus;
+    $status = $ticket->find($ticket->id)->TicketStatus;
     //$messages = $ticket->find($ticket->id)->TicketMessages;
     //$messages = $messages->sortDesc();
     @endphp
