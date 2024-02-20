@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <title>HelpDesk</title>
     @include('helpdesk::layouts.partials.head')
 
     @include('helpdesk::layouts.partials.script')
@@ -12,7 +13,7 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     @livewire('layouts.navigation', ['name' => 'HelpDesk'])
     @can(['editar chamado', 'excluir chamado'])
-    @include('helpdesk::layouts.partials.sidebar')
+        @include('helpdesk::layouts.partials.sidebar')
     @endcan
     <header class="pt-14 sm:ml-14">
         <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -47,13 +48,11 @@
 
     window.onload = function () {
 
-
         Echo.channel('dashboard')
             .listen('TicketCreated', (e) => {
 
+
                 alert("Novo chamado recebido");
-                console.log('event')
-                //document.title = "Novo chamado recebido!";
                 notification = new Notification(
                     "HelpDesk - Sigma Ultrimagem",
                     {
