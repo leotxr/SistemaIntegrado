@@ -43,16 +43,14 @@
     } else {
         document.documentElement.classList.remove('dark')
     }
-    ;
 
 
     window.onload = function () {
 
         Echo.channel('dashboard')
             .listen('TicketCreated', (e) => {
-
-
                 alert("Novo chamado recebido");
+                console.log('chamado recebido');
                 notification = new Notification(
                     "HelpDesk - Sigma Ultrimagem",
                     {
