@@ -1,4 +1,4 @@
-@extends('helpdesk::layouts.master')
+@extends('helpdesk::layouts.guest')
 @section('header')
 
     <h2 class="text-xl font-bold leading-tight text-gray-800 dark:text-gray-200">

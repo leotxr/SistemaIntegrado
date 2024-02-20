@@ -10,7 +10,10 @@
 <body class="font-sans antialiased">
 @include('helpdesk::layouts.partials.alerts')
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    @include('layouts.navigation')
+    @livewire('layouts.navigation', ['name' => 'HelpDesk'])
+    @can(['editar chamado', 'excluir chamado'])
+        @include('helpdesk::layouts.partials.sidebar')
+    @endcan
     <header class="bg-white shadow dark:bg-gray-800">
         <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             @yield('header')
