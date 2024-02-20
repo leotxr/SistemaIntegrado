@@ -51,7 +51,8 @@
         Echo.channel('dashboard')
             .listen('TicketCreated', (e) => {
 
-                //alert("Novo chamado recebido");
+                alert("Novo chamado recebido");
+                console.log('event')
                 //document.title = "Novo chamado recebido!";
                 notification = new Notification(
                     "HelpDesk - Sigma Ultrimagem",
