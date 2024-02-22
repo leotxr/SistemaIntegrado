@@ -35,7 +35,7 @@
             </x-slot:head>
             <x-slot:body>
                 @foreach($patients as $patient)
-                    <x-table.row class="cursor-pointer" wire:click="getExams({{$patient->PACIENTEID}})">
+                    <x-table.row class="cursor-pointer" wire:click="getExams({{$patient->PACIENTEID}}, '{{$patient->NOMEPAC}}')">
                         <x-table.cell>{{date('d/m/Y', strtotime($patient->DATA))}}</x-table.cell>
                         <x-table.cell>{{$patient->PACIENTEID}}</x-table.cell>
                         <x-table.cell>{{$patient->NOMEPAC}}</x-table.cell>

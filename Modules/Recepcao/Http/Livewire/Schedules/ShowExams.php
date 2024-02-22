@@ -15,15 +15,17 @@ class ShowExams extends Component
     public $report;
     public $formatted = '';
     public $patient_id;
+    public $patient_name = '';
 
 
     protected $listeners = [
         'getExams'
     ];
 
-    public function getExams($patient_id)
+    public function getExams($patient_id, $patient_name)
     {
         $this->patient_id = $patient_id;
+        $this->patient_name = $patient_name;
         $this->render();
         $this->modalExams = true;
     }
@@ -43,7 +45,7 @@ class ShowExams extends Component
         $formatter = new HtmlFormatter('UTF-8');
         $this->formatted = $formatter->Format($doc);
 
-        $this->emit('showReport', $this->formatted);
+        $this->emit('showReport', $this->formatted, $patient_id, $this->patient_name);
 
     }
 

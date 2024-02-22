@@ -7,16 +7,20 @@ use Livewire\Component;
 class ShowReport extends Component
 {
     public $report = '';
+    public $patient_id = '';
+    public $patient_name = '';
     public $modalReport = false;
 
     protected $listeners = [
       'showReport'
     ];
 
-    public function showReport($report)
+    public function showReport($report, $patient_id, $patient_name)
     {
-        $this->reset('report');
+        $this->reset('report', 'patient_id', 'patient_name');
         $this->report = $report;
+        $this->patient_id = $patient_id;
+        $this->patient_name = $patient_name;
         $this->modalReport = true;
     }
 
@@ -27,7 +31,12 @@ class ShowReport extends Component
         <x-modal.dialog wire:model.defer="modalReport">
             <x-slot:title>Visualização de Laudo</x-slot:title>
             <x-slot:content>
-                <div id="print" class="bg-white">
+                <div id="print" class="p-4 bg-white" style="margin-top: 24px">
+                <div class="py-2" style="padding-top: 24px">
+                <p class="font-bold text-md text-black">Código: {{$patient_id}}</p>
+                <p class="font-bold text-md text-black">Nome: {{$patient_name}}</p>
+                </div>
+
                     @php
                         echo $report;
                     @endphp

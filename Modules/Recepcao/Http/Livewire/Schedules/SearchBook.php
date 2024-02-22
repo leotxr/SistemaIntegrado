@@ -23,9 +23,9 @@ class SearchBook extends Component
         $this->render();
     }
 
-    public function getExams($patient_id)
+    public function getExams($patient_id, $patient_name)
     {
-        $this->emit('getExams', $patient_id);
+        $this->emit('getExams', $patient_id, $patient_name);
     }
 
     public function render()
