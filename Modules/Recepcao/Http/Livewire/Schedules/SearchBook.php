@@ -30,13 +30,14 @@ class SearchBook extends Component
 
     public function render()
     {
+
         return view('recepcao::livewire.schedules.search-book', ['books' => DB::connection('sqlserver')->table('LIVROS')
             ->whereNotIn('LIVROID', [7, 12, 15, 31, 33, 44])
             ->where('UNIDADEID', 1)
             ->select('LIVROID', 'DESCRICAO')
             ->get(),
             'patients' => DB::connection('sqlserver')->table('VW_AGENDA')
-                ->where('DATA', date('Y-m-d'))
+                ->where('DATA', $this->date)
                 ->whereNotNull('NOMEPAC')
                 ->where('UNIDADEID', 1)
                 ->where('LIVROID', $this->selected_book)
