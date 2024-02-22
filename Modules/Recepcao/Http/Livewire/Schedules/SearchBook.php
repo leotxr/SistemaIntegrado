@@ -41,6 +41,7 @@ class SearchBook extends Component
                 ->where('UNIDADEID', 1)
                 ->where('LIVROID', $this->selected_book)
                 ->select('DATA', 'PACIENTEID', 'NOMEPAC', 'LIVROID', 'LIVRODESC')
+                ->orderBy('NOMEPAC', 'asc')
                 ->distinct()
                 ->paginate('20')]);
     }
