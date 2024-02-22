@@ -7,5 +7,6 @@
     "Orcamento": true,
     "Gestao": true,
     "NaoConformidades": true,
-    "NC": true
+    "NC": true,
+    "Recepcao": true
 }
