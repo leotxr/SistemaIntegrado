@@ -60,7 +60,7 @@ class ShowExams extends Component
             ->where('UNIDADEID', 1)
             ->where('PACIENTEID', $this->patient_id)
             ->where('DATA', "<", date('Y-m-d'))
-            ->whereIn('SETORID', [5, 10])
+            ->whereIn('SETORID', [2, 5, 10, 9, 4 ])
             ->select('DATA', 'PACIENTEID', 'FATURAID', 'LAUDONOMEEXAME')
             ->distinct()
             ->orderBy('DATA', 'desc')

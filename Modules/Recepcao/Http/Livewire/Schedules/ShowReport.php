@@ -56,16 +56,6 @@ class ShowReport extends Component
                     @php
                         echo $report;
                     @endphp
-
-                    <div style="bottom: 0; width: 100%">
-                        <div style="text-align: end">
-                            <span class="font-bold text-md text-black"><strong>Assinado por:</strong> {{$doctor}}</span>
-                        </div>
-                        <div style="text-align: start">
-                            <p><i>Usuário: {{auth()->user()->name}}</i></p>
-                            <p>{{now()->format('d/m/Y H:i:s')}}</p>
-                        </div>
-                    </div>
                 </div>
 
             </x-slot:content>
