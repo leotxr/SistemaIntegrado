@@ -50,7 +50,7 @@ class ShowReport extends Component
 
                     <div style="bottom: 0;">
                         <p>Usuário: {{auth()->user()->name}}</p>
-                        <p>{{date('d/m/Y')}}</p>
+                        <p>{{now()->format('d/m/Y H:i:s')}}</p>
                     </div>
                 </div>
 
