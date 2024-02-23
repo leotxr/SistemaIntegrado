@@ -9,7 +9,8 @@
                 <x-input-label for="book">Livro</x-input-label>
                 <x-select id="book" class="w-full" wire:model.defer="selected_book">
                     <x-slot name="option">
-                        @foreach($books as $book)
+                        <x-select.option value="0">Selecione o livro</x-select.option>
+                    @foreach($books as $book)
                             <x-select.option value="{{$book->LIVROID}}">{{$book->DESCRICAO}}</x-select.option>
                         @endforeach
                     </x-slot>
