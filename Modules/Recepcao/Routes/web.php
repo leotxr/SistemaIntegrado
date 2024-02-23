@@ -26,5 +26,10 @@ Route::middleware('auth')->group(function () {
         {
             return view('recepcao::schedules.index');
         })->name('recepcao.schedules');
+
+        Route::get('/monitoramento', function()
+        {
+            return view('recepcao::monitoring.index');
+        })->name('recepcao.monitoring');
     });
 });

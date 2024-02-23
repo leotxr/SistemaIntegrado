@@ -34,18 +34,21 @@ class ShowExams extends Component
     {
         $this->reset('report', 'formatted');
         $report = DB::connection('sqlserver')->table('FATURALAUDO')
-            ->where('FATURAID', $fatura_id)
-            ->where('PACIENTEID', $patient_id)
-            ->select('LAUDO')
+            ->join('FATURA', 'FATURA.FATURAID', '=', 'FATURALAUDO.FATURAID')
+            ->join('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
+            ->where('FATURALAUDO.FATURAID', $fatura_id)
+            ->where('FATURALAUDO.PACIENTEID', $patient_id)
+            ->selectRaw('FATURALAUDO.LAUDO as LAUDO, MEDICOS.NOME AS MEDICO',)
             ->first();
 
         //dd($this->report[0]['LAUDO']);
         //file_put_contents("teste.rtf", $this->report->LAUDO);
+        $doctor = $report->MEDICO;
         $doc = new Document($report->LAUDO);
         $formatter = new HtmlFormatter('UTF-8');
         $this->formatted = $formatter->Format($doc);
 
-        $this->emit('showReport', $this->formatted, $patient_id, $this->patient_name, $date);
+        $this->emit('showReport', $this->formatted, $patient_id, $this->patient_name, $date, $doctor);
 
     }
 

@@ -10,19 +10,21 @@ class ShowReport extends Component
     public $patient_id = '';
     public $patient_name = '';
     public $exam_date = '';
+    public $doctor = '';
     public $modalReport = false;
 
     protected $listeners = [
       'showReport'
     ];
 
-    public function showReport($report, $patient_id, $patient_name, $date)
+    public function showReport($report, $patient_id, $patient_name, $date, $doctor)
     {
         $this->reset('report', 'patient_id', 'patient_name');
         $this->report = $report;
         $this->patient_id = $patient_id;
         $this->patient_name = $patient_name;
         $this->exam_date = $date;
+        $this->doctor = $doctor;
         $this->modalReport = true;
     }
 
@@ -35,12 +37,19 @@ class ShowReport extends Component
             <x-slot:content>
                 <div id="print" class="p-4 bg-white" style="margin-top: 24px">
                     <div class="py-2" style="padding-top: 24px; width: 100%;">
-                        <div style="text-align: start">
-                            <p class="font-bold text-md text-black"><strong>Código:</strong> {{$patient_id}}</p>
-                            <p class="font-bold text-md text-black"><strong>Nome:</strong> {{$patient_name}}</p>
-                        </div>
-                        <div style="text-align: end">
-                            <p class="font-bold text-md text-black"><strong>Data do exame:</strong> {{date('d/m/Y', strtotime($exam_date))}}</p>
+                        <div>
+                            <div style="flex: max-content">
+                                <div style="text-align: start">
+                                    <p class="font-bold text-md text-black" style="text-align: start"><strong>Código:</strong> {{$patient_id}}</p>
+                                    <span class="font-bold text-md text-black" style="text-align: start"><strong>Nome:</strong> {{$patient_name}}</span>
+                                    <p class="font-bold text-md text-black" style="text-align: start"><strong>Assinado por:</strong> {{$doctor}}</p>
+
+                                </div>
+                                <div style="text-align: end">
+                                    <span class="font-bold text-md text-black"><strong>Data do exame:</strong> {{date('d/m/Y', strtotime($exam_date))}}</span>
+                                    <p><i>Usuário: {{auth()->user()->name}}</i></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -48,9 +57,14 @@ class ShowReport extends Component
                         echo $report;
                     @endphp
 
-                    <div style="bottom: 0;">
-                        <p>Usuário: {{auth()->user()->name}}</p>
-                        <p>{{now()->format('d/m/Y H:i:s')}}</p>
+                    <div style="bottom: 0; width: 100%">
+                        <div style="text-align: end">
+                            <span class="font-bold text-md text-black"><strong>Assinado por:</strong> {{$doctor}}</span>
+                        </div>
+                        <div style="text-align: start">
+                            <p><i>Usuário: {{auth()->user()->name}}</i></p>
+                            <p>{{now()->format('d/m/Y H:i:s')}}</p>
+                        </div>
                     </div>
                 </div>
 
