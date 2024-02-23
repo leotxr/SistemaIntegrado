@@ -30,7 +30,7 @@ class ShowExams extends Component
         $this->modalExams = true;
     }
 
-    public function getReport($fatura_id, $patient_id)
+    public function getReport($fatura_id, $patient_id, $date)
     {
         $this->reset('report', 'formatted');
         $report = DB::connection('sqlserver')->table('FATURALAUDO')
@@ -45,7 +45,7 @@ class ShowExams extends Component
         $formatter = new HtmlFormatter('UTF-8');
         $this->formatted = $formatter->Format($doc);
 
-        $this->emit('showReport', $this->formatted, $patient_id, $this->patient_name);
+        $this->emit('showReport', $this->formatted, $patient_id, $this->patient_name, $date);
 
     }
 

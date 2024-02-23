@@ -22,7 +22,7 @@
                                 <x-table.cell>{{$exam->FATURAID}}</x-table.cell>
                                 <x-table.cell>{{$exam->LAUDONOMEEXAME}}</x-table.cell>
                                 <x-table.cell><a type="button" class="cursor-pointer"
-                                                 wire:click="getReport({{$exam->FATURAID}}, {{$exam->PACIENTEID}})">
+                                                 wire:click="getReport({{$exam->FATURAID}}, {{$exam->PACIENTEID}}, '{{$exam->DATA}}')">
                                         <x-icon name="eye" class="w-6 h-6"></x-icon>
                                     </a></x-table.cell>
                             </x-table.row>
