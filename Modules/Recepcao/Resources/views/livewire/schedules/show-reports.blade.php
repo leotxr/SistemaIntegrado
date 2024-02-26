@@ -32,13 +32,13 @@
             var printWindow = window.open('', '', 'height=500,width=400');
             printWindow.document.write('<html><head><title>Impressão de Laudo</title>');
             printWindow.document.write('<link rel="stylesheet" href="{{asset('report-print-layout.css')}}">');
-            printWindow.document.write('<style>@page{size:A4; margin-top:2cm; margin-bottom: 1cm;}</style>');
+            printWindow.document.write('<style>@page{size:A4; margin-top:2cm; margin-bottom: 1cm;} blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre {margin: 0;}</style>');
             printWindow.document.write('</head><body>');
             printWindow.document.write('<table><thead><tr><td><div style=" display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: space-between; margin: 20px;">')
             printWindow.document.write('<div style="grid-column: span 1 / span 1;"><b>NOME:</b> ' + data.patient_name + '</div><div style="grid-column: span 1 / span 1;"><b>DATA DO EXAME:</b> ' + data.exam_date + '</div>');
             printWindow.document.write('<div style="grid-column: span 1 / span 1;"><b>CÓDIGO:</b> ' + data.patient_id + '</div><div style="grid-column: span 1 / span 1;"><b>ASSINADO POR:</b> ' + data.doctor + '</div>');
             printWindow.document.write('</div></td></tr></thead>')
-            printWindow.document.write('<tbody><tr><td><div>' + data.report + '</div></td></tr></tbody>');
+            printWindow.document.write('<tbody><tr><td><div style="p{line-height: 0.5;}">' + data.report + '</div></td></tr></tbody>');
             printWindow.document.write('<tfoot><tr><td><div style=" display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: space-between; margin: 20px;"> ');
             printWindow.document.write('<div style="grid-column: span 1 / span 1;">Usuário: ' + data.user  + '</div><div style="grid-column: span 1 / span 1;"><b>ASSINADO POR:</b> ' + data.doctor + '</div>');
             printWindow.document.write('</div></td></tr></tfoot></table>');
