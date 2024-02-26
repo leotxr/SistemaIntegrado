@@ -41,7 +41,6 @@ class ShowExams extends Component
             ->selectRaw('FATURALAUDO.LAUDO as LAUDO, MEDICOS.NOME AS MEDICO',)
             ->first();
 
-        //dd($this->report[0]['LAUDO']);
         //file_put_contents("teste.rtf", $this->report->LAUDO);
         $doctor = $report->MEDICO;
         $doc = new Document($report->LAUDO);

@@ -1,0 +1,41 @@
+footer {
+    display: none;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: space-between;
+}
+
+.headerContent {
+    grid-column: span 1 / span 1;
+}
+
+@page {
+    size: A4;
+    margin-top: 4cm;
+    margin-bottom: 1cm;
+}
+
+@media print {
+
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        display: block;
+    }
+
+    p {
+        page-break-inside: avoid;
+
+    }
+
+    html,
+    body {
+        width: 210mm;
+        height: 297mm;
+    }
+}
+

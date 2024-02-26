@@ -11,6 +11,7 @@ class ShowReports extends Component
     public $patient_name = '';
     public $exam_date = '';
     public $doctor = '';
+    public $user = '';
     public $modalReport = false;
 
     protected $listeners = [
@@ -23,8 +24,9 @@ class ShowReports extends Component
         $this->report = $report;
         $this->patient_id = $patient_id;
         $this->patient_name = $patient_name;
-        $this->exam_date = $date;
+        $this->exam_date = date('d/m/Y', strtotime($date));
         $this->doctor = $doctor;
+        $this->user = auth()->user()->name;
         $this->modalReport = true;
     }
 

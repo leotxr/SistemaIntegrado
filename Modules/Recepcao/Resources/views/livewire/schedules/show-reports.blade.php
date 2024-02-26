@@ -3,35 +3,9 @@
         <x-slot:title>Visualização de Laudo</x-slot:title>
         <x-slot:content>
             <div id="print" class="p-4 bg-white" style="margin-top: 24px">
-                <div class="py-2" style="padding-top: 24px; width: 100%;">
-                    <div>
-                        <div style="flex: max-content">
-                            <div style="text-align: start">
-                                <p class="font-bold text-md text-black" style="text-align: start">
-                                    <strong>Código:</strong> {{$patient_id}}</p>
-                                <span class="font-bold text-md text-black"
-                                      style="text-align: start"><strong>Nome:</strong> {{$patient_name}}</span>
-                                <span class="font-bold text-md text-black" style="text-align: end"><strong>Data do exame:</strong> {{date('d/m/Y', strtotime($exam_date))}}</span>
-                                <p class="font-bold text-md text-black" style="text-align: end"><strong>Médico
-                                        Assinante:</strong> {{$doctor}}</p>
-
-                            </div>
-                            <div style="text-align: end">
-
-                                <p><i>Usuário: {{auth()->user()->name}}</i></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 @php
                     echo $report;
                 @endphp
-
-                <div style="bottom: 0;">
-                    <p><i>Usuário: {{auth()->user()->name}}</i></p>
-                    <p>{{now()->format('d/m/Y H:i:s')}}</p>
-                </div>
             </div>
 
         </x-slot:content>
@@ -43,14 +17,32 @@
         </x-slot:footer>
     </x-modal.dialog>
     <script type="text/javascript">
+
         function PrintDiv() {
-            var divContents = document.getElementById("print").innerHTML;
-            var footerContents = document.getElementById("footer").innerHTML;
+            var data = {
+                patient_name: @this.patient_name,
+                patient_id: @this.patient_id,
+                doctor: @this.doctor,
+                exam_date: @this.exam_date,
+                report: @this.report,
+                user: @this.user
+            }
+            var header = "<p>NOME:" + data.patient_name + "</p><p>DATA DO EXAME:" + data.exam_date + "</p>";
+            //var headerContent = document.getElementById("header").innerHTML;
             var printWindow = window.open('', '', 'height=500,width=400');
             printWindow.document.write('<html><head><title>Impressão de Laudo</title>');
+            printWindow.document.write('<link rel="stylesheet" href="{{asset('report-print-layout.css')}}">');
+            printWindow.document.write('<style>@page{size:A4; margin-top:2cm; margin-bottom: 1cm;}</style>');
             printWindow.document.write('</head><body>');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body>');
+            printWindow.document.write('<table><thead><tr><td><div style=" display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: space-between; margin: 20px;">')
+            printWindow.document.write('<div style="grid-column: span 1 / span 1;"><b>NOME:</b> ' + data.patient_name + '</div><div style="grid-column: span 1 / span 1;"><b>DATA DO EXAME:</b> ' + data.exam_date + '</div>');
+            printWindow.document.write('<div style="grid-column: span 1 / span 1;"><b>CÓDIGO:</b> ' + data.patient_id + '</div><div style="grid-column: span 1 / span 1;"><b>ASSINADO POR:</b> ' + data.doctor + '</div>');
+            printWindow.document.write('</div></td></tr></thead>')
+            printWindow.document.write('<tbody><tr><td><div>' + data.report + '</div></td></tr></tbody>');
+            printWindow.document.write('<tfoot><tr><td><div style=" display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: space-between; margin: 20px;"> ');
+            printWindow.document.write('<div style="grid-column: span 1 / span 1;">Usuário: ' + data.user  + '</div><div style="grid-column: span 1 / span 1;"><b>ASSINADO POR:</b> ' + data.doctor + '</div>');
+            printWindow.document.write('</div></td></tr></tfoot></table>');
+            printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
         }

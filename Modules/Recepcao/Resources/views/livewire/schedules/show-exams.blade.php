@@ -38,6 +38,6 @@
             </div>
         </x-slot:footer>
     </x-modal.dialog>
-    @livewire('recepcao::schedules.show-report')
+    @livewire('recepcao::schedules.show-reports')
 
 </div>
