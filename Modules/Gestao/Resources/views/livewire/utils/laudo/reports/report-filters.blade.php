@@ -3,7 +3,7 @@
         <div class="col-span-2 sm:col-span-2">
             <x-gestao::dropdown>
                 <x-slot name="title">
-                    <span class="text-gray-100 dark:text-gray-500">Filtrar datas</span>
+                    <span class="text-gray-100 dark:text-gray-50">Filtrar datas</span>
                 </x-slot>
                 <x-slot name="content">
                     <div class="inline-flex space-x-2">
@@ -39,11 +39,11 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
 
                     <x-slot name="title">
-                        <span class="text-gray-100 dark:text-gray-500">Filtros adicionais</span>
+                        <span class="text-gray-100 dark:text-gray-50">Filtros adicionais</span>
                     </x-slot>
                     <x-slot name="content">
                         @isset($by_doctor)
-                            <div class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2">
+                            <div class="col-span-2 sm:col-span-4 border dark:border-gray-700 rounded-sm w-full p-2">
                                 <div class="inline-flex space-x-2">
                                     <div class="inline-flex space-x-2">
                                         <x-text-input type="radio" class="rounded-full" name="by_doctor" id="by_doctor_ass"
@@ -61,7 +61,7 @@
                         @endisset
                         @isset($medicos_selecionados)
                             <div
-                                class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2 overflow-x-auto">
+                                class="col-span-2 sm:col-span-4 border dark:border-gray-700 rounded-sm w-full p-2 overflow-x-auto">
                                 <x-primary-button class="bg-blue-600" wire:click="$set('modal_medicos', 'true')">
                                     <x-icon name="filter" class="w-3 h-3" solid></x-icon>
                                     Médicos
@@ -73,7 +73,7 @@
                             </div>
                         @endisset
                         @isset($setores_selecionados)
-                            <div class="col-span-2 sm:col-span-4 border rounded-sm w-full p-2">
+                            <div class="col-span-2 sm:col-span-4 border dark:border-gray-700 rounded-sm w-full p-2">
                                 <x-primary-button class="bg-blue-600" wire:click="$set('modal_setores', 'true')">
                                     <x-icon name="filter" class="w-3 h-3" solid></x-icon>
                                     Setores

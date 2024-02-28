@@ -8,5 +8,6 @@
     "Gestao": true,
     "NaoConformidades": true,
     "NC": true,
-    "Recepcao": true
+    "Recepcao": true,
+    "Laudo": true
 }

@@ -4,7 +4,7 @@
         <div class="max-w-full px-12 justify-items-center">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div>
-                    @livewire('gestao::testing.test-query')
+                    @livewire('administrativo::monitoring.reception.report-reception-queue')
                 </div>
             </div>
         </div>

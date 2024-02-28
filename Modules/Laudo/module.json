@@ -1,0 +1,11 @@
+{
+    "name": "Laudo",
+    "alias": "laudo",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Laudo\\Providers\\LaudoServiceProvider"
+    ],
+    "files": []
+}
