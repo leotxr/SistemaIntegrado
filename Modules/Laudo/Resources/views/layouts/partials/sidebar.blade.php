@@ -22,7 +22,7 @@
         </li>
         <li>
             <x-side-link :href="route('laudo.reports.index')"
-                         :active="request()->routeIs('laudo.reports.index')"
+                         :active="Request::is(['laudo/relatorios/*', 'laudo/relatorios'])"
                          class="w-full">
                 <x-icon name="document-report"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">

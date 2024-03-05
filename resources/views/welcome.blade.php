@@ -13,7 +13,7 @@
         ['id' => 4, 'label' => 'Triagem', 'link' => 'triagem.index', 'icon' => 'beaker', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-300 to-violet-400', 'permission' => 'criar triagem'],
         ['id' => 5, 'label' => 'Encaixes', 'link' => 'orcamento.index', 'icon' => 'notebook', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 to-rose-500', 'permission' => 'criar orcamento'],
         ['id' => 6, 'label' => 'Não Conformidades', 'link' => 'nc.index', 'icon' => 'exclamation-circle', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-300 to-yellow-500', 'permission' => 'criar ncs'],
-        ['id' => 7, 'label' => 'Gestão', 'link' => 'gestao.index', 'icon' => 'scale', 'bg' => 'bg-gradient-to-r from-orange-300 to-rose-300', 'permission' => ''],
+        ['id' => 7, 'label' => 'Laudo', 'link' => 'laudo.index', 'icon' => 'document-text', 'bg' => 'bg-gradient-to-r from-orange-300 to-rose-300', 'permission' => 'acessar laudo'],
         ['id' => 8, 'label' => 'Recepção', 'link' => 'recepcao.index', 'icon' => 'book-open', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-600 to-blue-700', 'permission' => 'acessar recepção'],
         ['id' => 9, 'label' => 'Sistema', 'link' => 'dashboard', 'icon' => 'cog', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r', 'permission' => 'ver configuracoes'],
     ]);
