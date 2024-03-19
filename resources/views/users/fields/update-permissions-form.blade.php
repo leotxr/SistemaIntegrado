@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <x-primary-button type="submit">Salvar</x-primary-button>
+            <x-primary-button type="submit">Adicionar</x-primary-button>
 
             @if (session('status') === 'permission-updated')
             <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)"

@@ -10,13 +10,7 @@
     </header>
 
     <div class="">
-        <p class="mt-1 text-sm font-bold text-gray-600 dark:text-gray-400">
-            Setor/Cargo:{{$user->getRoleNames()}}
-        </p>
-        <p class="mt-1 text-sm font-bold text-gray-600 dark:text-gray-400">
-            Permissões:{{ $user->getPermissionsViaRoles()->pluck('name') }}
-        </p>
-
+        @livewire('users.permissions.show-user-permissions', ['user' => $user])
     </div>
 
 </section>

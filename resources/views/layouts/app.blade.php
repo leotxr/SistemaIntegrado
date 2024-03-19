@@ -35,6 +35,14 @@
 </html>
 
 <script>
+    window.addEventListener('notify', event => {
+        toastr[event.detail.type](event.detail.message,
+            event.detail.title ?? ''), toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+    });
+
     setTimeout(function () {
         $('.alert').fadeOut('slow');
     }, 5000);
