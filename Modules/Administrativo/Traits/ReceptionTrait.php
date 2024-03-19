@@ -11,6 +11,7 @@ trait ReceptionTrait
             ->table('TOTEM_FILAS_ESPERA')
             // ->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')
             ->whereBetween('TOTEM_FILAS_ESPERA.DATA', [$date1, $date2])
+            ->whereNull('TOTEM_FILAS_ESPERA.USERID_REMOCAO')
             ->select(DB::raw("TOTEM_FILAS_ESPERA.SENHA AS SENHA,
             TOTEM_FILAS_ESPERA.HORACHEGADA AS HORACHEGADA,
             TOTEM_FILAS_ESPERA.HORA_ATEND AS HORAATEND,
