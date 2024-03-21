@@ -13,7 +13,7 @@
                             </a>
                         </div>
                         <div class="sm:row-span-2 row-span-1">
-                            <a href="{{url('/administrativo/recepcao/fila-de-espera')}}">
+                            <a href="{{url('/recepcao/monitoramento/fila-de-espera')}}">
                                 <div class="p-2 bg-white dark:bg-gray-800 dark:text-gray-50 text-center rounded-lg">
                                     Fila de Espera Recepção
                                 </div>

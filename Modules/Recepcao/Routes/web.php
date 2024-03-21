@@ -17,19 +17,24 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('recepcao')->group(function () {
 
-        Route::get('/', function()
-        {
+        Route::get('/', function () {
             return view('recepcao::index');
         })->name('recepcao.index');
 
-        Route::get('/agendas', function()
-        {
+        Route::get('/agendas', function () {
             return view('recepcao::schedules.index');
         })->name('recepcao.schedules');
 
-        Route::get('/monitoramento', function()
-        {
-            return view('recepcao::monitoring.index');
-        })->name('recepcao.monitoring');
+        Route::prefix('monitoramento')->group(function () {
+
+            Route::get('/', function () {
+                return view('recepcao::monitoring.index');
+            })->name('recepcao.monitoring');
+
+            Route::get('/fila-de-espera', function () {
+                return view('recepcao::monitoring.dashboard.index');
+            })->name('recepcao.monitoring.wait-queue');
+
+        });
     });
 });
