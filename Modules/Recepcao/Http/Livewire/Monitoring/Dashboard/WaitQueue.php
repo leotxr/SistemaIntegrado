@@ -2,6 +2,7 @@
 
 namespace Modules\Recepcao\Http\Livewire\Monitoring\Dashboard;
 
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Modules\Administrativo\Traits\ReceptionTrait;
 
@@ -36,11 +37,11 @@ class WaitQueue extends Component
         //$this->served = $this->getWaitQueue($this->today, $this->today)->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')->get();
         $this->scheduling = $this->getWaitQueue($this->today, $this->today)->where('TOTEM_FILAS_ESPERA.ATENDIDO', 'F')->where('TOTEM_FILAS_ESPERA.TIPOFILA', 'T')->get();
         $this->service = $this->getWaitQueue($this->today, $this->today)
-            ->join('HORARIOS', 'HORARIOS.HORREQID', '=', 'TOTEM_FILAS_ESPERA.HORREQID')
-            ->whereNull('HORARIOS.MASTERHORA')
+            //->join('HORARIOS', 'HORARIOS.HORREQID', '=', 'TOTEM_FILAS_ESPERA.HORREQID')
+            //->whereNull('HORARIOS.MASTERHORA')
             ->where('TOTEM_FILAS_ESPERA.ATENDIDO', 'F')
             ->whereIn('TOTEM_FILAS_ESPERA.TIPOFILA', ['A', 'P'])
-            ->selectRaw('HORARIOS.HORA AS HORA_EXAME')
+            //->selectRaw('HORARIOS.HORA AS HORA_EXAME')
             ->get();
         $this->served_scheduling = $this->getWaitQueue($this->today, $this->today)->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')->where('TOTEM_FILAS_ESPERA.TIPOFILA', 'T')->count();
         $this->served_service = $this->getWaitQueue($this->today, $this->today)
@@ -51,6 +52,16 @@ class WaitQueue extends Component
 
         //dd($this->getWaitQueue($this->today, $this->today)->join('USUARIOS', 'USUARIOS.USERID', '=', 'TOTEM_FILAS_ESPERA.CHAMADO')->get());
 
+    }
+
+    public function searchSchedule($time_id)
+    {
+        return DB::connection('sqlserver')
+            ->table('HORARIOS')
+            ->where('HORARIOS.HORREQID', $time_id)
+            ->selectRaw('HORARIOS.HORA AS HORA_EXAME')
+            ->orderBy('HORARIOS.HORA', 'asc')
+            ->first();
     }
 
     public function setDelays()

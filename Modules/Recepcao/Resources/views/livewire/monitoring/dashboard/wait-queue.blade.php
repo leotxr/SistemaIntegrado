@@ -26,11 +26,13 @@
                                 @endphp
                                 <x-table.row>
                                     <x-table.cell>
-                                        @if($agendamento->ATRASO < 600) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
-                                        </x-icon>
-                                        @elseif($agendamento->ATRASO >= 600 && $agendamento->ATRASO < 900) <x-icon name="emoji-neutral"
-                                                                                         class="w-10 h-10 text-yellow-400" solid>
-                                        </x-icon>
+                                        @if($agendamento->ATRASO < 600)
+                                            <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
+                                            </x-icon>
+                                        @elseif($agendamento->ATRASO >= 600 && $agendamento->ATRASO < 900)
+                                            <x-icon name="emoji-neutral"
+                                                    class="w-10 h-10 text-yellow-400" solid>
+                                            </x-icon>
                                         @else
                                             <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
                                         @endif
@@ -75,11 +77,13 @@
                                 @endphp
                                 <x-table.row>
                                     <x-table.cell>
-                                        @if($atendimento->ATRASO < 600) <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
-                                        </x-icon>
-                                        @elseif($atendimento->ATRASO >= 600 && $atendimento->ATRASO < 900) <x-icon name="emoji-neutral"
-                                                                                         class="w-10 h-10 text-yellow-400" solid>
-                                        </x-icon>
+                                        @if($atendimento->ATRASO < 600)
+                                            <x-icon name="emoji-happy" class="w-10 h-10 text-green-500" solid>
+                                            </x-icon>
+                                        @elseif($atendimento->ATRASO >= 600 && $atendimento->ATRASO < 900)
+                                            <x-icon name="emoji-neutral"
+                                                    class="w-10 h-10 text-yellow-400" solid>
+                                            </x-icon>
                                         @else
                                             <x-icon name="emoji-sad" class="w-10 h-10 text-red-600" solid></x-icon>
                                         @endif
@@ -91,7 +95,10 @@
                                         {{gmdate('H:i:s', $atendimento->HORACHEGADA)}}
                                     </x-table.cell>
                                     <x-table.cell>
-                                        {{gmdate('H:i:s', $atendimento->HORA_EXAME)}}
+                                        @php
+                                            $exam_hour = $this->searchSchedule($atendimento->HORAEXAME);
+                                        @endphp
+                                        {{gmdate('H:i:s', $exam_hour->HORA_EXAME)}}
                                     </x-table.cell>
                                     <x-table.cell>
                                         {{gmdate('H:i:s', $atendimento->ATRASO)}}
