@@ -18,6 +18,28 @@ use Modules\Administrativo\Http\Livewire\Monitoring\QueueMonitoring;
 Route::middleware('auth')->group(function () {
     Route::prefix('administrativo')->group(function () {
 
+        Route::get('/', function () {
+            return view('administrativo::index');
+        })->name('administrativo.index');
+
+        Route::prefix('financeiro')->group(function () {
+
+            Route::get('/', function(){
+                return view('administrativo::financial.invoices.dashboard');
+            })->name('administrativo.financial');
+
+            Route::get('/exames-sirius', function(){
+                return view('administrativo::financial.invoices.index');
+            })->name('administrativo.financial.invoices');
+
+            Route::get('/exames-sirius/novo', function () {
+                return view('administrativo::financial.invoices.create');
+            })->name('administrativo.financial.invoices.create');
+
+        });
+
+
+
         Route::get('/monitoramento', function () {
             return view('administrativo::monitoramento.index');
         })->name('adm.monitoring');
@@ -32,7 +54,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-        Route::get('/', [AdministrativoController::class, 'index'])->name('administrativo.index');
+
     });
 
 });

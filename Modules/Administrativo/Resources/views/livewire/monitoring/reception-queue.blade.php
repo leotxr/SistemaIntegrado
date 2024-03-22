@@ -18,7 +18,7 @@
                         <x-table.heading>Status</x-table.heading>
                         <x-table.heading>Senha</x-table.heading>
                         <x-table.heading>Hora Chegada</x-table.heading>
-                        <x-table.heading>Hora Exame</x-table.heading>
+                        <x-table.heading>Hora Atual</x-table.heading>
                         <x-table.heading>Espera</x-table.heading>
                     </x-slot>
                     <x-slot name="body">
@@ -42,8 +42,7 @@
                                 {{gmdate('H:i:s', $aguardando->HORACHEGADA)}}
                             </x-table.cell>
                             <x-table.cell>
-                                {{gmdate('h:i:s', $aguardando->HORAEXAME)}}
-                                {{-- now()->format('H:i:s') --}}
+                                {{now()->format('H:i:s')}}
                             </x-table.cell>
                             <x-table.cell>
                                 {{gmdate('H:i:s', $aguardando->ATRASO)}}
