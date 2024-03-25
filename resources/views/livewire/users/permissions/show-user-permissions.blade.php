@@ -51,7 +51,7 @@
         <x-modal.dialog wire:model.defer="modalPermissions">
             <x-slot:title>Permissões vinculadas diretamente</x-slot:title>
             <x-slot:content>
-                <div>
+                <div x-data="{formPermission: false}">
                     <x-table>
                         <x-slot name="head">
                             <x-table.heading>Permissão</x-table.heading>
@@ -63,7 +63,7 @@
                                     <x-table.cell>{{$direct_permission->name}}</x-table.cell>
                                     <x-table.cell>
                                         <a class="cursor-pointer grid justify-items-center"
-                                                     wire:click="revokePermission('{{$direct_permission->name}}')">
+                                           wire:click="revokePermission('{{$direct_permission->name}}')">
                                             <x-icon name="x" class="w-5 h-5 text-red-600"></x-icon>
                                         </a>
                                     </x-table.cell>
@@ -71,6 +71,18 @@
                             @endforeach
                         </x-slot>
                     </x-table>
+                    <div class="w-full grid justify-items-end p-2">
+                        <a type="button" class="inline-flex items-center cursor-pointer"
+                           x-on:click="formPermission = ! formPermission">
+                            <div :class="formPermission ? 'rotate-45 transition transform duration-300 text-red-600' : 'transition transform duration-300 text-green-600'">
+                                <x-icon name="plus" class="w-6 h-6 "></x-icon>
+                            </div>
+                            <span> Atribuir nova permissão</span> </a>
+                    </div>
+
+                    <div x-show="formPermission">
+                        @livewire('users.permissions.assign-permission', ['user' => $user])
+                    </div>
                 </div>
             </x-slot:content>
             <x-slot:footer>

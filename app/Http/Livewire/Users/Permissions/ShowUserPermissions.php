@@ -15,6 +15,10 @@ class ShowUserPermissions extends Component
     public $showing_role;
     public $role_permissions;
 
+    public $listeners = [
+        'refreshPermissions' => '$refresh'
+    ];
+
     public function mount(User $user)
     {
         $this->user = $user;
