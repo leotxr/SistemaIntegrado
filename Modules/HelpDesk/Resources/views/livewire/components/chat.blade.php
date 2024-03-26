@@ -1,5 +1,6 @@
 <div class="p-4" x-data x-ref="div">
-    <div class="max-w-full border h-[500px] overflow-auto" x-init="div.scrollIntoView({ behavior: 'smooth', block: 'end' })">
+    <div class="max-w-full border border-gray-200 dark:border-gray-700 h-[500px] overflow-auto"
+         x-init="div.scrollIntoView({ behavior: 'smooth', block: 'end' })">
         <x-title class="grid justify-start"> Histórico de mensagens</x-title>
         @php
             $messages = $ticket->find($ticket->id)->TicketMessages;
@@ -57,21 +58,26 @@
                     @endisset
         </ol>
     </div>
-    <div class="dark:bg-gray-800 rounded-lg mt-2 p-2">
-        <form wire:submit.prevent="sendMessage">
-            <div class="py-2 grid grid-cols-8 gap-2">
-                <div class="col-span-7">
-                    <x-text-input class="w-full" type="text" placeholder="digite aqui sua mensagem"
-                                  wire:model.defer="message"></x-text-input>
-                </div>
-                <div class="col-span-1 content-center grid justify-items-center">
-                    <div>
-                        <a class="w-sm cursor-pointer" type="submit">
-                            <x-icon name="paper-airplane" class="w-6 h-6 dark:text-white text-gray-900"></x-icon>
-                        </a>
+
+    <div class="w-full grid justify-items-center" x-data="{showInput: true}">
+        <div class="fixed bottom-0 z-50 w-1/2 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded-lg shadow-lg">
+            <div class="dark:bg-gray-800 mt-2 p-2">
+                <form wire:submit.prevent="sendMessage">
+                    <div class="py-2 grid grid-cols-8 gap-2">
+                        <div class="col-span-7">
+                            <x-text-input class="w-full" type="text" placeholder="digite aqui sua mensagem"
+                                          wire:model.defer="message"></x-text-input>
+                        </div>
+                        <div class="col-span-1 content-center grid justify-items-center">
+                            <div>
+                                <a class="w-sm cursor-pointer" type="submit">
+                                    <x-icon name="paper-airplane" class="w-6 h-6 dark:text-white text-gray-900"></x-icon>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
