@@ -36,5 +36,15 @@ Route::middleware('auth')->group(function () {
             })->name('recepcao.monitoring.wait-queue');
 
         });
+
+        Route::prefix('relatorios')->group(function () {
+
+            Route::get('/', function () {
+                return redirect()->to(route('recepcao.reports.wait-queue'));
+            });
+            Route::get('/fila-de-espera', function () {
+                return view('recepcao::reports.wait-queue.index');
+            })->name('recepcao.reports.wait-queue');
+        });
     });
 });

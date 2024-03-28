@@ -122,4 +122,23 @@
         </div>
     </div>
 
+    <div class="fixed bottom-4 right-4 inline-flex space-x-2">
+        <div>
+            <a type="button" href="{{route('recepcao.reports.wait-queue')}}">
+                <button
+                    class="bg-blue-600 hover:bg-blue-600 text-white font-bold py-2 px-2 rounded-full shadow-lg bg-opacity-50 hover:bg-opacity-100">
+                    <x-icon name="document-report" class="h-5 w-5 text-white"></x-icon>
+                </button>
+            </a>
+        </div>
+        <div>
+            <a type="button" href="{{route('recepcao.monitoring')}}">
+                <button
+                    class="bg-gray-600 hover:bg-gray-600 text-white font-bold py-2 px-2 rounded-full shadow-lg bg-opacity-50 hover:bg-opacity-100">
+                    <x-icon name="logout" class="h-5 w-5 text-white"></x-icon>
+                </button>
+            </a>
+        </div>
+    </div>
+
 </div>

@@ -10,15 +10,26 @@
                 <span class="ml-3" x-show="expanded">Inicio</span>
             </x-side-link>
         </li>
-        <li>
-            <x-side-link :href="route('recepcao.monitoring')"
-                         :active="request()->routeIs('recepcao.monitoring')"
-                         class="w-full">
+        <li x-data="{open:false}">
+            <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                         :active="Request::is('helpdesk/painel/chamados', 'helpdesk/painel/chamados/*')">
                 <x-icon name="monitor"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                 </x-icon>
-                <span class="ml-3" x-show="expanded">Monitoramento</span>
+                <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Monitoramento</span>
             </x-side-link>
+            <ul x-show="open" x-transition x-data="{items:[
+                            {id: 1, label: 'Fila de Trabalho Médicos', link: '{{route("adm.monitoring")}}', active: 'adm.monitoring' },
+                            {id: 2, label: 'Fila de Espera Recepção', link: '{{route("recepcao.monitoring.wait-queue")}}', active: 'request()->routeIs(`recepcao.monitoring.wait-queue`)' },
+                            ]}">
+                <template x-for="item in items" :key="item.id">
+                    <li x-show="expanded">
+                        <x-side-link class="w-full" ::href="item.link" ::active="item.active">
+                            <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
+                        </x-side-link>
+                    </li>
+                </template>
+            </ul>
         </li>
         <li>
             <x-side-link :href="route('recepcao.schedules')"
