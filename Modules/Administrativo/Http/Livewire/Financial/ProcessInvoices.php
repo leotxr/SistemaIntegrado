@@ -3,9 +3,10 @@
 namespace Modules\Administrativo\Http\Livewire\Financial;
 
 use App\Models\Doctor;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Modules\Administrativo\Entities\FinancialInvoice;
 use Modules\Administrativo\Exports\Financial\DiscountExamsExport;
 
@@ -16,10 +17,13 @@ class ProcessInvoices extends Component
     public $selected_invoices = [];
     public $total_invoices = 0;
     public $total_value_invoices = 0;
-    public $liquid_value_invoices = 0;
+    public $payment_value = 0;
+    public $discount_value = 0;
+
     public $start_date = '2024-03-01';
     public $end_date = '2024-03-14';
-    public $percent;
+    public $discount_percent;
+    public $payment_percent;
     public $CheckAllInvoices = false;
 
     public function mount()
@@ -35,12 +39,13 @@ class ProcessInvoices extends Component
 
     public function select()
     {
-        $this->reset('total_value_invoices', 'liquid_value_invoices');
+        $this->reset('total_value_invoices', 'discount_value', 'payment_value');
         foreach ($this->selected_invoices as $selected_invoice) {
             $invoice = FinancialInvoice::find($selected_invoice);
             $this->total_value_invoices += $invoice->total_value;
         }
-        $this->liquid_value_invoices = ($this->total_value_invoices * $this->percent)/100;
+        $this->discount_value = ($this->total_value_invoices * $this->discount_percent) / 100;
+        $this->payment_value = ($this->total_value_invoices * $this->payment_percent) / 100;
     }
 
     public function updatedCheckAllInvoices($value)
@@ -65,7 +70,8 @@ class ProcessInvoices extends Component
     public function exportInvoicesPDF()
     {
         $pdf = PDF::loadView('administrativo::financial.exports.discount-exams-export', ['start' => $this->start_date, 'end' => $this->end_date, 'doctor' => $this->selected_doctor]);
-        return $pdf->download('desconto-exames-' . $this->start_date . '-' . $this->end_date . '.pdf');
+        return $pdf->download('invoice.pdf');
+
     }
 
     public function render()

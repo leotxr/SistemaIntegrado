@@ -34,7 +34,7 @@
             </div>
         </div>
         <div>
-            <div class="max-h-96 overflow-auto">
+            <div class="max-h-64 overflow-auto">
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading><input type="checkbox" name="check_all" wire:model="CheckAllInvoices"/>
@@ -70,39 +70,66 @@
 
     </div>
 
-    <div class="sm:flex flex-row-reverse space-x-4 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-2">
-        <div class="grid content-center mx-2">
-            <div class="inline-flex">
-                <span class="text-gray-500 dark:text-gray-200">Valor a Descontar:</span>
-                <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{$liquid_value_invoices}}</span>
+    <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+        <div class="col-span-4 sm:col-span-3 bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 content-center mx-2">
+                <div class="col-span-2 sm:col-span-2">
+                    <div class="flex items-center space-x-2">
+                        <x-input-label for="discount">Desconto</x-input-label>
+                        <x-text-input name="discount" id="discount" type="text"
+                                      x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
+                                      class="block w-1/2 mt-1 " wire:model.defer="discount_percent"/>
+                        <x-primary-button type="button" wire:click="select">
+                            <x-icon name="calculator" class="w-5 h-5"></x-icon>
+                        </x-primary-button>
+                    </div>
+                </div>
+                <div class="col-span-2 sm:col-span-2">
+                    <div class="flex items-center space-x-2">
+                        <x-input-label for="payment">Pagamento</x-input-label>
+                        <x-text-input name="payment" id="payment" type="text"
+                                      x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
+                                      class="block w-1/2 mt-1 " wire:model.defer="payment_percent"/>
+                        <x-primary-button type="button" wire:click="select">
+                            <x-icon name="calculator" class="w-5 h-5"></x-icon>
+                        </x-primary-button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="grid content-center mx-2">
-            <div class="inline-flex">
-                <span class="text-gray-500 dark:text-gray-200">Valor Bruto:</span>
-                <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{$total_value_invoices}}</span>
+        <div class="col-span-4 sm:col-span-3 bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg ">
+            <div class="sm:flex flex-row-reverse space-x-4 p-2 text-sm">
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor a Pagar:</span>
+                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$payment_value, 2, '.', '')}}</span>
+                    </div>
+                </div>
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor a Descontar:</span>
+                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$discount_value, 2, '.', '')}}</span>
+                    </div>
+                </div>
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor Bruto:</span>
+                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$total_value_invoices, 2, '.', '')}}</span>
+                    </div>
+                </div>
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Quantidade:</span>
+                        <span class="text-gray-700 dark:text-gray-50 font-semibold">{{count($selected_invoices)}}</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="grid content-center mx-2">
-            <div class="inline-flex">
-                <span class="text-gray-500 dark:text-gray-200">Quantidade:</span>
-                <span class="text-gray-700 dark:text-gray-50 font-semibold">{{count($selected_invoices)}}</span>
-            </div>
-        </div>
-        <div class="grid content-center mx-2">
-            <div class="inline-flex space-x-2">
-                <x-text-input name="teste" id="teste" type="text"
-                              x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
-                              class="block w-1/2 mt-1 " wire:model.defer="percent"/>
-                <x-primary-button type="button" wire:click="select">
-                    <x-icon name="calculator" class="w-5 h-5"></x-icon>
-                </x-primary-button>
-            </div>
-        </div>
-
     </div>
-    <div x-data="{open: false}" class="fixed bottom-4 right-4 ">
-        <div x-show="open" class="grid">
+
+
+    <div x-data="{open: false}" class="fixed bottom-4 right-4">
+        <div x-show="open" class="grid space-y-2">
             <button wire:click="exportInvoicesPDF"
                     class="block w-10 h-10 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-2 rounded-full shadow-lg hover:scale-115 transition transform duration-75">
                 <x-icon name="document" class="max-h-10 max-w-10 text-white"></x-icon>
@@ -114,15 +141,15 @@
         </div>
         <button
             x-on:click="open = ! open"
-            class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-2 rounded-full shadow-lg hover:scale-115 transition transform duration-75">
+            class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-2 rounded-full shadow-lg hover:scale-115 transition transform duration-75">
             <x-icon name="download" class="h-6 w-6 text-white"></x-icon>
         </button>
-
-        <button
-            wire:click="select"
-            class="bg-blue-600 hover:bg-blue-600 text-white font-bold py-4 px-4 rounded-full shadow-lg hover:rotate-90 transition transform duration-75">
-            <x-icon name="refresh" class="h-8 w-8 text-white"></x-icon>
-        </button>
-
+        <!--
+                <button
+                    wire:click="select"
+                    class="bg-blue-600 hover:bg-blue-600 text-white font-bold py-4 px-4 rounded-full shadow-lg hover:rotate-90 transition transform duration-75">
+                    <x-icon name="refresh" class="h-8 w-8 text-white"></x-icon>
+                </button>
+        -->
     </div>
 </div>
