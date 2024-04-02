@@ -20,13 +20,17 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        footer {
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
 <header>
-    <p>Resumo do processamento de desconto no faturamento de Exames por Médico</p>
+    <h2>Resumo do processamento de desconto no faturamento de Exames por Médico</h2>
     <p>Período: {{date('d/m/y', strtotime($start_date))}} até {{date('d/m/y', strtotime($end_date))}}</p>
-    <p>Filtro: {{$doctor}}</p>
+    <p>Médico: {{$doctor->name}}</p>
 </header>
 <section>
     <div>
@@ -57,7 +61,7 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div style="margin-top: 24px">
         <table>
             <thead>
             <tr>
@@ -76,6 +80,8 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div style="margin-top: 24px">
         <table>
             <thead>
             <tr>
@@ -96,5 +102,8 @@
         </table>
     </div>
 </section>
+<footer>
+    <p>{{now()->format('d/m/y H:i:s')}}</p>
+</footer>
 </body>
 </html>

@@ -2,7 +2,7 @@
     <div>
         <p class="font-bold">Resumo do processamento de desconto no faturamento de Exames por Médico</p>
         <p>Período: {{date('d/m/y', strtotime($start_date))}} até {{date('d/m/y', strtotime($end_date))}}</p>
-        <p>Filtro: {{$doctor}}</p>
+        <p>Medico: {{$doctor->name}}</p>
     </div>
     <div>
         <x-table>

@@ -4,6 +4,7 @@ namespace Modules\Administrativo\Http\Livewire\Financial;
 
 use App\Models\Doctor;
 
+use App\Models\User;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -13,7 +14,7 @@ use Modules\Administrativo\Exports\Financial\DiscountExamsExport;
 class ProcessInvoices extends Component
 {
     public $doctors;
-    public $selected_doctor = '';
+    public $selected_doctor = 0;
     public $selected_invoices = [];
     public $invoices_discount;
     public $invoices_payment;
@@ -93,7 +94,7 @@ class ProcessInvoices extends Component
         $range = [
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'doctor' => $this->selected_doctor,
+            'doctor' => Doctor::where('external_id',$this->selected_doctor)->first(),
             'invoices' => $this->invoices_discount,
             'discount_value' => $this->discount_value,
             'liquid_discount_value' => $this->liquid_discount_value,
@@ -109,10 +110,11 @@ class ProcessInvoices extends Component
 
     public function exportInvoicesPDF()
     {
-        $pdf = PDF::loadView('administrativo::financial.exports.pdf-discount-exams-export',
+
+        $pdfContent = PDF::loadView('administrativo::financial.exports.pdf-discount-exams-export',
             ['start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'doctor' => $this->selected_doctor,
+                'doctor' => Doctor::where('external_id',$this->selected_doctor)->first(),
                 'invoices' => $this->invoices_discount,
                 'discount_value' => $this->discount_value,
                 'liquid_discount_value' => $this->liquid_discount_value,
@@ -120,8 +122,12 @@ class ProcessInvoices extends Component
                 'invoices_payment' => $this->invoices_payment,
                 'payment_value' => $this->payment_value,
                 'liquid_payment_value' => $this->liquid_payment_value,
-                'payment_percent' => $this->payment_percent]);
-        return $pdf->download('invoice.pdf');
+                'payment_percent' => $this->payment_percent])->output();
+        return response()->streamDownload(
+            fn () => print($pdfContent),
+            "filename.pdf"
+        );
+
 
     }
 
