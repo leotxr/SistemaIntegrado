@@ -15,20 +15,33 @@ class ProcessInvoices extends Component
     public $doctors;
     public $selected_doctor = '';
     public $selected_invoices = [];
-    public $total_invoices = 0;
+    public $invoices_discount;
+    public $invoices_payment;
     public $total_value_invoices = 0;
     public $payment_value = 0;
     public $discount_value = 0;
 
-    public $start_date = '2024-03-01';
-    public $end_date = '2024-03-14';
+    public $liquid_payment_value = 0;
+    public $liquid_discount_value = 0;
+
+    public $start_date;
+    public $end_date;
     public $discount_percent;
     public $payment_percent;
     public $CheckAllInvoices = false;
 
+    protected $rules = [
+        'discount_percent' => 'required',
+        'payment_percent' => 'required',
+        'invoices_discount' => 'required',
+        'invoices_payment' => 'required'
+    ];
+
     public function mount()
     {
         $this->doctors = Doctor::all();
+        $this->start_date = date('Y-m-01');
+        $this->end_date = date('Y-m-t');
 
     }
 
@@ -37,15 +50,32 @@ class ProcessInvoices extends Component
         return FinancialInvoice::where('doctor_id', $this->selected_doctor)->whereBetween('exam_date', [$this->start_date, $this->end_date])->get();
     }
 
-    public function select()
+    public function calcDiscount()
     {
-        $this->reset('total_value_invoices', 'discount_value', 'payment_value');
+        $this->reset('discount_value');
+        $this->invoices_discount = $this->getInvoices();
+        foreach ($this->invoices_discount as $discount) {
+            $this->discount_value += $discount->total_value;
+        }
+        /*
         foreach ($this->selected_invoices as $selected_invoice) {
             $invoice = FinancialInvoice::find($selected_invoice);
             $this->total_value_invoices += $invoice->total_value;
         }
-        $this->discount_value = ($this->total_value_invoices * $this->discount_percent) / 100;
-        $this->payment_value = ($this->total_value_invoices * $this->payment_percent) / 100;
+        */
+        $this->liquid_discount_value = ($this->discount_value * $this->discount_percent) / 100;
+
+
+    }
+
+    public function calcPayment()
+    {
+        $this->reset('payment_value');
+        $this->invoices_payment = $this->getInvoices()->where('payment_enable', true);
+        foreach ($this->invoices_payment as $payment) {
+            $this->payment_value += $payment->total_value;
+        }
+        $this->liquid_payment_value = ($this->payment_value * $this->payment_percent) / 100;
     }
 
     public function updatedCheckAllInvoices($value)
@@ -59,17 +89,38 @@ class ProcessInvoices extends Component
 
     public function exportInvoices()
     {
+        $this->validate();
         $range = [
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'doctor' => $this->selected_doctor,
+            'invoices' => $this->invoices_discount,
+            'discount_value' => $this->discount_value,
+            'liquid_discount_value' => $this->liquid_discount_value,
+            'discount_percent' => $this->discount_percent,
+            'invoices_payment' => $this->invoices_payment,
+            'payment_value' => $this->payment_value,
+            'liquid_payment_value' => $this->liquid_payment_value,
+            'payment_percent' => $this->payment_percent
+
         ];
         return Excel::download(new DiscountExamsExport($range), 'desconto-exames-' . $this->start_date . '-' . $this->end_date . '.xlsx');
     }
 
     public function exportInvoicesPDF()
     {
-        $pdf = PDF::loadView('administrativo::financial.exports.discount-exams-export', ['start' => $this->start_date, 'end' => $this->end_date, 'doctor' => $this->selected_doctor]);
+        $pdf = PDF::loadView('administrativo::financial.exports.pdf-discount-exams-export',
+            ['start_date' => $this->start_date,
+                'end_date' => $this->end_date,
+                'doctor' => $this->selected_doctor,
+                'invoices' => $this->invoices_discount,
+                'discount_value' => $this->discount_value,
+                'liquid_discount_value' => $this->liquid_discount_value,
+                'discount_percent' => $this->discount_percent,
+                'invoices_payment' => $this->invoices_payment,
+                'payment_value' => $this->payment_value,
+                'liquid_payment_value' => $this->liquid_payment_value,
+                'payment_percent' => $this->payment_percent]);
         return $pdf->download('invoice.pdf');
 
     }

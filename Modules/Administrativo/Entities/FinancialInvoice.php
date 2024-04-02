@@ -22,6 +22,7 @@ class FinancialInvoice extends Model
         'paid_patient',
         'total_value',
         'processed',
+        'payment_enable',
         'requester_id',
         'user_id'
     ];

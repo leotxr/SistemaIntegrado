@@ -67,6 +67,12 @@
                                 </dt>
                                 <dd class="dark:bg-gray-900 dark:text-gray-300">{{number_format($invoice->paid_patient, 2, ',', '')}}</dd>
                             </div>
+                            <div class="mt-4 col-span-2 sm:col-span-2 inline-flex">
+                                <x-text-input type="checkbox" class="mx-2 checkbox" id="checkbox" name="checkbox"
+                                              wire:model="invoice.payment_enable"/>
+                                <x-input-label for="checkbox" :value="__('Pagamento (Médico assinante vai revisar)')"/>
+                            </div>
+                            @json($invoice->payment_enable)
                         </div>
 
                         <div class="px-4 py-3 text-right sm:px-6">

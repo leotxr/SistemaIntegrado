@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->float('paid_insurance')->nullable();
             $table->float('paid_patient')->nullable();
             $table->float('total_value')->nullable();
+            $table->boolean('payment_enable');
             $table->boolean('processed')->default(false);
             $table->unsignedBigInteger('requester_id');
             $table->foreign('requester_id')

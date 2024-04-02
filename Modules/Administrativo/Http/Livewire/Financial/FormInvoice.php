@@ -12,6 +12,7 @@ class FormInvoice extends Component
 {
     public $invoice_id;
     public $invoice;
+    public $payment_enable = true;
 
 
     protected $listeners = [
@@ -19,7 +20,8 @@ class FormInvoice extends Component
     ];
 
     protected $rules = [
-        'invoice.*' => 'required'
+        'invoice.*' => 'required',
+        'invoice.payment_enable' => 'boolean'
     ];
 
     public function mount()
@@ -62,6 +64,7 @@ class FormInvoice extends Component
             $query = $this->getInvoice($this->invoice_id);
 
             $this->invoice = new FinancialInvoice();
+            $this->invoice->payment_enable = true;
             $this->invoice->invoice_id = $query->FATURA;
             $this->invoice->patient_id = $query->PACIENTE_ID;
             $this->invoice->patient_name = $query->PACIENTE;

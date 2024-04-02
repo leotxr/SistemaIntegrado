@@ -1,4 +1,4 @@
-<div>
+<div class="space-y-2">
     <div class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-2">
         <div class="sm:flex items-center space-x-2 p-2">
             <div>
@@ -30,15 +30,14 @@
                 <x-input-error class="mt-2" :messages="$errors->get('end_date')"/>
             </div>
             <div>
-                <x-primary-button wire:click="select">Buscar</x-primary-button>
+                <x-primary-button wire:click="$refresh">Buscar</x-primary-button>
             </div>
         </div>
         <div>
             <div class="max-h-64 overflow-auto">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.heading><input type="checkbox" name="check_all" wire:model="CheckAllInvoices"/>
-                        </x-table.heading>
+                        <x-table.heading>Editar</x-table.heading>
                         <x-table.heading>Data Exame</x-table.heading>
                         <x-table.heading>Fatura</x-table.heading>
                         <x-table.heading>ID Paciente</x-table.heading>
@@ -51,8 +50,13 @@
                     <x-slot name="body">
                         @foreach($invoices as $invoice)
                             <x-table.row>
-                                <x-table.cell><input type="checkbox" name="check" wire:model.defer="selected_invoices"
-                                                     value="{{$invoice->id}}"/></x-table.cell>
+                                <x-table.cell>
+                                    <button wire:click="$emit('editInvoice', {{$invoice->id}})"
+                                            class="text-blue-800 dark:text-blue-300 font-bold inline-flex"
+                                            type="submit">
+                                        <x-icon name="pencil-alt" class="w-6 h-6"></x-icon>
+                                    </button>
+                                </x-table.cell>
                                 <x-table.cell>{{date('d/m/y', strtotime($invoice->exam_date))}}</x-table.cell>
                                 <x-table.cell>{{$invoice->invoice_id}}</x-table.cell>
                                 <x-table.cell>{{$invoice->patient_id}}</x-table.cell>
@@ -67,60 +71,82 @@
                 </x-table>
             </div>
         </div>
-
     </div>
 
     <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
-        <div class="col-span-4 sm:col-span-3 bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 content-center mx-2">
-                <div class="col-span-2 sm:col-span-2">
-                    <div class="flex items-center space-x-2">
-                        <x-input-label for="discount">Desconto</x-input-label>
-                        <x-text-input name="discount" id="discount" type="text"
-                                      x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
-                                      class="block w-1/2 mt-1 " wire:model.defer="discount_percent"/>
-                        <x-primary-button type="button" wire:click="select">
-                            <x-icon name="calculator" class="w-5 h-5"></x-icon>
-                        </x-primary-button>
-                    </div>
-                </div>
-                <div class="col-span-2 sm:col-span-2">
-                    <div class="flex items-center space-x-2">
-                        <x-input-label for="payment">Pagamento</x-input-label>
-                        <x-text-input name="payment" id="payment" type="text"
-                                      x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
-                                      class="block w-1/2 mt-1 " wire:model.defer="payment_percent"/>
-                        <x-primary-button type="button" wire:click="select">
-                            <x-icon name="calculator" class="w-5 h-5"></x-icon>
-                        </x-primary-button>
-                    </div>
+        <div class="col-span-4 sm:col-span-2">
+            <div class="bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg w-full h-16">
+                <div class="flex items-center space-x-2">
+                    <x-input-label for="discount">Desconto</x-input-label>
+                    <x-text-input name="discount" id="discount" type="text"
+                                  x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
+                                  class="block w-1/2 mt-1 " wire:model.defer="discount_percent"/>
+                    <x-primary-button type="button" wire:click="calcDiscount">
+                        <x-icon name="calculator" class="w-5 h-5"></x-icon>
+                    </x-primary-button>
                 </div>
             </div>
         </div>
-        <div class="col-span-4 sm:col-span-3 bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg ">
-            <div class="sm:flex flex-row-reverse space-x-4 p-2 text-sm">
+        <div class="col-span-4 sm:col-span-4">
+            <div class="inline-flex bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg w-full h-16">
                 <div class="grid content-center mx-2">
                     <div class="inline-flex">
-                        <span class="text-gray-500 dark:text-gray-200">Valor a Pagar:</span>
-                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$payment_value, 2, '.', '')}}</span>
-                    </div>
-                </div>
-                <div class="grid content-center mx-2">
-                    <div class="inline-flex">
-                        <span class="text-gray-500 dark:text-gray-200">Valor a Descontar:</span>
-                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$discount_value, 2, '.', '')}}</span>
+                        <span class="text-gray-500 dark:text-gray-200">Quantidade:</span>
+                        <span class="text-gray-700 dark:text-gray-50 font-semibold">{{count($invoices)}}</span>
                     </div>
                 </div>
                 <div class="grid content-center mx-2">
                     <div class="inline-flex">
                         <span class="text-gray-500 dark:text-gray-200">Valor Bruto:</span>
-                        <span class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$total_value_invoices, 2, '.', '')}}</span>
+                        <span
+                            class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$discount_value, 2, '.', '')}}</span>
                     </div>
                 </div>
                 <div class="grid content-center mx-2">
                     <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor a Descontar:</span>
+                        <span
+                            class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$liquid_discount_value, 2, '.', '')}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+        <div class="col-span-4 sm:col-span-2">
+            <div class="bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg w-full h-16">
+                <div class="flex items-center space-x-2">
+                    <x-input-label for="payment">Pagamento</x-input-label>
+                    <x-text-input name="payment" id="payment" type="text"
+                                  x-mask:dynamic="$money($input, '.')" placeholder="%" maxlength="4"
+                                  class="block w-1/2 mt-1 " wire:model.defer="payment_percent"/>
+                    <x-primary-button type="button" wire:click="calcPayment">
+                        <x-icon name="calculator" class="w-5 h-5"></x-icon>
+                    </x-primary-button>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-4 sm:col-span-4">
+            <div class="inline-flex bg-white dark:bg-gray-800 shadow-sm p-2 rounded-lg w-full h-16">
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
                         <span class="text-gray-500 dark:text-gray-200">Quantidade:</span>
-                        <span class="text-gray-700 dark:text-gray-50 font-semibold">{{count($selected_invoices)}}</span>
+                        <span
+                            class="text-gray-700 dark:text-gray-50 font-semibold">{{count($invoices->where('payment_enable', true))}}</span>
+                    </div>
+                </div>
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor Bruto:</span>
+                        <span
+                            class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$payment_value, 2, '.', '')}}</span>
+                    </div>
+                </div>
+                <div class="grid content-center mx-2">
+                    <div class="inline-flex">
+                        <span class="text-gray-500 dark:text-gray-200">Valor a Pagar:</span>
+                        <span
+                            class="text-gray-700 dark:text-gray-50 font-semibold">R$ {{number_format((float)$liquid_payment_value, 2, '.', '')}}</span>
                     </div>
                 </div>
             </div>
@@ -152,4 +178,5 @@
                 </button>
         -->
     </div>
+    @livewire('administrativo::financial.edit-invoice')
 </div>
