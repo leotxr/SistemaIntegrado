@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>Resumo do processamento de desconto no faturamento de Exames por Médico</title>
+    <title>Exames enviados para Sirius</title>
 
     <style>
         table {
             font-family: arial, sans-serif;
+            font-size: xx-small;
             border-collapse: collapse;
             width: 100%;
         }
@@ -38,24 +39,22 @@
             <thead>
             <tr>
                 <th>Data Exame</th>
-                <th>Fatura</th>
                 <th>ID Paciente</th>
                 <th>Nome Paciente</th>
                 <th>Exame</th>
-                <th>Convênio</th>
                 <th>Valor</th>
+                <th>Pago</th>
             </tr>
             </thead>
             <tbody>
             @foreach($invoices as $invoice)
                 <tr>
                     <td>{{date('d/m/y', strtotime($invoice->exam_date))}}</td>
-                    <td>{{$invoice->invoice_id}}</td>
                     <td>{{$invoice->patient_id}}</td>
                     <td>{{$invoice->patient_name}}</td>
                     <td>{{$invoice->exam_description}}</td>
-                    <td>{{$invoice->insurance}}</td>
                     <td>R$ {{$invoice->total_value}}</td>
+                    <td>@if($invoice->payment_enable === 1) Sim @else Não @endif</td>
                 </tr>
             @endforeach
             </tbody>

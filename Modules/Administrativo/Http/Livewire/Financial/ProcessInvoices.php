@@ -122,7 +122,7 @@ class ProcessInvoices extends Component
                 'invoices_payment' => $this->invoices_payment,
                 'payment_value' => $this->payment_value,
                 'liquid_payment_value' => $this->liquid_payment_value,
-                'payment_percent' => $this->payment_percent])->output();
+                'payment_percent' => $this->payment_percent])->setPaper('a4', 'landscape')->output();
         return response()->streamDownload(
             fn () => print($pdfContent),
             "filename.pdf"
