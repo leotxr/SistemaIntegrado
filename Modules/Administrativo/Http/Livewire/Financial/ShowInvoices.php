@@ -38,6 +38,6 @@ class ShowInvoices extends Component
 
     public function render()
     {
-        return view('administrativo::livewire.financial.show-invoices', ['invoices' => $this->getInvoices()]);
+        return view('administrativo::livewire.financial.show-invoices', ['invoices' => $this->getInvoices(), 'count_invoices' => FinancialInvoice::whereMonth('exam_date', date('m'))->count()]);
     }
 }

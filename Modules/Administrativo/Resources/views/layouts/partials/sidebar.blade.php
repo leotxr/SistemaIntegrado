@@ -16,7 +16,7 @@
         <li x-data="{open:false}">
             <x-side-link class="w-full" x-on:click="open = ! open" href="#"
                          :active="Request::is('administrativo/financeiro/exames-sirius/nova')">
-                <x-icon name="calculator"
+                <x-icon name="cash"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                 </x-icon>
                 <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Financeiro</span>
@@ -47,6 +47,24 @@
 
             </ul>
         </li>
+        <li>
+            <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                         :active="Request::is('administrativo/financeiro/exames-sirius/nova')">
+                <x-icon name="user-group"
+                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                </x-icon>
+                <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">RH</span>
+            </x-side-link>
+        </li>
+            <li>
+                <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                             :active="Request::is('administrativo/financeiro/exames-sirius/nova')">
+                    <x-icon name="collection"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                    </x-icon>
+                    <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Patrimônios</span>
+                </x-side-link>
+            </li>
     </x-slot>
 </x-sidebar>
 

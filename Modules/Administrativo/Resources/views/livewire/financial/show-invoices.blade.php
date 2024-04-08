@@ -8,8 +8,8 @@
         </x-primary-button>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-6 gap-2">
-        <div class="col-span-2 sm:col-span-4 bg-white dark:bg-gray-800 rounded-lg">
-            <x-dashboard-container>
+        <div class="col-span-2 sm:col-span-4 rounded-lg" >
+            <x-dashboard-container height="lg">
                 <x-slot:title>Últimas importações</x-slot:title>
                 <x-slot:description>Mostra os 5 últimos exames importados.</x-slot:description>
                 <x-slot:content>
@@ -42,7 +42,7 @@
                 <x-slot:description>Até o momento este é o total de exames incluídos este mês</x-slot:description>
                 <x-slot:content>
                     <div class="text-center grid content-center">
-                        <span class="text-5xl">51</span>
+                        <span class="text-5xl text-gray-600 dark:text-gray-200">{{$count_invoices}}</span>
                     </div>
                 </x-slot:content>
             </x-dashboard-container>
