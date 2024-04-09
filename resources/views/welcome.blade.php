@@ -9,7 +9,7 @@
         :
         ['id' => 2, 'label' => 'Chamados', 'link' => 'helpdesk.guest.index', 'icon' => 'helpdesk', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-400 to-blue-500', 'permission' => 'abrir chamado']
         ,
-        ['id' => 3, 'label' => 'Administrativo', 'link' => 'administrativo.index', 'icon' => 'monitor', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-400 to-rose-400', 'permission' => ''],
+        ['id' => 3, 'label' => 'Administrativo', 'link' => 'administrativo.index', 'icon' => 'monitor', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-400 to-rose-400', 'permission' => 'cadastrar exame sirius'],
         ['id' => 4, 'label' => 'Triagem', 'link' => 'triagem.index', 'icon' => 'beaker', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-300 to-violet-400', 'permission' => 'criar triagem'],
         ['id' => 5, 'label' => 'Encaixes', 'link' => 'orcamento.index', 'icon' => 'notebook', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 to-rose-500', 'permission' => 'criar orcamento'],
         ['id' => 6, 'label' => 'Não Conformidades', 'link' => 'nc.index', 'icon' => 'exclamation-circle', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-300 to-yellow-500', 'permission' => 'criar ncs'],
