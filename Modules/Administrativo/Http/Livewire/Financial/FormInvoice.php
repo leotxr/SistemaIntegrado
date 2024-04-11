@@ -70,7 +70,7 @@ class FormInvoice extends Component
             $this->invoice->patient_name = $query->PACIENTE;
             $this->invoice->exam_id = $invoice_id;
             $this->invoice->exam_description = $query->PROCEDIMENTO;
-            $this->invoice->exam_date = now()->format('Y-m-d');
+            $this->invoice->exam_date = $query->DATA;
             $this->invoice->insurance = $query->CONVENIO;
             $this->invoice->doctor = $query->MEDICO;
             $this->invoice->doctor_id = $query->MEDICO_ID;
