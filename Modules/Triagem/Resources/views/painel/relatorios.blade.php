@@ -9,9 +9,9 @@
 @section('content')
 <div class="m-4 shadow-sm">
     <div class="max-w-full px-12">
-        {{--
+
             @livewire('triagem::reports.show-exams')
-            --}}
+
 
         </div>
     </div>
