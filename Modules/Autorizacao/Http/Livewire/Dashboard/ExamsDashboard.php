@@ -16,6 +16,7 @@ class ExamsDashboard extends Component
 {
     use WithPagination;
     use ProtocolTraits;
+
     //public $selectedStatus = [];
     public $activeStatus = 6;
     public $sortField = 'exams.exam_date';
@@ -62,17 +63,21 @@ class ExamsDashboard extends Component
         $statuses = ExamStatus::all();
         $sorted = $statuses->sortBy('order_to_show');
 
+
         if ($this->activeStatus == 1 || $this->activeStatus == 4) {
             return view('autorizacao::livewire.dashboard.exams-dashboard', ['statuses' => $sorted->all(), 'selectedStatus' => Protocol::search($this->sortField, $this->search)->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                 ->where('exam_status_id', $this->activeStatus)
                 ->whereDate('exams.updated_at', date('Y-m-d'))
+                ->whereNull('exams.deleted_at')
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10)]);
         } else {
             return view('autorizacao::livewire.dashboard.exams-dashboard', ['statuses' => $sorted->all(), 'selectedStatus' => Protocol::search($this->sortField, $this->search)->join('exams', 'exams.protocol_id', '=', 'protocols.id')
                 ->where('exam_status_id', $this->activeStatus)
+                ->whereNull('exams.deleted_at')
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10)]);
         }
+
     }
 }

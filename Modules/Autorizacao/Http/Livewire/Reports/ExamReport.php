@@ -78,7 +78,8 @@ class ExamReport extends Component
 
     public function render()
     {
-        return view('autorizacao::livewire.reports.exam-report', ['protocols' => Protocol::search($this->sortField, $this->search)->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
+        return view('autorizacao::livewire.reports.exam-report', ['protocols' => Protocol::search($this->sortField, $this->search)
+            ->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
             ->whereIn('user_id', $this->selectedUsers)
             ->whereIn('updated_by', $this->selectedUpdaters)
             ->orderBy($this->sortField, $this->sortDirection)

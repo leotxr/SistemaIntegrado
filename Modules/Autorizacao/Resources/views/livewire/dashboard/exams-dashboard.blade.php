@@ -9,7 +9,7 @@
                 <div class="font-bold">{{$status->name}}</div>
                 <div class="text-gray-800 stat-value">
                     @php
-                    $count = \Modules\Autorizacao\Entities\Exam::where('exam_status_id', $status->id);
+                    $count = $status->exams();
                     if($status->id == 1 || $status->id == 4)
                     {
                         $count = $count->whereDate('updated_at', date('Y-m-d'));

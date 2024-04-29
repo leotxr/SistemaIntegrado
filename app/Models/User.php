@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Administrativo\Entities\ExtraTime;
+use Modules\Autorizacao\Entities\ExamEvent;
 use Modules\NC\Entities\NonConformity;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Contracts\Role;
@@ -104,6 +105,16 @@ class User extends Authenticatable
     public function sourceUser()
     {
         return $this->hasMany(NonConformity::class, 'source_user_id', 'id');
+    }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(ExamEvent::class);
     }
 
 

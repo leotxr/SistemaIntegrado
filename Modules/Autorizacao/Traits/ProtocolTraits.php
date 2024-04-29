@@ -81,6 +81,7 @@ trait ProtocolTraits
             ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'VW_CL_AGENDA_PORTALAGENDA.PROCID')
             ->where('VW_AGENDA.HORREQID', '=', $search_key)
             ->whereNotNull('VW_AGENDA.CONVENIOID')
+            ->whereNotIn('VW_AGENDA.CONVENIOID', [22,647,614])
             ->select(DB::raw("VW_CL_AGENDA_PORTALAGENDA.HORREQID, FORMAT(VW_AGENDA.DATA, 'yyyy-MM-dd') AS DATA, VW_AGENDA.PACIENTEID, VW_AGENDA.NOMEPAC, VW_AGENDA.CONVDESC, VW_CL_AGENDA_PORTALAGENDA.NOME_PROCEDIMENTO, PROCEDIMENTOS.CODIGO, PROCEDIMENTOS.CODTUSS, VW_AGENDA.CONVENIOID"))
             ->get();
     }
@@ -99,7 +100,11 @@ trait ProtocolTraits
         $saving->convenio = $exam['convenio'];
         $saving->exam_cod = $exam['exam_cod'] ?? NULL;
         $saving->updated_by = Auth::user()->id;
+        $saving->save();
+        if(auth()->user()->user_group_id === 5)
+        $saving->events()->sync([5 => ['user_id' => auth()->user()->id, 'created_at' => now()]], true);
 
-        return $saving->save();
+        if($saving->save()) return true;
+        else return false;
     }
 }

@@ -30,6 +30,7 @@ class FormSearch extends Component
     public $exams = [];
     public $patient;
     public $exam;
+    public $user;
 
     protected $rules = [
         'protocol' => 'required|min:6',
@@ -101,11 +102,18 @@ class FormSearch extends Component
         }
     }
 
+    public function checkUser($user)
+    {
+        if($user->user_group_id === 5) return true;
+        else return false;
+    }
+
     public function save()
     {
-        $this->protocol->created_by = Auth::user()->name;
-        $this->protocol->user_id = Auth::user()->id;
-        $this->protocol->updated_by = Auth::user()->id;
+        $this->user = auth()->user();
+        $this->protocol->created_by = $this->user->name;
+        $this->protocol->user_id = $this->user->id;
+        $this->protocol->updated_by = $this->user->id;
         $save_protocol = $this->protocol->save();
 
         if (!$save_protocol) {

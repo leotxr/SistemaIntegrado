@@ -27,6 +27,11 @@ Route::middleware('auth')->group(function () {
            return view('autorizacao::relatorios.exam-report');
         })->name('autorizacao.exam-report');
         Route::get('/', [AutorizacaoController::class, 'index'])->name('autorizacao.index');
+
+        Route::get('fila-de-envios', function()
+        {
+            return view('autorizacao::pages.transactions.dashboard');
+        })->name('autorizacao.transactions');
     });
 });
 

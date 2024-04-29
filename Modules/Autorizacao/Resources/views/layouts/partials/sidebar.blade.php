@@ -62,6 +62,17 @@
                 </ul>
             </li>
         @endcan
+            <li>
+                <x-side-link :href="route('autorizacao.transactions')"
+                             :active="request()->routeIs('autorizacao.transactions')"
+                              class="w-full">
+                    <x-icon name="switch-horizontal"
+                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                    </x-icon>
+                    <span class="ml-3" x-show="expanded">Envio de Exames</span>
+                </x-side-link>
+            </li>
+
     </x-slot>
 </x-sidebar>
 

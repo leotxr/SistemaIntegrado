@@ -2,6 +2,7 @@
 
 namespace Modules\Autorizacao\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,6 +33,7 @@ class Exam extends Model
         return $this->hasOne('Modules\Autorizacao\Entities\ExamStatus', 'id');
     }
 
+
     public function protocol()
     {
         return $this->belongsTo(Protocol::class, 'protocol_id', 'id');
@@ -44,6 +46,17 @@ class Exam extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(ExamEvent::class, 'exam_event_users' )->withPivot('observation');
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'exam_event_users');
+    }
+
 
     protected static function newFactory()
     {

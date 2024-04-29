@@ -21,6 +21,8 @@ class EditRequest extends Component
     public $modalExam = false;
     public $modalObservation = false;
     public $modalDelete = false;
+    public $modalDeleteExam = false;
+    public $deleting_exam;
 
     protected $listeners = [
         'editRequest' => 'openEditRequest'
@@ -41,12 +43,17 @@ class EditRequest extends Component
         $this->statuses = ExamStatus::orderBy('order_to_show')->get();
     }
 
+    public function getProtocolExams($protocol_id)
+    {
+        return Exam::where('protocol_id', $protocol_id)->get();
+    }
+
     public function openEditRequest(Protocol $protocol)
     {
         $this->editing_protocol = $protocol;
 
         if ($this->checkProtocol($this->editing_protocol->id) === false) {
-            $this->editing = Exam::where('protocol_id', $protocol->id)->get();
+            $this->editing = $this->getProtocolExams($this->editing_protocol->id);
             $this->modalExam = true;
             $this->inProcessing($this->editing_protocol->id);
         } else {
@@ -69,6 +76,7 @@ class EditRequest extends Component
 
         if ($this->editing_protocol) {
             $saving_protocol = $this->editing_protocol;
+            $saving_protocol->recebido = true;
             $saving_protocol->updated_by = Auth::user()->id;
             $saving_protocol->save();
         }
@@ -109,6 +117,40 @@ class EditRequest extends Component
         return redirect()->route('autorizacao.index');
     }
 
+    public function openDeleteExam($exam_id)
+    {
+        if ($this->editing_protocol->exams()->count() <= 1) {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Não foi possível excluir. Este protocolo tem apenas 1 exame.']
+            );
+        } else {
+            $this->deleting_exam = Exam::find($exam_id);
+            $this->modalDeleteExam = true;
+        }
+
+    }
+
+    public function deleteExam(Exam $exam)
+    {
+        $this->deleting_exam = $exam;
+        if ($this->deleting_exam->delete()) {
+            $this->emitUp('refreshParent');
+            $this->editing = $this->getProtocolExams($this->editing_protocol->id);
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'success', 'message' => 'Exame excluído com sucesso!']
+            );
+        } else {
+            $this->dispatchBrowserEvent(
+                'notify',
+                ['type' => 'error', 'message' => 'Ocorreu um erro ao excluir o exame.']
+            );
+        }
+        $this->modalDeleteExam = false;
+
+    }
+
     public function close()
     {
         $this->modalExam = false;
@@ -119,6 +161,7 @@ class EditRequest extends Component
 
     public function render()
     {
+
         return view('autorizacao::livewire.requests.edit-request');
     }
 }
