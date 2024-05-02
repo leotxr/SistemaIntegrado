@@ -3,11 +3,13 @@
 namespace Modules\Autorizacao\Http\Livewire\Dashboard;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use Modules\Autorizacao\Entities\Exam;
 use Modules\Autorizacao\Entities\ExamEvent;
 
 class TransactionQueue extends Component
 {
+    use WithPagination;
     public $selected_status = 5;
     public $selected_event_show;
     public $selectAllExams = false;
