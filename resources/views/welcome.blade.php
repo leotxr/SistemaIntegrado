@@ -18,19 +18,19 @@
         ['id' => 9, 'label' => 'Sistema', 'link' => 'dashboard', 'icon' => 'cog', 'bg' => 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r', 'permission' => 'ver configuracoes'],
     ]);
         @endphp
-        <h1 class="pb-6 text-2xl font-bold dark:text-white text-gray-700">Olá {{ auth()->user()->name }}</h1>
-        <ul class="text-white grid grid-cols-2 sm:grid-cols-6 gap-4">
+        <h1 class="pb-6 text-2xl font-bold dark:text-white text-gray-700 ">Olá {{ auth()->user()->name }}</h1>
+        <ul class="text-white grid grid-cols-6 sm:grid-cols-6 sm:gap-4 gap-2">
             @foreach($items as $item)
                 @can($item['permission'])
                     <div class="sm:col-span-2 col-span-2">
                         <a type="button"
                            class="cursor-pointer w-full h-full grid place-items-center hover:bg-gray-50 dark:hover:bg-gray-800 hover:shadow-md transition transform duration-300 p-2"
                            href="{{route($item['link'])}}">
-                            <div class="p-2 rounded-full grid place-items-center {{$item['bg']}}">
-                                <x-icon name="{{$item['icon']}}" class="w-12 h-12 m-2 "></x-icon>
+                            <div class="sm:p-2 p-1 rounded-full grid place-items-center {{$item['bg']}}">
+                                <x-icon name="{{$item['icon']}}" class="sm:w-12 sm:h-12 w-5 h-5 m-2 "></x-icon>
                             </div>
                             <span
-                                class="font-regular text-xl text-gray-800 dark:text-white">{{$item['label']}}</span></a>
+                                class="font-regular sm:text-xl text-xs text-gray-800 dark:text-white">{{$item['label']}}</span></a>
                     </div>
                 @endcan
             @endforeach
