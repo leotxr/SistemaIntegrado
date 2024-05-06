@@ -45,7 +45,7 @@ class TransactionQueue extends Component
             $event = ExamEvent::find($value);
             foreach ($this->selected_exams as $selected_exam) {
                 $exam = Exam::find($selected_exam);
-                $exam->events()->sync([$event->id => ['user_id' => auth()->user()->id, 'observation' => 'TESTE', 'created_at' => now()]], true);
+                $exam->events()->sync([$event->id => ['user_id' => auth()->user()->id, 'created_at' => now()]], true);
             }
             $this->dispatchBrowserEvent(
                 'notify',
