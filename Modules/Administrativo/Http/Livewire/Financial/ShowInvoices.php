@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\Administrativo\Entities\FinancialInvoice;
 use App\Models\User;
 use Modules\Administrativo\Exports\Financial\DiscountExamsExport;
+use Modules\Administrativo\Traits\InvoiceTraits;
 use Modules\Laudo\Exports\ExamsExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -24,20 +25,18 @@ class ShowInvoices extends Component
     public $percent;
     public $CheckAllInvoices = false;
 
+    use InvoiceTraits;
     public function mount()
     {
-        $this->doctors = Doctor::all();
+        $this->doctors = Doctor::all(); // Busca todos os médicos
 
-    }
-
-    public function getInvoices()
-    {
-        return FinancialInvoice::orderBy('id', 'desc')->take(5)->get();
     }
 
 
     public function render()
     {
-        return view('administrativo::livewire.financial.show-invoices', ['invoices' => $this->getInvoices(), 'count_invoices' => FinancialInvoice::whereMonth('exam_date', date('m'))->count()]);
+        return view('administrativo::livewire.financial.show-invoices', [
+            'count_invoices' => FinancialInvoice::whereMonth('exam_date', date('m'))->count() //Retorna todas as faturas do mês atual
+        ]);
     }
 }

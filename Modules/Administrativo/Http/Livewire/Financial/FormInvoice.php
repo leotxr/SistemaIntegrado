@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Modules\Administrativo\Entities\FinancialInvoice;
 use Illuminate\Support\Facades\Auth;
+use Modules\Administrativo\Traits\InvoiceTraits;
 
 
 class FormInvoice extends Component
 {
+    use InvoiceTraits;
     public $invoice_id;
     public $invoice;
     public $payment_enable = true;
@@ -30,40 +32,21 @@ class FormInvoice extends Component
         //$this->saving_invoice = new FinancialInvoice();
     }
 
-    public function getInvoice($invoice_id)
+
+
+    public function searchInvoiceData($invoice_id) // Função para buscar Fatura no servidor X-Clinic e atribuir à variável
     {
 
-        return DB::connection('sqlserver')->table('FATURA')
-            ->join('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
-            ->join('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
-            ->join('CONVENIOS', 'CONVENIOS.CONVENIOID', '=', 'FATURA.CONVENIOID')
-            ->join('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
-            ->where('FATURA.FATURAID', $invoice_id)
-            ->selectRaw('FATURA.DATA AS DATA,
-            FATURA.FATURAID AS FATURA,
-            PACIENTE.NOME AS PACIENTE,
-            PACIENTE.PACIENTEID AS PACIENTE_ID,
-            PROCEDIMENTOS.DESCRICAO AS PROCEDIMENTO,
-            CONVENIOS.DESCRICAO AS CONVENIO,
-            MEDICOS.NOME AS MEDICO,
-            MEDICOS.MEDICOID AS MEDICO_ID,
-            FATURA.VAL_CH + FATURA.VAL_CO + FATURA.VAL_FIL + FATURA.VAL_MAT AS VALOR_CONVENIO,
-            FATURA.VALPARTCH + FATURA.VALPARTCO AS VALOR_PAGO')->first();
-    }
-
-    public function searchInvoiceData($invoice_id)
-    {
-
-        $this->invoice_id = $invoice_id;
-        if (!$this->getInvoice($this->invoice_id)) {
+        $this->invoice_id = $invoice_id; // Variável invoice_id recebe o código da fatura informado
+        if (!$this->getXClinicInvoice($this->invoice_id)) { // Executa a função da Trait buscando o código informado no X-Clinic. Se o código não for encontrado retorna um erro.
             $this->dispatchBrowserEvent(
                 'notify',
                 ['type' => 'error', 'message' => 'Código de Fatura não encontrado.']
-            );
-        } else {
-            $query = $this->getInvoice($this->invoice_id);
+            ); // Retorno do erro
+        } else { // Se encontrar a fatura no X-Clinic
+            $query = $this->getXClinicInvoice($this->invoice_id); // Variável local query recebe o retorno da função de busca no X-clinic com os dados pré-setados na função
 
-            $this->invoice = new FinancialInvoice();
+            $this->invoice = new FinancialInvoice(); // Variável invoice recebe um novo objeto FinancialInvoice (Fatura) e passa os valores para cada atributo
             $this->invoice->payment_enable = true;
             $this->invoice->invoice_id = $query->FATURA;
             $this->invoice->patient_id = $query->PACIENTE_ID;
@@ -79,24 +62,25 @@ class FormInvoice extends Component
             $this->invoice->total_value = $this->invoice->paid_insurance + $this->invoice->paid_patient;
             $this->invoice->processed = 0;
             $this->invoice->requester_id = Auth::user()->id;
+            //Após passar todos os valores para os atributos, eles são mostrados na tela de formulário.
         }
     }
 
-    public function saveInvoice()
+    public function saveInvoice() // Função para salvar a fatura criada
     {
-        if ($this->invoice->save()) {
+        if ($this->invoice->save()) { // Tenta salvar a fatura recebida na variável anteriormente. Caso haja sucesso emite um evento.
             $this->dispatchBrowserEvent(
                 'notify',
                 ['type' => 'success', 'message' => 'Fatura enviada para processamento!']
-            );
-            $this->reset();
-            $this->emit('clearInvoiceId');
-        } else {
+            ); // Notificação de sucesso
+            $this->reset(); // Reseta todas as variáveis da classe para uma nova fatura.
+            $this->emit('clearInvoiceId'); // Emite um evento para limpar as variáveis.
+        } else { // Se não salvar, emite uma notificação de erro mas não atualiza a página, o usuário pode corrigir.
 
             $this->dispatchBrowserEvent(
                 'notify',
                 ['type' => 'error', 'message' => 'Ocorreu um erro ao enviar a fatura.']
-            );
+            ); // Notificação de erro.
         }
 
     }
