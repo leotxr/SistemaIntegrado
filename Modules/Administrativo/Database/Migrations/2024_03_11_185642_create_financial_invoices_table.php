@@ -21,7 +21,12 @@ return new class extends Migration {
             $table->string('exam_description')->nullable();
             $table->date('exam_date')->nullable();
             $table->string('insurance')->nullable();
-            $table->integer('doctor_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->foreign('doctor_id')
+                ->references('id')
+                ->on('doctors')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('doctor')->nullable();
             $table->float('paid_insurance')->nullable();
             $table->float('paid_patient')->nullable();
