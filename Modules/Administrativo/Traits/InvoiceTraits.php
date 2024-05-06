@@ -24,7 +24,15 @@ trait InvoiceTraits
             MEDICOS.NOME AS MEDICO,
             MEDICOS.MEDICOID AS MEDICO_ID,
             FATURA.VAL_CH + FATURA.VAL_CO + FATURA.VAL_FIL + FATURA.VAL_MAT AS VALOR_CONVENIO,
-            FATURA.VALPARTCH + FATURA.VALPARTCO AS VALOR_PAGO')->first();
+            FATURA.VALPARTCH + FATURA.VALPARTCO AS VALOR_PAGO,
+            FATURA.DESCONTO AS DESCONTO')->first();
+    }
+
+    public function getMaterialValue($invoice_id) // Busca todos os materiais referentes a fatura e retorna a soma dos valores
+    {
+        return DB::connection('sqlserver')->table('FATURA_MATERIAIS')
+            ->where('FATURAID', $invoice_id)
+            ->selectRaw('SUM(FATURA_MATERIAIS.VALORTOTAL) AS VALORTOTAL')->first();
     }
     public function getInvoicesByDoctorAndDate($selected_doctor, $start_date, $end_date)
     {

@@ -67,6 +67,12 @@
                                 </dt>
                                 <dd class="dark:bg-gray-900 dark:text-gray-300">{{number_format($invoice->paid_patient, 2, ',', '')}}</dd>
                             </div>
+                            <div class="mt-4 col-span-2 sm:col-span-2">
+                                <dt class="block font-medium text-sm text-gray-700 dark:text-gray-300">
+                                    Valor Total
+                                </dt>
+                                <dd class="dark:bg-gray-900 dark:text-gray-300">{{number_format($invoice->total_value, 2, ',', '')}}</dd>
+                            </div>
                             <div class="mt-4 col-span-2 sm:col-span-2 inline-flex">
                                 <x-text-input type="checkbox" class="mx-2 checkbox" id="checkbox" name="checkbox"
                                               wire:model="invoice.payment_enable"/>

@@ -38,6 +38,12 @@ Route::middleware('auth')->group(function () {
 
         });
 
+        Route::prefix('rh')->group(function () {
+            Route::get('/', function(){
+                return view('administrativo::rh.index');
+            })->name('administrativo.rh');
+        });
+
 
 
         Route::get('/monitoramento', function () {

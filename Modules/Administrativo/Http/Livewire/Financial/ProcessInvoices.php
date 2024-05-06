@@ -105,7 +105,7 @@ class ProcessInvoices extends Component
         $range = [
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'doctor' => Doctor::where('external_id', $this->selected_doctor)->first(),
+            'doctor' => Doctor::find($this->selected_doctor),
             'invoices' => $this->invoices_discount,
             'discount_value' => $this->discount_value,
             'liquid_discount_value' => $this->liquid_discount_value,
@@ -126,7 +126,7 @@ class ProcessInvoices extends Component
         $pdfContent = PDF::loadView('administrativo::financial.exports.pdf-discount-exams-export',
             ['start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'doctor' => Doctor::where('external_id', $this->selected_doctor)->first(),
+                'doctor' => Doctor::find($this->selected_doctor),
                 'invoices' => $this->invoices_discount,
                 'discount_value' => $this->discount_value,
                 'liquid_discount_value' => $this->liquid_discount_value,

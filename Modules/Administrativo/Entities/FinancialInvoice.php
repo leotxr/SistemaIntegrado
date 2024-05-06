@@ -2,6 +2,7 @@
 
 namespace Modules\Administrativo\Entities;
 
+use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,6 +27,11 @@ class FinancialInvoice extends Model
         'requester_id',
         'user_id'
     ];
+
+    public function financialDoctor()
+    {
+       return $this->belongsTo(Doctor::class);
+    }
 
     protected static function newFactory()
     {

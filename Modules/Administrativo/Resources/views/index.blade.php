@@ -15,7 +15,7 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="sm:flex justify-center space-x-4 space-y-4" x-data="{items: [
                 {name: 'Financeiro', description: 'Cálculo de exames enviados para Sirius', link: '{{route('administrativo.financial')}}' },
-                {name: 'RH', description: 'Gerenciar horas extras/faltosas', link:''},
+                {name: 'RH', description: 'Gerenciar horas extras/faltosas', link:'{{route('administrativo.rh')}}'},
                 {name: 'Patrimonial', description: 'Gerenciar patrimônio da empresa', link:''}
                 ]}">
                     <template x-for="item in items">

@@ -9,7 +9,7 @@
                     <x-slot name='option'>
                         <option selected> Selecione</option>
                         @foreach($doctors as $doctor)
-                            <x-select.option value="{{$doctor->external_id}}">
+                            <x-select.option value="{{$doctor->id}}">
                                 {{$doctor->name}}
                             </x-select.option>
                         @endforeach
