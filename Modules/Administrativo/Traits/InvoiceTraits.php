@@ -36,7 +36,7 @@ trait InvoiceTraits
     }
     public function getInvoicesByDoctorAndDate($selected_doctor, $start_date, $end_date)
     {
-        return FinancialInvoice::where('doctor_id', $selected_doctor)->whereBetween('exam_date', [$start_date, $end_date])->get();
+        return FinancialInvoice::where('doctor_id', $selected_doctor)->whereBetween('exam_date', [$start_date, $end_date])->orderBy('patient_name', 'asc')->get();
     }
 
     public function getNInvoices($value)
