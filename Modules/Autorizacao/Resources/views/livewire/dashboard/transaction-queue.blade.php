@@ -41,6 +41,11 @@
         </div>
     </div>
     <div>
+        <div class="mt-4">
+            <x-text-input type="text" wire:model='search' placeholder="Buscar solicitações...">
+            </x-text-input>
+            <x-input-error class="mt-2" :messages="$errors->get('exam.exam')"/>
+        </div>
         <div>
             <x-title>Mostrando resultados para: <span
                         class="font-semibold text-lg">{{$selected_event_show->name}}</span></x-title>
@@ -48,11 +53,11 @@
         <x-table>
             <x-slot name="head">
                 <x-table.heading><input type="checkbox" wire:model="selectAllExams"/></x-table.heading>
-                <x-table.heading>ID</x-table.heading>
-                <x-table.heading>Data Exame</x-table.heading>
-                <x-table.heading>Paciente</x-table.heading>
-                <x-table.heading>Procedimento</x-table.heading>
-                <x-table.heading>Status</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('exams.id')" :direction="$sort_field === 'exams.id' ? $sort_direction : null">ID</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('exams.exam_date')" :direction="$sort_field === 'exams.exam_date' ? $sort_direction : null">Data Exame</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('protocols.paciente_name')" :direction="$sort_field === 'protocols.paciente_name' ? $sort_direction : null">Paciente</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('exams.name')" :direction="$sort_field === 'exams.name' ? $sort_direction : null">Procedimento</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('exam_statuses.name')" :direction="$sort_field === 'exam_statuses.name' ? $sort_direction : null">Status</x-table.heading>
                 <x-table.heading>Envio único</x-table.heading>
             </x-slot>
             <x-slot name="body">
@@ -68,10 +73,10 @@
                                    class="w-4 h-4"/>
                         </x-table.cell>
                         <x-table.cell>{{$exam->exam_id}}</x-table.cell>
-                        <x-table.cell>{{$exam->exam_date}}</x-table.cell>
-                        <x-table.cell>{{$exam->protocol->paciente_name}}</x-table.cell>
-                        <x-table.cell>{{$exam->name}}</x-table.cell>
-                        <x-table.cell>{{$exam->ExamStatus->name}}</x-table.cell>
+                        <x-table.cell>{{date('d/m/y', strtotime($exam->exam_date))}}</x-table.cell>
+                        <x-table.cell>{{$exam->paciente_name}}</x-table.cell>
+                        <x-table.cell>{{$exam->exam_name}}</x-table.cell>
+                        <x-table.cell>{{$exam->status_name}}</x-table.cell>
                         <x-table.cell>
 
                             <x-secondary-button wire:click="$emit('newTransaction', {{$exam->exam_id}})"

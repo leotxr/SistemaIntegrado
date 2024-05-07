@@ -10,10 +10,14 @@ use Modules\Autorizacao\Entities\ExamEvent;
 class TransactionQueue extends Component
 {
     use WithPagination;
+
     public $selected_status = 5;
     public $selected_event_show;
     public $selectAllExams = false;
     public $selected_exams = [];
+    public $sort_field = 'exam_id';
+    public $sort_direction = 'asc';
+    public $search = '';
 
     protected $listeners = ['refreshParent' => '$refresh'];
 
@@ -56,11 +60,26 @@ class TransactionQueue extends Component
 
     }
 
+    public function sortBy($field)
+    {
+
+        $this->sort_direction = $this->sort_field === $field
+            ? $this->sort_direction = $this->sort_direction === 'asc' ? 'desc' : 'asc'
+            : 'asc';
+
+        $this->sort_field = $field;
+    }
+
+
     public function getExams()
     {
-        return Exam::join('protocols', 'exams.protocol_id', '=', 'protocols.id')
+        return Exam::search($this->sort_field, $this->search)
+            ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
             ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
-            ->where('exam_event_users.exam_event_id', $this->selected_status);
+            ->join('exam_statuses', 'exam_statuses.id', '=', 'exams.exam_status_id')
+            ->where('exam_event_users.exam_event_id', $this->selected_status)
+            ->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
+            ->orderBy($this->sort_field, $this->sort_direction);
         //->whereDate('exam_event_users.created_at', '>', now()->subDays(7));
 
     }
