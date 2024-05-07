@@ -1,5 +1,5 @@
 <div >
-    <x-dashboard-container height="lg" width="full" class="overflow-hidden">
+    <x-dashboard-container height="md" width="full" class="overflow-hidden">
         <x-slot:title>Faturas por médico</x-slot:title>
         <x-slot:description>Divisão de faturas por médico</x-slot:description>
         <x-slot:content>
