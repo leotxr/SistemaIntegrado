@@ -15,7 +15,7 @@ class ChartInvoicesMonth extends Component
         $doctors = Doctor::all();
         foreach($doctors as $doctor){
             $this->doctors[] = $doctor->name;
-            $this->invoices_by_doctor[] = $doctor->invoices->count();
+            $this->invoices_by_doctor[] = $doctor->invoices->count() ?? 0;
         }
 
     }
