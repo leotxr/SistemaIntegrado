@@ -3,7 +3,7 @@
         <x-slot:title>Faturas por médico</x-slot:title>
         <x-slot:description>Divisão de faturas por médico</x-slot:description>
         <x-slot:content>
-            <div id="chartDoctorsMonth">
+            <div class="flex content-center" id="chartDoctorsMonth">
 
             </div>
         </x-slot:content>
@@ -39,11 +39,11 @@
             },
 
             responsive: [{
-                breakpoint: 400,
+                breakpoint: 420,
                 options: {
                     chart: {
                         width: 320,
-                        height: 400
+                        height: 420
                     }
                 },
             }]

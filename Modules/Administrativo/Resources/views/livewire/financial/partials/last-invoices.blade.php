@@ -1,4 +1,4 @@
-<x-dashboard-container height="lg" width="full">
+<x-dashboard-container height="md" width="full">
     <x-slot:title>Últimas importações</x-slot:title>
     <x-slot:description>Mostra os 5 últimos exames importados.</x-slot:description>
     <x-slot:content>
