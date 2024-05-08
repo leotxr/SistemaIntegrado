@@ -40,9 +40,10 @@ class FinishTicket extends Component
 
     public function openFinishTicket(Ticket $ticket)
     {
-        $this->modalFinish = true;
+        $this->reset('message');
         $this->finishing = $ticket;
         $this->ticket_close = now()->format('Y-m-d H:i:s');
+        $this->modalFinish = true;
     }
 
     public function finish()
@@ -62,9 +63,8 @@ class FinishTicket extends Component
 
         $this->finishing->save();
         $this->saveMessage($this->finishing, $this->message);
-
+        $this->reset('message');
         $this->modalFinish = false;
-        $this->message = '';
         $this->dispatchBrowserEvent(
             'notify',
             ['type' => 'success', 'message' => 'Chamado finalizado com sucesso!']

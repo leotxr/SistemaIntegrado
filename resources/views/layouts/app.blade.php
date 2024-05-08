@@ -10,9 +10,10 @@
 <body class="font-sans antialiased">
 
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    @livewire('layouts.navigation', ['name' => 'Sigma'])
     @can('ti')
-        @include('layouts.sidebar')
+        @include('layouts.partials.navigation')
+    @else
+        @include('layouts.navigation')
     @endcan
     <!-- Page Heading -->
     @if (isset($header))

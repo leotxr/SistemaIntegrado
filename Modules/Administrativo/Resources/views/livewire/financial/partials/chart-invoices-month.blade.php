@@ -1,7 +1,7 @@
 <div >
     <x-dashboard-container height="md" width="full" class="overflow-hidden">
-        <x-slot:title>Faturas por médico</x-slot:title>
-        <x-slot:description>Divisão de faturas por médico</x-slot:description>
+        <x-slot:title>Faturas por médico (mês)</x-slot:title>
+        <x-slot:description>Divisão de faturas por médico no mês</x-slot:description>
         <x-slot:content>
             <div class="flex content-center" id="chartDoctorsMonth">
 
@@ -10,14 +10,17 @@
 
     </x-dashboard-container>
     <script>
-        console.log(document.classList);
         var options = {
             chart: {
                 type: 'pie',
                 width: 400,
                 id: 'chartDoctorsMonth',
-                backgroundOpacity: 0
-
+                backgroundOpacity: 0,
+                events: {
+                  dataPointSelection: function(event, chartContext, config){
+                      console.log(config.w.config.labels[config.dataPointIndex])
+                  }
+                },
             },
             series: @json($invoices_by_doctor),
             labels: @json($doctors),

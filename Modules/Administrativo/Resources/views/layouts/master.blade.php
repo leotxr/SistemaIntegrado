@@ -9,9 +9,7 @@
 
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    {{-- @include('autorizacao::layouts.partials.navigation') --}}
-    @livewire('layouts.navigation', ['name' => 'Administrativo'])
-    @include('administrativo::layouts.partials.sidebar')
+    @include('administrativo::layouts.partials.navigation')
     <header class="pt-14" :class="expanded ? 'sm:ml-64' : 'sm:ml-14'">
         <div class="px-4 pt-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             @yield('header')

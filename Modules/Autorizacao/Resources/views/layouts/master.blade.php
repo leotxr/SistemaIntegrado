@@ -10,9 +10,7 @@
 <body class="font-sans antialiased">
 @include('autorizacao::layouts.partials.alerts')
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    {{-- @include('autorizacao::layouts.partials.navigation') --}}
-    @livewire('layouts.navigation', ['name' => 'Autorização'])
-    @include('autorizacao::layouts.partials.sidebar')
+    @include('autorizacao::layouts.partials.navigation')
     <header class="bg-white shadow dark:bg-gray-800">
         <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             @yield('header')
