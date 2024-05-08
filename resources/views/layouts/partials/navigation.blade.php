@@ -1,4 +1,5 @@
 <x-navigation-bar name="Sigma">
+    @can('ti')
     <x-slot:sidebar>
         <li>
             <x-side-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
@@ -86,4 +87,5 @@
             </x-side-link>
         </li>
     </x-slot:sidebar>
+        @endcan
 </x-navigation-bar>
