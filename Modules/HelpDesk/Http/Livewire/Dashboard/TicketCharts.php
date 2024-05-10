@@ -27,7 +27,7 @@ class TicketCharts extends Component
     public function getData()
     {
         $groups = UserGroup::whereNotNull('description')->get();
-        for($i = 4; $i > -1; $i--)
+        for($i = 10; $i > -1; $i--)
         {
             $this->days[] =  today()->subDays($i);
             $this->days_format[] = today()->subDays($i)->format('d/m');
