@@ -79,7 +79,7 @@
                             @endif
                         </span>
                         <div class="border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-600">
-                            <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}}
+                            <div class="px-4 font-bold text-left text-gray-900 dark:text-gray-50">{{$solicitante->name}} {{$solicitante->lastname}}
                             </div>
                             <div class="items-center justify-between p-4 sm:flex ">
                                 <time

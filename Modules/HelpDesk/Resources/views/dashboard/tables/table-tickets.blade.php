@@ -55,7 +55,7 @@
                             {{$ticket->title}}
                         </x-table.cell>
                         <x-table.cell>
-                            {{$solicitante->name}}
+                            {{$solicitante->name}} {{$solicitante->lastname}}
                         </x-table.cell>
                         <x-table.cell>
                             {{$categoria->name}}

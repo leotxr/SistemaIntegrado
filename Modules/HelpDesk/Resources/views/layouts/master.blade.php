@@ -48,13 +48,13 @@
 
         Echo.channel('dashboard')
             .listen('TicketCreated', (e) => {
-                alert("Novo chamado recebido");
-                console.log('chamado recebido');
+                console.log(e);
                 notification = new Notification(
-                    "HelpDesk - Sigma Ultrimagem",
+                    "Sigma HelpDesk - Novo Chamado Recebido",
                     {
-                        body: "Novo Chamado Recebido!",
+                        body: e.ticket.title ,
                         tag: "Acesse o Painel",
+                        requireInteraction: true,
                     }
                 )
 
