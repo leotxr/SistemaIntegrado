@@ -69,6 +69,8 @@ class FormCreate extends Component
         $this->saving->ticket_open = date('Y-m-d H:i:s');
         $this->checkTime($this->saving, date('Y-m-d H:i:s'));
 
+        $this->saveMessage($this->saving, $this->saving->description);
+
 
         foreach ($this->ticket_files as $file) {
             $path = $file->store('storage/helpdesk/' . $this->saving->id, ['disk' => 'my_files']);
