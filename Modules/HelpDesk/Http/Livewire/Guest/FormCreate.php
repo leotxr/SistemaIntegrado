@@ -72,15 +72,7 @@ class FormCreate extends Component
         $this->saveMessage($this->saving, $this->saving->description);
 
 
-        foreach ($this->ticket_files as $file) {
-            $path = $file->store('storage/helpdesk/' . $this->saving->id, ['disk' => 'my_files']);
-
-            $ticket_file = new TicketFile();
-            $ticket_file->url = $path;
-            $ticket_file->user_id = Auth::user()->id;
-            $ticket_file->ticket_id = $this->saving->id;
-            $ticket_file->save();
-        };
+        $this->uploadFile($this->saving->id, $this->ticket_files);
         $this->saving->save();
 
         TicketCreated::dispatch(Auth::user(), $this->saving);

@@ -1,9 +1,11 @@
 @extends('helpdesk::layouts.guest')
 @section('header')
 
-    <h2 class="text-xl font-bold leading-tight text-gray-800 dark:text-gray-200">
-        {{ __("Cadastrar novo chamado") }}
-    </h2>
+<x-breadcrumb index="{{route('helpdesk.guest.index')}}">
+    <x-slot:page>
+        <x-breadcrumb.page current>Novo Chamado</x-breadcrumb.page>
+    </x-slot:page>
+</x-breadcrumb>
 
 @endsection
 @section('content')
