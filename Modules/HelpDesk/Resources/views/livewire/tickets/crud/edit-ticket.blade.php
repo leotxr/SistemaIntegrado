@@ -103,22 +103,22 @@
                                           class="w-full"></x-text-input>
                             <x-input-error class="mt-2" :messages="$errors->get('editing.title')"/>
                         </div>
+                        <!--
                         <div class="m-4">
                             <x-input-label for="ticket_description" :value="__('Mensagem')" class="text-lg font-bold"/>
                             <div class="mt-2 bg-white dark:bg-gray-800 dark:text-gray-50" wire:ignore>
                                 <div class="h-64 dark:text-gray-50" x-data x-ref="quillEditor" x-init="
-                            quill = new Quill($refs.quillEditor, {
-                                theme: 'snow'});
-                            quill.on('text-change', function () {
-                              $dispatch('input', quill.root.innerHTML);
-                            });
-                          " wire:model='editing.description'>
-
-                                    {!! $editing->description !!}
-                                </div>
-                            </div>
-                            <x-input-error class="mt-2" :messages="$errors->get('editing.description')"></x-input-error>
+                                            quill = new Quill($refs.quillEditor, {
+                                            theme: 'snow'});
+                                            quill.on('text-change', function () {
+                                            $dispatch('input', quill.root.innerHTML);
+                                             });" wire:model='editing.description'>
+                                    {--!! $editing->description !!--}
                         </div>
+                    </div>
+                    <x-input-error class="mt-2" :messages="$errors->get('editing.description')"></x-input-error>
+                </div>
+-->
                     </fieldset>
                 </x-slot>
                 <x-slot name='subcontent'>

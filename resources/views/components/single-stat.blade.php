@@ -1,5 +1,5 @@
 <div>
-    <div class="shadow-md p-4 bg-white">
+    <div class="shadow-md p-4 bg-white dark:bg-gray-800">
         <div class="">
             <div class="grid sm:grid-cols-2 grid-cols-1 gap-4">
                 <div class="flex space-x-8">
@@ -9,7 +9,7 @@
                         </div>
                         <div class="mt-1">
                             <div class="flex space-x-2 items-center">
-                                <div class="text-3xl font-bold">
+                                <div class="text-3xl font-bold dark:text-gray-50 text-gray-800">
                                     {{$value}}
                                 </div>
                                 <div class="text-xs text-green-800 bg-green-200 rounded-md p-1">

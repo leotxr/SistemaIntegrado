@@ -1,9 +1,8 @@
 @extends('helpdesk::layouts.guest')
 @section('header')
 
-    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        {{ __("Chamados") }}
-    </h2>
+<x-breadcrumb current>
+</x-breadcrumb>
 
 @endsection
 @section('content')

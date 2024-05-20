@@ -48,8 +48,6 @@ class TicketTabs extends Component
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
 
 
-
-
     protected $listeners = [
         'echo:dashboard,TicketCreated' => 'render',
         'echo:dashboard,TicketUpdated' => '$refresh',
@@ -62,20 +60,20 @@ class TicketTabs extends Component
         $this->activeStatus = $status->id;
     }
 
-   public function callShow(Ticket $ticket)
-   {
+    public function callShow(Ticket $ticket)
+    {
         $this->emit('TicketShow', $ticket->id);
-   }
+    }
 
-   public function callStart(Ticket $ticket)
-   {
+    public function callStart(Ticket $ticket)
+    {
         $this->emit('TicketStart', $ticket->id);
-   }
+    }
 
-   public function callFinish(Ticket $ticket)
-   {
-    $this->emit('TicketFinish', $ticket->id);
-   }
+    public function callFinish(Ticket $ticket)
+    {
+        $this->emit('TicketFinish', $ticket->id);
+    }
 
     public function calcInterval($date1, $date2)
     {
@@ -86,9 +84,7 @@ class TicketTabs extends Component
 
         return $tempo;
     }
-    
 
-   
 
     public function sendMessage(Ticket $ticket, $message)
     {
@@ -114,18 +110,22 @@ class TicketTabs extends Component
             'statuses' => TicketStatus::whereNot('order', 0)->orderBy('order', 'asc')->get(),
             'tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
                 ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
-                ->where('tickets.status_id', $this->activeStatus)
+                ->where(function ($query){
+        if ($this->activeStatus == 1) $query->where('tickets.status_id', 1)->orWhere('tickets.user_id', NULL);
+        else $query->where('tickets.status_id', $this->activeStatus);
+
+    })
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
-                ->orderBy('ticket_priorities.order', 'desc')
-                ->paginate(5),
+                    ->orderBy('ticket_priorities.order', 'desc')
+                    ->paginate(5),
             'categories' => TicketCategory::all(),
             'my_tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
-                ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
-                ->where('user_id', Auth::user()->id)
-                ->whereIn('status_id', [3, 4])
-                ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
-                ->orderBy('ticket_priorities.order', 'desc')
-                ->paginate(5)
+        ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
+        ->where('user_id', Auth::user()->id)
+        ->whereIn('status_id', [3, 4])
+        ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
+        ->orderBy('ticket_priorities.order', 'desc')
+        ->paginate(5)
         ]);
     }
 }

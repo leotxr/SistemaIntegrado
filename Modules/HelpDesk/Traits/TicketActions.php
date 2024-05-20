@@ -2,6 +2,7 @@
 
 namespace Modules\HelpDesk\Traits;
 
+use Modules\HelpDesk\Entities\TicketFile;
 use Modules\HelpDesk\Entities\TicketMessage;
 use Modules\HelpDesk\Entities\TicketPause;
 use Modules\HelpDesk\Entities\Ticket;
@@ -14,7 +15,7 @@ trait TicketActions
     public function outOfService(Ticket $ticket, $time)
     {
 
-        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00') || date('w') == 6 || date('w') == 0)  {
+        if ($time > date('Y-m-d 18:00:00') || $time < date('Y-m-d 07:00:00') || date('w') == 6 || date('w') == 0) {
             return true;
         } elseif ($time > date('Y-m-d 12:00:00') && $time < date('Y-m-d 13:00:00')) {
             return true;
@@ -76,12 +77,11 @@ trait TicketActions
             ->update(['end_pause' => now()]);
 
 
-
         if ($setPauseTime) {
             $ticket->status_id = 4;
             $message = 'Atendimento retomado.';
             $this->saveMessage($ticket, $message);
-            if ($ticket->ticket_start === NULL)  $ticket->ticket_start = now();
+            if ($ticket->ticket_start === NULL) $ticket->ticket_start = now();
             $ticket->save();
         }
 
@@ -100,5 +100,27 @@ trait TicketActions
         $ticket->user_id = Auth::user()->id;
         if ($ticket->save()) return true;
         else return false;
+    }
+
+    public function uploadFile($ticket_id, array $files)
+    {
+        try {
+            $ticket = Ticket::find($ticket_id);
+            if (!$ticket) throw new \Exception('Chamado não encontrado.');
+        } catch (\Exception $e) {
+            $this->dispatchBrowserEvent('notify', ['type' => 'danger', 'message' => $e->getMessage()]);
+            return false;
+        } finally {
+            foreach ($files as $file) {
+                $path = $file->store('storage/helpdesk/' . $ticket->id, ['disk' => 'my_files']);
+                $ticket_file = new TicketFile();
+                $ticket_file->url = $path;
+                $ticket_file->user_id = Auth::user()->id;
+                $ticket_file->ticket_id = $ticket->id;
+                $ticket_file->save();
+            };
+            return true;
+        }
+
     }
 }
