@@ -11,7 +11,27 @@ use Modules\Triagem\Entities\Term;
 class ChartTriagens extends Component
 {
     public $firstRun = true;
+    public $rm_values = [];
+    public $tc_values = [];
+    public $days_value = 5;
+    public $days_before = [];
 
+    public function mount()
+    {
+        for($i = 0; $i < $this->days_value; $i++)
+        {
+            $this->days_before[] = today()->subDays($i)->format('d/m/Y');
+            $this->rm_values[] = Term::whereDate('created_at', today()->subDays($i))->where('sector_id', 1)->count();
+            $this->tc_values[] = Term::whereDate('created_at', today()->subDays($i))->where('sector_id', 2)->count();
+
+        }
+
+    }
+
+    public function refreshMe()
+    {
+
+    }
 
     public function render()
     {
@@ -35,14 +55,13 @@ class ChartTriagens extends Component
 
             foreach($dias_atras as $dia)
             {
-                $columnChartRM = $chartRM->addColumn($dia->format('d/m/y'), Term::whereDate('created_at', $dia)->where('sector_id', 1)->count(), '#808080');
                 $columnChartTC = $chartTC->addColumn($dia->format('d/m/y'), Term::whereDate('created_at', $dia)->where('sector_id', 2)->count(), '#808080');
             }
-            
+
 
             $this->firstRun = false;
 
         return view('triagem::livewire.dashboard.charts.chart-triagens')
-            ->with(['columnChartRM' => $columnChartRM, 'columnChartTC' => $columnChartTC]);
+            ->with(['rm_values' => $this->rm_values, 'days' => $this->days_before ,  'tc_values' => $this->tc_values]);
     }
 }

@@ -1,5 +1,5 @@
-<x-navigation-bar name="Triagem">
-    <x-slot:sidebar>
+<x-sidebar>
+    <x-slot name="menu">
         <li>
             <x-side-link :href="route('triagem.index')" :active="request()->routeIs('triagem.index')" class="w-full">
                 <x-icon name="home"
@@ -61,18 +61,18 @@
                 <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Relatórios</span>
             </x-side-link>
             <div x-show="open" x-transition>
-                <x-side-link class="w-full" :href="route('triagem.dashboard')" :active="request()->routeIs('triagem.dashboard')" x-show="expanded">
-                    <span class="flex-1 ml-3 whitespace-nowrap">Estatísticas</span>
+                <x-side-link class="w-full" href="{{route('helpdesk.reports')}}"
+                             :active="request()->routeIs('helpdesk.reports')">
+                    <span class="flex-1 ml-3 whitespace-nowrap">Todos</span>
                 </x-side-link>
-                <x-side-link class="w-full" :href="route('triagem.monitoring')"
-                             :active="request()->routeIs('triagem.monitoring')" x-show="expanded">
-                    <span class="flex-1 ml-3 whitespace-nowrap">Monitoramento</span>
+                <x-side-link class="w-full" :href="route('helpdesk.reports.ticket-by-date')"
+                             :active="request()->routeIs('helpdesk.reports.ticket-by-date')">
+                    <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Período</span>
                 </x-side-link>
-                <x-side-link class="w-full" :href="route('triagem.reports')"
-                             :active="request()->routeIs('triagem.reports')" x-show="expanded">
-                    <span class="flex-1 ml-3 whitespace-nowrap">Relatório</span>
+                <x-side-link class="w-full">
+                    <span class="flex-1 ml-3 whitespace-nowrap">Chamados por Categoria</span>
                 </x-side-link>
             </div>
         </li>
-    </x-slot:sidebar>
-</x-navigation-bar>
+    </x-slot>
+</x-sidebar>
