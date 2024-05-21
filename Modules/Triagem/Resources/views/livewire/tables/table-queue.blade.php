@@ -19,10 +19,10 @@
                         //echo $a;
                         if ($a == $paciente->PACIENTEID) {
                         $status = 'REALIZADO';
-                        $color = 'bg-green-100';
+                        $color = 'text-green-600 dark:text-green-300';
                         } else {
                         $status = 'AGUARDANDO';
-                        $color = 'bg-red-100';
+                        $color = 'text-red-600 dark:text-red-400';
                         }
 
                     @endphp
@@ -30,11 +30,11 @@
                     <x-table.row>
                         <x-table.cell class="{{ $color }}">
                             @if($status != 'REALIZADO')
-                                <a type="button"
-                                   href="{{ route('create.triagem', ['setor_id' => $setor->xclinic_id, 'paciente_id' => $paciente->PACIENTEID]) }}"
-                                   value="{{ $paciente->PACIENTEID }}"
-                                   class="mx-2 btn btn-info">
-                                    <x-icon name="plus" class="w-6 h-6"></x-icon>
+                                <a href="{{ route('create.triagem', ['setor_id' => $setor->xclinic_id, 'paciente_id' => $paciente->PACIENTEID]) }}">
+                                    <x-primary-button type="button"
+                                                      class="mx-2">
+                                        <x-icon name="plus" class="w-6 h-6"></x-icon>
+                                    </x-primary-button>
                                 </a>
                             @endif
                         </x-table.cell>

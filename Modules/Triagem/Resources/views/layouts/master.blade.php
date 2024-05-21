@@ -2,21 +2,21 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @include('triagem::layouts.partials.head')
+    <title>HelpDesk</title>
+    @include('helpdesk::layouts.partials.head')
 
-    @include('triagem::layouts.partials.script')
+    @include('helpdesk::layouts.partials.script')
 </head>
 
-<body class="font-sans antialiased">
-@include('triagem::layouts.partials.alerts')
-@include('triagem::layouts.partials.navigation')
+<body class="font-sans antialiased max-h-screen">
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <header class="bg-white shadow dark:bg-gray-800 relative z-30 top-14 w-full" >
+        @include('triagem::layouts.partials.navigation')
+    <header class="pt-14 sm:ml-14">
         <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             @yield('header')
         </div>
     </header>
-    <main class="pt-14">
+    <main class="sm:ml-14">
         @yield('content')
     </main>
 </div>
@@ -26,10 +26,18 @@
 </html>
 
 <script>
-    $(window).on("load", function () {
-        $(".loader-wrapper").fadeOut("slow");
+    window.addEventListener('notify', event => {
+        toastr[event.detail.type](event.detail.message,
+            event.detail.title ?? ''), toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
     });
-    setTimeout(function () {
-        $('.alert').fadeOut('slow');
-    }, 5000);
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+
 </script>
