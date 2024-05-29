@@ -18,6 +18,7 @@
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                 </x-icon>
                 <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Usuários</span>
+                <span><x-icon name="chevron-down" class="w-5 h-5" x-show="expanded"></x-icon></span>
             </x-side-link>
             <ul x-show="open" x-transition
                 x-data="{items:[

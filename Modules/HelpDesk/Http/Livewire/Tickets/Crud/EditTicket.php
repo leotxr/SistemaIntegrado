@@ -71,6 +71,7 @@ class EditTicket extends Component
         }
         $this->modalTicket = false;
 
+
         TicketUpdated::dispatch();
     }
 

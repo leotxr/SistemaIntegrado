@@ -13,7 +13,9 @@ class TicketActivity extends Component
 
     public Ticket $showing;
 
-    protected $listeners = ['refreshParent' => '$refresh'];
+    protected $listeners = [
+        'echo:dashboard,TicketUpdated' => '$refresh',
+        'refreshParent' => '$refresh'];
 
     public function mount(Ticket $ticket)
     {
