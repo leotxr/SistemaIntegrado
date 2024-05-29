@@ -1,3 +1,6 @@
 <x-app-layout>
-  @livewire('queue-monitoring')
+    <div class="pt-20 ml-14">
+        <x-floating-action-button></x-floating-action-button>
+
+    </div>
 </x-app-layout>

@@ -12,13 +12,6 @@
                     {{$status->name}}
                 </span>
                 </div>
-                <div class="h-1">
-                    <div wire:loading>
-                    <span class="relative flex w-full">
-                        <span class="absolute inline-flex w-8 h-1 animate-bar bg-sky-500"></span>
-                    </span>
-                    </div>
-                </div>
             </x-slot>
             <x-slot name='content'>
                 @livewire('helpdesk::guest.ticket-activity', ['ticket' => $showing], key($showing->id))
@@ -33,14 +26,14 @@
                         </div>
                     @endisset
                     <div class="mx-4 border-l">
-                            @foreach($showing->TicketFiles as $file)
-                                <div class="inline-flex mx-4">
-                                    <a href="{{ URL::asset($file->url) }}" target="_blank()">
-                                        <img class="w-6 border-gray-700 rounded-full max-h-6"
-                                             src="{{ URL::asset($file->url) }}">
-                                    </a>
-                                </div>
-                            @endforeach
+                        @foreach($showing->TicketFiles as $file)
+                            <div class="inline-flex mx-4">
+                                <a href="{{ URL::asset($file->url) }}" target="_blank()">
+                                    <img class="w-6 border-gray-700 rounded-full max-h-6"
+                                         src="{{ URL::asset($file->url) }}">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </x-slot>
