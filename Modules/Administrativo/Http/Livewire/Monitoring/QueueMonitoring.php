@@ -23,6 +23,11 @@ class QueueMonitoring extends Component
             ['id' => 39, 'name' => 'Dr. Rodrigo'],
             ['id' => 40, 'name' => 'Dra. Priscilla'],
             ['id' => 42, 'name' => 'Dra. Bianca'],
+            ['id' => 43, 'name' => 'Dra. Vitoria'],
+            ['id' => 47, 'name' => 'Dr. Marcelo'],
+            ['id' => 48, 'name' => 'Dra. Angela'],
+            ['id' => 49, 'name' => 'Dra. Thais'],
+            ['id' => 50, 'name' => 'Dra. Camila'],
         ]);
 
         $this->count_filas = $this->filas->pluck('id');
