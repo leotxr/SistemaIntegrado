@@ -73,12 +73,20 @@ class FormCreate extends Component
 
 
         $this->uploadFile($this->saving->id, $this->ticket_files);
-        $this->saving->save();
 
-        TicketCreated::dispatch(Auth::user(), $this->saving);
-        Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
+        try
+        {
+            $this->saving->save();
+            TicketCreated::dispatch(Auth::user(), $this->saving);
+            Notification::send($users, new NotifyTicketCreated(Auth::user(), $this->saving));
 
-        return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
+            return redirect()->to('/helpdesk/chamados')->with('message', 'Chamado criado com sucesso!');
+        }catch (\Exception $exception)
+        {
+            return redirect()->to('/helpdesk/chamados')->with('message', $exception->getMessage());
+        }
+
+
     }
 
     public function render()
