@@ -38,7 +38,7 @@ class TicketTabs extends Component
 
 
     protected $listeners = [
-        'echo:dashboard,TicketCreated' => 'render',
+        'echo:dashboard,TicketCreated' => '$refresh',
         'echo:dashboard,TicketUpdated' => '$refresh',
     ];
 
