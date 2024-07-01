@@ -58,12 +58,19 @@
             </x-side-link>
         </li>
         <li>
-            <x-side-link class="w-full" x-on:click="open = ! open" href="#"
-            >
+            <x-side-link class="w-full" x-on:click="open = ! open" href="#">
                 <x-icon name="collection"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
                 </x-icon>
                 <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Patrimônios</span>
+            </x-side-link>
+        </li>
+        <li>
+            <x-side-link class="w-full" x-on:click="open = ! open" :href="route('adm.extra_services.index')" :active="request()->routeIs('adm.extra_services.index')">
+                <x-icon name="light-bulb"
+                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                </x-icon>
+                <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">Serviços Extras</span>
             </x-side-link>
         </li>
     </x-slot:sidebar>

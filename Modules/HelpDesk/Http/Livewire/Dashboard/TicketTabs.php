@@ -5,6 +5,7 @@ namespace Modules\HelpDesk\Http\Livewire\Dashboard;
 use DateTime;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Modules\HelpDesk\Entities\ExtraService;
 use Modules\HelpDesk\Entities\TicketPriority;
 use Modules\HelpDesk\Entities\TicketStatus;
 use Modules\HelpDesk\Entities\TicketMessage;
@@ -24,18 +25,6 @@ class TicketTabs extends Component
 
     public $subcategories = [];
     public $activeStatus = 1;
-    public $modalTicket = false;
-    public $modalFinish = false;
-    public $modalPause = false;
-    public $modalTransfer = false;
-    public $modalDelete = false;
-    public $modalEdit = false;
-    public Ticket $showing;
-    public Ticket $finishing;
-    public Ticket $pausing;
-    public Ticket $started;
-    public Ticket $transfering;
-    public Ticket $deleting;
     public Ticket $editing;
     public $message = '';
     public $ticket_close;
@@ -60,42 +49,19 @@ class TicketTabs extends Component
         $this->activeStatus = $status->id;
     }
 
-    public function callShow(Ticket $ticket)
+    public function callShow(Ticket $ticket): void
     {
         $this->emit('TicketShow', $ticket->id);
     }
 
-    public function callStart(Ticket $ticket)
+    public function callStart(Ticket $ticket): void
     {
         $this->emit('TicketStart', $ticket->id);
     }
 
-    public function callFinish(Ticket $ticket)
+    public function callFinish(Ticket $ticket): void
     {
         $this->emit('TicketFinish', $ticket->id);
-    }
-
-    public function calcInterval($date1, $date2)
-    {
-        $inicio = new DateTime($date1);
-        $fim = new DateTime($date2);
-        $diff = $inicio->diff($fim);
-        $tempo = $diff->format("%H:%I:%S");
-
-        return $tempo;
-    }
-
-
-    public function sendMessage(Ticket $ticket, $message)
-    {
-        $editing_ticket = $ticket;
-        $ticket_message = new TicketMessage();
-        $ticket_message->message = $message;
-        $ticket_message->user_id = Auth::user()->id;
-        $ticket_message->ticket_id = $editing_ticket->id;
-        $ticket_message->read = 0;
-        $ticket_message->save();
-        $this->message = '';
     }
 
 
@@ -110,22 +76,23 @@ class TicketTabs extends Component
             'statuses' => TicketStatus::whereNot('order', 0)->orderBy('order', 'asc')->get(),
             'tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
                 ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
-                ->where(function ($query){
-        if ($this->activeStatus == 1) $query->where('tickets.status_id', 1)->orWhere('tickets.user_id', NULL);
-        else $query->where('tickets.status_id', $this->activeStatus);
+                ->where(function ($query) {
+                    if ($this->activeStatus == 1) $query->where('tickets.status_id', 1)->orWhere('tickets.user_id', NULL);
+                    else $query->where('tickets.status_id', $this->activeStatus);
 
-    })
+                })
                 ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
-                    ->orderBy('ticket_priorities.order', 'desc')
-                    ->paginate(5),
+                ->orderBy('ticket_priorities.order', 'desc')
+                ->paginate(5),
             'categories' => TicketCategory::all(),
             'my_tickets' => Ticket::join('ticket_categories', 'tickets.category_id', '=', 'ticket_categories.id')
-        ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
-        ->where('user_id', Auth::user()->id)
-        ->whereIn('status_id', [3, 4])
-        ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
-        ->orderBy('ticket_priorities.order', 'desc')
-        ->paginate(5)
+                ->join('ticket_priorities', 'ticket_categories.priority_id', '=', 'ticket_priorities.id')
+                ->where('user_id', Auth::user()->id)
+                ->whereIn('status_id', [3, 4])
+                ->select('tickets.id', 'tickets.title', 'tickets.category_id', 'tickets.created_at', 'tickets.requester_id')
+                ->orderBy('ticket_priorities.order', 'desc')
+                ->paginate(5),
+            'extra_services' => ExtraService::where('status_id', 1)->where('is_ticket', 0)->get()
         ]);
     }
 }

@@ -12,7 +12,7 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-sm">
     @include('helpdesk::layouts.partials.guest_navigation')
     <header class="pt-14 sm:ml-14">
-        <div class="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="px-4 py-4 mx-auto max-w-full sm:px-6 lg:px-8">
             @yield('header')
         </div>
     </header>

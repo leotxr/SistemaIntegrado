@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Administrativo\Entities\ExtraTime;
 use Modules\Autorizacao\Entities\ExamEvent;
+use Modules\HelpDesk\Entities\Ticket;
 use Modules\NC\Entities\NonConformity;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Contracts\Role;
@@ -115,6 +117,11 @@ class User extends Authenticatable
     public function events()
     {
         return $this->belongsToMany(ExamEvent::class);
+    }
+
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'user_id', 'id');
     }
 
 

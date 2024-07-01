@@ -14,6 +14,7 @@
 
 use Modules\Administrativo\Http\Controllers\AdministrativoController;
 use Modules\Administrativo\Http\Livewire\Monitoring\QueueMonitoring;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('administrativo')->group(function () {
@@ -59,6 +60,11 @@ Route::middleware('auth')->group(function () {
         });
 
 
+        Route::prefix('servicos-extras')->group(function(){
+           Route::get('/', function(){
+              return view('administrativo::extra_services.dashboard.index');
+           })->name('adm.extra_services.index');
+        });
 
 
     });

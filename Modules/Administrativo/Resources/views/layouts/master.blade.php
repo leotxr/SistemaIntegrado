@@ -15,7 +15,7 @@
             @yield('header')
         </div>
     </header>
-    <main class="py-4">
+    <main class="px-6 sm:ml-14 py-4">
         @yield('content')
     </main>
 </div>
