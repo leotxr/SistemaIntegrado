@@ -17,12 +17,12 @@
                     <a href="/" class="flex ml-2 md:mr-24">
                         <x-application-logo class="block w-auto mr-2 text-gray-800 h-9 dark:text-gray-200">
                         </x-application-logo>
-                        <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">{{$name}}</span>
+                        <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white hidden sm:block">{{$name}}</span>
                     </a>
                 </div>
                 <div class="flex items-center">
                     <div class="flex items-center ml-3">
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        <div class="flex items-center ml-6">
                             <button id="theme-toggle" type="button"
                                     class="mx-4 text-sm text-gray-500 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
                                 <x-icon id="theme-toggle-dark-icon" name="moon" class="hidden h-5 w-5"></x-icon>

@@ -3,7 +3,7 @@
         <a type="button" href="{{route('helpdesk.guest.index')}}"
            class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">Cancelar</a>
     </div>
-    <div class="flex justify-center w-full p-4 bg-white dark:bg-gray-900">
+    <div class="flex justify-center w-full p-4 bg-white dark:bg-gray-800">
         <fieldset>
             <form wire:submit.prevent='save' enctype="multipart/form-data">
                 @csrf
@@ -12,7 +12,7 @@
                         <x-input-label for="category_id" :value="__('Selecionar Categoria')"
                                        class="text-lg font-bold"/>
                         <x-select name='category_id' wire:model='saving.category_id' id="category_id"
-                                  class="w-24 sm:w-96">
+                                  class="w-full">
                             <x-slot name='option'>
                                 <option selected> Selecione</option>
                                 @foreach($categories as $category)
@@ -40,7 +40,7 @@
                                            class="text-lg font-bold"/>
                             <x-select name='subcategory_id' wire:model.defer='saving.sub_category_id'
                                       id="subcategory_id"
-                                      class="w-24 sm:w-96">
+                                      class="w-full">
                                 <x-slot name='option'>
                                     <option selected> Selecione</option>
                                     @foreach($subcategories as $subcategory)
@@ -100,7 +100,7 @@
                     @endif
                 </div>
 
-                <div class="m-4 inline-flex space-x-2" >
+                <div class="m-4 inline-flex space-x-2">
                     <a href="{{route('helpdesk.guest.index')}}">
                         <x-secondary-button>Cancelar</x-secondary-button>
                     </a>

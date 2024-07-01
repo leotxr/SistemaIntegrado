@@ -4,7 +4,7 @@
             @php
             $status = \Modules\HelpDesk\Entities\TicketStatus::find($activeStatus);
             @endphp
-            <x-title>Chamados {{$status->description}}</x-title>
+            <x-title class="text-xl p-2">{{$status->description}}</x-title>
             {{$tickets->links()}}
             <x-table>
                 <x-slot name='head'>

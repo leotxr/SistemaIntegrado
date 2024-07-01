@@ -4,6 +4,7 @@ namespace Modules\HelpDesk\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HelpDesk\Database\factories\TicketFactory;
 use Modules\HelpDesk\Entities\TicketMessage;
 
 class Ticket extends Model
@@ -67,8 +68,8 @@ class Ticket extends Model
 
 
 
-    protected static function newFactory()
+    protected static function newFactory(): TicketFactory
     {
-        return \Modules\HelpDesk\Database\factories\TicketFactory::new();
+        return TicketFactory::new();
     }
 }

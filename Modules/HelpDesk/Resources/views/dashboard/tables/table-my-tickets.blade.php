@@ -4,7 +4,7 @@
         @php
         $status = \Modules\HelpDesk\Entities\TicketStatus::find($activeStatus);
         @endphp
-        <x-title>Meus Chamados Vinculados</x-title>
+        <x-title class="text-xl p-2">Meus Chamados Vinculados</x-title>
         {{$my_tickets->links()}}
         <x-table>
             <x-slot name='head'>

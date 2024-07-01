@@ -20,6 +20,11 @@ class TicketCategory extends Model
     {
         return $this->belongsTo('Modules\HelpDesk\Entities\TicketPriority', 'priority_id', 'id');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany('Modules\HelpDesk\Entities\Ticket', 'category_id', 'id');
+    }
     
     protected static function newFactory()
     {

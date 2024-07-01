@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function () {
         Route::group(['middleware' => ['permission:abrir chamado']], function () {
             Route::get('/chamados', [GuestController::class, 'index'])->name('helpdesk.guest.index');
             Route::get('/chamados/novo', [GuestController::class, 'create'])->name('helpdesk.guest.create');
+            Route::get('/servicos-extras/novo', function(){
+                return view('helpdesk::guest.extra_service.create');
+            })->name('helpdesk.guest.extra-service.create');
             Route::get('/chamados/{id}', [GuestController::class, 'show'])->name('helpdesk.guest.show');
             Route::post('/chamados/store', [TicketController::class, 'store'])->name('helpdesk.guest.store');
         });
