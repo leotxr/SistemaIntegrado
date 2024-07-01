@@ -15,7 +15,7 @@
                     <x-slot:icon>
                         <x-icon name="{{$icons[$key]}}" class="w-8 h-8 text-blue-600"></x-icon>
                     </x-slot:icon>
-                    <x-slot:value>{{$status->tickets->count()}}</x-slot:value>
+                    <x-slot:value>{{$status->id === 1 ? $status->tickets->where('user_id', NULL)->count() : $status->tickets->count()}}</x-slot:value>
                     <x-slot:description>{{$status->description}}</x-slot:description>
                 </x-dashboard-tile>
             </div>
