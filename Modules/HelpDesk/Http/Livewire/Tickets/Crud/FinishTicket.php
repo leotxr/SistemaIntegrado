@@ -2,6 +2,8 @@
 
 namespace Modules\HelpDesk\Http\Livewire\Tickets\Crud;
 
+use App\Http\Livewire\Components\Quill;
+use App\Http\Livewire\Components\Trix;
 use Livewire\Component;
 use Modules\HelpDesk\Entities\Ticket;
 use Modules\HelpDesk\Entities\TicketMessage;
@@ -20,7 +22,7 @@ class FinishTicket extends Component
 
     public $modalFinish = false;
     public $modalTicket;
-    public $message = '';
+    public $message;
     public Ticket $finishing;
     public $ticket_close;
 
@@ -35,12 +37,16 @@ class FinishTicket extends Component
     protected $listeners = [
         'TicketFinish' => 'openFinishTicket',
         'echo:dashboard,TicketUpdated' => '$refresh',
+        Trix::EVENT_VALUE_UPDATED
     ];
+
+    public function trix_value_updated($value){
+        $this->message = $value;
+    }
 
 
     public function openFinishTicket(Ticket $ticket)
     {
-        $this->reset('message');
         $this->finishing = $ticket;
         $this->ticket_close = now()->format('Y-m-d H:i:s');
         $this->modalFinish = true;
@@ -48,6 +54,7 @@ class FinishTicket extends Component
 
     public function finish()
     {
+        //dd($this->message);
         //dd($this->ticket_close);
         //$this->validate();
         $this->finishing->ticket_close = $this->ticket_close;
@@ -63,7 +70,7 @@ class FinishTicket extends Component
 
         $this->finishing->save();
         $this->saveMessage($this->finishing, $this->message);
-        $this->reset('message');
+        //$this->reset('message');
         $this->modalFinish = false;
         $this->dispatchBrowserEvent(
             'notify',
