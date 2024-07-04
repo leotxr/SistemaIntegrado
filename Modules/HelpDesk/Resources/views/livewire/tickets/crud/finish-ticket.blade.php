@@ -11,19 +11,10 @@
                 <x-slot name='content'>
                     <div class="max-w-full p-2">
                         <div>
-                            <div class="mt-2 text-gray-900 bg-white dark:bg-gray-100 dark:text-white" wire:ignore>
-                                <div class="h-64 text-gray-900 bg-white dark:bg-gray-900 dark:text-white" x-data
-                                     x-ref="quillEditor" x-init="
-                        quill = new Quill($refs.quillEditor, {
-                            theme: 'snow'});
-                        quill.on('text-change', function () {
-                          $dispatch('input', quill.root.innerHTML);
-                        });
-                      " wire:model='message'>
-
-                                    {!! $message !!}
-                                </div>
+                            <div class="mt-2 text-gray-900 bg-white dark:bg-gray-100 dark:text-white">
+                                <livewire:components.trix :wire:key="'trix-'.$finishing->id" :value="$message"></livewire:components.trix>
                             </div>
+                            <x-input-error class="mt-2" :messages="$errors->get('message')"/>
                         </div>
                         <div class="grid grid-cols-4 gap-3 sm:grid-cols-8">
                             <div class="col-span-4 mt-4 sm:col-span-2">
@@ -42,7 +33,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('ticket_close')"/>
                             </div>
                             <div class="">
-                                <x-icon name="pencil" class="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                                <x-icon name="pencil" class="w-6 h-6 text-gray-700 dark:text-gray-300"/>
                             </div>
                             @isset($finishing->total_pause)
                                 <div class="col-span-4 mt-4 sm:col-span-2">
