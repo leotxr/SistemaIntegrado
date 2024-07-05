@@ -37,7 +37,7 @@ class NotifyTicketCreated extends Notification implements ShouldQueue, ShouldBro
      */
     public function via($notifiable)
     {
-        return ['broadcast','database'];
+        return ['broadcast','database', 'mail'];
     }
 
     /**
@@ -49,7 +49,7 @@ class NotifyTicketCreated extends Notification implements ShouldQueue, ShouldBro
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('informatica@ultrimagemuba.com.br', 'HelpDesk - Sigma Ultrimagem')
+            ->from('sigma@ultrimagemuba.com.br', 'HelpDesk - Sigma Ultrimagem')
             ->subject('Novo Chamado - #' . $this->ticket->id . " - " . $this->ticket->title)
             ->greeting('Novo Chamado.')
             ->line('Assunto: ' . $this->ticket->title)

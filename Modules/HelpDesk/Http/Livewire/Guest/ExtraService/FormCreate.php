@@ -2,9 +2,13 @@
 
 namespace Modules\HelpDesk\Http\Livewire\Guest\ExtraService;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Modules\HelpDesk\Entities\ExtraService;
+use Modules\HelpDesk\Notifications\NotifyExtraServiceCreated;
+use Modules\HelpDesk\Notifications\NotifyTicketCreated;
 
 class FormCreate extends Component
 {
@@ -34,7 +38,9 @@ class FormCreate extends Component
     {
 
         try {
+            $users = User::permission('atender servicos extras')->get();
             $this->checkAndSave();
+            Notification::send($users, new NotifyExtraServiceCreated(Auth::user(), $this->saving));
             return redirect()->to('/helpdesk/chamados')->with('success', 'Solicitação enviada com sucesso!');
         } catch (\Exception $e) {
             return $this->dispatchBrowserEvent('notify', ['type' => 'error', 'message' => $e->getMessage()]);
