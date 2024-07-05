@@ -49,7 +49,7 @@ class NotifyTicketFinished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->from('informatica@ultrimagemuba.com.br', 'HelpDesk - Sigma Ultrimagem')
+        ->from('sigma@ultrimagemuba.com.br', 'HelpDesk - Sigma Ultrimagem')
         ->subject('Chamado Finalizado - #' . $this->ticket->id . " - " . $this->ticket->title)
         ->greeting('Olá ' . $this->user->name . '!')
         ->line('Seu Chamado - ' . $this->ticket->title)
