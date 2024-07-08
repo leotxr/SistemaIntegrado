@@ -16,7 +16,8 @@
                 <div class="sm:flex justify-center space-x-4 space-y-4" x-data="{items: [
                 {name: 'Financeiro', description: 'Cálculo de exames enviados para Sirius', link: '{{route('administrativo.financial')}}' },
                 {name: 'RH', description: 'Gerenciar horas extras/faltosas', link:'{{route('administrativo.rh')}}'},
-                {name: 'Patrimonial', description: 'Gerenciar patrimônio da empresa', link:''}
+                {name: 'Patrimonial', description: 'Gerenciar patrimônio da empresa', link:''},
+                {name: 'Serviços Extras', description: 'Gerenciar solicitações de serviços extras', link:'{{route('adm.extra_services.index')}}'}
                 ]}">
                     <template x-for="item in items">
                         <div class="bg-white w-48 h-36 rounded-lg shadow-md dark:bg-gray-800 p-2 space-y-2">

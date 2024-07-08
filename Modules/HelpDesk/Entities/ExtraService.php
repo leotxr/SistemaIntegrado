@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExtraService extends Model
 {
@@ -31,6 +32,11 @@ class ExtraService extends Model
     public function requester(): BelongsTo
     {
         return $this->belongsTo(User::class, 'requester_id', 'id');
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(ExtraServiceMessage::class, 'extra_service_id');
     }
 
     protected static function newFactory()
