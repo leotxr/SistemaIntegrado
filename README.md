@@ -11,6 +11,7 @@ Atualmente o sistema conta com 4 módulos ativos e um módulo principal para con
 - HelpDesk: Sistema para solicitação de chamados internos ao setor de TI.
 - Não Conformidades: Sistema para registro e controle de não conformidades.
 - Financeiro: Controle de pagamento de repasses em exames laudados.
+- Serviços Extras: Solicitação de serviços extras ao setor administrativo. Com integração ao módulo de HelpDesk.
 
 O sistema integrado foi desenvolvido utilizando TALL Stack :
 
