@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Modules\HelpDesk\Entities\ExtraService;
+use Modules\HelpDesk\Entities\ExtraServiceMessage;
 use Modules\HelpDesk\Entities\Ticket;
+use Modules\HelpDesk\Entities\TicketMessage;
 use Modules\HelpDesk\Notifications\NotifyTicketCreated;
 use Modules\HelpDesk\Traits\TicketActions;
 
@@ -18,13 +20,16 @@ class EditExtraService extends Component
 
     public $modalEdit = false;
     public $modalFinish = false;
+    public $modalPause = false;
     public ExtraService $extra_service;
     public $colors = ['black', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
     public $ticket;
     public $message = '';
     public $confirmTicket = false;
 
-    protected $listeners = ['editService' => 'openModalEdit'];
+    protected $listeners = ['editService' => 'openModalEdit',
+        'refresh' => '$refresh'
+    ];
 
     protected $rules = ['message' => 'required'];
 
@@ -37,6 +42,20 @@ class EditExtraService extends Component
     public function checkStatusAndApply(int $new_status)
     {
         $this->extra_service->status_id == $new_status ? throw new \Exception('Ocorreu um erro ao aplicar o status à solicitação.') : $this->extra_service->status_id = $new_status;
+
+    }
+
+    public function saveExtraServiceMessage(ExtraService $extra_service, $message, $is_action)
+    {
+        $extra_service_message = new ExtraServiceMessage();
+        $extra_service_message->message = $message;
+        $extra_service_message->user_id = Auth::user()->id;
+        $extra_service_message->extra_service_id = $extra_service->id;
+        $extra_service_message->read = 0;
+        $is_action ? $extra_service_message->is_final_action = true : $extra_service_message->is_final_action = false;
+        if ($extra_service_message->save()) {
+            return true;
+        } else throw new \Exception('Ocorreu um erro ao salvar a mensagem.');
 
     }
 
@@ -73,13 +92,30 @@ class EditExtraService extends Component
         }
     }
 
+    public function openPause()
+    {
+        try {
+
+            $this->reset('message');
+            $this->modalPause = true;
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('notify', ['type' => 'warning', 'message' => $exception->getMessage()]);
+        }
+
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function pause()
     {
         try {
             $this->checkStatusAndApply(3);
             $this->extra_service->save();
+            $this->saveExtraServiceMessage($this->extra_service, $this->message, false);
             $this->dispatchBrowserEvent('notify', ['type' => 'info', 'message' => 'Atendimento pausado!']);
-            $this->modalEdit = false;
+            $this->emit('refresh');
+            $this->modalPause = false;
             $this->emitUp('refreshParent');
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('notify', ['type' => 'warning', 'message' => $exception->getMessage()]);
@@ -99,7 +135,9 @@ class EditExtraService extends Component
             $this->validate();
             $this->checkStatusAndApply(2);
             $this->extra_service->action = $this->message;
+            $this->saveExtraServiceMessage($this->extra_service, $this->message, true);
             $this->extra_service->save();
+            $this->emit('refresh');
             $this->modalFinish = false;
             $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Atendimento realizado com sucesso!']);
         } catch (\Exception $exception) {
@@ -112,8 +150,10 @@ class EditExtraService extends Component
         try {
             $this->checkStatusAndApply(2);
             $this->extra_service->action = 'Solicitação enviada para o TI.';
+            $this->saveExtraServiceMessage($this->extra_service, 'Solicitação enviada para o TI.', true);
             $this->extra_service->save();
             $this->createTicket();
+            $this->emit('refresh');
             $this->modalFinish = false;
             $this->dispatchBrowserEvent('notify', ['type' => 'success', 'message' => 'Atendimento finalizado e encaminhado para o TI!']);
         } catch (\Exception $exception) {

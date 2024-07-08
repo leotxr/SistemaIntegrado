@@ -21,6 +21,7 @@
                         <span class="text-md font-bold text-gray-800 dark:text-gray-100">{{$extra_service->item}}</span>
                     </div>
                     <div class="py-2">
+                        <x-title>Descrição:</x-title>
                         <x-message-row image="{{URL::asset($extra_service->requester->profile_img)}}"
                                        user="{{$extra_service->requester->name . ' ' . $extra_service->requester->lastname}}"
                                        time="{{date('d/m/Y h:i:s', strtotime($extra_service->created_at))}}">
@@ -28,6 +29,18 @@
                                 echo $extra_service->description;
                             @endphp
                         </x-message-row>
+                    </div>
+                    <div class="py-2">
+                        <x-title>Ações:</x-title>
+                        @foreach($extra_service->messages as $message)
+                            <x-message-row image="{{URL::asset($message->user->profile_img)}}"
+                                           user="{{$message->user->name . ' ' . $message->user->lastname}}"
+                                           time="{{date('d/m/Y h:i:s', strtotime($message->created_at))}}">
+                                @php
+                                    echo $message->message;
+                                @endphp
+                            </x-message-row>
+                        @endforeach
                     </div>
                 </div>
             </x-slot:content>
@@ -38,7 +51,7 @@
                             <x-icon name="dots-horizontal" class="w-6 h-6 dark:text-gray-50 cursor-pointer"/>
                         </x-slot:trigger>
                         <x-slot:content>
-                            <x-dropdown-link class="cursor-pointer" wire:click="pause">
+                            <x-dropdown-link class="cursor-pointer" wire:click="openPause">
                                 <span>Pausar</span>
                             </x-dropdown-link>
                             <x-dropdown-link class="cursor-pointer" wire:click="finishAndOpenTicket">
@@ -81,6 +94,34 @@
                         Cancelar
                     </x-secondary-button>
                     <x-primary-button type="submit">Finalizar</x-primary-button>
+                </x-slot:footer>
+
+            </x-modal.dialog>
+        </form>
+
+        <!-- MODAL DE PAUSA -->
+        <form wire:submit.prevent="pause">
+            @csrf
+            <x-modal.dialog wire:model.defer="modalPause">
+
+                <x-slot:title>
+                    <x-title>Pausar Solicitação</x-title>
+                </x-slot:title>
+                <x-slot:content>
+                    <div class="max-w-full mx-12 space-y-2">
+                        <x-title>Motivo da pausa:</x-title>
+                        <div>
+                            <div class="mt-2 text-gray-900 bg-white dark:bg-gray-100 dark:text-white">
+                                <x-text-area rows="5" class="rounded-md" wire:model="message"></x-text-area>
+                            </div>
+                        </div>
+                    </div>
+                </x-slot:content>
+                <x-slot:footer>
+                    <x-secondary-button class="mx-2" x-on:click="$dispatch('close')">
+                        Cancelar
+                    </x-secondary-button>
+                    <x-primary-button type="submit">Pausar</x-primary-button>
                 </x-slot:footer>
 
             </x-modal.dialog>
