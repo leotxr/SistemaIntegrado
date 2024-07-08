@@ -40,7 +40,7 @@
                 @endif
             </div>
             <div x-show="tab === 'servicos'">
-                @if(count($tickets) > 0)
+                @if(count($extra_services) > 0)
                     @include('helpdesk::guest.tables.extra-services')
                 @endif
             </div>
