@@ -11,7 +11,7 @@
                 <x-slot name='content'>
                     <div class="max-w-full p-2">
                         <div>
-                            <div class="mt-2 text-gray-900 bg-white dark:bg-gray-100 dark:text-white">
+                            <div class="mt-2">
                                 <livewire:components.trix :wire:key="'trix-'.$finishing->id" :value="$message"></livewire:components.trix>
                             </div>
                             <x-input-error class="mt-2" :messages="$errors->get('message')"/>
