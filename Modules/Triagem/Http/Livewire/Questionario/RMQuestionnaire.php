@@ -20,6 +20,7 @@ class RMQuestionnaire extends Component
 
     public $patient_id;
     public $sector_id;
+    public $sector_xclinic;
     public $perguntas;
     public $saving;
     public $observation;
@@ -48,8 +49,8 @@ class RMQuestionnaire extends Component
     {
 
         $today = date('d-m-Y');
-        $query= $this->getPatient($this->patient_id, $this->sector_id);
         $setor = Sector::where('id', $this->sector_id)->first();
+        $query= $this->getPatient($this->patient_id, $setor->xclinic_id);
         $this->saving = Term::create([
             'patient_name' => $query->NOME ?? NULL,
             'patient_id' => $query->PACIENTEID ?? NULL,
@@ -83,6 +84,7 @@ class RMQuestionnaire extends Component
 
     public function render()
     {
-        return view('triagem::livewire.questionario.r-m-questionnaire', ['patient' => $this->getPatient($this->patient_id, $this->sector_id)]);
+        $setor = Sector::where('id', $this->sector_id)->first();
+        return view('triagem::livewire.questionario.r-m-questionnaire', ['patient' => $this->getPatient($this->patient_id, $setor->xclinic_id)]);
     }
 }
