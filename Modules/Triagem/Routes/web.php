@@ -54,9 +54,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('nova-triagem/{setor_id}/{paciente_id}', function($setor_id, $paciente_id){
 
-            if ($setor_id == 9)
+            if ($setor_id == 1 || $setor_id == 3)
                 return view('triagem::ressonancia.create', compact('setor_id', 'paciente_id'));
-            elseif($setor_id == 4)
+            elseif($setor_id == 2)
                 return view('triagem::tomografia.create', compact('setor_id', 'paciente_id'));
             else
                 return redirect()->back();

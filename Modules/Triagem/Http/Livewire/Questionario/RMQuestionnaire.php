@@ -49,7 +49,7 @@ class RMQuestionnaire extends Component
 
         $today = date('d-m-Y');
         $query= $this->getPatient($this->patient_id, $this->sector_id);
-        $setor = Sector::where('xclinic_id', $this->sector_id)->first();
+        $setor = Sector::where('id', $this->sector_id)->first();
         $this->saving = Term::create([
             'patient_name' => $query->NOME ?? NULL,
             'patient_id' => $query->PACIENTEID ?? NULL,

@@ -139,6 +139,6 @@ class GetFilasController extends Controller
 
         $triagens = Term::whereDate('exam_date', $hoje_mysql)->get();
 
-        return view('triagem::ressonancia.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(3)]);
+        return view('triagem::ressonanciaSubsolo.queue', ['pacientes' => $pacientes, 'hoje' => $hoje, 'triagens' => $triagens, 'setor' => Sector::find(3)]);
     }
 }
