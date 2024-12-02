@@ -29,6 +29,12 @@ class TermController extends Controller
         return view('triagem::tomografia.index', ['sector' => $sector]);
     }
 
+    public function indexRessonanciaSub()
+    {
+        $sector = Sector::find(3);
+        return view('triagem::ressonanciaSubsolo.index', ['sector' => $sector]);
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

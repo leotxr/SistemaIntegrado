@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('setor/ressonancia', [TermController::class, 'indexRessonancia'])->name('triagens.realizadas-ressonancia');
         Route::get('setor/tomografia', [TermController::class, 'indexTomografia'])->name('triagens.realizadas-tomografia');
+        Route::get('setor/ressonanciaSub', [TermController::class, 'indexRessonanciaSub'])->name('triagens.realizadas-ressonancia-sub');
 
         Route::get('setor/ressonancia/fila', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
         Route::get('setor/tomografia/fila', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
