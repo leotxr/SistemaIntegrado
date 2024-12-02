@@ -78,7 +78,12 @@ class RMQuestionnaire extends Component
         } else return redirect()->back()->with('error', 'Ocorreu um erro!');
 
         if($save)
+        {
+            if($setor->id == 1)
             return redirect()->to('/triagem/setor/ressonancia');
+            else
+            return redirect()->to('/triagem/setor/ressonanciaSub');
+        }
 
     }
 
