@@ -30,7 +30,7 @@
                     <x-table.row>
                         <x-table.cell class="{{ $color }}">
                             @if($status != 'REALIZADO')
-                                <a href="{{ route('create.triagem', ['setor_id' => $setor->xclinic_id, 'paciente_id' => $paciente->PACIENTEID]) }}">
+                                <a href="{{ route('create.triagem', ['setor_id' => $setor->id, 'paciente_id' => $paciente->PACIENTEID]) }}">
                                     <x-primary-button type="button"
                                                       class="mx-2">
                                         <x-icon name="plus" class="w-6 h-6"></x-icon>
