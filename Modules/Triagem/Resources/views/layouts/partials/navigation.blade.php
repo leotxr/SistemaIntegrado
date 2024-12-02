@@ -32,6 +32,28 @@
         </li>
         <li x-data="{open:false}">
             <x-side-link class="w-full" x-on:click="open = ! open" href="#"
+                         :active="Request::is('triagem/setor/ressonanciaSub', 'triagem/setor/ressonanciaSub/*')">
+                <span
+                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
+                    RS
+                </span>
+                <span class="flex-1 ml-3 whitespace-nowrap" x-show="expanded">RM Subsolo</span>
+            </x-side-link>
+            <ul x-show="open" x-transition x-data="{items:[
+                            {id: 1, label: 'Fila de Exames', link: '{{route("filas.ressonanciaSub")}}', active: 'filas.ressonanciaSub' },
+                            {id: 2, label: 'Triagens Realizadas', link: '{{route("triagens.realizadas-ressonancia-sub")}}', active: '{{request()->routeIs("triagens.realizadas-ressonancia-sub")}}' },
+                            ]}">
+                <template x-for="item in items" :key="item.id">
+                    <li x-show="expanded">
+                        <x-side-link class="w-full" ::href="item.link" ::active="item.active">
+                            <span class="flex-1 ml-3 whitespace-nowrap" x-text="item.label"></span>
+                        </x-side-link>
+                    </li>
+                </template>
+            </ul>
+        </li>
+        <li x-data="{open:false}">
+            <x-side-link class="w-full" x-on:click="open = ! open" href="#"
                          :active="Request::is('triagem/setor/tomografia', 'triagem/setor/tomografia/*')">
                 <span
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white">
