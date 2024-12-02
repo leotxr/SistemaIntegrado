@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('setor/ressonancia/fila', [GetFilasController::class, 'getRessonancia'])->name('filas.ressonancia');
         Route::get('setor/tomografia/fila', [GetFilasController::class, 'getTomografia'])->name('filas.tomografia');
+        Route::get('setor/ressonanciaSub/fila', [GetFilasController::class, 'getRessonanciaSub'])->name('filas.ressonanciaSub');
 
         Route::get('nova-triagem/{setor_id}/{paciente_id}', function($setor_id, $paciente_id){
 
