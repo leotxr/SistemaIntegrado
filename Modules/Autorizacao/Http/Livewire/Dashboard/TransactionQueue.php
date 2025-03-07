@@ -76,7 +76,6 @@ class TransactionQueue extends Component
         if($event != NULL)
         $this->selected_status = $event;
 
-        dd($this->selected_status);
 
         $sql = Exam::search($this->sort_field, $this->search)
             ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
