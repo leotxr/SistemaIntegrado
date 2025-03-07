@@ -12,6 +12,7 @@
         <x-table.heading>Nome</x-table.heading>
         <x-table.heading>Enfermeira</x-table.heading>
         <x-table.heading>Procedimento</x-table.heading>
+        <x-table.heading>Setor</x-table.heading>
         <x-table.heading>Status</x-table.heading>
 
     </x-slot:head>
@@ -47,6 +48,7 @@
                 <x-table.cell class="{{ $color }}">{{ $paciente->PACIENTE }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $sigma_term->relUserTerm->name ?? 'Não finalizada' }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</x-table.cell>
+                <x-table.cell class="{{ $color }}">{{ $paciente->SETOR }}</x-table.cell>
                 <x-table.cell class="{{ $color }}">
                     <strong>{{ $status }}</strong>
                 </x-table.cell>
