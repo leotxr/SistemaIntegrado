@@ -126,6 +126,8 @@ class TransactionQueue extends Component
             ];
         }
 
+        dd($return);
+
         return $return;
     }
 
