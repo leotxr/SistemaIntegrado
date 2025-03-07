@@ -95,7 +95,6 @@ class TransactionQueue extends Component
     private function getEvents()
     {
         $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
-        $return = [];
         $subdays = 0;
 
         foreach($events as $event)
