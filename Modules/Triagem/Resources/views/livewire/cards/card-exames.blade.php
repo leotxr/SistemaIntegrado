@@ -1,4 +1,4 @@
-<div class="max-w-xs h-50 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
+<div class="max-w-xs h-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
     <a href="{{ route($link) }}">
         <img class="rounded-t-lg object-cover h-30 w-30" src="{{ URL::asset($path) }}" alt="" />
     </a>
