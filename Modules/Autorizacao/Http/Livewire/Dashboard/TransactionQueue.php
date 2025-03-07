@@ -71,9 +71,9 @@ class TransactionQueue extends Component
         $this->sort_field = $field;
     }
 
-    private function getExams($subdays = NULL)
+    private function getExams($subdays = NULL, $event = NULL)
     {
-        dd($subdays);
+        dd($event);
         $sql = Exam::search($this->sort_field, $this->search)
             ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
             ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
