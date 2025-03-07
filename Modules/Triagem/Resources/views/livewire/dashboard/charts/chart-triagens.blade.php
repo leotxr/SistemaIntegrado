@@ -10,19 +10,19 @@
             </x-slot:content>
         </x-dashboard-container>
         <x-dashboard-container>
-            <x-slot:title>Triagens realizadas TC</x-slot:title>
+            <x-slot:title>Triagens realizadas RM Sub</x-slot:title>
             <x-slot:description>Mostra as triagens realizadas dos últimos 5 dias</x-slot:description>
             <x-slot:content>
-                <div id="chartTC" wire:ignore>
+                <div id="chartRMSub" wire:ignore>
 
                 </div>
             </x-slot:content>
         </x-dashboard-container>
         <x-dashboard-container>
-            <x-slot:title>Triagens realizadas RM Sub</x-slot:title>
+            <x-slot:title>Triagens realizadas TC</x-slot:title>
             <x-slot:description>Mostra as triagens realizadas dos últimos 5 dias</x-slot:description>
             <x-slot:content>
-                <div id="chartRMSub" wire:ignore>
+                <div id="chartTC" wire:ignore>
 
                 </div>
             </x-slot:content>
