@@ -34,7 +34,7 @@
                 </x-slot>
             </x-accordion>
         </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" wire:poll.10000ms>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3" wire:poll.10000ms>
 
             <x-single-stat>
                 <x-slot name="title">RM Térreo</x-slot>
