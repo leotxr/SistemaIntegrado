@@ -94,7 +94,7 @@ class TransactionQueue extends Component
 
     private function getEvents()
     {
-        $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
+        $events = ExamEvent::orderBy('order_to_show', 'desc')->get();
 
         foreach($events as $event)
         {
@@ -108,7 +108,7 @@ class TransactionQueue extends Component
             ];
         }
 
-        dd($return);
+        return $return;
     }
 
     public function render()
