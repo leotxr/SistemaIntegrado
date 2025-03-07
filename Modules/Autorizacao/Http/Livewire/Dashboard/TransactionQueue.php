@@ -37,8 +37,7 @@ class TransactionQueue extends Component
         $this->reset('selected_exams', 'selectAllExams');
         $this->selected_status = $value;
 
-        if($this->selected_status == 2)
-        $this->subdays = 60;
+        $this->selected_status == 2 ? $this->subdays = 60 : 0;
 
 
     }
