@@ -72,13 +72,12 @@ class TransactionQueue extends Component
     }
 
 
-    private function getExams($subdays = NULL, $event = '')
+    private function getExams($subdays = NULL, $event = 0)
     {
        
-        if($event != '')
+        if($event == 0)
         {
             $this->selected_status = $event;
-            dd($event);
         }
 
 
@@ -119,7 +118,7 @@ class TransactionQueue extends Component
     {
         $this->selected_event_show = ExamEvent::find($this->selected_status);
         return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => $this->getEvents(),
-            'exams' => $this->getExams(NULL, NULL)->paginate(10)
+            'exams' => $this->getExams(0,  0)->paginate(10)
 
         ]);
 
