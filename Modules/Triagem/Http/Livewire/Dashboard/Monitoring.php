@@ -19,7 +19,7 @@ class Monitoring extends Component
     public $date;
     public $modalTriagem = false;
     public $sectors;
-    public $sec = [14, 31];
+    public $sec = [14, 31, 52];
     public $showing;
 
     public function mount()
