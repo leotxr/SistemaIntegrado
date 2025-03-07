@@ -95,16 +95,17 @@ class TransactionQueue extends Component
     private function getEvents()
     {
         $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
-        $subdays = 0;
 
         foreach($events as $event)
         {
-            if($event->id == 2) $subdays = 60;
+            $subdays = ($event->id == 2) ? 60 : 0;
 
-            $return[]['name'] = $event->name;
-            $return[]['id'] = $event->id;
-            $return[]['icon'] = $event->icon;
-            $return[]['count'] = $this->getExams($subdays, $event->id)->count();
+            $return[] = [
+                'name' => $event->name,
+                'id' => $event->id,
+                'icon' => $event->icon,
+                'count' => $this->getExams($subdays, $event->id)->count()
+            ];
         }
 
         dd($return);
