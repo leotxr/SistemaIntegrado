@@ -6,13 +6,13 @@
             $icon = $event['icon'];
             print_r($eventId);
         @endphp
-            <div :class="{'scale-95 dark:bg-gray-500 bg-gray-300' : {{$selected_status}} === {{$event['id']}}}"
+            <div :class="{'scale-95 dark:bg-gray-500 bg-gray-300' : {{$selected_status}} === {{$eventId}}}"
                  class="rounded-lg shadow-md stat max-h-auto hover:scale-95 col-span-2 sm:col-span-2 dark:bg-gray-800 bg-white transition transform duration-300"
                  wire:click="selectStatus({{$eventId}})">
                 <div class="font-bold text-gray-800 dark:text-gray-50">{{$event['name']}}</div>
                 <div class="inline-flex justify-between">
                     <div>
-                        <x-icon name="{{$icon}}" class="w-6 h-6 text-blue-600"></x-icon>
+                        <x-icon name="" class="w-6 h-6 text-blue-600"></x-icon>
                     </div>
                     <div class="text-gray-800 dark:text-gray-50 text-2xl">{{$event['count']}}</div>
                 </div>
