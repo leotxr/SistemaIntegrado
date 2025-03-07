@@ -103,6 +103,7 @@
                 <x-table.heading>Saída Exame</x-table.heading>
                 <x-table.heading>Nome</x-table.heading>
                 <x-table.heading>Procedimento</x-table.heading>
+                <x-table.heading>Setor</x-table.heading>
                 <x-table.heading>Status</x-table.heading>
 
             </x-slot:head>
@@ -140,6 +141,7 @@
                         <x-table.cell class="{{ $color }}">{{ $paciente->SAIDA }}</x-table.cell>
                         <x-table.cell class="{{ $color }}">{{ $paciente->PACIENTE }}</x-table.cell>
                         <x-table.cell class="{{ $color }}">{{ $paciente->PROCEDIMENTO }}</x-table.cell>
+                        <x-table.cell class="{{ $color }}">{{ $paciente->SETOR }}</x-table.cell>
                         <x-table.cell class="{{ $color }}">
                             @isset($a)
                                 <button type="button" wire:click='showTriagem({{$a}})'>
