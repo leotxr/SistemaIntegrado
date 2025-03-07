@@ -98,7 +98,7 @@ class TransactionQueue extends Component
     public function render()
     {
         $this->selected_event_show = ExamEvent::find($this->selected_status);
-        return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => ExamEvent::orderBy('order_to_show', 'asc')->get(),
+        return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => ExamEvent::orderBy('order_to_show', 'asc')->whereDate('exam_event_users.created_at', '>', now()->subDays(60))->get(),
             'exams' => $this->getExams()->paginate(10)
 
         ]);
