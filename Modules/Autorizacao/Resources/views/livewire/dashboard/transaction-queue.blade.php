@@ -1,14 +1,14 @@
 <div class="space-y-2">
     <div class="grid justify-items-center grid-cols-2 sm:grid-cols-10 gap-2" x-data>
-        @php print_r($events); @endphp
         @foreach($events as $event)
         @php
             $eventId = $event['id'];
             $icon = $event['icon'];
+            print_r($eventId);
         @endphp
             <div :class="{'scale-95 dark:bg-gray-500 bg-gray-300' : {{$selected_status}} === {{$event['id']}}}"
                  class="rounded-lg shadow-md stat max-h-auto hover:scale-95 col-span-2 sm:col-span-2 dark:bg-gray-800 bg-white transition transform duration-300"
-                 wire:click="selectStatus(5)">
+                 wire:click="selectStatus({{$eventId}})">
                 <div class="font-bold text-gray-800 dark:text-gray-50">{{$event['name']}}</div>
                 <div class="inline-flex justify-between">
                     <div>
