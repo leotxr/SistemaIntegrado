@@ -102,10 +102,10 @@ class TransactionQueue extends Component
         {
             if($event->id == 2) $subdays = 60;
 
-            $return['name'] = $event->name;
-            $return['id'] = $event->id;
-            $return['icon'] = $event->icon;
-            $return['count'] = $this->getExams($subdays, $event->id)->count();
+            $return[]['name'] = $event->name;
+            $return[]['id'] = $event->id;
+            $return[]['icon'] = $event->icon;
+            $return[]['count'] = $this->getExams($subdays, $event->id)->count();
         }
 
         dd($return);
