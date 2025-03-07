@@ -90,14 +90,11 @@ class TransactionQueue extends Component
     private function getExamEvents($subdays = NULL, $event)
     {
 
-        $this->selected_status = $event;
-
-
         $sql = Exam::search($this->sort_field, $this->search)
             ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
             ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
             ->join('exam_statuses', 'exam_statuses.id', '=', 'exams.exam_status_id')
-            ->where('exam_event_users.exam_event_id', $this->selected_status)
+            ->where('exam_event_users.exam_event_id', $event)
             ->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
             ->orderBy($this->sort_field, $this->sort_direction);
             if($subdays && $subdays > 0)
