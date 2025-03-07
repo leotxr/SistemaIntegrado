@@ -100,7 +100,7 @@ class TransactionQueue extends Component
 
         foreach($events as $event)
         {
-            $subdays = ($event->id == 2) ? 60 : 0;
+            $subdays = ($event->id == 2) ? 90 : 0;
 
             $return[] = [
                 'name' => $event->name,
@@ -117,7 +117,7 @@ class TransactionQueue extends Component
     {
         $this->selected_event_show = ExamEvent::find($this->selected_status);
         return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => $this->getEvents(),
-            'exams' => $this->getExams(0)->paginate(10)
+            'exams' => $this->getExams(90)->paginate(10)
 
         ]);
 
