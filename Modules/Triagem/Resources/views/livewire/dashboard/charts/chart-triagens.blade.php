@@ -121,7 +121,7 @@
         };
 
         var chartRMSub = new ApexCharts(document.querySelector("#chartRMSub"), chartOptionsRMSub);
-        chartRM2Sub.render();
+        chartRMSub.render();
 
         //TC
         var chartOptionsTC = {
