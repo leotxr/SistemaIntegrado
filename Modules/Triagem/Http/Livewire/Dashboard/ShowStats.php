@@ -25,6 +25,9 @@ class ShowStats extends Component
             'stat_rm' => Term::where('sector_id', 1)
             ->whereBetween('exam_date', [$this->initial_date, $this->final_date])
             ->count(),
+            'stat_rm_sub' => Term::where('sector_id', 3)
+            ->whereBetween('exam_date', [$this->initial_date, $this->final_date])
+            ->count()
         ]);
     }
 }

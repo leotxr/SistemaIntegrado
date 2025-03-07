@@ -37,8 +37,14 @@
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2" wire:poll.10000ms>
 
             <x-single-stat>
-                <x-slot name="title">Ressonância</x-slot>
+                <x-slot name="title">RM Térreo</x-slot>
                 <x-slot name="value">{{$stat_rm}}</x-slot>
+                <x-slot name="statistic"></x-slot>
+                <x-slot name="description">{{now()->format('d/m/y')}}</x-slot>
+            </x-single-stat>
+            <x-single-stat>
+                <x-slot name="title">RM Subsolo</x-slot>
+                <x-slot name="value">{{$stat_rm_sub}}</x-slot>
                 <x-slot name="statistic"></x-slot>
                 <x-slot name="description">{{now()->format('d/m/y')}}</x-slot>
             </x-single-stat>
