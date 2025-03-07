@@ -122,7 +122,7 @@ class TransactionQueue extends Component
                 'name' => $event->name,
                 'id' => $event->id,
                 'icon' => $event->icon,
-                'count' => $this->getExamEvents($subdays, $event->id)->count()
+                'count' => $this->getExams($subdays, $event->id)->count()
             ];
         }
 
