@@ -71,7 +71,7 @@ class TransactionQueue extends Component
         $this->sort_field = $field;
     }
 
-    private function getExams($subdays = 0)
+    private function getExams($subdays = NULL)
     {
         dd($subdays);
         $sql = Exam::search($this->sort_field, $this->search)
@@ -128,7 +128,7 @@ class TransactionQueue extends Component
     {
         $this->selected_event_show = ExamEvent::find($this->selected_status);
         return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => $this->getEvents(),
-            'exams' => $this->getExams(0)->paginate(10)
+            'exams' => $this->getExams()->paginate(10)
 
         ]);
 
