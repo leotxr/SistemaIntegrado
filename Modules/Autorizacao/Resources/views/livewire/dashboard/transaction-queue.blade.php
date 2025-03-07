@@ -17,7 +17,6 @@
                 </div>
             </div>
         @endforeach
-        @php print_r($subdays); @endphp
     </div>
     <div>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm w-full h-sm p-2">

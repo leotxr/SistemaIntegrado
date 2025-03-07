@@ -39,7 +39,6 @@ class TransactionQueue extends Component
 
         $this->selected_status == 2 ? $this->subdays = 60 : 0;
 
-
     }
 
     public function sendTo($value)
@@ -91,7 +90,7 @@ class TransactionQueue extends Component
             $sql->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
             ->orderBy($this->sort_field, $this->sort_direction);
 
-            if($this->subdays && $this->subdays > 0)
+            if($subdays && $subdays > 0)
             $sql->whereDate('exam_event_users.created_at', '>', now()->subDays($subdays));
 
         return $sql;
