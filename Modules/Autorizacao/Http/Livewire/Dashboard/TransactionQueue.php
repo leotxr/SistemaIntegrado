@@ -35,7 +35,7 @@ class TransactionQueue extends Component
     {
         $this->reset('selected_exams', 'selectAllExams');
         $this->selected_status = $value;
-        dd($this->selected_status);
+
     }
 
     public function sendTo($value)
