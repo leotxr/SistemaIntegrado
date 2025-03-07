@@ -92,24 +92,6 @@ class TransactionQueue extends Component
         return $sql;
     }
 
-
-    private function getExamEvents($subdays = NULL, $event)
-    {
-
-        $sql = Exam::search($this->sort_field, $this->search)
-            ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
-            ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
-            ->join('exam_statuses', 'exam_statuses.id', '=', 'exams.exam_status_id')
-            ->where('exam_event_users.exam_event_id', $event)
-            ->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
-            ->orderBy($this->sort_field, $this->sort_direction);
-            if($subdays && $subdays > 0)
-            $sql->whereDate('exam_event_users.created_at', '>', now()->subDays($subdays));
-
-        return $sql;
-
-    }
-
     private function getEvents()
     {
         $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
@@ -133,7 +115,7 @@ class TransactionQueue extends Component
     {
         $this->selected_event_show = ExamEvent::find($this->selected_status);
         return view('autorizacao::livewire.dashboard.transaction-queue', ['events' => $this->getEvents(),
-            'exams' => $this->getExams()->paginate(10)
+            'exams' => $this->getExams(60)->paginate(10)
 
         ]);
 
