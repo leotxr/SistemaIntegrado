@@ -75,7 +75,7 @@ class TransactionQueue extends Component
     public function getExams($subdays = NULL, $event = NULL)
     {
        
-        if($event != NULL)
+        if($event !== NULL)
         {
             $this->selected_status = $event;
             dd($event);
