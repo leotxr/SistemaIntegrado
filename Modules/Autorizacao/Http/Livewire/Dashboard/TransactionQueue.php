@@ -87,13 +87,10 @@ class TransactionQueue extends Component
     }
 
 
-    private function getExamEvents($subdays = NULL, $event = 0)
+    private function getExamEvents($subdays = NULL, $event)
     {
-       
-        if($event == 0)
-        {
-            $this->selected_status = $event;
-        }
+
+        $this->selected_status = $event;
 
 
         $sql = Exam::search($this->sort_field, $this->search)
