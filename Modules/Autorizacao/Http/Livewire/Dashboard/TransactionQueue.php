@@ -77,14 +77,18 @@ class TransactionQueue extends Component
         $this->selected_status = $event;
 
 
-        return Exam::search($this->sort_field, $this->search)
+
+        $sql = Exam::search($this->sort_field, $this->search)
             ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
             ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
             ->join('exam_statuses', 'exam_statuses.id', '=', 'exams.exam_status_id')
             ->where('exam_event_users.exam_event_id', $this->selected_status)
             ->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
-            ->orderBy($this->sort_field, $this->sort_direction)
-            ->whereDate('exam_event_users.created_at', '>', now()->subDays($subdays));
+            ->orderBy($this->sort_field, $this->sort_direction);
+            if($subdays && $subdays > 0)
+            $sql->whereDate('exam_event_users.created_at', '>', now()->subDays($subdays));
+
+        return $sql;
 
     }
 
@@ -92,12 +96,16 @@ class TransactionQueue extends Component
     {
         $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
         $return = [];
+        $subdays = 0;
+
         foreach($events as $event)
         {
+            if($event->id == 2) $subdays = 60;
+
             $return['name'] = $event->name;
             $return['id'] = $event->id;
             $return['icon'] = $event->icon;
-            $return['count'] = $this->getExams(60, $event->id)->count();
+            $return['count'] = $this->getExams($subdays, $event->id)->count();
         }
 
         dd($return);
