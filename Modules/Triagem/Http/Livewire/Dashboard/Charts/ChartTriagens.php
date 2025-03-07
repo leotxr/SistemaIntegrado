@@ -13,6 +13,7 @@ class ChartTriagens extends Component
     public $firstRun = true;
     public $rm_values = [];
     public $tc_values = [];
+    public $rm_sub_values = [];
     public $days_value = 5;
     public $days_before = [];
 
@@ -22,6 +23,7 @@ class ChartTriagens extends Component
         {
             $this->days_before[] = today()->subDays($i)->format('d/m/Y');
             $this->rm_values[] = Term::whereDate('created_at', today()->subDays($i))->where('sector_id', 1)->count();
+            $this->rm_sub_values[] = Term::whereDate('created_at', today()->subDays($i))->where('sector_id', 3)->count();
             $this->tc_values[] = Term::whereDate('created_at', today()->subDays($i))->where('sector_id', 2)->count();
 
         }
@@ -62,6 +64,6 @@ class ChartTriagens extends Component
             $this->firstRun = false;
 
         return view('triagem::livewire.dashboard.charts.chart-triagens')
-            ->with(['rm_values' => $this->rm_values, 'days' => $this->days_before ,  'tc_values' => $this->tc_values]);
+            ->with(['rm_values' => $this->rm_values, 'days' => $this->days_before ,  'tc_values' => $this->tc_values, 'rm_sub_values' => $this->rm_sub_values]);
     }
 }
