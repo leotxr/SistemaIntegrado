@@ -79,9 +79,20 @@ class TransactionQueue extends Component
             ->join('exam_statuses', 'exam_statuses.id', '=', 'exams.exam_status_id')
             ->where('exam_event_users.exam_event_id', $this->selected_status)
             ->selectRaw('exams.id as exam_id, exams.exam_date as exam_date, protocols.paciente_name as paciente_name, exams.name as exam_name, exam_statuses.name as status_name')
-            ->orderBy($this->sort_field, $this->sort_direction);
-        //->whereDate('exam_event_users.created_at', '>', now()->subDays(7));
+            ->orderBy($this->sort_field, $this->sort_direction)
+            ->whereDate('exam_event_users.created_at', '>', now()->subDays(60));
 
+    }
+
+    private function getEvents()
+    {
+        $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
+        $return = [];
+
+        foreach($events as $event)
+        {
+            
+        }
     }
 
     public function render()
