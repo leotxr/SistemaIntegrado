@@ -4,7 +4,6 @@
         @php
             $eventId = $event['id'];
             $icon = $event['icon'];
-            print_r($eventId);
         @endphp
             <div :class="{'scale-95 dark:bg-gray-500 bg-gray-300' : {{$selected_status}} == {{$eventId}}}"
                  class="rounded-lg shadow-md stat max-h-auto hover:scale-95 col-span-2 sm:col-span-2 dark:bg-gray-800 bg-white transition transform duration-300"
