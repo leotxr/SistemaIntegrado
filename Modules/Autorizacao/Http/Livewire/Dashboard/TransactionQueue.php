@@ -97,7 +97,7 @@ class TransactionQueue extends Component
             $return['name'] = $event->name;
             $return['id'] = $event->id;
             $return['icon'] = $event->icon;
-            $return['count'] = $event->getExams(60, $event->id);
+            $return['count'] = $this->getExams(60, $event->id);
         }
 
         dd($return);
