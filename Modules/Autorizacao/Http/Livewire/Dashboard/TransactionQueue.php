@@ -39,6 +39,8 @@ class TransactionQueue extends Component
 
         $this->selected_status == 2 ? $this->subdays = 60 : 0;
 
+        dd($this->selected_status);
+
 
     }
 
