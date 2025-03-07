@@ -87,13 +87,13 @@ class TransactionQueue extends Component
     private function getEvents()
     {
         $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
-
+        $return = [];
         foreach($events as $event)
         {
-            $return[]['name'] = $event->name;
-            $return[]['id'] = $event->id;
-            $return[]['icon'] = $event->icon;
-            $return[]['count'] = $event->exams->count();
+            $return['name'] = $event->name;
+            $return['id'] = $event->id;
+            $return['icon'] = $event->icon;
+            $return['count'] = $event->exams->count();
         }
 
         dd($return);
