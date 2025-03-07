@@ -94,7 +94,7 @@ class TransactionQueue extends Component
 
     private function getEvents()
     {
-        $events = ExamEvent::orderBy('order_to_show', 'desc')->get();
+        $events = ExamEvent::orderBy('order_to_show', 'asc')->get();
 
         foreach($events as $event)
         {
