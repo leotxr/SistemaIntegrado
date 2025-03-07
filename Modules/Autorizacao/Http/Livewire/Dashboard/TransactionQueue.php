@@ -93,7 +93,7 @@ class TransactionQueue extends Component
             $return['name'] = $event->name;
             $return['id'] = $event->id;
             $return['icon'] = $event->icon;
-            $return['count'] = $event->exams->count();
+            $return['count'] = $event->exams->whereDate('exam_event_users.created_at', '>', now()->subDays(60))->count();
         }
 
         dd($return);
