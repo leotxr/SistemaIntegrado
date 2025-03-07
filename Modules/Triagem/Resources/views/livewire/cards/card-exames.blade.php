@@ -1,6 +1,6 @@
 <div class="max-w-xs h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
     <a href="{{ route($link) }}">
-        <img class="rounded-t-lg object-cover h-48 w-full" src="{{ URL::asset($path) }}" alt="" />
+        <img class="rounded-t-lg object-cover h-30 w-30" src="{{ URL::asset($path) }}" alt="" />
     </a>
     <div class="p-5 flex flex-col justify-between h-full">
         <a href="{{ route($link) }}">
