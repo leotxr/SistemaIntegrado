@@ -9,7 +9,7 @@
                     <div>
                         <x-icon name="{{$event->icon}}" class="w-6 h-6 text-blue-600"></x-icon>
                     </div>
-                    <div class="text-gray-800 dark:text-gray-50 text-2xl">@php $event->id == 2 ? echo $event->exams->whereBetween('exam_date', '>=', now()->subDays(30)->count()); : echo $event->exams->count(); @endphp</div>
+                    <div class="text-gray-800 dark:text-gray-50 text-2xl">{{$event->exams->count()}}</div>
                 </div>
             </div>
         @endforeach
