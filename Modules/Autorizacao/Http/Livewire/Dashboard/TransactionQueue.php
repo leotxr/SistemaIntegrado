@@ -73,6 +73,7 @@ class TransactionQueue extends Component
 
     private function getExams($subdays = 0)
     {
+        dd($subdays);
         $sql = Exam::search($this->sort_field, $this->search)
             ->join('protocols', 'exams.protocol_id', '=', 'protocols.id')
             ->join('exam_event_users', 'exam_event_users.exam_id', '=', 'exams.id')
@@ -119,8 +120,6 @@ class TransactionQueue extends Component
                 'count' => $this->getExamEvents($subdays, $event->id)->count()
             ];
         }
-
-        dd($return);
 
         return $return;
     }
