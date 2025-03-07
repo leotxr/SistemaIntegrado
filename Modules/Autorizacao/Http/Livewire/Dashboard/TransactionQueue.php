@@ -74,9 +74,12 @@ class TransactionQueue extends Component
 
     public function getExams($subdays = NULL, $event = NULL)
     {
-        dd('entrou');
+       
         if($event != NULL)
-        $this->selected_status = $event;
+        {
+            $this->selected_status = $event;
+            dd('opa');
+        }
 
 
         $sql = Exam::search($this->sort_field, $this->search)
