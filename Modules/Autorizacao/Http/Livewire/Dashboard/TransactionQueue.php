@@ -78,7 +78,7 @@ class TransactionQueue extends Component
         if($event != NULL)
         {
             $this->selected_status = $event;
-            dd($this->selected_status);
+            dd($event);
         }
 
 
