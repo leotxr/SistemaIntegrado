@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
             })->name('helpdesk.reports.ticket-by-date');
 
             Route::get('/painel/relatorios/servicos-extras', function () {
-                return view('helpdesk::reports.extra-services.extra-services-report');
+                return view('helpdesk::reports.extra-services-report');
             })->name('helpdesk.reports.extra-services');
 
             Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
