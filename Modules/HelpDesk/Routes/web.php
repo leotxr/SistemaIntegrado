@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\NotifyTest;
 use Illuminate\Support\Facades\Notification;
+use Modules\HelpDesk\Http\Controllers\ExtraServiceController;
 
 Route::middleware('auth')->group(function () {
 
@@ -60,10 +61,6 @@ Route::middleware('auth')->group(function () {
                 return view('helpdesk::reports.tickets-by-date');
             })->name('helpdesk.reports.ticket-by-date');
 
-            Route::get('/painel/relatorios/servicos-extras', function () {
-                return view('helpdesk::reports.extra-services-report');
-            })->name('helpdesk.reports.extra-services');
-
             Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
 
             #ROTAS PARA ACOES E CONTROLLERS LIVEWIRE
@@ -80,5 +77,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/chamados/{id}', [GuestController::class, 'show'])->name('helpdesk.guest.show');
             Route::post('/chamados/store', [TicketController::class, 'store'])->name('helpdesk.guest.store');
         });
+
+
+        //Relatorio Servicos extras
+        Route::get('/painel/relatorios/servicos-extras', [ExtraServiceController::class, 'show'])->name('helpdesk.reports.extra-services');
     });
 });
