@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
 
 
         //Relatorio Servicos extras
-        Route::get('/painel/relatorios/servicos-extras', [ExtraServiceController::class, 'show'])->name('helpdesk.reports.extra-services');
+        Route::get('/painel/relatorios/servicos-extras', [ExtraServiceController::class, 'index'])->name('helpdesk.reports.extra-services');
+        Route::get('/painel/relatorios/servicos-extras/gerar', [ExtraServiceController::class, 'show'])->name('helpdesk.reports.extra-services.gerar');
     });
 });

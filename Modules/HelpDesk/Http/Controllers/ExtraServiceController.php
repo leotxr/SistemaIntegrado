@@ -16,6 +16,11 @@ class ExtraServiceController extends Controller
         $this->extraService = new ExtraService();
     }
 
+    public function index()
+    {
+        return view('helpdesk.reports.extra-services-report');
+    }
+
     public function show(Request $request)
     {
         $dataInicio = $request->start_date;
