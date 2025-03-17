@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('helpdesk.reports.extra-services')}}">
                             <span class="font-semibold text-gray-900 dark:text-white">Serviços extras</span>
                         </a>
                     </li>

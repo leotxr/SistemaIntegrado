@@ -60,6 +60,10 @@ Route::middleware('auth')->group(function () {
                 return view('helpdesk::reports.tickets-by-date');
             })->name('helpdesk.reports.ticket-by-date');
 
+            Route::get('/painel/relatorios/servicos-extras', function () {
+                return view('helpdesk::reports.extra-services');
+            })->name('helpdesk.reports.extra-services');
+
             Route::get('/painel/notificacoes', [TicketController::class, 'notifications'])->name('helpdesk.notifications');
 
             #ROTAS PARA ACOES E CONTROLLERS LIVEWIRE
