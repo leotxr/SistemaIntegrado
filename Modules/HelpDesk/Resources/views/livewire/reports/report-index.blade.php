@@ -25,6 +25,11 @@
                             <span class="font-semibold text-gray-900 dark:text-white">Tempo de atendimento</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="#">
+                            <span class="font-semibold text-gray-900 dark:text-white">Serviços extras</span>
+                        </a>
+                    </li>
                 </ol>
 
 
