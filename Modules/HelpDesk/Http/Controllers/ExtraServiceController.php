@@ -18,7 +18,7 @@ class ExtraServiceController extends Controller
 
     public function index()
     {
-        return view('helpdesk.reports.extra-services-report');
+        return view('helpdesk::reports.extra-services-report');
     }
 
     public function show(Request $request)
