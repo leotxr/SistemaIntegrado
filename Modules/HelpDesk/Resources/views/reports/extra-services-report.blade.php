@@ -54,7 +54,45 @@
 
                             </x-slot>
                         </x-accordion>
-
+                        <div>
+                            <table id="extraServicesTable" class="display">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            ID
+                                        </td>
+                                        <td>
+                                            Data
+                                        </td>
+                                        <td>
+                                            Titulo
+                                        </td>
+                                        <td>
+                                            Descrição
+                                        </td>
+                                        <td>
+                                            Solicitante
+                                        </td>
+                                        <td>
+                                            Setor
+                                        </td>
+                                        <td>
+                                            Item
+                                        </td>
+                                        <td>
+                                            Ação
+                                        </td>
+                                        <td>
+                                            Status
+                                        </td>
+                                        <td>
+                                            Ticket TI
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -74,7 +112,48 @@
                     'end_date': end_date
                 },
                 success: function(data) {
-                    console.log(data);
+                    if ($.fn.DataTable.isDataTable("#extraServicesTable")) {
+                        // Se a tabela já existe, destrói e recria
+                        $("#extraServicesTable").DataTable().clear().destroy();
+                    }
+
+                    $("#extraServicesTable").DataTable({
+                        data: data, // Usa os dados retornados da API
+                        columns: [{
+                                data: "id"
+                            }, // O nome da chave no JSON deve corresponder
+                            {
+                                data: "created_at"
+                            },
+                            {
+                                data: "title"
+                            },
+                            {
+                                data: "description"
+                            },
+                            {
+                                data: "requester_id"
+                            },
+                            {
+                                data: "sector"
+                            },
+                            {
+                                data: "item"
+                            },
+                            {
+                                data: "action"
+                            },
+                            {
+                                data: "status_id"
+                            },
+                            {
+                                data: "is_ticket"
+                            }
+                        ],
+                        language: {
+                            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/Portuguese-Brasil.json"
+                        }
+                    });
                 }
 
             });
