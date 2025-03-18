@@ -27,6 +27,8 @@ class ExtraServiceController extends Controller
         $dataInicio = $request->start_date;
         $dataFim = $request->end_date;
 
+        dd($dataFim);
+
         $servicos = DB::table('extra_services')
         ->whereBetween('created_at', ['2025-01-01 00:00:00', '2025-01-31 23:59:59'])
         ->get();
