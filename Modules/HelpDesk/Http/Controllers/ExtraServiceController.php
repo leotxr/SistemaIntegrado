@@ -28,7 +28,6 @@ class ExtraServiceController extends Controller
         $dataFim = $request->end_date;
 
         $servicos = DB::table('extra_services')
-        ->whereBetween('created_at', [$dataInicio, $dataFim])
         ->get();
 
         dd($servicos);
