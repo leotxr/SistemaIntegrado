@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\HelpDesk\Entities\ExtraService;
+use Illuminate\Support\Facades\DB;
 
 class ExtraServiceController extends Controller
 {
@@ -26,7 +27,9 @@ class ExtraServiceController extends Controller
         $dataInicio = $request->start_date;
         $dataFim = $request->end_date;
 
-        $servicos = ExtraService::whereBetween('created_at', [$dataInicio . ' 00:00:00', $dataFim . ' 23:59:59'])->get();
+        $servicos = DB::table('extra_services')
+        ->whereBetween('created_at', [$dataInicio, $dataFim])
+        ->get();
 
         dd($servicos);
 
