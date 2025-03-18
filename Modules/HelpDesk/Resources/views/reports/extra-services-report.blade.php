@@ -65,7 +65,7 @@
         $("#submit").click(function() {
             const url = "{{ route('helpdesk.reports.extra-services.gerar') }}";
             start_date = $("#start_date").val();
-            end_date = $("#end_dade").val();
+            end_date = $("#end_date").val();
 
             $.ajax({
                 url: url,
@@ -74,7 +74,7 @@
                     'end_date': end_date
                 },
                 success: function(data) {
-                    alert('entrou aq');
+                    console.log(data);
                 }
 
             });
