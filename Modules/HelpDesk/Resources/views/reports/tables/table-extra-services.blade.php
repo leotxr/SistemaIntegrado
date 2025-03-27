@@ -36,38 +36,37 @@
                         </x-table.heading>
                     </x-slot>
                     <x-slot name='body'>
-                        @foreach($tickets as $ticket)
-                            <x-table.row style="cursor: pointer;"
-                                         class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600">
+                        @foreach ($tickets as $ticket)
+                            <x-table.row style="cursor: pointer;" class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <x-table.cell>
-                                    #{{$ticket->id}}
+                                    #{{ $ticket->id }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{date('d/m H:i:s', strtotime($ticket->created_at))}}
+                                    {{ date('d/m H:i:s', strtotime($ticket->datahora)) }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$ticket->title}}
+                                    {{ $ticket->titulo }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$solicitante->name}}
+                                    {{ trim(strip_tags($ticket->descricao)) }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$setor->name ?? "Sem setor"}}
+                                    {{ $ticket->solicitante }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$categoria->name}}
+                                    {{ $ticket->setor }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$subcategoria->name}}
+                                    {{ $ticket->item }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$prioridade->name}}
+                                    {{ $ticket->acao }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{$atendente->name ?? "Sem atendente"}}
+                                    {{ $ticket->status }}
                                 </x-table.cell>
                                 <x-table.cell>
-                                    {{ $total ?? "Em atendimento"}}
+                                    {{$ticket->ticket_ti == 1 ? 'SIM' : 'NAO'}}
                                 </x-table.cell>
                             </x-table.row>
                         @endforeach

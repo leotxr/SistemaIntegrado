@@ -19,14 +19,14 @@
                                             <label for="initial_date"
                                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Data
                                                 inicial</label>
-                                            <input type="date" wire:model='initial_date' id="initial_date"
+                                            <input type="date" wire:model.defer='initial_date' id="initial_date"
                                                 class="border-gray-300 input dark:bg-gray-800 dark:text-white">
                                         </div>
                                         <div>
                                             <label for="final_date"
                                                 class="text-sm font-light text-gray-900 label dark:text-gray-50">Data
                                                 Final</label>
-                                            <input type="date" wire:model='final_date' id="final_date"
+                                            <input type="date" wire:model.defer='final_date' id="final_date"
                                                 class="border-gray-300 input dark:bg-gray-800 dark:text-white">
                                         </div>
                                         <div>
@@ -57,7 +57,7 @@
                     </div>
                 </form>
 
-                @include('helpdesk::dashboard.tables.table-tickets-report')
+                @include('helpdesk::reports.tables.table-extra-services')
 
             </div>
         </div>
