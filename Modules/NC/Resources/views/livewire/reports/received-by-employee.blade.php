@@ -50,6 +50,15 @@
             <div class="w-full">
                 <x-title>Selecione os funcionarios:</x-title>
                 <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                        <div class="flex items-center ps-3">
+                            <x-text-input id="users-all" type="checkbox"
+                                          wire:model="selectAllUsers" name="users-all"
+                                          class="w-4 h-4"/>
+                            <x-input-label for="users-all"
+                                           class="py-3 ms-2">Selecionar todos</x-input-label>
+                        </div>
+                    </li>
                     @foreach($users as $user)
                     <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                         <div class="flex items-center ps-3">
@@ -58,7 +67,7 @@
                                           wire:model.defer="selectedUsers" name="users[]"
                                           class="w-4 h-4"/>
                             <x-input-label for="users-{{$user->id}}"
-                                           class="py-3 ms-2">{{$user->name}}</x-input-label>
+                                           class="py-3 ms-2">{{$user->name . ' ' . $user->lastname}}</x-input-label>
                         </div>
                     </li>
                 @endforeach

@@ -17,12 +17,17 @@ class ReceivedByEmployee extends Component
     public $modalUsers = false;
     public $users;
     public $selectedUsers = [];
+    public $selectAllUsers = false;
     public $userNames = [];
     public $countUsers = [];
 
     private function getUsers()
     {
-        $users = User::select('id', 'name', 'lastname', 'username')->whereNull('deleted_at')->where('id', '!=', 0)->get();
+        $users = User::select('id', 'name', 'lastname', 'username')
+            ->whereNull('deleted_at')
+            ->where('id', '!=', 0)
+            ->orderBy('name')
+            ->get();
 
         $this->users = $users;
     }
@@ -31,22 +36,21 @@ class ReceivedByEmployee extends Component
     {
         $this->modalUsers = false;
         $this->userNames = User::select('name', 'lastname', 'id')->whereIn('id', $this->selectedUsers)->get();
-        
     }
 
     public function getUserCount($userId, $startDate, $endDate)
     {
         $ncUser = DB::table('non_conformities AS nc')
-                    ->join('non_conformity_user_sector AS ncus', 'ncus.non_conformity_id', '=', 'nc.id')
-                    ->join('users AS us', 'us.id', '=', 'ncus.user_id')
-                    ->where('us.id', $userId)
-                    ->whereBetween('nc.n_c_date', [$startDate, $endDate])
-                    ->count();
+            ->join('non_conformity_user_sector AS ncus', 'ncus.non_conformity_id', '=', 'nc.id')
+            ->join('users AS us', 'us.id', '=', 'ncus.user_id')
+            ->where('us.id', $userId)
+            ->whereBetween('nc.n_c_date', [$startDate, $endDate])
+            ->count();
 
         $userReport = DB::table('non_conformities AS nc')
-                    ->where('source_user_id', $userId)
-                    ->whereBetween('nc.n_c_date', [$startDate, $endDate])
-                    ->count();
+            ->where('source_user_id', $userId)
+            ->whereBetween('nc.n_c_date', [$startDate, $endDate])
+            ->count();
 
         $userData = User::find($userId);
 
@@ -61,8 +65,7 @@ class ReceivedByEmployee extends Component
     {
         $users = $this->selectedUsers;
 
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
             $userCount = $this->getUserCount($user, $this->start_date, $this->end_date);
             $count[] = [
                 'id' => $user,
@@ -88,6 +91,16 @@ class ReceivedByEmployee extends Component
             'users' => $this->selectedUsers
         ];
         return Excel::download(new ReceivedByUserExport($range), 'nao-conformidades-funcionario-' . '-' . $this->start_date . '-' . $this->end_date . '.xlsx');
+    }
+
+    public function updatedSelectAllUsers($key)
+    {
+        $users = $this->users->toArray();
+
+        if ($key) {
+            $this->selectedUsers = array_column($users, 'id');
+        } else
+            $this->selectedUsers = [];
     }
 
     public function render()
