@@ -6,7 +6,7 @@
                 <div class="text-left">
                     <ul x-data="{ reports: [
     { id: 1, label: 'Não Conformidades recebidas por setor', link: '{{route('nc.reports.received-by-sector')}}' },
-    { id: 2, label: 'Totalizador de Não Conformidades por Funcionário' },
+    { id: 2, label: 'Totalizador de Não Conformidades por Funcionário', link: '{{route('nc.reports.received-by-employee')}}' },
     { id: 3, label: 'Yellow' },
 ]}">
                         <template x-for="report in reports" :key="report.id">
