@@ -18,7 +18,7 @@ class ExamReport extends Component
     public $search = '';
     public $sortField = 'paciente_name';
     public $sortDirection = 'desc';
-    //public $protocols = [];
+    public $protocols = [];
     public $initial_date;
     public $end_date;
     public $users;
@@ -27,31 +27,38 @@ class ExamReport extends Component
     public $activeStatus = [];
     public $selectedUsers = [];
     public $selectedUpdaters = [];
+    public $usersEditar;
+    public $usersCriar;
 
     public function mount()
     {
-        $this->users = User::permission('criar autorizacao')->get();
+        $this->usersCriar = User::permission('criar autorizacao')
+            ->whereHas('createProtocol') // só usuários com protocolos
+            ->select('name', 'id')
+            ->get();
+
+        $this->usersEditar = User::permission('editar autorizacao')
+            ->whereHas('updateProtocol') // só usuários com protocolos
+            ->select('name', 'id')
+            ->get();
+
+
+        $this->selectedUsers = $this->usersCriar->pluck('id')->toArray();
+        $this->selectedUpdaters = $this->usersEditar->pluck('id')->toArray();
 
         $this->statuses = ExamStatus::all();
-        foreach ($this->statuses as $status) {
-            $this->activeStatus[] = $status->id;
-        }
-
-        foreach ($this->users as $user) {
-            if($user->createProtocol->count() > 0) $this->selectedUsers[] = $user->id;
-            if($user->can('editar autorizacao') && $user->updateProtocol->count() > 0) $this->selectedUpdaters[] = $user->id;
-        }
+        $this->activeStatus = $this->statuses->pluck('id')->toArray();
     }
 
     public function search()
     {
-        /*
-        $this->protocols = Protocol::search($this->sortField, $this->search)->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
+
+        $this->protocols = Protocol::search($this->sortField, $this->search)
+            ->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
             ->whereIn('user_id', $this->selectedUsers)
+            ->whereIn('updated_by', $this->selectedUpdaters)
             ->orderBy($this->sortField, $this->sortDirection)
             ->get();
-        */
-        $this->render();
     }
 
     public function sortBy($field)
@@ -78,11 +85,6 @@ class ExamReport extends Component
 
     public function render()
     {
-        return view('autorizacao::livewire.reports.exam-report', ['protocols' => Protocol::search($this->sortField, $this->search)
-            ->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
-            ->whereIn('user_id', $this->selectedUsers)
-            ->whereIn('updated_by', $this->selectedUpdaters)
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(20)]);
+        return view('autorizacao::livewire.reports.exam-report');
     }
 }
