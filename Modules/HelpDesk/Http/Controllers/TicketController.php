@@ -8,17 +8,25 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HelpDesk\Entities\Ticket;
 use Modules\HelpDesk\Entities\TicketFile;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TicketsExport;
 
 class TicketController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
+
+    public function __construct()
+    {
+        
+    }
     public function index()
     {
- 
-        return view('helpdesk::dashboard.dashboard');
+
+        return response()->json(['ok' => true]);
     }
 
     public function guest()
@@ -52,7 +60,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-       
+
 
         $ticket = Ticket::create([
             'title' => $request->ticket_title,
@@ -63,7 +71,7 @@ class TicketController extends Controller
             'category_id' => $request->category_id,
             'sub_category_id' => $request->subcategory_id
         ]);
-       
+
 
         if ($request->hasFile('ticket_files')) {
             foreach ($request->file('ticket_files') as $photofile) {
@@ -74,7 +82,6 @@ class TicketController extends Controller
                     'ticket_id' => $ticket->id,
                     'user_id' => Auth::user()->id
                 ]);
-
             }
         }
 
@@ -124,5 +131,20 @@ class TicketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTicketsByDate(Request $request)
+    {
+        $data = ['start_date' => $request->initial_date, 'end_date' => $request->final_date];
+
+        $tickets = Ticket::getTicketsByDate($data, $request->type);
+
+        return response()->json($tickets);
+    }
+
+    public function exportTicketsByDate(Request $request)
+    {
+        $data = ['start_date' => $request->initial_date, 'end_date' => $request->final_date];
+        return Excel::download(new TicketsExport($data), 'tickets'.now().'.xlsx');
     }
 }

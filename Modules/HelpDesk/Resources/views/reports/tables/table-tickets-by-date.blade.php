@@ -40,21 +40,10 @@
                     </x-slot>
                     <x-slot name='body'>
                         @foreach($tickets as $ticket)
-                            @php
-                                $solicitante = $ticket->find($ticket->id)->TicketRequester;
-                                $categoria = $ticket->find($ticket->id)->TicketCategory;
-                                $subcategoria = $ticket->find($ticket->id)->TicketSubCategory;
-                                $atendente = $ticket->find($ticket->id)->TicketUser;
-                                $prioridade = $categoria->find($categoria->id)->relPriority;
-                                $setor = $solicitante->find($solicitante->id)->relUserGroup;
-                                $func = new \Modules\HelpDesk\Http\Livewire\Reports\Tickets\TicketByDate();
-                                $total = $func->secToTime($ticket->total_ticket);
-                                $wait = $func->secToTime($ticket->wait_time);
-                            @endphp
                             <x-table.row style="cursor: pointer;"
                                          class="text-xs hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <x-table.cell>
-                                    #{{$ticket->id}}
+                                    #{{$ticket['ID']}}
                                 </x-table.cell>
                                 <x-table.cell>
                                     {{date('d/m H:i:s', strtotime($ticket->created_at))}}

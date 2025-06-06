@@ -16,20 +16,42 @@ class TicketByDate extends Component
 
     public $initial_date;
     public $final_date;
+    private $ticketModel;
+
+    public $tickets;
+
+    public function mount() {}
 
 
     public function export()
     {
-        $range = ['initial_date'=>$this->initial_date,
-        'final_date'=>$this->final_date];
+        $range = ['start_date'=>$this->initial_date,
+        'end_date'=>$this->final_date];
+
         return Excel::download(new TicketsExport($range), 'tickets'.now().'.xlsx');
+    }
+
+    public function search()
+    {
+        $this->render();
+    }
+
+    private function searchTickets()
+    {
+        $data = ['start_date' => $this->initial_date, 'end_date' => $this->final_date];
+        $this->ticketModel = new Ticket();
+
+        $this->tickets = $this->ticketModel->getTicketsByDate($data);
+        
     }
 
     public function render()
     {
-        return view('helpdesk::livewire.reports.tickets.ticket-by-date',
-        ['tickets' => Ticket::whereBetween('ticket_open', [$this->initial_date, $this->final_date])->paginate(10)])
-        ->layout('helpdesk::layouts.master')
-        ->section('body');
+        return view(
+            'helpdesk::livewire.reports.tickets.ticket-by-date',
+            ['tickets' => $this->tickets ? $this->tickets->paginate(10) : array()]
+        )
+            ->layout('helpdesk::layouts.master')
+            ->section('body');
     }
 }

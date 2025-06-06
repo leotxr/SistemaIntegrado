@@ -3,6 +3,7 @@
 
 <head>
     <title>HelpDesk</title>
+    
     @include('helpdesk::layouts.partials.head')
 
     @include('helpdesk::layouts.partials.script')

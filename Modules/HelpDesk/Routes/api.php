@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\HelpDesk\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/helpdesk', function (Request $request) {
     return $request->user();
 });
+
+//Relatorio ticket
+Route::get('/chamados/relatorios/tickets-por-data', [TicketController::class, 'getTicketsByDate'])->name('helpdesk.reports.ticket-por-data');
+Route::get('/chamados/relatorios/excel/tickets-por-data', [TicketController::class, 'exportTicketsByDate'])->name('helpdesk.reports.excel.ticket-por-data');

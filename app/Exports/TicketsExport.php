@@ -5,10 +5,10 @@ namespace App\Exports;
 use Modules\HelpDesk\Entities\Ticket;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Modules\HelpDesk\Traits\TicketActions;
 
-class TicketsExport implements FromView
+class TicketsExport implements FromQuery
 {
     use Exportable;
     use TicketActions;
@@ -18,17 +18,19 @@ class TicketsExport implements FromView
 
     public function __construct($range)
     {
-        $this->start = $range['initial_date'];
-        $this->end = $range['final_date'];
+        $this->start = $range['start_date'];
+        $this->end = $range['end_date'];
     }
 
 
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function view(): View
+    public function query()
     {
-        return view('helpdesk::reports.tables.table-tickets-by-date',
-        ['tickets' => Ticket::whereBetween('ticket_open', [$this->start, $this->end])->get()]);
+        $data = ['start_date' => $this->start, 'end_date' => $this->end];
+        
+
+        return Ticket::getTicketsByDate($data, 'export');
     }
 }
