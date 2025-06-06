@@ -93,8 +93,8 @@ class Ticket extends Model
                     'tc.name as CATEGORIA',
                     'tsc.name as SUB_CATEGORIA',
                     'tp.name as PRIORIDADE',
-                    't.total_ticket as TEMPO_TOTAL',
-                    't.wait_time as ESPERA',
+                    \DB::raw('SEC_TO_TIME(t.total_ticket) as TEMPO_TOTAL'),
+                    \DB::raw('SEC_TO_TIME(t.wait_time) as ESPERA')
                 ]);
 
             if ($type == 'export') {
