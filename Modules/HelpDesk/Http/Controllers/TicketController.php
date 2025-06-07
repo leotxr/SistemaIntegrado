@@ -26,7 +26,7 @@ class TicketController extends Controller
     public function index()
     {
 
-        return response()->json(['ok' => true]);
+        return view('helpdesk::dashboard.dashboard');
     }
 
     public function guest()
