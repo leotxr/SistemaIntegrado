@@ -28,14 +28,6 @@ class ShowExams extends Component
         $this->final_date = date('Y-m-d');
         $this->users = User::permission('criar triagem')->get();
         $this->sectors = Sector::all();
-        foreach($this->users as $user)
-        {
-        $this->enf[] = $user->id;
-        }
-        foreach($this->sectors as $sector)
-        {
-        $this->sec[] = $sector->id;
-        }
     }
 
     public function searchFilters()
@@ -47,11 +39,6 @@ class ShowExams extends Component
     public function render()
     {
 
-        return view('triagem::livewire.reports.show-exams',[
-            'triagens' => Term::whereIn('sector_id', $this->sec)
-            ->whereBetween('exam_date', [$this->initial_date, $this->final_date])
-            ->whereIn('user_id', $this->enf)
-            ->paginate(10),
-        ]);
+        return view('triagem::livewire.reports.show-exams');
     }
 }

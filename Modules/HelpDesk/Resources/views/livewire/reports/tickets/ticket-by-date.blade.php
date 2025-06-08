@@ -118,7 +118,7 @@
                 columnDefs: [{
                     targets: 2, // índice da coluna "Assunto"
                     createdCell: function(td) {
-                        $(td).addClass('max-w-[250px] truncate whitespace-nowrap overflow-hidden');
+                        $(td).addClass('max-w-[250px] truncate overflow-hidden');
                     }
                 }],
                 language: {
