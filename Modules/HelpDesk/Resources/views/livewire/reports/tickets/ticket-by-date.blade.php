@@ -56,9 +56,9 @@
 
                     </div>
                 </form>
-                <div class="p-5 text-gray-900 dark:text-white">
-                    <table id="tableTickets" class="display table-striped ">
-                        <thead>
+                <div class="relative overflow-x-auto p-5 text-gray-900 dark:text-white">
+                    <table class="w-full display table-striped " id="tableTickets">
+                        <thead class="text-xs uppercase ">
                             <tr>
                                 <th class="px-4 py-2">ID</th>
                                 <th class="px-4 py-2">Data</th>
@@ -92,9 +92,10 @@
                 method: 'GET',
                 success: function(response) {
                     construirTableTickets(response.data);
+                    toastr.success('Relatório gerado com sucesso!', 'Sucesso!');
                 },
                 error: function(xhr, status, error) {
-                    $('#resultado').html('Ocorreu um erro: ' + error);
+                    toastr.error('Ocorreu um erro ao gerar o relatório. Entre em contato com o suporte.', 'Erro!');
                 }
             });
         });
@@ -103,7 +104,10 @@
             var dataInicio = $("#initial_date").val();
             var dataFim = $("#final_date").val();
 
-            window.location.href = '/api/chamados/relatorios/excel/tickets-por-data?initial_date=' + dataInicio + '&final_date=' + dataFim + '&type=export';
+            window.location.href = '/api/chamados/relatorios/excel/tickets-por-data?initial_date=' + dataInicio +
+                '&final_date=' + dataFim + '&type=export';
+
+            toastr.success('Relatório exportado com sucesso! Aguarde o download.', 'Sucesso!');
         });
 
         function construirTableTickets(dados) {

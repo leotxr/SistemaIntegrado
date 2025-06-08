@@ -63,12 +63,39 @@
                 </div>
             </x-slot>
         </x-accordion>
-
     </div>
-    <div>
-        @include('triagem::painel.tables.table-report')
-    </div>
+    <div class="relative overflow-x-auto p-5 text-gray-900 dark:text-white">
+        <table class="w-full display table-striped " id="tableTriagens">
+            <thead class="text-xs uppercase ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Data
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Paciente
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Procedimento
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Usuario
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Início
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fim
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tempo
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
 
+            </tbody>
+        </table>
+    </div>
 
     {{-- MODAL --}}
     <x-modal.dialog wire:model.defer="modalFilters">
@@ -185,9 +212,12 @@
                         $('#tableTriagens').DataTable().destroy();
                         $('#tableTriagens').empty(); // Remove conteúdo antigo da tabela
                         construirTableTriagens(response.data);
+                        toastr.success('Relatório gerado com sucesso!', 'Sucesso!');
                     },
                     error: function(xhr, status, error) {
-                        $('#resultado').html('Ocorreu um erro: ' + error);
+                        toastr.error(
+                            'Ocorreu um erro ao gerar o relatório. Entre em contato com o suporte.',
+                            'Erro!');
                     }
                 });
             });
@@ -241,6 +271,8 @@
                 document.body.appendChild(form);
                 form.submit();
                 document.body.removeChild(form);
+
+                toastr.success('Relatório exportado com sucesso! Aguarde o download.', 'Sucesso!');
             });
 
             function construirTableTriagens(dados) {
@@ -252,12 +284,6 @@
                     ordering: true,
                     searching: false,
                     responsive: true,
-                    columnDefs: [{
-                        targets: 2, // índice da coluna "Assunto"
-                        createdCell: function(td) {
-                            $(td).addClass('max-w-[250px] truncate overflow-hidden');
-                        }
-                    }],
                     language: {
                         lengthMenu: 'Mostrar _MENU_ registros por página',
                         zeroRecords: 'Nenhum registro encontrado',
