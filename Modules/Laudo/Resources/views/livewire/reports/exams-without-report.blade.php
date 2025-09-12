@@ -22,7 +22,7 @@
             </x-slot>
             <x-slot name="body">
                 @php
-                    dd($db);
+                    //dd($db);
                     @endphp
                 @endphp
                 @foreach($db as $exame)
