@@ -52,10 +52,7 @@ trait LaudoQueries
 
         return $this->queryBase()
             ->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
-            ->leftJoin('PACIENTE', function ($join_paciente) {
-                $join_paciente->on('PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
-                    ->on('PACIENTE.UNIDADEID', '=', 'FATURA.UNIDADEID');
-            })
+            ->leftJoin('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
             ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
             ->whereIn('MEDICOS.NOME', $medicos_selecionados)
             ->whereIn('SETORES.DESCRICAO', $setores_selecionados)
