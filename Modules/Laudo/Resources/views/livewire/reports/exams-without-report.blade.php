@@ -21,10 +21,6 @@
                 <x-table.heading>Setor</x-table.heading>
             </x-slot>
             <x-slot name="body">
-                @php
-                    //dd($db);
-                    @endphp
-                @endphp
                 @foreach($db as $exame)
                     <x-table.row class="text-xs">
                         <x-table.cell>
