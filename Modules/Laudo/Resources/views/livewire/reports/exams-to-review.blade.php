@@ -38,7 +38,7 @@
                         <x-table.cell>
                             {{$exame->PACIENTEID}}
                         </x-table.cell>
-                        <x-table.cell>{{$exame->PACIENTENOME}}</x-table.cell>
+                        <x-table.cell>{{$exame->NOME}}</x-table.cell>
                         <x-table.cell>{{$exame->EXAME}}</x-table.cell>
                         <x-table.cell>{{$exame->MEDICO}}</x-table.cell>
                         <x-table.cell>{{$exame->SETOR}}</x-table.cell>
