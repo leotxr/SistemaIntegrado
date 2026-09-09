@@ -32,6 +32,29 @@
                             <x-text-input type="date" wire:model.defer='end_date' id="final_date"
                                 class="border-gray-300 input" required />
                         </div>
+                        <div class="col-span-1 sm:col-span-2">
+                            <x-input-label
+                                class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Buscar
+                                por</x-input-label>
+                            <div class="flex items-center gap-4 mt-2">
+                                <div class="flex items-center">
+                                    <input type="radio" wire:model.defer="dateField" id="dateField-created"
+                                        value="created_at"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <x-input-label for="dateField-created"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data de
+                                        criação</x-input-label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" wire:model.defer="dateField" id="dateField-updated"
+                                        value="updated_at"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                    <x-input-label for="dateField-updated"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data de
+                                        autorização</x-input-label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-span-1 sm:col-span-1 sm:mt-1">
                             <x-input-label for="filter"
                                 class="text-sm font-light text-gray-900 x-input-label dark:text-gray-50">Filtros</x-input-label>

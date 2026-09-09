@@ -16,6 +16,7 @@ class ExamReportExport implements FromView
     public $users;
     public $statuses;
     public $updaters;
+    public $dateField;
 
     public function __construct($range)
     {
@@ -24,6 +25,7 @@ class ExamReportExport implements FromView
         $this->users = $range['selected_users'];
         $this->updaters = $range['selected_updaters'];
         $this->activeStatus = $range['selected_statuses'];
+        $this->dateField = $range['date_field'] ?? 'created_at';
     }
 
 
@@ -32,9 +34,11 @@ class ExamReportExport implements FromView
      */
     public function view(): View
     {
+        $dateColumn = $this->dateField === 'updated_at' ? 'protocols.updated_at' : 'protocols.created_at';
+
         return view(
             'autorizacao::tables.table-exam-export',
-            ['protocols' => Protocol::whereBetween('protocols.created_at', [$this->start . ' 00:00:00', $this->end . ' 23:59:59'])
+            ['protocols' => Protocol::whereBetween($dateColumn, [$this->start . ' 00:00:00', $this->end . ' 23:59:59'])
                 ->whereIn('user_id', $this->users)
                 ->whereIn('updated_by', $this->updaters)
                 ->get(), 'activeStatus' => $this->activeStatus]

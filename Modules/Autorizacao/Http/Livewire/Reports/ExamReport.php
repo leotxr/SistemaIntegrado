@@ -24,6 +24,7 @@ class ExamReport extends Component
     public $users;
     public $statuses;
     public $modalFilters = false;
+    public $dateField = 'created_at';
     public $activeStatus = [];
     public $selectedUsers = [];
     public $selectedUpdaters = [];
@@ -53,8 +54,10 @@ class ExamReport extends Component
     public function search()
     {
 
+        $dateColumn = $this->dateField === 'updated_at' ? 'protocols.updated_at' : 'protocols.created_at';
+
         $this->protocols = Protocol::search($this->sortField, $this->search)
-            ->whereBetween('protocols.created_at', [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
+            ->whereBetween($dateColumn, [$this->initial_date . ' 00:00:00', $this->end_date . ' 23:59:59'])
             ->whereIn('user_id', $this->selectedUsers)
             ->whereIn('updated_by', $this->selectedUpdaters)
             ->orderBy($this->sortField, $this->sortDirection)
@@ -78,7 +81,8 @@ class ExamReport extends Component
             'end_date' => $this->end_date,
             'selected_users' => $this->selectedUsers,
             'selected_updaters' => $this->selectedUpdaters,
-            'selected_statuses' => $this->activeStatus
+            'selected_statuses' => $this->activeStatus,
+            'date_field' => $this->dateField,
         ];
         return Excel::download(new ExamReportExport($range), 'relatorio-exames-status' . $this->initial_date . '-' . $this->end_date . '.xlsx');
     }
