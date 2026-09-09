@@ -39,7 +39,7 @@
                             <div class="flex items-center gap-4 mt-2">
                                 <div class="flex items-center">
                                     <input type="radio" wire:model.defer="dateField" id="dateField-created"
-                                        value="created_at"
+                                        name="dateField" value="created_at"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <x-input-label for="dateField-created"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data de
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <input type="radio" wire:model.defer="dateField" id="dateField-updated"
-                                        value="updated_at"
+                                        name="dateField" value="updated_at"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                     <x-input-label for="dateField-updated"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data de
