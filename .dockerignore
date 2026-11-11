@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+!.env.example
+vendor
+node_modules
+**/node_modules
+npm-debug.log*
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
