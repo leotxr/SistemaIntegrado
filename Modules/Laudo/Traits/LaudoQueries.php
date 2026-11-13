@@ -79,7 +79,6 @@ trait LaudoQueries
             //->leftJoin('MEDICOS', 'MEDICOS.MEDICOID', '=', 'FATURA.MEDREAID')
             ->leftJoin('PACIENTE', 'PACIENTE.PACIENTEID', '=', 'FATURA.PACIENTEID')
             ->leftJoin('PROCEDIMENTOS', 'PROCEDIMENTOS.PROCID', '=', 'FATURA.PROCID')
-            ->where('FATURA.LAUDOREAOK', 'F')
             ->whereNull('FATVOICE.ARQUIVO')
             ->where('FATURA.UNIDADEID', 1)
             ->whereIn('SETORES.DESCRICAO', $setores_selecionados)
