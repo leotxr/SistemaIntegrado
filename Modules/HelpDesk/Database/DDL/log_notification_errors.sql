@@ -1,0 +1,22 @@
+CREATE TABLE `log_notification_errors` (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `job_id` VARCHAR(191) NULL,
+    `connection` VARCHAR(191) NULL,
+    `queue` VARCHAR(191) NULL,
+    `job_name` VARCHAR(191) NOT NULL,
+    `failure_stage` VARCHAR(191) NOT NULL DEFAULT 'unknown',
+    `channel` VARCHAR(191) NULL,
+    `notification_type` VARCHAR(191) NULL,
+    `notifiable_type` VARCHAR(191) NULL,
+    `notifiable_id` VARCHAR(191) NULL,
+    `exception_type` VARCHAR(191) NULL,
+    `exception_message` TEXT NOT NULL,
+    `exception_file` TEXT NULL,
+    `exception_line` INT UNSIGNED NULL,
+    `exception_trace` LONGTEXT NOT NULL,
+    `context` JSON NULL,
+    `failed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `log_notification_errors_job_id_index` (`job_id`),
+    INDEX `log_notification_errors_failed_at_index` (`failed_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
